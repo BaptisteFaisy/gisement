@@ -10,7 +10,6 @@ Thin dispatcher on purpose: each command lives in its own module under
 
 from __future__ import annotations
 
-import argparse
 import importlib
 import sys
 
@@ -41,15 +40,6 @@ DESCRIPTIONS: dict[str, str] = {
 }
 
 
-def construire_parseur() -> argparse.ArgumentParser:
-    parseur = argparse.ArgumentParser(prog="gisement", description=__doc__)
-    sous = parseur.add_subparsers(dest="commande", required=True)
-    for nom in COMMANDES:
-        item = sous.add_parser(nom, help=DESCRIPTIONS.get(nom, nom), add_help=True)
-        item.add_argument("arguments", nargs=argparse.REMAINDER, help=argparse.SUPPRESS)
-    return parseur
-
-
 def executer(nom: str, arguments: list[str]) -> int:
     """Import the command module and run it. A missing lot is said clearly."""
     try:
@@ -63,9 +53,24 @@ def executer(nom: str, arguments: list[str]) -> int:
     return int(module.main(arguments) or 0)
 
 
+def aide() -> str:
+    lignes = ["usage: gisement <commande> [options]", "", "commandes:"]
+    lignes += [f"  {nom:14s} {DESCRIPTIONS.get(nom, nom)}" for nom in COMMANDES]
+    return "\n".join(lignes)
+
+
 def main(argv: list[str] | None = None) -> int:
-    args = construire_parseur().parse_args(argv)
-    return executer(args.commande, list(args.arguments))
+    """Dispatch on the first argument; the rest goes to the command as-is."""
+    args = list(sys.argv[1:] if argv is None else argv)
+    if not args or args[0] in ("-h", "--help", "help"):
+        print(aide())
+        return 0
+    commande, reste = args[0], args[1:]
+    if commande not in COMMANDES:
+        print(f"gisement: commande inconnue '{commande}'", file=sys.stderr)
+        print(aide(), file=sys.stderr)
+        return 2
+    return executer(commande, reste)
 
 
 if __name__ == "__main__":

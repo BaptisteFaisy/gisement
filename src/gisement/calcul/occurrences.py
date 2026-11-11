@@ -31,7 +31,8 @@ def ecart_type(valeurs: Sequence[Decimal]) -> Decimal:
         return Decimal(0)
     moyenne = sum(valeurs, Decimal(0)) / Decimal(len(valeurs))
     carres = sum(((v - moyenne) ** 2 for v in valeurs), Decimal(0))
-    return carres / Decimal(len(valeurs) - 1)
+    variance = carres / Decimal(len(valeurs) - 1)
+    return arrondi(variance.sqrt(), 2)
 
 
 def racine_carree(valeur: Decimal) -> Decimal:

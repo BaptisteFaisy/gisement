@@ -53,6 +53,18 @@ def test_un_mois_de_pointe_ne_gonfle_pas_le_gisement(cas_reference: EntreeGiseme
     assert calculer(pic).temps_net_heures == calculer(lisse).temps_net_heures
 
 
+def test_l_ecart_type_est_un_ecart_type_pas_une_variance() -> None:
+    """Regression: ecart_type returned the variance, which squared the Monte-Carlo
+    spread and published an absurd interval ([0 - 117] for a 26 h deposit)."""
+    from gisement.calcul.occurrences import ecart_type
+
+    serie = [Decimal(x) for x in (270, 295, 310, 330, 355, 380)]
+    assert ecart_type(serie) == Decimal("40.21")  # stdev, not 1616.67 (variance)
+    stats = statistiques(serie)
+    assert stats.ecart_type == Decimal("40.21")
+    assert stats.mediane == Decimal("320")
+
+
 def test_une_serie_vide_ne_casse_rien() -> None:
     stats = statistiques(())
     assert stats.mediane == Decimal(0)
