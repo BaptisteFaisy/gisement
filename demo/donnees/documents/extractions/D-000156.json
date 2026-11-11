@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "2143.18",
-    "numero": "51701",
-    "texte_libre": "Devis client - adhesion syndicale renouvelee",
-    "tiers": "DEMO-FR-14"
+    "montant_ht": "8526.69",
+    "numero": "28918",
+    "texte_libre": "Devis client - suite a mon arret de travail",
+    "tiers": "DEMO-FR-03"
   },
-  "confiance": 0.97,
+  "confiance": 0.9,
   "document_id": "D-000156",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-058",
-          24,
-          "314.27"
+          "R-028",
+          9,
+          "811.67"
         ]
       ],
       "nom": "lignes"

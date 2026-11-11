@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "8400.06",
-    "numero": "54243",
-    "texte_libre": "Devis client - reunion de section syndicale",
-    "tiers": "DEMO-FR-17"
+    "montant_ht": "9164.63",
+    "numero": "99352",
+    "texte_libre": "Devis client - predisposition genetique",
+    "tiers": "DEMO-FR-09"
   },
-  "confiance": 0.96,
+  "confiance": 0.83,
   "document_id": "D-000166",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-055",
-          29,
-          "842.20"
+          "R-058",
+          34,
+          "894.84"
         ]
       ],
       "nom": "lignes"

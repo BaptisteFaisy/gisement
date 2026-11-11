@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "7850.63",
-    "numero": "53977",
-    "texte_libre": "Note de frais - demande d'amenagement pour raison de sante",
-    "tiers": "DEMO-FR-07"
+    "montant_ht": "2606.40",
+    "numero": "27888",
+    "texte_libre": "Note de frais - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-16"
   },
-  "confiance": 0.86,
+  "confiance": 0.96,
   "document_id": "D-000014",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-049",
-          26,
-          "431.95"
+          "R-006",
+          34,
+          "827.38"
         ]
       ],
       "nom": "lignes"

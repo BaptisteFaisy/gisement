@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "171.21",
-    "numero": "46068",
-    "texte_libre": "Note de frais - traitement medical en cours",
-    "tiers": "DEMO-FR-07"
+    "montant_ht": "7958.55",
+    "numero": "40370",
+    "texte_libre": "Note de frais - origine ethnique indiquee",
+    "tiers": "DEMO-FR-11"
   },
-  "confiance": 0.98,
+  "confiance": 0.83,
   "document_id": "D-000164",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-024",
-          33,
-          "555.29"
+          "R-042",
+          13,
+          "196.78"
         ]
       ],
       "nom": "lignes"

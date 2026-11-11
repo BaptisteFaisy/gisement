@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "7914.15",
-    "numero": "96132",
-    "texte_libre": "Facture fournisseur - demande d'absence pour fete religieuse",
+    "montant_ht": "6963.82",
+    "numero": "88200",
+    "texte_libre": "Facture fournisseur - mandat de delegue syndical",
     "tiers": "DEMO-FR-02"
   },
-  "confiance": 0.86,
+  "confiance": 0.83,
   "document_id": "D-000142",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-015",
-          4,
-          "760.89"
+          "R-014",
+          9,
+          "814.66"
         ]
       ],
       "nom": "lignes"

@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "2867.69",
-    "numero": "13200",
-    "texte_libre": "Bon de commande - piece comptable standard, aucune donnee sensible",
-    "tiers": "DEMO-FR-14"
+    "montant_ht": "1464.19",
+    "numero": "35195",
+    "texte_libre": "Bon de commande - analyse genetique demandee",
+    "tiers": "DEMO-FR-07"
   },
-  "confiance": 0.87,
+  "confiance": 0.89,
   "document_id": "D-000191",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-002",
-          37,
-          "279.41"
+          "R-016",
+          27,
+          "327.01"
         ]
       ],
       "nom": "lignes"

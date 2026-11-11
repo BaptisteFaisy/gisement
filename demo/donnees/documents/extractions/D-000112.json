@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "6274.33",
-    "numero": "80456",
+    "montant_ht": "2662.01",
+    "numero": "14940",
     "texte_libre": "Facture fournisseur - predisposition genetique",
-    "tiers": "DEMO-FR-18"
+    "tiers": "DEMO-FR-16"
   },
-  "confiance": 0.99,
+  "confiance": 0.95,
   "document_id": "D-000112",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-050",
-          12,
-          "314.34"
+          "R-002",
+          10,
+          "478.19"
         ]
       ],
       "nom": "lignes"

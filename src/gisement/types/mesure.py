@@ -51,18 +51,28 @@ class GroupeEmpreinte:
 
     empreinte: str
     canal: Canal
+    signature: str = ""
+    """The readable signature (`verbe::objets::systemes`), kept for labelling."""
+
     activites: tuple[str, ...] = ()
     occurrences: int = 0
+    occurrences_mensuelles: tuple[int, ...] = ()
+    """Counts per month of the window: what the median is computed on."""
+
     exemple_texte: str = ""
     systemes: tuple[str, ...] = ()
     services: tuple[str, ...] = ()
+    canaux: tuple[Canal, ...] = ()
     taille_groupe_individus: int = 0
-    """Number of distinct individuals behind the group - drives the k >= 5 rule."""
+    """Number of distinct groups behind the measure - drives the k >= 5 rule."""
 
     repartition_horaire: Repartition = Repartition.DIFFUSE
     duree_mesuree_minutes: Decimal | None = None
+    duree_ecart_minutes: Decimal = Decimal(0)
+    duree_nb_cas: int = 0
     duree_statut: StatutDuree = StatutDuree.INFERREE
     part_atypique: Decimal = Decimal(0)
+    nb_atypiques: int = 0
 
 
 @dataclass(frozen=True)
@@ -111,6 +121,11 @@ class Motif:
     part_atypique: Decimal = Decimal(0)
     part_atypique_nb_cas: int = 0
     canaux: tuple[Canal, ...] = ()
+    services: tuple[str, ...] = ()
+    """The services the motif was measured in. The aggregation into processes is
+    keyed on motif + service (lot 11), because the same gesture done by two
+    departments is two different measurements."""
+
     empreintes: tuple[str, ...] = ()
     nouveau: bool = False
     """EF-21 - True when the motif was created because none matched."""

@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "9482.77",
-    "numero": "12954",
-    "texte_libre": "Note de frais - adhesion syndicale renouvelee",
-    "tiers": "DEMO-FR-05"
+    "montant_ht": "7850.63",
+    "numero": "40568",
+    "texte_libre": "Note de frais - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-07"
   },
-  "confiance": 0.85,
+  "confiance": 0.99,
   "document_id": "D-000074",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-003",
-          19,
-          "762.26"
+          "R-049",
+          36,
+          "591.06"
         ]
       ],
       "nom": "lignes"

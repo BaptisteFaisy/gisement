@@ -1,0 +1,100 @@
+{
+  "appel_id": "A-0020",
+  "duree_minutes": 7.8,
+  "langue": "fr-FR",
+  "piis_occultees": 2,
+  "segments": [
+    {
+      "atypique": true,
+      "debut": 0.0,
+      "fin": 0.6,
+      "locuteur": "LOC-1",
+      "texte": "Rechercher un precedent dans l'historique ; reference R-006 ; cas inhabituel, hors catalogue"
+    },
+    {
+      "atypique": false,
+      "debut": 0.6,
+      "fin": 1.2,
+      "locuteur": "LOC-2",
+      "texte": "Rechercher un precedent dans l'historique ; reference R-007 ; cas standard"
+    },
+    {
+      "atypique": false,
+      "debut": 1.2,
+      "fin": 1.8,
+      "locuteur": "LOC-3",
+      "texte": "Rechercher un precedent dans l'historique ; reference R-035 ; cas standard"
+    },
+    {
+      "atypique": true,
+      "debut": 1.8,
+      "fin": 2.4,
+      "locuteur": "LOC-4",
+      "texte": "Rechercher un precedent dans l'historique ; reference R-015 ; cas inhabituel, hors catalogue"
+    },
+    {
+      "atypique": true,
+      "debut": 2.4,
+      "fin": 3.0,
+      "locuteur": "LOC-5",
+      "texte": "Rechercher un precedent dans l'historique ; reference R-030 ; cas inhabituel, hors catalogue"
+    },
+    {
+      "atypique": false,
+      "debut": 3.0,
+      "fin": 3.6,
+      "locuteur": "LOC-1",
+      "texte": "Rechercher un precedent dans l'historique ; reference R-032 ; cas standard"
+    },
+    {
+      "atypique": false,
+      "debut": 3.6,
+      "fin": 4.2,
+      "locuteur": "LOC-2",
+      "texte": "Rechercher un precedent dans l'historique ; reference R-009 ; cas standard"
+    },
+    {
+      "atypique": false,
+      "debut": 4.2,
+      "fin": 4.8,
+      "locuteur": "LOC-3",
+      "texte": "Rechercher un precedent dans l'historique ; reference R-011 ; cas standard"
+    },
+    {
+      "atypique": false,
+      "debut": 4.8,
+      "fin": 5.4,
+      "locuteur": "LOC-4",
+      "texte": "Rechercher un precedent dans l'historique ; reference R-001 ; cas standard"
+    },
+    {
+      "atypique": false,
+      "debut": 5.4,
+      "fin": 6.0,
+      "locuteur": "LOC-5",
+      "texte": "Rechercher un precedent dans l'historique ; reference R-058 ; cas standard"
+    },
+    {
+      "atypique": false,
+      "debut": 6.0,
+      "fin": 6.6,
+      "locuteur": "LOC-1",
+      "texte": "Rechercher un precedent dans l'historique ; reference R-004 ; cas standard"
+    },
+    {
+      "atypique": false,
+      "debut": 6.6,
+      "fin": 7.2,
+      "locuteur": "LOC-2",
+      "texte": "Rechercher un precedent dans l'historique ; reference R-008 ; cas standard"
+    },
+    {
+      "atypique": false,
+      "debut": 7.2,
+      "fin": 7.8,
+      "locuteur": "LOC-3",
+      "texte": "Rechercher un precedent dans l'historique ; reference R-031 ; cas standard"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "3092.41",
-    "numero": "82142",
-    "texte_libre": "Facture fournisseur - suite a mon arret de travail",
-    "tiers": "DEMO-FR-13"
+    "montant_ht": "6853.62",
+    "numero": "64989",
+    "texte_libre": "Facture fournisseur - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-16"
   },
-  "confiance": 0.88,
+  "confiance": 0.96,
   "document_id": "D-000032",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-007",
-          36,
-          "113.11"
+          "R-018",
+          6,
+          "879.23"
         ]
       ],
       "nom": "lignes"

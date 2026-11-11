@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "3437.25",
-    "numero": "65907",
-    "texte_libre": "Note de frais - orientation sexuelle mentionnee",
-    "tiers": "DEMO-FR-18"
+    "montant_ht": "8458.33",
+    "numero": "48977",
+    "texte_libre": "Note de frais - mandat de delegue syndical",
+    "tiers": "DEMO-FR-16"
   },
-  "confiance": 0.87,
+  "confiance": 0.86,
   "document_id": "D-000174",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-021",
-          39,
-          "25.81"
+          "R-039",
+          12,
+          "456.80"
         ]
       ],
       "nom": "lignes"

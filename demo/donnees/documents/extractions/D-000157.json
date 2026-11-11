@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "8343.32",
-    "numero": "40031",
-    "texte_libre": "Avoir fournisseur - piece comptable standard, aucune donnee sensible",
-    "tiers": "DEMO-FR-09"
+    "montant_ht": "5224.05",
+    "numero": "88280",
+    "texte_libre": "Avoir fournisseur - origine ethnique indiquee",
+    "tiers": "DEMO-FR-03"
   },
-  "confiance": 0.89,
+  "confiance": 0.93,
   "document_id": "D-000157",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-027",
-          37,
-          "629.22"
+          "R-022",
+          15,
+          "226.38"
         ]
       ],
       "nom": "lignes"

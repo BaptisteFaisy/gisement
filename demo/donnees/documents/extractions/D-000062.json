@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "1626.26",
-    "numero": "93949",
-    "texte_libre": "Facture fournisseur - conviction religieuse mentionnee",
-    "tiers": "DEMO-FR-01"
+    "montant_ht": "1559.21",
+    "numero": "22615",
+    "texte_libre": "Facture fournisseur - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-10"
   },
-  "confiance": 0.88,
+  "confiance": 0.97,
   "document_id": "D-000062",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-047",
-          40,
-          "307.61"
+          "R-007",
+          6,
+          "590.31"
         ]
       ],
       "nom": "lignes"

@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "6946.74",
-    "numero": "12872",
-    "texte_libre": "Procedure interne - prolongation de l'arret maladie",
-    "tiers": "DEMO-FR-14"
+    "montant_ht": "3005.07",
+    "numero": "21662",
+    "texte_libre": "Procedure interne - origine presumee du candidat",
+    "tiers": "DEMO-FR-13"
   },
-  "confiance": 0.88,
+  "confiance": 0.92,
   "document_id": "D-000120",
   "tableaux": [
     {
@@ -18,8 +18,8 @@
       "lignes": [
         [
           "R-059",
-          20,
-          "564.34"
+          29,
+          "842.06"
         ]
       ],
       "nom": "lignes"

@@ -1,334 +1,70 @@
 {
   "documents": [
     {
+      "categorie": "origine_ethnie",
+      "document_id": "D-000101",
+      "texte": "Bon de commande - origine presumee du candidat",
+      "type": "bon_de_commande"
+    },
+    {
       "categorie": "vie_sexuelle",
-      "document_id": "D-000002",
+      "document_id": "D-000102",
       "texte": "Facture fournisseur - situation de vie sexuelle",
       "type": "facture"
     },
     {
+      "categorie": "vie_sexuelle",
+      "document_id": "D-000103",
+      "texte": "Bon de livraison - situation de vie sexuelle",
+      "type": "bon_livraison"
+    },
+    {
       "categorie": "donnee_genetique",
-      "document_id": "D-000004",
+      "document_id": "D-000104",
       "texte": "Note de frais - test genetique realise",
       "type": "note_de_frais"
     },
     {
-      "categorie": "opinion_politique",
-      "document_id": "D-000006",
-      "texte": "Devis client - opinion politique exprimee",
-      "type": "devis"
-    },
-    {
       "categorie": "vie_sexuelle",
-      "document_id": "D-000008",
-      "texte": "Releve de temperature - orientation sexuelle mentionnee",
-      "type": "releve_temperature"
-    },
-    {
-      "categorie": "opinion_syndicale",
-      "document_id": "D-000010",
-      "texte": "Procedure interne - mandat de delegue syndical",
-      "type": "procedure"
-    },
-    {
-      "categorie": "donnee_genetique",
-      "document_id": "D-000012",
-      "texte": "Facture fournisseur - analyse genetique demandee",
-      "type": "facture"
-    },
-    {
-      "categorie": "sante",
-      "document_id": "D-000014",
-      "texte": "Note de frais - demande d'amenagement pour raison de sante",
-      "type": "note_de_frais"
-    },
-    {
-      "categorie": "vie_sexuelle",
-      "document_id": "D-000016",
-      "texte": "Devis client - situation de vie sexuelle",
-      "type": "devis"
-    },
-    {
-      "categorie": "opinion_syndicale",
-      "document_id": "D-000018",
-      "texte": "Releve de temperature - tract syndical diffuse",
-      "type": "releve_temperature"
-    },
-    {
-      "categorie": "religion",
-      "document_id": "D-000020",
-      "texte": "Procedure interne - demande liee au ramadan",
-      "type": "procedure"
-    },
-    {
-      "categorie": "vie_sexuelle",
-      "document_id": "D-000022",
-      "texte": "Facture fournisseur - situation de vie sexuelle",
-      "type": "facture"
-    },
-    {
-      "categorie": "sante",
-      "document_id": "D-000024",
-      "texte": "Note de frais - suite a mon arret de travail",
-      "type": "note_de_frais"
-    },
-    {
-      "categorie": "sante",
-      "document_id": "D-000026",
-      "texte": "Devis client - suite a mon arret de travail",
-      "type": "devis"
-    },
-    {
-      "categorie": "vie_sexuelle",
-      "document_id": "D-000028",
-      "texte": "Releve de temperature - situation de vie sexuelle",
-      "type": "releve_temperature"
-    },
-    {
-      "categorie": "vie_sexuelle",
-      "document_id": "D-000030",
-      "texte": "Procedure interne - orientation sexuelle mentionnee",
-      "type": "procedure"
-    },
-    {
-      "categorie": "sante",
-      "document_id": "D-000032",
-      "texte": "Facture fournisseur - suite a mon arret de travail",
-      "type": "facture"
-    },
-    {
-      "categorie": "origine_ethnie",
-      "document_id": "D-000034",
-      "texte": "Note de frais - origine presumee du candidat",
-      "type": "note_de_frais"
-    },
-    {
-      "categorie": "sante",
-      "document_id": "D-000036",
-      "texte": "Devis client - traitement medical en cours",
-      "type": "devis"
-    },
-    {
-      "categorie": "opinion_politique",
-      "document_id": "D-000038",
-      "texte": "Releve de temperature - militant d'un parti politique",
-      "type": "releve_temperature"
-    },
-    {
-      "categorie": "opinion_politique",
-      "document_id": "D-000040",
-      "texte": "Procedure interne - sympathisant d'un mouvement",
-      "type": "procedure"
-    },
-    {
-      "categorie": "religion",
-      "document_id": "D-000042",
-      "texte": "Facture fournisseur - demande d'absence pour fete religieuse",
-      "type": "facture"
-    },
-    {
-      "categorie": "opinion_syndicale",
-      "document_id": "D-000044",
-      "texte": "Note de frais - cotisation syndicale prelevee",
-      "type": "note_de_frais"
-    },
-    {
-      "categorie": "origine_ethnie",
-      "document_id": "D-000046",
-      "texte": "Devis client - origine presumee du candidat",
-      "type": "devis"
-    },
-    {
-      "categorie": "origine_ethnie",
-      "document_id": "D-000048",
-      "texte": "Releve de temperature - origine ethnique indiquee",
-      "type": "releve_temperature"
-    },
-    {
-      "categorie": "vie_sexuelle",
-      "document_id": "D-000050",
-      "texte": "Procedure interne - situation de vie sexuelle",
-      "type": "procedure"
-    },
-    {
-      "categorie": "vie_sexuelle",
-      "document_id": "D-000052",
-      "texte": "Facture fournisseur - orientation sexuelle mentionnee",
-      "type": "facture"
-    },
-    {
-      "categorie": "opinion_syndicale",
-      "document_id": "D-000054",
-      "texte": "Note de frais - permanence syndicale du jeudi",
-      "type": "note_de_frais"
-    },
-    {
-      "categorie": "sante",
-      "document_id": "D-000056",
-      "texte": "Devis client - demande d'amenagement pour raison de sante",
-      "type": "devis"
-    },
-    {
-      "categorie": "donnee_genetique",
-      "document_id": "D-000058",
-      "texte": "Releve de temperature - predisposition genetique",
-      "type": "releve_temperature"
-    },
-    {
-      "categorie": "opinion_politique",
-      "document_id": "D-000060",
-      "texte": "Procedure interne - campagne electorale interne",
-      "type": "procedure"
-    },
-    {
-      "categorie": "religion",
-      "document_id": "D-000062",
-      "texte": "Facture fournisseur - conviction religieuse mentionnee",
-      "type": "facture"
-    },
-    {
-      "categorie": "religion",
-      "document_id": "D-000064",
-      "texte": "Note de frais - demande liee au ramadan",
-      "type": "note_de_frais"
-    },
-    {
-      "categorie": "opinion_syndicale",
-      "document_id": "D-000066",
-      "texte": "Devis client - cotisation syndicale prelevee",
-      "type": "devis"
-    },
-    {
-      "categorie": "religion",
-      "document_id": "D-000068",
-      "texte": "Releve de temperature - pratique religieuse du salarie",
-      "type": "releve_temperature"
-    },
-    {
-      "categorie": "sante",
-      "document_id": "D-000070",
-      "texte": "Procedure interne - suite a mon arret de travail",
-      "type": "procedure"
-    },
-    {
-      "categorie": "vie_sexuelle",
-      "document_id": "D-000072",
-      "texte": "Facture fournisseur - situation de vie sexuelle",
-      "type": "facture"
-    },
-    {
-      "categorie": "opinion_syndicale",
-      "document_id": "D-000074",
-      "texte": "Note de frais - adhesion syndicale renouvelee",
-      "type": "note_de_frais"
-    },
-    {
-      "categorie": "sante",
-      "document_id": "D-000076",
-      "texte": "Devis client - conge de maternite a venir",
-      "type": "devis"
-    },
-    {
-      "categorie": "origine_ethnie",
-      "document_id": "D-000078",
-      "texte": "Releve de temperature - appartenance ethnique",
-      "type": "releve_temperature"
-    },
-    {
-      "categorie": "sante",
-      "document_id": "D-000080",
-      "texte": "Procedure interne - conge de maternite a venir",
-      "type": "procedure"
-    },
-    {
-      "categorie": "sante",
-      "document_id": "D-000082",
-      "texte": "Facture fournisseur - traitement medical en cours",
-      "type": "facture"
-    },
-    {
-      "categorie": "origine_ethnie",
-      "document_id": "D-000084",
-      "texte": "Note de frais - origine ethnique indiquee",
-      "type": "note_de_frais"
-    },
-    {
-      "categorie": "origine_ethnie",
-      "document_id": "D-000086",
-      "texte": "Devis client - origine presumee du candidat",
-      "type": "devis"
-    },
-    {
-      "categorie": "sante",
-      "document_id": "D-000088",
-      "texte": "Releve de temperature - prolongation de l'arret maladie",
-      "type": "releve_temperature"
-    },
-    {
-      "categorie": "vie_sexuelle",
-      "document_id": "D-000090",
-      "texte": "Procedure interne - identite de genre indiquee",
-      "type": "procedure"
-    },
-    {
-      "categorie": "vie_sexuelle",
-      "document_id": "D-000092",
-      "texte": "Facture fournisseur - orientation sexuelle mentionnee",
-      "type": "facture"
-    },
-    {
-      "categorie": "sante",
-      "document_id": "D-000094",
-      "texte": "Note de frais - suite a mon arret de travail",
-      "type": "note_de_frais"
-    },
-    {
-      "categorie": "sante",
-      "document_id": "D-000096",
-      "texte": "Devis client - suivi medical en cours",
-      "type": "devis"
-    },
-    {
-      "categorie": "sante",
-      "document_id": "D-000098",
-      "texte": "Releve de temperature - hospitalisation prevue",
-      "type": "releve_temperature"
-    },
-    {
-      "categorie": "opinion_politique",
-      "document_id": "D-000100",
-      "texte": "Procedure interne - engagement politique du salarie",
-      "type": "procedure"
-    },
-    {
-      "categorie": "opinion_politique",
-      "document_id": "D-000102",
-      "texte": "Facture fournisseur - engagement politique du salarie",
-      "type": "facture"
-    },
-    {
-      "categorie": "sante",
-      "document_id": "D-000104",
-      "texte": "Note de frais - prolongation de l'arret maladie",
-      "type": "note_de_frais"
+      "document_id": "D-000105",
+      "texte": "Releve bancaire - situation de vie sexuelle",
+      "type": "releve_bancaire"
     },
     {
       "categorie": "religion",
       "document_id": "D-000106",
-      "texte": "Devis client - absence pour le careme",
+      "texte": "Devis client - demande d'absence pour fete religieuse",
       "type": "devis"
+    },
+    {
+      "categorie": "origine_ethnie",
+      "document_id": "D-000107",
+      "texte": "Avoir fournisseur - appartenance ethnique",
+      "type": "avoir"
     },
     {
       "categorie": "opinion_syndicale",
       "document_id": "D-000108",
-      "texte": "Releve de temperature - tract syndical diffuse",
+      "texte": "Releve de temperature - adhesion syndicale renouvelee",
       "type": "releve_temperature"
     },
     {
-      "categorie": "origine_ethnie",
+      "categorie": "vie_sexuelle",
+      "document_id": "D-000109",
+      "texte": "Contrat cadre - situation de vie sexuelle",
+      "type": "contrat"
+    },
+    {
+      "categorie": "vie_sexuelle",
       "document_id": "D-000110",
-      "texte": "Procedure interne - appartenance ethnique",
+      "texte": "Procedure interne - identite de genre indiquee",
       "type": "procedure"
+    },
+    {
+      "categorie": "donnee_genetique",
+      "document_id": "D-000111",
+      "texte": "Bon de commande - predisposition genetique",
+      "type": "bon_de_commande"
     },
     {
       "categorie": "donnee_genetique",
@@ -337,190 +73,382 @@
       "type": "facture"
     },
     {
-      "categorie": "origine_ethnie",
+      "categorie": "vie_sexuelle",
+      "document_id": "D-000113",
+      "texte": "Bon de livraison - identite de genre indiquee",
+      "type": "bon_livraison"
+    },
+    {
+      "categorie": "sante",
       "document_id": "D-000114",
-      "texte": "Note de frais - appartenance ethnique",
+      "texte": "Note de frais - prolongation de l'arret maladie",
       "type": "note_de_frais"
     },
     {
-      "categorie": "donnee_genetique",
+      "categorie": "opinion_syndicale",
+      "document_id": "D-000115",
+      "texte": "Releve bancaire - tract syndical diffuse",
+      "type": "releve_bancaire"
+    },
+    {
+      "categorie": "vie_sexuelle",
       "document_id": "D-000116",
-      "texte": "Devis client - analyse genetique demandee",
-      "type": "devis"
-    },
-    {
-      "categorie": "vie_sexuelle",
-      "document_id": "D-000118",
-      "texte": "Releve de temperature - situation de vie sexuelle",
-      "type": "releve_temperature"
-    },
-    {
-      "categorie": "sante",
-      "document_id": "D-000120",
-      "texte": "Procedure interne - prolongation de l'arret maladie",
-      "type": "procedure"
-    },
-    {
-      "categorie": "origine_ethnie",
-      "document_id": "D-000122",
-      "texte": "Facture fournisseur - appartenance ethnique",
-      "type": "facture"
-    },
-    {
-      "categorie": "opinion_syndicale",
-      "document_id": "D-000124",
-      "texte": "Note de frais - cotisation syndicale prelevee",
-      "type": "note_de_frais"
-    },
-    {
-      "categorie": "opinion_syndicale",
-      "document_id": "D-000126",
-      "texte": "Devis client - adhesion syndicale renouvelee",
-      "type": "devis"
-    },
-    {
-      "categorie": "sante",
-      "document_id": "D-000128",
-      "texte": "Releve de temperature - traitement medical en cours",
-      "type": "releve_temperature"
-    },
-    {
-      "categorie": "opinion_syndicale",
-      "document_id": "D-000130",
-      "texte": "Procedure interne - mandat de delegue syndical",
-      "type": "procedure"
-    },
-    {
-      "categorie": "vie_sexuelle",
-      "document_id": "D-000132",
-      "texte": "Facture fournisseur - orientation sexuelle mentionnee",
-      "type": "facture"
-    },
-    {
-      "categorie": "religion",
-      "document_id": "D-000134",
-      "texte": "Note de frais - pratique religieuse du salarie",
-      "type": "note_de_frais"
-    },
-    {
-      "categorie": "vie_sexuelle",
-      "document_id": "D-000136",
       "texte": "Devis client - identite de genre indiquee",
       "type": "devis"
     },
     {
-      "categorie": "opinion_politique",
-      "document_id": "D-000138",
-      "texte": "Releve de temperature - campagne electorale interne",
+      "categorie": "origine_ethnie",
+      "document_id": "D-000117",
+      "texte": "Avoir fournisseur - appartenance ethnique",
+      "type": "avoir"
+    },
+    {
+      "categorie": "sante",
+      "document_id": "D-000118",
+      "texte": "Releve de temperature - suivi medical en cours",
       "type": "releve_temperature"
     },
     {
-      "categorie": "vie_sexuelle",
-      "document_id": "D-000140",
-      "texte": "Procedure interne - identite de genre indiquee",
+      "categorie": "donnee_genetique",
+      "document_id": "D-000119",
+      "texte": "Contrat cadre - analyse genetique demandee",
+      "type": "contrat"
+    },
+    {
+      "categorie": "origine_ethnie",
+      "document_id": "D-000120",
+      "texte": "Procedure interne - origine presumee du candidat",
       "type": "procedure"
     },
     {
       "categorie": "religion",
-      "document_id": "D-000142",
-      "texte": "Facture fournisseur - demande d'absence pour fete religieuse",
+      "document_id": "D-000121",
+      "texte": "Bon de commande - demande liee au ramadan",
+      "type": "bon_de_commande"
+    },
+    {
+      "categorie": "origine_ethnie",
+      "document_id": "D-000122",
+      "texte": "Facture fournisseur - origine presumee du candidat",
       "type": "facture"
     },
     {
-      "categorie": "opinion_politique",
-      "document_id": "D-000144",
-      "texte": "Note de frais - sympathisant d'un mouvement",
+      "categorie": "vie_sexuelle",
+      "document_id": "D-000123",
+      "texte": "Bon de livraison - situation de vie sexuelle",
+      "type": "bon_livraison"
+    },
+    {
+      "categorie": "opinion_syndicale",
+      "document_id": "D-000124",
+      "texte": "Note de frais - adhesion syndicale renouvelee",
       "type": "note_de_frais"
     },
     {
-      "categorie": "opinion_politique",
-      "document_id": "D-000146",
-      "texte": "Devis client - opinion politique exprimee",
+      "categorie": "origine_ethnie",
+      "document_id": "D-000125",
+      "texte": "Releve bancaire - origine ethnique indiquee",
+      "type": "releve_bancaire"
+    },
+    {
+      "categorie": "vie_sexuelle",
+      "document_id": "D-000126",
+      "texte": "Devis client - identite de genre indiquee",
       "type": "devis"
     },
     {
-      "categorie": "religion",
-      "document_id": "D-000148",
-      "texte": "Releve de temperature - absence pour le careme",
-      "type": "releve_temperature"
+      "categorie": "vie_sexuelle",
+      "document_id": "D-000127",
+      "texte": "Avoir fournisseur - orientation sexuelle mentionnee",
+      "type": "avoir"
     },
     {
       "categorie": "vie_sexuelle",
-      "document_id": "D-000150",
-      "texte": "Procedure interne - identite de genre indiquee",
+      "document_id": "D-000128",
+      "texte": "Releve de temperature - identite de genre indiquee",
+      "type": "releve_temperature"
+    },
+    {
+      "categorie": "sante",
+      "document_id": "D-000129",
+      "texte": "Contrat cadre - prolongation de l'arret maladie",
+      "type": "contrat"
+    },
+    {
+      "categorie": "origine_ethnie",
+      "document_id": "D-000130",
+      "texte": "Procedure interne - origine presumee du candidat",
       "type": "procedure"
     },
     {
-      "categorie": "opinion_syndicale",
-      "document_id": "D-000152",
-      "texte": "Facture fournisseur - adhesion syndicale renouvelee",
+      "categorie": "sante",
+      "document_id": "D-000131",
+      "texte": "Bon de commande - hospitalisation prevue",
+      "type": "bon_de_commande"
+    },
+    {
+      "categorie": "opinion_politique",
+      "document_id": "D-000132",
+      "texte": "Facture fournisseur - opinion politique exprimee",
       "type": "facture"
     },
     {
-      "categorie": "religion",
-      "document_id": "D-000154",
-      "texte": "Note de frais - demande liee au ramadan",
+      "categorie": "sante",
+      "document_id": "D-000133",
+      "texte": "Bon de livraison - demande d'amenagement pour raison de sante",
+      "type": "bon_livraison"
+    },
+    {
+      "categorie": "opinion_politique",
+      "document_id": "D-000134",
+      "texte": "Note de frais - militant d'un parti politique",
       "type": "note_de_frais"
     },
     {
+      "categorie": "religion",
+      "document_id": "D-000135",
+      "texte": "Releve bancaire - absence pour le careme",
+      "type": "releve_bancaire"
+    },
+    {
       "categorie": "opinion_syndicale",
-      "document_id": "D-000156",
+      "document_id": "D-000136",
       "texte": "Devis client - adhesion syndicale renouvelee",
       "type": "devis"
     },
     {
       "categorie": "opinion_syndicale",
-      "document_id": "D-000158",
-      "texte": "Releve de temperature - adhesion syndicale renouvelee",
+      "document_id": "D-000137",
+      "texte": "Avoir fournisseur - permanence syndicale du jeudi",
+      "type": "avoir"
+    },
+    {
+      "categorie": "donnee_genetique",
+      "document_id": "D-000138",
+      "texte": "Releve de temperature - analyse genetique demandee",
       "type": "releve_temperature"
     },
     {
       "categorie": "religion",
-      "document_id": "D-000160",
-      "texte": "Procedure interne - pratique religieuse du salarie",
+      "document_id": "D-000139",
+      "texte": "Contrat cadre - conviction religieuse mentionnee",
+      "type": "contrat"
+    },
+    {
+      "categorie": "origine_ethnie",
+      "document_id": "D-000140",
+      "texte": "Procedure interne - appartenance ethnique",
       "type": "procedure"
     },
     {
+      "categorie": "origine_ethnie",
+      "document_id": "D-000141",
+      "texte": "Bon de commande - origine presumee du candidat",
+      "type": "bon_de_commande"
+    },
+    {
       "categorie": "opinion_syndicale",
-      "document_id": "D-000162",
-      "texte": "Facture fournisseur - reunion de section syndicale",
+      "document_id": "D-000142",
+      "texte": "Facture fournisseur - mandat de delegue syndical",
       "type": "facture"
     },
     {
-      "categorie": "sante",
-      "document_id": "D-000164",
-      "texte": "Note de frais - traitement medical en cours",
+      "categorie": "donnee_genetique",
+      "document_id": "D-000143",
+      "texte": "Bon de livraison - predisposition genetique",
+      "type": "bon_livraison"
+    },
+    {
+      "categorie": "origine_ethnie",
+      "document_id": "D-000144",
+      "texte": "Note de frais - origine ethnique indiquee",
       "type": "note_de_frais"
     },
     {
-      "categorie": "opinion_syndicale",
-      "document_id": "D-000166",
-      "texte": "Devis client - reunion de section syndicale",
+      "categorie": "origine_ethnie",
+      "document_id": "D-000145",
+      "texte": "Releve bancaire - origine presumee du candidat",
+      "type": "releve_bancaire"
+    },
+    {
+      "categorie": "vie_sexuelle",
+      "document_id": "D-000146",
+      "texte": "Devis client - orientation sexuelle mentionnee",
       "type": "devis"
     },
     {
+      "categorie": "opinion_syndicale",
+      "document_id": "D-000147",
+      "texte": "Avoir fournisseur - tract syndical diffuse",
+      "type": "avoir"
+    },
+    {
+      "categorie": "vie_sexuelle",
+      "document_id": "D-000148",
+      "texte": "Releve de temperature - orientation sexuelle mentionnee",
+      "type": "releve_temperature"
+    },
+    {
+      "categorie": "religion",
+      "document_id": "D-000149",
+      "texte": "Contrat cadre - pratique religieuse du salarie",
+      "type": "contrat"
+    },
+    {
+      "categorie": "sante",
+      "document_id": "D-000150",
+      "texte": "Procedure interne - suivi medical en cours",
+      "type": "procedure"
+    },
+    {
       "categorie": "opinion_politique",
-      "document_id": "D-000168",
-      "texte": "Releve de temperature - campagne electorale interne",
+      "document_id": "D-000151",
+      "texte": "Bon de commande - engagement politique du salarie",
+      "type": "bon_de_commande"
+    },
+    {
+      "categorie": "religion",
+      "document_id": "D-000152",
+      "texte": "Facture fournisseur - conviction religieuse mentionnee",
+      "type": "facture"
+    },
+    {
+      "categorie": "religion",
+      "document_id": "D-000153",
+      "texte": "Bon de livraison - conviction religieuse mentionnee",
+      "type": "bon_livraison"
+    },
+    {
+      "categorie": "opinion_syndicale",
+      "document_id": "D-000154",
+      "texte": "Note de frais - cotisation syndicale prelevee",
+      "type": "note_de_frais"
+    },
+    {
+      "categorie": "origine_ethnie",
+      "document_id": "D-000155",
+      "texte": "Releve bancaire - origine ethnique indiquee",
+      "type": "releve_bancaire"
+    },
+    {
+      "categorie": "sante",
+      "document_id": "D-000156",
+      "texte": "Devis client - suite a mon arret de travail",
+      "type": "devis"
+    },
+    {
+      "categorie": "origine_ethnie",
+      "document_id": "D-000157",
+      "texte": "Avoir fournisseur - origine ethnique indiquee",
+      "type": "avoir"
+    },
+    {
+      "categorie": "vie_sexuelle",
+      "document_id": "D-000158",
+      "texte": "Releve de temperature - orientation sexuelle mentionnee",
       "type": "releve_temperature"
     },
     {
       "categorie": "sante",
-      "document_id": "D-000170",
-      "texte": "Procedure interne - conge de maternite a venir",
+      "document_id": "D-000159",
+      "texte": "Contrat cadre - conge de maternite a venir",
+      "type": "contrat"
+    },
+    {
+      "categorie": "donnee_genetique",
+      "document_id": "D-000160",
+      "texte": "Procedure interne - analyse genetique demandee",
       "type": "procedure"
     },
     {
-      "categorie": "sante",
-      "document_id": "D-000172",
-      "texte": "Facture fournisseur - suivi medical en cours",
+      "categorie": "opinion_politique",
+      "document_id": "D-000161",
+      "texte": "Bon de commande - engagement politique du salarie",
+      "type": "bon_de_commande"
+    },
+    {
+      "categorie": "origine_ethnie",
+      "document_id": "D-000162",
+      "texte": "Facture fournisseur - appartenance ethnique",
       "type": "facture"
     },
     {
-      "categorie": "vie_sexuelle",
-      "document_id": "D-000174",
-      "texte": "Note de frais - orientation sexuelle mentionnee",
+      "categorie": "origine_ethnie",
+      "document_id": "D-000163",
+      "texte": "Bon de livraison - origine ethnique indiquee",
+      "type": "bon_livraison"
+    },
+    {
+      "categorie": "origine_ethnie",
+      "document_id": "D-000164",
+      "texte": "Note de frais - origine ethnique indiquee",
       "type": "note_de_frais"
+    },
+    {
+      "categorie": "origine_ethnie",
+      "document_id": "D-000165",
+      "texte": "Releve bancaire - origine ethnique indiquee",
+      "type": "releve_bancaire"
+    },
+    {
+      "categorie": "donnee_genetique",
+      "document_id": "D-000166",
+      "texte": "Devis client - predisposition genetique",
+      "type": "devis"
+    },
+    {
+      "categorie": "opinion_syndicale",
+      "document_id": "D-000167",
+      "texte": "Avoir fournisseur - mandat de delegue syndical",
+      "type": "avoir"
+    },
+    {
+      "categorie": "opinion_syndicale",
+      "document_id": "D-000168",
+      "texte": "Releve de temperature - cotisation syndicale prelevee",
+      "type": "releve_temperature"
+    },
+    {
+      "categorie": "opinion_syndicale",
+      "document_id": "D-000169",
+      "texte": "Contrat cadre - tract syndical diffuse",
+      "type": "contrat"
+    },
+    {
+      "categorie": "vie_sexuelle",
+      "document_id": "D-000170",
+      "texte": "Procedure interne - orientation sexuelle mentionnee",
+      "type": "procedure"
+    },
+    {
+      "categorie": "opinion_politique",
+      "document_id": "D-000171",
+      "texte": "Bon de commande - campagne electorale interne",
+      "type": "bon_de_commande"
+    },
+    {
+      "categorie": "origine_ethnie",
+      "document_id": "D-000172",
+      "texte": "Facture fournisseur - origine presumee du candidat",
+      "type": "facture"
+    },
+    {
+      "categorie": "origine_ethnie",
+      "document_id": "D-000173",
+      "texte": "Bon de livraison - appartenance ethnique",
+      "type": "bon_livraison"
+    },
+    {
+      "categorie": "opinion_syndicale",
+      "document_id": "D-000174",
+      "texte": "Note de frais - mandat de delegue syndical",
+      "type": "note_de_frais"
+    },
+    {
+      "categorie": "sante",
+      "document_id": "D-000175",
+      "texte": "Releve bancaire - suite a mon arret de travail",
+      "type": "releve_bancaire"
     },
     {
       "categorie": "donnee_genetique",
@@ -529,46 +457,94 @@
       "type": "devis"
     },
     {
-      "categorie": "sante",
+      "categorie": "religion",
+      "document_id": "D-000177",
+      "texte": "Avoir fournisseur - conviction religieuse mentionnee",
+      "type": "avoir"
+    },
+    {
+      "categorie": "origine_ethnie",
       "document_id": "D-000178",
-      "texte": "Releve de temperature - suite a mon arret de travail",
+      "texte": "Releve de temperature - origine ethnique indiquee",
       "type": "releve_temperature"
+    },
+    {
+      "categorie": "sante",
+      "document_id": "D-000179",
+      "texte": "Contrat cadre - hospitalisation prevue",
+      "type": "contrat"
     },
     {
       "categorie": "origine_ethnie",
       "document_id": "D-000180",
-      "texte": "Procedure interne - origine ethnique indiquee",
+      "texte": "Procedure interne - origine presumee du candidat",
       "type": "procedure"
     },
     {
-      "categorie": "vie_sexuelle",
+      "categorie": "opinion_syndicale",
+      "document_id": "D-000181",
+      "texte": "Bon de commande - reunion de section syndicale",
+      "type": "bon_de_commande"
+    },
+    {
+      "categorie": "opinion_politique",
       "document_id": "D-000182",
-      "texte": "Facture fournisseur - orientation sexuelle mentionnee",
+      "texte": "Facture fournisseur - opinion politique exprimee",
       "type": "facture"
     },
     {
       "categorie": "religion",
+      "document_id": "D-000183",
+      "texte": "Bon de livraison - pratique religieuse du salarie",
+      "type": "bon_livraison"
+    },
+    {
+      "categorie": "donnee_genetique",
       "document_id": "D-000184",
-      "texte": "Note de frais - demande liee au ramadan",
+      "texte": "Note de frais - analyse genetique demandee",
       "type": "note_de_frais"
     },
     {
-      "categorie": "religion",
+      "categorie": "origine_ethnie",
+      "document_id": "D-000185",
+      "texte": "Releve bancaire - appartenance ethnique",
+      "type": "releve_bancaire"
+    },
+    {
+      "categorie": "vie_sexuelle",
       "document_id": "D-000186",
-      "texte": "Devis client - absence pour le careme",
+      "texte": "Devis client - situation de vie sexuelle",
       "type": "devis"
+    },
+    {
+      "categorie": "sante",
+      "document_id": "D-000187",
+      "texte": "Avoir fournisseur - traitement medical en cours",
+      "type": "avoir"
     },
     {
       "categorie": "donnee_genetique",
       "document_id": "D-000188",
-      "texte": "Releve de temperature - test genetique realise",
+      "texte": "Releve de temperature - analyse genetique demandee",
       "type": "releve_temperature"
     },
     {
-      "categorie": "opinion_politique",
+      "categorie": "religion",
+      "document_id": "D-000189",
+      "texte": "Contrat cadre - absence pour le careme",
+      "type": "contrat"
+    },
+    {
+      "categorie": "religion",
       "document_id": "D-000190",
-      "texte": "Procedure interne - engagement politique du salarie",
+      "texte": "Procedure interne - demande d'absence pour fete religieuse",
       "type": "procedure"
+    },
+    {
+      "categorie": "donnee_genetique",
+      "document_id": "D-000191",
+      "texte": "Bon de commande - analyse genetique demandee",
+      "type": "bon_de_commande"
     },
     {
       "categorie": "vie_sexuelle",
@@ -577,27 +553,51 @@
       "type": "facture"
     },
     {
+      "categorie": "origine_ethnie",
+      "document_id": "D-000193",
+      "texte": "Bon de livraison - origine presumee du candidat",
+      "type": "bon_livraison"
+    },
+    {
       "categorie": "opinion_politique",
       "document_id": "D-000194",
-      "texte": "Note de frais - militant d'un parti politique",
+      "texte": "Note de frais - engagement politique du salarie",
       "type": "note_de_frais"
     },
     {
-      "categorie": "donnee_genetique",
+      "categorie": "opinion_politique",
+      "document_id": "D-000195",
+      "texte": "Releve bancaire - campagne electorale interne",
+      "type": "releve_bancaire"
+    },
+    {
+      "categorie": "origine_ethnie",
       "document_id": "D-000196",
-      "texte": "Devis client - test genetique realise",
+      "texte": "Devis client - appartenance ethnique",
       "type": "devis"
     },
     {
-      "categorie": "donnee_genetique",
+      "categorie": "religion",
+      "document_id": "D-000197",
+      "texte": "Avoir fournisseur - demande liee au ramadan",
+      "type": "avoir"
+    },
+    {
+      "categorie": "opinion_syndicale",
       "document_id": "D-000198",
-      "texte": "Releve de temperature - predisposition genetique",
+      "texte": "Releve de temperature - permanence syndicale du jeudi",
       "type": "releve_temperature"
     },
     {
-      "categorie": "donnee_genetique",
+      "categorie": "religion",
+      "document_id": "D-000199",
+      "texte": "Contrat cadre - pratique religieuse du salarie",
+      "type": "contrat"
+    },
+    {
+      "categorie": "opinion_syndicale",
       "document_id": "D-000200",
-      "texte": "Procedure interne - analyse genetique demandee",
+      "texte": "Procedure interne - mandat de delegue syndical",
       "type": "procedure"
     }
   ],

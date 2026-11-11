@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "5249.07",
-    "numero": "65385",
-    "texte_libre": "Bon de commande - piece comptable standard, aucune donnee sensible",
-    "tiers": "DEMO-FR-08"
+    "montant_ht": "1390.69",
+    "numero": "85474",
+    "texte_libre": "Bon de commande - engagement politique du salarie",
+    "tiers": "DEMO-FR-15"
   },
-  "confiance": 0.93,
+  "confiance": 0.83,
   "document_id": "D-000151",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-046",
-          35,
-          "12.06"
+          "R-035",
+          38,
+          "310.21"
         ]
       ],
       "nom": "lignes"

@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "1232.89",
-    "numero": "62603",
-    "texte_libre": "Facture fournisseur - appartenance ethnique",
-    "tiers": "DEMO-FR-11"
+    "montant_ht": "7367.29",
+    "numero": "27441",
+    "texte_libre": "Facture fournisseur - origine presumee du candidat",
+    "tiers": "DEMO-FR-03"
   },
-  "confiance": 0.88,
+  "confiance": 0.87,
   "document_id": "D-000122",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-039",
-          18,
-          "309.99"
+          "R-046",
+          27,
+          "85.27"
         ]
       ],
       "nom": "lignes"

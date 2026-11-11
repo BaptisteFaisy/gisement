@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "2910.75",
-    "numero": "98829",
+    "montant_ht": "6768.43",
+    "numero": "33477",
     "texte_libre": "Releve bancaire - piece comptable standard, aucune donnee sensible",
-    "tiers": "DEMO-FR-07"
+    "tiers": "DEMO-FR-02"
   },
-  "confiance": 0.86,
+  "confiance": 0.85,
   "document_id": "D-000025",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-011",
-          31,
-          "253.90"
+          "R-019",
+          7,
+          "331.67"
         ]
       ],
       "nom": "lignes"

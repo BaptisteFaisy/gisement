@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "6193.74",
-    "numero": "76193",
-    "texte_libre": "Facture fournisseur - orientation sexuelle mentionnee",
-    "tiers": "DEMO-FR-09"
+    "montant_ht": "2870.82",
+    "numero": "78957",
+    "texte_libre": "Facture fournisseur - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-06"
   },
-  "confiance": 0.97,
+  "confiance": 0.82,
   "document_id": "D-000092",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-035",
-          3,
-          "791.59"
+          "R-022",
+          28,
+          "854.94"
         ]
       ],
       "nom": "lignes"

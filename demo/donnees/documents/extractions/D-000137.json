@@ -1,10 +1,10 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "7780.30",
-    "numero": "62597",
-    "texte_libre": "Avoir fournisseur - piece comptable standard, aucune donnee sensible",
-    "tiers": "DEMO-FR-03"
+    "montant_ht": "7378.77",
+    "numero": "29316",
+    "texte_libre": "Avoir fournisseur - permanence syndicale du jeudi",
+    "tiers": "DEMO-FR-18"
   },
   "confiance": 0.88,
   "document_id": "D-000137",
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-043",
-          1,
-          "104.18"
+          "R-002",
+          29,
+          "846.34"
         ]
       ],
       "nom": "lignes"

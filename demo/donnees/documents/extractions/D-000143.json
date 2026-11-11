@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "7018.98",
-    "numero": "58135",
-    "texte_libre": "Bon de livraison - piece comptable standard, aucune donnee sensible",
-    "tiers": "DEMO-FR-16"
+    "montant_ht": "6701.65",
+    "numero": "35255",
+    "texte_libre": "Bon de livraison - predisposition genetique",
+    "tiers": "DEMO-FR-03"
   },
-  "confiance": 0.9,
+  "confiance": 0.99,
   "document_id": "D-000143",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-053",
-          13,
-          "378.62"
+          "R-009",
+          4,
+          "879.57"
         ]
       ],
       "nom": "lignes"

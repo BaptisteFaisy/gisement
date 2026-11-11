@@ -15,12 +15,15 @@ def test_les_appels_se_transcrivent_en_activites(corpus: Path) -> None:
 def test_les_appels_sont_mesures_et_consentis(corpus: Path, parametres) -> None:
     activites, rapport = appels.collecter(appels.source_fichiers(corpus), parametres)
     assert len(activites) == 600
-    assert rapport["nb_appels"] == 7
+    assert rapport["nb_appels"] == 34
     assert rapport["exclus_sans_consentement"] == 0
     assert rapport["minutes_transcrites"] == 360.0
     assert rapport["piis_occultees"] > 0
     assert all(a.canal == Canal.APPELS for a in activites)
-    assert all(a.duree_statut == StatutDuree.MESUREE for a in activites)
+    # a transcript segment is a fragment of a conversation, not the duration of
+    # the task it mentions: the unit duration stays inferred (9.3)
+    assert all(a.duree_statut == StatutDuree.INFERREE for a in activites)
+    assert all(a.duree_mesuree_minutes is None for a in activites)
 
 
 def test_les_locuteurs_ne_sont_jamais_des_noms(corpus: Path, parametres) -> None:

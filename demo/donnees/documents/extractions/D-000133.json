@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "9356.59",
-    "numero": "98510",
-    "texte_libre": "Bon de livraison - piece comptable standard, aucune donnee sensible",
-    "tiers": "DEMO-FR-04"
+    "montant_ht": "9138.69",
+    "numero": "72955",
+    "texte_libre": "Bon de livraison - demande d'amenagement pour raison de sante",
+    "tiers": "DEMO-FR-11"
   },
-  "confiance": 0.95,
+  "confiance": 0.94,
   "document_id": "D-000133",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-012",
-          33,
-          "509.51"
+          "R-026",
+          25,
+          "332.45"
         ]
       ],
       "nom": "lignes"

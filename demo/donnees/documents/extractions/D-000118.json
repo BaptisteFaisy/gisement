@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "7551.46",
-    "numero": "18049",
-    "texte_libre": "Releve de temperature - situation de vie sexuelle",
-    "tiers": "DEMO-FR-06"
+    "montant_ht": "8475.29",
+    "numero": "35676",
+    "texte_libre": "Releve de temperature - suivi medical en cours",
+    "tiers": "DEMO-FR-12"
   },
-  "confiance": 0.84,
+  "confiance": 0.85,
   "document_id": "D-000118",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-037",
-          18,
-          "755.09"
+          "R-056",
+          28,
+          "205.74"
         ]
       ],
       "nom": "lignes"

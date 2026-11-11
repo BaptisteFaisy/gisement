@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "1671.18",
-    "numero": "59449",
-    "texte_libre": "Avoir fournisseur - piece comptable standard, aucune donnee sensible",
-    "tiers": "DEMO-FR-11"
+    "montant_ht": "3252.09",
+    "numero": "90672",
+    "texte_libre": "Avoir fournisseur - mandat de delegue syndical",
+    "tiers": "DEMO-FR-05"
   },
-  "confiance": 0.87,
+  "confiance": 0.95,
   "document_id": "D-000167",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-050",
-          20,
-          "496.13"
+          "R-056",
+          32,
+          "506.60"
         ]
       ],
       "nom": "lignes"

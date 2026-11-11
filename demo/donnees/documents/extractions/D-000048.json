@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "5897.65",
-    "numero": "86023",
-    "texte_libre": "Releve de temperature - origine ethnique indiquee",
-    "tiers": "DEMO-FR-01"
+    "montant_ht": "6845.49",
+    "numero": "39222",
+    "texte_libre": "Releve de temperature - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-13"
   },
-  "confiance": 0.98,
+  "confiance": 0.87,
   "document_id": "D-000048",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-045",
-          1,
-          "890.48"
+          "R-030",
+          31,
+          "856.52"
         ]
       ],
       "nom": "lignes"

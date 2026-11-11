@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "1724.27",
-    "numero": "43334",
-    "texte_libre": "Note de frais - suite a mon arret de travail",
-    "tiers": "DEMO-FR-01"
+    "montant_ht": "1487.54",
+    "numero": "63668",
+    "texte_libre": "Note de frais - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-09"
   },
-  "confiance": 0.99,
+  "confiance": 0.93,
   "document_id": "D-000024",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-028",
-          29,
-          "663.49"
+          "R-057",
+          4,
+          "388.10"
         ]
       ],
       "nom": "lignes"

@@ -148,9 +148,9 @@
       ]
     },
     "modele_texte": "Recopier les donnees d'une application vers l'autre",
-    "duree_unitaire_typique_minutes": "6",
+    "duree_unitaire_typique_minutes": "5",
     "duree_statut_defaut": "inferree",
-    "repartition_defaut": "semi_regroupee",
+    "repartition_defaut": "regroupee",
     "taux_revue_defaut": "0.20",
     "duree_revue_minutes": "1.5",
     "part_atypique_defaut": "0.15",

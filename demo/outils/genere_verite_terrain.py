@@ -130,20 +130,22 @@ P = [
       ecart="1.2", nb_cas=0, repartition="interruptive", atyp="0.06", nb_atyp=1200, transfert="leger",
       jours="4", abo="0", type_arbre="A", vague="vague_2", risque="faible", procedure="PROC-11", ecart_proc=True,
       visibilite=False, canaux=["courriels","tickets","appels"], faits=dict(etape_supprimable_amont=True),
-      part_volume="0.60", suppression=True),
+      part_volume="0.60", suppression=True,
+      faits_over=dict(interface_stable=True)),
  dict(id="P-14", nom="Saisie des notes de frais", nom_en="Keying expense claims",
       service="comptabilite", motifs=["RESS-06"], serie=[165,172,180,185,192,175], duree="4", statut="mesuree",
       ecart="1.0", nb_cas=1060, repartition="diffuse", atyp="0.10", nb_atyp=1060, transfert="aucun",
       jours="0", abo="0", maintenance="0", type_arbre="A", vague="vague_1", risque="faible", procedure="PROC-12",
       ecart_proc=True, visibilite=True, canaux=["documents","tickets"], faits=dict(etape_supprimable_amont=True),
-      part_volume="0.73", suppression=True),
+      part_volume="0.73", suppression=True,
+      faits_over=dict(interface_stable=True)),
  dict(id="P-15", nom="Recherche de precedents et de procedures applicables", nom_en="Searching precedents and applicable procedures",
       service="support", motifs=["RECH-02","RECH-03"], serie=[55,58,60,62,65,59], duree="15", statut="inferree",
       ecart="5", nb_cas=0, repartition="diffuse", atyp="0.30", nb_atyp=200, transfert="leger",
       jours="20", abo="350", type_arbre="D", vague="vague_3", risque="moyen", procedure="PROC-13", ecart_proc=False,
       visibilite=False, canaux=["tickets","appels","documents"], faits=dict(jugement_requis=True)),
  dict(id="P-16", nom="Traitement du reassort de fin d annee", nom_en="Handling the year-end replenishment",
-      service="approvisionnements", motifs=["RESS-01","VERI-06"], serie=[35,38,40,42,310,45], duree="10", statut="mesuree",
+      service="approvisionnements", motifs=["RAPPR-03","RESS-01"], serie=[35,38,40,42,310,45], duree="10", statut="mesuree",
       ecart="2.2", nb_cas=480, repartition="semi_regroupee", atyp="0.14", nb_atyp=480, transfert="standard",
       jours="9", abo="100", type_arbre="B", vague="vague_2", risque="moyen", piege="pic_saisonnier",
       procedure="PROC-04", ecart_proc=False, visibilite=True, canaux=["courriels","journaux"],
@@ -155,7 +157,7 @@ P = [
       visibilite=True, canaux=["tickets","journaux"],
       faits=dict(api_ou_flux_natif=True, travail_deterministe=True, interface_stable=True)),
  dict(id="P-18", nom="Validation des remises exceptionnelles", nom_en="Approving exceptional discounts",
-      service="adv", motifs=["VERI-05","VERI-06"], serie=[22,24,25,26,28,23], duree="12", statut="mesuree",
+      service="adv", motifs=["VERI-06","VERI-05"], serie=[22,24,25,26,28,23], duree="12", statut="mesuree",
       ecart="3", nb_cas=290, repartition="diffuse", atyp="0.45", nb_atyp=290, transfert="aucun",
       jours="12", abo="0", type_arbre="D", vague="aucune", risque="eleve", procedure="PROC-14", ecart_proc=False,
       visibilite=False, canaux=["courriels","tickets"],
@@ -173,7 +175,7 @@ P = [
       visibilite=False, canaux=["documents"],
       faits=dict(travail_deterministe=True, interface_stable=False, dependance_externe_non_contractuelle=True)),
  dict(id="P-21", nom="Analyse des appels entrants du support", nom_en="Analysing inbound support calls",
-      service="support", motifs=["COORD-04","RECH-01"], serie=[225,232,240,248,255,235], duree="12", statut="mesuree",
+      service="support", motifs=["RECH-01","COORD-04"], serie=[225,232,240,248,255,235], duree="12", statut="mesuree",
       ecart="3.5", nb_cas=1430, repartition="semi_regroupee", atyp="0.20", nb_atyp=1430, transfert="standard",
       jours="25", abo="400", type_arbre="D", vague="vague_3", risque="eleve", procedure="PROC-17", ecart_proc=False,
       visibilite=True, canaux=["appels","tickets"], faits=dict(jugement_requis=True)),
@@ -298,6 +300,7 @@ def type_final(p, decons):
 sortie = []
 for brut in P:
     p = {**DEFAUT, **brut, **OVERRIDES.get(brut["id"], {})}
+    p["faits"] = {**p["faits"], **p.pop("faits_over", {})}
     calc = calculer(p)
     decons = deconseil(p, calc)
     arbre, final = type_final(p, decons)

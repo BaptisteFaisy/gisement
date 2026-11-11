@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "5136.68",
-    "numero": "82793",
-    "texte_libre": "Procedure interne - orientation sexuelle mentionnee",
-    "tiers": "DEMO-FR-06"
+    "montant_ht": "3505.23",
+    "numero": "32806",
+    "texte_libre": "Procedure interne - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-02"
   },
-  "confiance": 0.97,
+  "confiance": 0.93,
   "document_id": "D-000030",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-040",
-          37,
-          "348.89"
+          "R-008",
+          7,
+          "702.88"
         ]
       ],
       "nom": "lignes"

@@ -240,8 +240,15 @@ def _activite(
         groupe_pseudonyme=str(record.get("groupe_pseudonyme", "")),
         service=str(record.get("service", "")),
         systemes=systemes_de(record),
-        atypique=bool(record.get("atypique", False)),
+        atypique=_atypique(record.get("atypique")),
     )
+
+
+def _atypique(valeur: Any) -> bool:
+    """A CSV carries "True"/"False", a JSONL carries a real boolean."""
+    if isinstance(valeur, str):
+        return valeur.strip().lower() in {"true", "1", "oui", "yes"}
+    return bool(valeur)
 
 
 def heures_mesurees(activites: tuple[Activite, ...] | list[Activite]) -> Decimal:

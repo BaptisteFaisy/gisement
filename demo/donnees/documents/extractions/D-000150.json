@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "8792.33",
-    "numero": "50843",
-    "texte_libre": "Procedure interne - identite de genre indiquee",
-    "tiers": "DEMO-FR-09"
+    "montant_ht": "2565.48",
+    "numero": "13620",
+    "texte_libre": "Procedure interne - suivi medical en cours",
+    "tiers": "DEMO-FR-11"
   },
-  "confiance": 0.87,
+  "confiance": 0.89,
   "document_id": "D-000150",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-033",
-          34,
-          "359.79"
+          "R-012",
+          40,
+          "352.95"
         ]
       ],
       "nom": "lignes"

@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "5463.68",
-    "numero": "25132",
-    "texte_libre": "Contrat cadre - piece comptable standard, aucune donnee sensible",
+    "montant_ht": "1622.55",
+    "numero": "75116",
+    "texte_libre": "Contrat cadre - situation de vie sexuelle",
     "tiers": "DEMO-FR-10"
   },
-  "confiance": 0.98,
+  "confiance": 0.96,
   "document_id": "D-000109",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-040",
-          12,
-          "662.76"
+          "R-025",
+          8,
+          "772.95"
         ]
       ],
       "nom": "lignes"

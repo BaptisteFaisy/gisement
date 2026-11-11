@@ -3,18 +3,18 @@
     {
       "canal": "tickets",
       "id": "T-000606",
-      "motif_attendu": "VERI-03",
-      "texte": "Verifier la coherence des montants"
+      "motif_attendu": "RESS-01",
+      "texte": "Recopier la commande fournisseur du courriel dans l'ERP"
     },
     {
       "canal": "journaux",
-      "id": "J-001609",
+      "id": "J-001559",
       "motif_attendu": "RAPPR-01",
       "texte": "Rapprocher la facture du bon de livraison"
     },
     {
       "canal": "journaux",
-      "id": "J-007771",
+      "id": "J-007721",
       "motif_attendu": "RELAN-01",
       "texte": "Relancer le devis sans reponse"
     },
@@ -26,13 +26,13 @@
     },
     {
       "canal": "journaux",
-      "id": "J-000362",
+      "id": "J-000312",
       "motif_attendu": "RESS-01",
       "texte": "Recopier la commande fournisseur du courriel dans l'ERP"
     },
     {
       "canal": "journaux",
-      "id": "J-010993",
+      "id": "J-010943",
       "motif_attendu": "RESS-04",
       "texte": "Recopier les donnees d'une application vers l'autre"
     },
@@ -62,27 +62,27 @@
     },
     {
       "canal": "journaux",
-      "id": "J-011340",
-      "motif_attendu": "COORD-04",
-      "texte": "Rediger le compte rendu de reunion"
+      "id": "J-011290",
+      "motif_attendu": "RECH-01",
+      "texte": "Rechercher la reference produit"
     },
     {
       "canal": "journaux",
-      "id": "J-003455",
+      "id": "J-003405",
       "motif_attendu": "CLASS-03",
       "texte": "Classer et indexer le document"
     },
     {
       "canal": "courriels",
       "id": "M-000955",
-      "motif_attendu": "VERI-03",
-      "texte": "Verifier la coherence des montants"
+      "motif_attendu": "RESS-01",
+      "texte": "Recopier la commande fournisseur du courriel dans l'ERP"
     },
     {
       "canal": "journaux",
-      "id": "J-011974",
-      "motif_attendu": "COORD-04",
-      "texte": "Rediger le compte rendu de reunion"
+      "id": "J-011924",
+      "motif_attendu": "RECH-01",
+      "texte": "Rechercher la reference produit"
     },
     {
       "canal": "tickets",
@@ -92,21 +92,21 @@
     },
     {
       "canal": "journaux",
-      "id": "J-006000",
+      "id": "J-005950",
       "motif_attendu": "RESS-01",
       "texte": "Recopier la commande fournisseur du courriel dans l'ERP"
     },
     {
       "canal": "courriels",
       "id": "M-001826",
-      "motif_attendu": "COORD-04",
-      "texte": "Rediger le compte rendu de reunion"
+      "motif_attendu": "RECH-01",
+      "texte": "Rechercher la reference produit"
     },
     {
       "canal": "tickets",
       "id": "T-000672",
-      "motif_attendu": "VERI-03",
-      "texte": "Verifier la coherence des montants"
+      "motif_attendu": "RESS-01",
+      "texte": "Recopier la commande fournisseur du courriel dans l'ERP"
     },
     {
       "canal": "courriels",
@@ -122,7 +122,7 @@
     },
     {
       "canal": "journaux",
-      "id": "J-000424",
+      "id": "J-000374",
       "motif_attendu": "RESS-01",
       "texte": "Recopier la commande fournisseur du courriel dans l'ERP"
     },
@@ -134,15 +134,15 @@
     },
     {
       "canal": "journaux",
-      "id": "J-005001",
+      "id": "J-004951",
       "motif_attendu": "CLASS-03",
       "texte": "Classer et indexer le document"
     },
     {
       "canal": "courriels",
       "id": "M-001605",
-      "motif_attendu": "VERI-05",
-      "texte": "Verifier l'application de la grille tarifaire"
+      "motif_attendu": "VERI-06",
+      "texte": "Verifier le respect du seuil"
     },
     {
       "canal": "courriels",
@@ -152,45 +152,45 @@
     },
     {
       "canal": "journaux",
-      "id": "J-001758",
+      "id": "J-001708",
       "motif_attendu": "RAPPR-01",
       "texte": "Rapprocher la facture du bon de livraison"
     },
     {
       "canal": "courriels",
       "id": "M-000659",
-      "motif_attendu": "VERI-03",
-      "texte": "Verifier la coherence des montants"
-    },
-    {
-      "canal": "journaux",
-      "id": "J-009796",
-      "motif_attendu": "COORD-03",
-      "texte": "Affecter la demande a l'equipe"
-    },
-    {
-      "canal": "journaux",
-      "id": "J-004009",
-      "motif_attendu": "CLASS-03",
-      "texte": "Classer et indexer le document"
-    },
-    {
-      "canal": "journaux",
-      "id": "J-005819",
       "motif_attendu": "RESS-01",
       "texte": "Recopier la commande fournisseur du courriel dans l'ERP"
     },
     {
       "canal": "journaux",
-      "id": "J-011129",
+      "id": "J-009746",
+      "motif_attendu": "COORD-03",
+      "texte": "Affecter la demande a l'equipe"
+    },
+    {
+      "canal": "journaux",
+      "id": "J-003959",
+      "motif_attendu": "CLASS-03",
+      "texte": "Classer et indexer le document"
+    },
+    {
+      "canal": "journaux",
+      "id": "J-005769",
+      "motif_attendu": "CLASS-03",
+      "texte": "Classer et indexer le document"
+    },
+    {
+      "canal": "journaux",
+      "id": "J-011079",
       "motif_attendu": "RECH-01",
       "texte": "Rechercher la reference produit"
     },
     {
       "canal": "journaux",
-      "id": "J-008478",
-      "motif_attendu": "VERI-06",
-      "texte": "Verifier le respect du seuil"
+      "id": "J-008428",
+      "motif_attendu": "RAPPR-03",
+      "texte": "Rapprocher la commande de la reception"
     },
     {
       "canal": "tickets",
@@ -200,25 +200,25 @@
     },
     {
       "canal": "journaux",
-      "id": "J-002222",
+      "id": "J-002172",
       "motif_attendu": "RAPPR-01",
       "texte": "Rapprocher la facture du bon de livraison"
     },
     {
       "canal": "journaux",
-      "id": "J-000564",
+      "id": "J-000514",
       "motif_attendu": "RESS-01",
       "texte": "Recopier la commande fournisseur du courriel dans l'ERP"
     },
     {
       "canal": "courriels",
       "id": "M-001796",
-      "motif_attendu": "COORD-04",
-      "texte": "Rediger le compte rendu de reunion"
+      "motif_attendu": "RECH-01",
+      "texte": "Rechercher la reference produit"
     },
     {
       "canal": "journaux",
-      "id": "J-011415",
+      "id": "J-011365",
       "motif_attendu": "RECH-01",
       "texte": "Rechercher la reference produit"
     },
@@ -229,26 +229,26 @@
       "texte": "Planifier le rendez-vous du technicien"
     },
     {
-      "canal": "documents",
-      "id": "D-000042",
-      "motif_attendu": "RESS-06",
-      "texte": "Saisir le formulaire de note de frais dans le systeme"
+      "canal": "journaux",
+      "id": "J-012308",
+      "motif_attendu": "COORD-04",
+      "texte": "Rediger le compte rendu de reunion"
     },
     {
       "canal": "journaux",
-      "id": "J-008456",
-      "motif_attendu": "RESS-01",
-      "texte": "Recopier la commande fournisseur du courriel dans l'ERP"
+      "id": "J-008406",
+      "motif_attendu": "RAPPR-03",
+      "texte": "Rapprocher la commande de la reception"
     },
     {
       "canal": "journaux",
-      "id": "J-007121",
+      "id": "J-007071",
       "motif_attendu": "VERI-01",
       "texte": "Verifier la conformite du document"
     },
     {
       "canal": "journaux",
-      "id": "J-004202",
+      "id": "J-004152",
       "motif_attendu": "CLASS-03",
       "texte": "Classer et indexer le document"
     },
@@ -266,9 +266,9 @@
     },
     {
       "canal": "journaux",
-      "id": "J-011311",
-      "motif_attendu": "COORD-04",
-      "texte": "Rediger le compte rendu de reunion"
+      "id": "J-011261",
+      "motif_attendu": "RECH-01",
+      "texte": "Rechercher la reference produit"
     },
     {
       "canal": "tickets",
@@ -278,13 +278,13 @@
     },
     {
       "canal": "journaux",
-      "id": "J-007400",
+      "id": "J-007350",
       "motif_attendu": "VERI-01",
       "texte": "Verifier la conformite du document"
     },
     {
       "canal": "journaux",
-      "id": "J-007291",
+      "id": "J-007241",
       "motif_attendu": "VERI-01",
       "texte": "Verifier la conformite du document"
     },
@@ -296,13 +296,13 @@
     },
     {
       "canal": "journaux",
-      "id": "J-003488",
+      "id": "J-003438",
       "motif_attendu": "CLASS-03",
       "texte": "Classer et indexer le document"
     },
     {
       "canal": "journaux",
-      "id": "J-010577",
+      "id": "J-010527",
       "motif_attendu": "COORD-03",
       "texte": "Affecter la demande a l'equipe"
     },
@@ -320,9 +320,9 @@
     },
     {
       "canal": "journaux",
-      "id": "J-001991",
-      "motif_attendu": "VERI-03",
-      "texte": "Verifier la coherence des montants"
+      "id": "J-001941",
+      "motif_attendu": "RAPPR-01",
+      "texte": "Rapprocher la facture du bon de livraison"
     },
     {
       "canal": "tickets",
@@ -332,49 +332,49 @@
     },
     {
       "canal": "journaux",
-      "id": "J-003556",
+      "id": "J-003506",
       "motif_attendu": "CLASS-03",
       "texte": "Classer et indexer le document"
     },
     {
       "canal": "journaux",
-      "id": "J-002011",
+      "id": "J-001961",
       "motif_attendu": "RAPPR-01",
       "texte": "Rapprocher la facture du bon de livraison"
     },
     {
       "canal": "journaux",
-      "id": "J-004510",
-      "motif_attendu": "CLASS-01",
-      "texte": "Classer et renommer le fichier"
+      "id": "J-004460",
+      "motif_attendu": "CLASS-03",
+      "texte": "Classer et indexer le document"
     },
     {
       "canal": "journaux",
-      "id": "J-005904",
+      "id": "J-005854",
       "motif_attendu": "RESS-01",
       "texte": "Recopier la commande fournisseur du courriel dans l'ERP"
     },
     {
       "canal": "journaux",
-      "id": "J-003274",
+      "id": "J-003224",
       "motif_attendu": "RAPPR-02",
       "texte": "Rapprocher le releve bancaire de la facture"
     },
     {
       "canal": "journaux",
-      "id": "J-006991",
+      "id": "J-006941",
       "motif_attendu": "VERI-01",
       "texte": "Verifier la conformite du document"
     },
     {
       "canal": "journaux",
-      "id": "J-000331",
-      "motif_attendu": "VERI-03",
-      "texte": "Verifier la coherence des montants"
+      "id": "J-000281",
+      "motif_attendu": "RESS-01",
+      "texte": "Recopier la commande fournisseur du courriel dans l'ERP"
     },
     {
       "canal": "journaux",
-      "id": "J-009915",
+      "id": "J-009865",
       "motif_attendu": "COORD-03",
       "texte": "Affecter la demande a l'equipe"
     },
@@ -386,27 +386,27 @@
     },
     {
       "canal": "journaux",
-      "id": "J-011435",
-      "motif_attendu": "COORD-04",
-      "texte": "Rediger le compte rendu de reunion"
+      "id": "J-011385",
+      "motif_attendu": "RECH-01",
+      "texte": "Rechercher la reference produit"
     },
     {
       "canal": "journaux",
-      "id": "J-004829",
+      "id": "J-004779",
       "motif_attendu": "CLASS-03",
       "texte": "Classer et indexer le document"
     },
     {
       "canal": "journaux",
-      "id": "J-002262",
+      "id": "J-002212",
       "motif_attendu": "RAPPR-01",
       "texte": "Rapprocher la facture du bon de livraison"
     },
     {
       "canal": "tickets",
       "id": "T-000571",
-      "motif_attendu": "VERI-03",
-      "texte": "Verifier la coherence des montants"
+      "motif_attendu": "RESS-01",
+      "texte": "Recopier la commande fournisseur du courriel dans l'ERP"
     },
     {
       "canal": "courriels",
@@ -422,19 +422,19 @@
     },
     {
       "canal": "journaux",
-      "id": "J-002658",
-      "motif_attendu": "VERI-03",
-      "texte": "Verifier la coherence des montants"
+      "id": "J-002608",
+      "motif_attendu": "RAPPR-01",
+      "texte": "Rapprocher la facture du bon de livraison"
     },
     {
       "canal": "journaux",
-      "id": "J-010349",
+      "id": "J-010299",
       "motif_attendu": "COORD-03",
       "texte": "Affecter la demande a l'equipe"
     },
     {
       "canal": "journaux",
-      "id": "J-011314",
+      "id": "J-011264",
       "motif_attendu": "RECH-01",
       "texte": "Rechercher la reference produit"
     },
@@ -452,43 +452,43 @@
     },
     {
       "canal": "journaux",
-      "id": "J-009523",
+      "id": "J-009473",
       "motif_attendu": "COORD-03",
       "texte": "Affecter la demande a l'equipe"
     },
     {
       "canal": "journaux",
-      "id": "J-009440",
+      "id": "J-009390",
       "motif_attendu": "COORD-03",
       "texte": "Affecter la demande a l'equipe"
     },
     {
       "canal": "journaux",
-      "id": "J-010003",
+      "id": "J-009953",
       "motif_attendu": "COORD-03",
       "texte": "Affecter la demande a l'equipe"
     },
     {
       "canal": "journaux",
-      "id": "J-002257",
+      "id": "J-002207",
       "motif_attendu": "RAPPR-01",
       "texte": "Rapprocher la facture du bon de livraison"
     },
     {
       "canal": "journaux",
-      "id": "J-000727",
+      "id": "J-000677",
       "motif_attendu": "RESS-01",
       "texte": "Recopier la commande fournisseur du courriel dans l'ERP"
     },
     {
       "canal": "journaux",
-      "id": "J-009220",
+      "id": "J-009170",
       "motif_attendu": "COORD-03",
       "texte": "Affecter la demande a l'equipe"
     },
     {
       "canal": "journaux",
-      "id": "J-000757",
+      "id": "J-000707",
       "motif_attendu": "RESS-01",
       "texte": "Recopier la commande fournisseur du courriel dans l'ERP"
     },
@@ -512,49 +512,49 @@
     },
     {
       "canal": "journaux",
-      "id": "J-009517",
+      "id": "J-009467",
       "motif_attendu": "COORD-03",
       "texte": "Affecter la demande a l'equipe"
     },
     {
       "canal": "journaux",
-      "id": "J-007562",
-      "motif_attendu": "VERI-06",
-      "texte": "Verifier le respect du seuil"
-    },
-    {
-      "canal": "journaux",
-      "id": "J-008788",
-      "motif_attendu": "COORD-03",
-      "texte": "Affecter la demande a l'equipe"
-    },
-    {
-      "canal": "journaux",
-      "id": "J-006393",
-      "motif_attendu": "RELAN-02",
-      "texte": "Relancer la facture echue"
-    },
-    {
-      "canal": "journaux",
-      "id": "J-007205",
+      "id": "J-007512",
       "motif_attendu": "VERI-01",
       "texte": "Verifier la conformite du document"
     },
     {
       "canal": "journaux",
-      "id": "J-002169",
+      "id": "J-008738",
+      "motif_attendu": "COORD-03",
+      "texte": "Affecter la demande a l'equipe"
+    },
+    {
+      "canal": "journaux",
+      "id": "J-006343",
+      "motif_attendu": "RELAN-02",
+      "texte": "Relancer la facture echue"
+    },
+    {
+      "canal": "journaux",
+      "id": "J-007155",
+      "motif_attendu": "VERI-01",
+      "texte": "Verifier la conformite du document"
+    },
+    {
+      "canal": "journaux",
+      "id": "J-002119",
       "motif_attendu": "RAPPR-01",
       "texte": "Rapprocher la facture du bon de livraison"
     },
     {
       "canal": "journaux",
-      "id": "J-003895",
+      "id": "J-003845",
       "motif_attendu": "CLASS-03",
       "texte": "Classer et indexer le document"
     },
     {
       "canal": "journaux",
-      "id": "J-002133",
+      "id": "J-002083",
       "motif_attendu": "RAPPR-01",
       "texte": "Rapprocher la facture du bon de livraison"
     },
@@ -584,7 +584,7 @@
     },
     {
       "canal": "journaux",
-      "id": "J-003198",
+      "id": "J-003148",
       "motif_attendu": "RAPPR-02",
       "texte": "Rapprocher le releve bancaire de la facture"
     },
@@ -596,19 +596,19 @@
     },
     {
       "canal": "journaux",
-      "id": "J-001611",
+      "id": "J-001561",
       "motif_attendu": "RAPPR-01",
       "texte": "Rapprocher la facture du bon de livraison"
     },
     {
       "canal": "journaux",
-      "id": "J-008164",
+      "id": "J-008114",
       "motif_attendu": "RELAN-01",
       "texte": "Relancer le devis sans reponse"
     },
     {
       "canal": "journaux",
-      "id": "J-010078",
+      "id": "J-010028",
       "motif_attendu": "COORD-03",
       "texte": "Affecter la demande a l'equipe"
     },
@@ -632,39 +632,39 @@
     },
     {
       "canal": "journaux",
-      "id": "J-006684",
+      "id": "J-006634",
       "motif_attendu": "RELAN-02",
       "texte": "Relancer la facture echue"
     },
     {
       "canal": "journaux",
-      "id": "J-007847",
+      "id": "J-007797",
       "motif_attendu": "RELAN-01",
       "texte": "Relancer le devis sans reponse"
     },
     {
       "canal": "journaux",
-      "id": "J-010394",
+      "id": "J-010344",
       "motif_attendu": "COORD-03",
       "texte": "Affecter la demande a l'equipe"
     },
     {
       "canal": "journaux",
-      "id": "J-005212",
+      "id": "J-005162",
       "motif_attendu": "CLASS-03",
       "texte": "Classer et indexer le document"
     },
     {
       "canal": "journaux",
-      "id": "J-008707",
-      "motif_attendu": "COORD-03",
-      "texte": "Affecter la demande a l'equipe"
+      "id": "J-008657",
+      "motif_attendu": "RAPPR-03",
+      "texte": "Rapprocher la commande de la reception"
     },
     {
       "canal": "journaux",
-      "id": "J-000997",
-      "motif_attendu": "VERI-03",
-      "texte": "Verifier la coherence des montants"
+      "id": "J-000947",
+      "motif_attendu": "RESS-01",
+      "texte": "Recopier la commande fournisseur du courriel dans l'ERP"
     },
     {
       "canal": "tickets",
@@ -674,9 +674,9 @@
     },
     {
       "canal": "journaux",
-      "id": "J-011320",
-      "motif_attendu": "COORD-04",
-      "texte": "Rediger le compte rendu de reunion"
+      "id": "J-011270",
+      "motif_attendu": "RECH-01",
+      "texte": "Rechercher la reference produit"
     },
     {
       "canal": "tickets",
@@ -704,7 +704,7 @@
     },
     {
       "canal": "journaux",
-      "id": "J-010536",
+      "id": "J-010486",
       "motif_attendu": "COORD-03",
       "texte": "Affecter la demande a l'equipe"
     },
@@ -722,27 +722,27 @@
     },
     {
       "canal": "journaux",
-      "id": "J-011472",
+      "id": "J-011422",
       "motif_attendu": "RECH-01",
       "texte": "Rechercher la reference produit"
     },
     {
       "canal": "journaux",
-      "id": "J-011449",
-      "motif_attendu": "COORD-04",
-      "texte": "Rediger le compte rendu de reunion"
+      "id": "J-011399",
+      "motif_attendu": "RECH-01",
+      "texte": "Rechercher la reference produit"
     },
     {
       "canal": "journaux",
-      "id": "J-006362",
+      "id": "J-006312",
       "motif_attendu": "RELAN-02",
       "texte": "Relancer la facture echue"
     },
     {
       "canal": "journaux",
-      "id": "J-008607",
-      "motif_attendu": "RESS-01",
-      "texte": "Recopier la commande fournisseur du courriel dans l'ERP"
+      "id": "J-008557",
+      "motif_attendu": "RAPPR-03",
+      "texte": "Rapprocher la commande de la reception"
     },
     {
       "canal": "courriels",
@@ -752,7 +752,7 @@
     },
     {
       "canal": "journaux",
-      "id": "J-002382",
+      "id": "J-002332",
       "motif_attendu": "RAPPR-01",
       "texte": "Rapprocher la facture du bon de livraison"
     },
@@ -764,7 +764,7 @@
     },
     {
       "canal": "journaux",
-      "id": "J-004579",
+      "id": "J-004529",
       "motif_attendu": "CLASS-03",
       "texte": "Classer et indexer le document"
     },
@@ -776,9 +776,9 @@
     },
     {
       "canal": "journaux",
-      "id": "J-011965",
-      "motif_attendu": "COORD-04",
-      "texte": "Rediger le compte rendu de reunion"
+      "id": "J-011915",
+      "motif_attendu": "RECH-01",
+      "texte": "Rechercher la reference produit"
     },
     {
       "canal": "tickets",
@@ -788,13 +788,13 @@
     },
     {
       "canal": "journaux",
-      "id": "J-002926",
+      "id": "J-002876",
       "motif_attendu": "RAPPR-02",
       "texte": "Rapprocher le releve bancaire de la facture"
     },
     {
       "canal": "journaux",
-      "id": "J-006092",
+      "id": "J-006042",
       "motif_attendu": "RESS-01",
       "texte": "Recopier la commande fournisseur du courriel dans l'ERP"
     },
@@ -818,21 +818,21 @@
     },
     {
       "canal": "journaux",
-      "id": "J-000744",
-      "motif_attendu": "VERI-03",
-      "texte": "Verifier la coherence des montants"
+      "id": "J-000694",
+      "motif_attendu": "RESS-01",
+      "texte": "Recopier la commande fournisseur du courriel dans l'ERP"
     },
     {
       "canal": "journaux",
-      "id": "J-005350",
+      "id": "J-005300",
       "motif_attendu": "CLASS-03",
       "texte": "Classer et indexer le document"
     },
     {
       "canal": "journaux",
-      "id": "J-010667",
-      "motif_attendu": "RESS-04",
-      "texte": "Recopier les donnees d'une application vers l'autre"
+      "id": "J-010617",
+      "motif_attendu": "COORD-03",
+      "texte": "Affecter la demande a l'equipe"
     },
     {
       "canal": "tickets",
@@ -842,7 +842,7 @@
     },
     {
       "canal": "journaux",
-      "id": "J-011210",
+      "id": "J-011160",
       "motif_attendu": "RECH-01",
       "texte": "Rechercher la reference produit"
     },
@@ -860,25 +860,25 @@
     },
     {
       "canal": "journaux",
-      "id": "J-009035",
+      "id": "J-008985",
       "motif_attendu": "COORD-03",
       "texte": "Affecter la demande a l'equipe"
     },
     {
       "canal": "journaux",
-      "id": "J-007307",
+      "id": "J-007257",
       "motif_attendu": "VERI-01",
       "texte": "Verifier la conformite du document"
     },
     {
       "canal": "journaux",
-      "id": "J-012046",
+      "id": "J-011996",
       "motif_attendu": "RECH-01",
       "texte": "Rechercher la reference produit"
     },
     {
       "canal": "journaux",
-      "id": "J-002644",
+      "id": "J-002594",
       "motif_attendu": "RAPPR-01",
       "texte": "Rapprocher la facture du bon de livraison"
     },
@@ -902,15 +902,15 @@
     },
     {
       "canal": "journaux",
-      "id": "J-003073",
+      "id": "J-003023",
       "motif_attendu": "RAPPR-02",
       "texte": "Rapprocher le releve bancaire de la facture"
     },
     {
       "canal": "courriels",
       "id": "M-001071",
-      "motif_attendu": "VERI-03",
-      "texte": "Verifier la coherence des montants"
+      "motif_attendu": "RESS-01",
+      "texte": "Recopier la commande fournisseur du courriel dans l'ERP"
     },
     {
       "canal": "tickets",
@@ -920,13 +920,13 @@
     },
     {
       "canal": "journaux",
-      "id": "J-011852",
-      "motif_attendu": "COORD-04",
-      "texte": "Rediger le compte rendu de reunion"
+      "id": "J-011802",
+      "motif_attendu": "RECH-01",
+      "texte": "Rechercher la reference produit"
     },
     {
       "canal": "journaux",
-      "id": "J-006520",
+      "id": "J-006470",
       "motif_attendu": "RELAN-02",
       "texte": "Relancer la facture echue"
     },
@@ -944,7 +944,7 @@
     },
     {
       "canal": "journaux",
-      "id": "J-004770",
+      "id": "J-004720",
       "motif_attendu": "CLASS-03",
       "texte": "Classer et indexer le document"
     },
@@ -956,21 +956,21 @@
     },
     {
       "canal": "journaux",
-      "id": "J-004290",
+      "id": "J-004240",
       "motif_attendu": "CLASS-03",
       "texte": "Classer et indexer le document"
     },
     {
       "canal": "journaux",
-      "id": "J-008388",
-      "motif_attendu": "VERI-06",
-      "texte": "Verifier le respect du seuil"
+      "id": "J-008338",
+      "motif_attendu": "RAPPR-03",
+      "texte": "Rapprocher la commande de la reception"
     },
     {
       "canal": "journaux",
-      "id": "J-002450",
-      "motif_attendu": "VERI-03",
-      "texte": "Verifier la coherence des montants"
+      "id": "J-002400",
+      "motif_attendu": "RAPPR-01",
+      "texte": "Rapprocher la facture du bon de livraison"
     },
     {
       "canal": "tickets",
@@ -981,24 +981,24 @@
     {
       "canal": "courriels",
       "id": "M-001511",
-      "motif_attendu": "VERI-03",
-      "texte": "Verifier la coherence des montants"
+      "motif_attendu": "RESS-01",
+      "texte": "Recopier la commande fournisseur du courriel dans l'ERP"
     },
     {
       "canal": "journaux",
-      "id": "J-005412",
+      "id": "J-005362",
       "motif_attendu": "CLASS-03",
       "texte": "Classer et indexer le document"
     },
     {
       "canal": "journaux",
-      "id": "J-001585",
-      "motif_attendu": "VERI-03",
-      "texte": "Verifier la coherence des montants"
+      "id": "J-001535",
+      "motif_attendu": "RAPPR-01",
+      "texte": "Rapprocher la facture du bon de livraison"
     },
     {
       "canal": "journaux",
-      "id": "J-005888",
+      "id": "J-005838",
       "motif_attendu": "RESS-01",
       "texte": "Recopier la commande fournisseur du courriel dans l'ERP"
     },
@@ -1010,15 +1010,15 @@
     },
     {
       "canal": "journaux",
-      "id": "J-000920",
-      "motif_attendu": "VERI-03",
-      "texte": "Verifier la coherence des montants"
+      "id": "J-000870",
+      "motif_attendu": "RESS-01",
+      "texte": "Recopier la commande fournisseur du courriel dans l'ERP"
     },
     {
       "canal": "journaux",
-      "id": "J-002820",
-      "motif_attendu": "RAPPR-02",
-      "texte": "Rapprocher le releve bancaire de la facture"
+      "id": "J-002770",
+      "motif_attendu": "RAPPR-01",
+      "texte": "Rapprocher la facture du bon de livraison"
     },
     {
       "canal": "tickets",
@@ -1029,8 +1029,8 @@
     {
       "canal": "courriels",
       "id": "M-001620",
-      "motif_attendu": "VERI-05",
-      "texte": "Verifier l'application de la grille tarifaire"
+      "motif_attendu": "VERI-06",
+      "texte": "Verifier le respect du seuil"
     },
     {
       "canal": "tickets",
@@ -1040,13 +1040,13 @@
     },
     {
       "canal": "journaux",
-      "id": "J-009819",
+      "id": "J-009769",
       "motif_attendu": "COORD-03",
       "texte": "Affecter la demande a l'equipe"
     },
     {
       "canal": "journaux",
-      "id": "J-005687",
+      "id": "J-005637",
       "motif_attendu": "CLASS-03",
       "texte": "Classer et indexer le document"
     },
@@ -1070,19 +1070,19 @@
     },
     {
       "canal": "journaux",
-      "id": "J-008471",
-      "motif_attendu": "RESS-01",
-      "texte": "Recopier la commande fournisseur du courriel dans l'ERP"
+      "id": "J-008421",
+      "motif_attendu": "RAPPR-03",
+      "texte": "Rapprocher la commande de la reception"
     },
     {
       "canal": "journaux",
-      "id": "J-009149",
+      "id": "J-009099",
       "motif_attendu": "COORD-03",
       "texte": "Affecter la demande a l'equipe"
     },
     {
       "canal": "journaux",
-      "id": "J-001412",
+      "id": "J-001362",
       "motif_attendu": "RESS-01",
       "texte": "Recopier la commande fournisseur du courriel dans l'ERP"
     },
@@ -1094,7 +1094,7 @@
     },
     {
       "canal": "journaux",
-      "id": "J-002091",
+      "id": "J-002041",
       "motif_attendu": "RAPPR-01",
       "texte": "Rapprocher la facture du bon de livraison"
     },
@@ -1106,27 +1106,27 @@
     },
     {
       "canal": "journaux",
-      "id": "J-011628",
+      "id": "J-011578",
       "motif_attendu": "RECH-01",
       "texte": "Rechercher la reference produit"
     },
     {
       "canal": "journaux",
-      "id": "J-003894",
-      "motif_attendu": "CLASS-01",
-      "texte": "Classer et renommer le fichier"
+      "id": "J-003844",
+      "motif_attendu": "CLASS-03",
+      "texte": "Classer et indexer le document"
     },
     {
       "canal": "journaux",
-      "id": "J-009249",
+      "id": "J-009199",
       "motif_attendu": "COORD-03",
       "texte": "Affecter la demande a l'equipe"
     },
     {
       "canal": "journaux",
-      "id": "J-011754",
-      "motif_attendu": "COORD-04",
-      "texte": "Rediger le compte rendu de reunion"
+      "id": "J-011704",
+      "motif_attendu": "RECH-01",
+      "texte": "Rechercher la reference produit"
     },
     {
       "canal": "tickets",
@@ -1136,15 +1136,15 @@
     },
     {
       "canal": "journaux",
-      "id": "J-011522",
+      "id": "J-011472",
       "motif_attendu": "RECH-01",
       "texte": "Rechercher la reference produit"
     },
     {
       "canal": "journaux",
-      "id": "J-012280",
-      "motif_attendu": "COORD-04",
-      "texte": "Rediger le compte rendu de reunion"
+      "id": "J-012230",
+      "motif_attendu": "RECH-01",
+      "texte": "Rechercher la reference produit"
     },
     {
       "canal": "tickets",
@@ -1160,7 +1160,7 @@
     },
     {
       "canal": "journaux",
-      "id": "J-006787",
+      "id": "J-006737",
       "motif_attendu": "RELAN-02",
       "texte": "Relancer la facture echue"
     },
@@ -1172,13 +1172,13 @@
     },
     {
       "canal": "journaux",
-      "id": "J-006979",
+      "id": "J-006929",
       "motif_attendu": "VERI-01",
       "texte": "Verifier la conformite du document"
     },
     {
       "canal": "journaux",
-      "id": "J-003766",
+      "id": "J-003716",
       "motif_attendu": "CLASS-03",
       "texte": "Classer et indexer le document"
     },

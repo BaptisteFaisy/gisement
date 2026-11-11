@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "8192.59",
-    "numero": "93040",
-    "texte_libre": "Procedure interne - origine ethnique indiquee",
-    "tiers": "DEMO-FR-14"
+    "montant_ht": "3791.33",
+    "numero": "10849",
+    "texte_libre": "Procedure interne - origine presumee du candidat",
+    "tiers": "DEMO-FR-03"
   },
-  "confiance": 0.97,
+  "confiance": 0.89,
   "document_id": "D-000180",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-040",
-          22,
-          "798.29"
+          "R-052",
+          21,
+          "527.06"
         ]
       ],
       "nom": "lignes"

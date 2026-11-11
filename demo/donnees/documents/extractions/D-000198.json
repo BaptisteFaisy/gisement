@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "6960.88",
-    "numero": "63663",
-    "texte_libre": "Releve de temperature - predisposition genetique",
-    "tiers": "DEMO-FR-03"
+    "montant_ht": "3271.74",
+    "numero": "16124",
+    "texte_libre": "Releve de temperature - permanence syndicale du jeudi",
+    "tiers": "DEMO-FR-04"
   },
-  "confiance": 0.83,
+  "confiance": 0.94,
   "document_id": "D-000198",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-052",
-          29,
-          "596.17"
+          "R-017",
+          36,
+          "570.64"
         ]
       ],
       "nom": "lignes"

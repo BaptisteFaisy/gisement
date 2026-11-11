@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "1622.55",
-    "numero": "80631",
-    "texte_libre": "Procedure interne - situation de vie sexuelle",
-    "tiers": "DEMO-FR-10"
+    "montant_ht": "970.42",
+    "numero": "98656",
+    "texte_libre": "Procedure interne - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-08"
   },
-  "confiance": 0.87,
+  "confiance": 0.99,
   "document_id": "D-000050",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-025",
-          32,
-          "885.87"
+          "R-058",
+          25,
+          "356.97"
         ]
       ],
       "nom": "lignes"

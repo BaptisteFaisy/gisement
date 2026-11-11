@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "3383.32",
-    "numero": "81120",
-    "texte_libre": "Devis client - traitement medical en cours",
-    "tiers": "DEMO-FR-08"
+    "montant_ht": "3126.37",
+    "numero": "74218",
+    "texte_libre": "Devis client - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-12"
   },
-  "confiance": 0.92,
+  "confiance": 0.96,
   "document_id": "D-000036",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-040",
-          21,
-          "891.79"
+          "R-053",
+          22,
+          "544.82"
         ]
       ],
       "nom": "lignes"

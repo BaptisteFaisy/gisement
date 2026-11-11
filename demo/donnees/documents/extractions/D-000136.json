@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "1785.44",
-    "numero": "71350",
-    "texte_libre": "Devis client - identite de genre indiquee",
-    "tiers": "DEMO-FR-11"
+    "montant_ht": "8431.44",
+    "numero": "64842",
+    "texte_libre": "Devis client - adhesion syndicale renouvelee",
+    "tiers": "DEMO-FR-15"
   },
-  "confiance": 0.97,
+  "confiance": 0.92,
   "document_id": "D-000136",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-042",
-          31,
-          "253.06"
+          "R-012",
+          2,
+          "860.11"
         ]
       ],
       "nom": "lignes"

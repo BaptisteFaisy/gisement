@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "261.64",
-    "numero": "49685",
-    "texte_libre": "Releve de temperature - situation de vie sexuelle",
-    "tiers": "DEMO-FR-17"
+    "montant_ht": "7025.18",
+    "numero": "62375",
+    "texte_libre": "Releve de temperature - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-09"
   },
-  "confiance": 0.97,
+  "confiance": 0.92,
   "document_id": "D-000028",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-059",
-          32,
-          "295.13"
+          "R-014",
+          1,
+          "13.92"
         ]
       ],
       "nom": "lignes"

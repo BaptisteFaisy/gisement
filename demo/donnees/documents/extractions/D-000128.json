@@ -1,10 +1,10 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "1952.61",
-    "numero": "95476",
-    "texte_libre": "Releve de temperature - traitement medical en cours",
-    "tiers": "DEMO-FR-16"
+    "montant_ht": "7994.95",
+    "numero": "18860",
+    "texte_libre": "Releve de temperature - identite de genre indiquee",
+    "tiers": "DEMO-FR-11"
   },
   "confiance": 0.89,
   "document_id": "D-000128",
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-019",
-          25,
-          "224.24"
+          "R-015",
+          23,
+          "12.23"
         ]
       ],
       "nom": "lignes"

@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "2431.59",
-    "numero": "14963",
-    "texte_libre": "Devis client - absence pour le careme",
-    "tiers": "DEMO-FR-09"
+    "montant_ht": "8677.66",
+    "numero": "68554",
+    "texte_libre": "Devis client - demande d'absence pour fete religieuse",
+    "tiers": "DEMO-FR-08"
   },
-  "confiance": 0.85,
+  "confiance": 0.88,
   "document_id": "D-000106",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-015",
-          29,
-          "389.75"
+          "R-030",
+          13,
+          "749.02"
         ]
       ],
       "nom": "lignes"

@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "2729.11",
-    "numero": "72422",
-    "texte_libre": "Contrat cadre - piece comptable standard, aucune donnee sensible",
+    "montant_ht": "7087.18",
+    "numero": "79372",
+    "texte_libre": "Contrat cadre - pratique religieuse du salarie",
     "tiers": "DEMO-FR-17"
   },
-  "confiance": 0.97,
+  "confiance": 0.83,
   "document_id": "D-000149",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-017",
-          3,
-          "843.81"
+          "R-008",
+          4,
+          "739.73"
         ]
       ],
       "nom": "lignes"

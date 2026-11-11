@@ -20,9 +20,14 @@ SPEC = commun.SpecCanal(
     kind=commun.KIND_JSON,
     champs_signature=("sujet",),
     champs_texte=("sujet", "description"),
-    champ_duree="duree_minutes",
-    statut_duree=StatutDuree.MESUREE,
+    champ_duree=None,
+    statut_duree=StatutDuree.INFERREE,
 )
+# A transcript segment is a fragment of a conversation, not the duration of the
+# task it mentions: the calls channel contributes volumes and the share of the
+# call spent on a gesture (10.4), and the unit duration stays the motif's
+# typical one, flagged inferred (9.3). Publishing 36 seconds as the duration of
+# "look up a precedent" would be a lie.
 
 
 def source_fichiers(racine: str | Path, transcripteur: Any = None) -> Source:

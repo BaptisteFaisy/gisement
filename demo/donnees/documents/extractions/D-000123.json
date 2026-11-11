@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "8975.73",
-    "numero": "58088",
-    "texte_libre": "Bon de livraison - piece comptable standard, aucune donnee sensible",
-    "tiers": "DEMO-FR-16"
+    "montant_ht": "2864.19",
+    "numero": "46930",
+    "texte_libre": "Bon de livraison - situation de vie sexuelle",
+    "tiers": "DEMO-FR-08"
   },
-  "confiance": 0.96,
+  "confiance": 0.89,
   "document_id": "D-000123",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-006",
-          15,
-          "371.40"
+          "R-003",
+          2,
+          "305.19"
         ]
       ],
       "nom": "lignes"

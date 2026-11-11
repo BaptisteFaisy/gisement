@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "4300.49",
-    "numero": "75958",
-    "texte_libre": "Devis client - situation de vie sexuelle",
-    "tiers": "DEMO-FR-04"
+    "montant_ht": "1631.85",
+    "numero": "80128",
+    "texte_libre": "Devis client - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-05"
   },
-  "confiance": 0.9,
+  "confiance": 0.92,
   "document_id": "D-000016",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-059",
-          7,
-          "524.53"
+          "R-057",
+          4,
+          "512.97"
         ]
       ],
       "nom": "lignes"

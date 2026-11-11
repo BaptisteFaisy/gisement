@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "3059.41",
-    "numero": "79650",
-    "texte_libre": "Note de frais - pratique religieuse du salarie",
-    "tiers": "DEMO-FR-02"
+    "montant_ht": "6790.89",
+    "numero": "30292",
+    "texte_libre": "Note de frais - militant d'un parti politique",
+    "tiers": "DEMO-FR-06"
   },
-  "confiance": 0.92,
+  "confiance": 0.82,
   "document_id": "D-000134",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-018",
-          1,
-          "492.81"
+          "R-058",
+          10,
+          "59.02"
         ]
       ],
       "nom": "lignes"

@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "4243.09",
-    "numero": "59618",
-    "texte_libre": "Bon de commande - piece comptable standard, aucune donnee sensible",
-    "tiers": "DEMO-FR-08"
+    "montant_ht": "3017.83",
+    "numero": "44523",
+    "texte_libre": "Bon de commande - campagne electorale interne",
+    "tiers": "DEMO-FR-01"
   },
-  "confiance": 0.83,
+  "confiance": 0.89,
   "document_id": "D-000171",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-002",
-          13,
-          "402.88"
+          "R-045",
+          3,
+          "249.25"
         ]
       ],
       "nom": "lignes"

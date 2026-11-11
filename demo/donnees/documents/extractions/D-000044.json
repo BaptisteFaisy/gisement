@@ -1,10 +1,10 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "2791.15",
-    "numero": "56462",
-    "texte_libre": "Note de frais - cotisation syndicale prelevee",
-    "tiers": "DEMO-FR-03"
+    "montant_ht": "7314.20",
+    "numero": "30425",
+    "texte_libre": "Note de frais - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-02"
   },
   "confiance": 0.95,
   "document_id": "D-000044",
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-013",
-          20,
-          "68.76"
+          "R-054",
+          24,
+          "475.78"
         ]
       ],
       "nom": "lignes"

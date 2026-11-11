@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "4980.00",
-    "numero": "16040",
-    "texte_libre": "Contrat cadre - piece comptable standard, aucune donnee sensible",
-    "tiers": "DEMO-FR-01"
+    "montant_ht": "2273.43",
+    "numero": "62152",
+    "texte_libre": "Contrat cadre - absence pour le careme",
+    "tiers": "DEMO-FR-07"
   },
-  "confiance": 0.95,
+  "confiance": 0.85,
   "document_id": "D-000189",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-041",
-          38,
-          "589.10"
+          "R-015",
+          17,
+          "353.79"
         ]
       ],
       "nom": "lignes"

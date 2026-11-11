@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "6159.40",
-    "numero": "34419",
+    "montant_ht": "1174.11",
+    "numero": "70480",
     "texte_libre": "Contrat cadre - piece comptable standard, aucune donnee sensible",
-    "tiers": "DEMO-FR-17"
+    "tiers": "DEMO-FR-11"
   },
-  "confiance": 0.85,
+  "confiance": 0.93,
   "document_id": "D-000019",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-034",
-          35,
-          "500.85"
+          "R-055",
+          40,
+          "183.89"
         ]
       ],
       "nom": "lignes"

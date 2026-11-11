@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "841.36",
-    "numero": "39054",
-    "texte_libre": "Avoir fournisseur - piece comptable standard, aucune donnee sensible",
-    "tiers": "DEMO-FR-07"
+    "montant_ht": "6981.90",
+    "numero": "86745",
+    "texte_libre": "Avoir fournisseur - conviction religieuse mentionnee",
+    "tiers": "DEMO-FR-11"
   },
-  "confiance": 0.84,
+  "confiance": 0.87,
   "document_id": "D-000177",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-010",
-          20,
-          "723.39"
+          "R-021",
+          6,
+          "304.66"
         ]
       ],
       "nom": "lignes"

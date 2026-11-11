@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "4246.86",
-    "numero": "26265",
-    "texte_libre": "Releve de temperature - predisposition genetique",
-    "tiers": "DEMO-FR-18"
+    "montant_ht": "2345.69",
+    "numero": "63018",
+    "texte_libre": "Releve de temperature - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-06"
   },
-  "confiance": 0.93,
+  "confiance": 0.98,
   "document_id": "D-000058",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-020",
-          22,
-          "891.90"
+          "R-040",
+          40,
+          "328.75"
         ]
       ],
       "nom": "lignes"

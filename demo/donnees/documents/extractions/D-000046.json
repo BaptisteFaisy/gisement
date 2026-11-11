@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "998.88",
-    "numero": "69161",
-    "texte_libre": "Devis client - origine presumee du candidat",
-    "tiers": "DEMO-FR-01"
+    "montant_ht": "5631.45",
+    "numero": "78661",
+    "texte_libre": "Devis client - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-05"
   },
-  "confiance": 0.91,
+  "confiance": 0.82,
   "document_id": "D-000046",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-032",
-          11,
-          "64.73"
+          "R-015",
+          37,
+          "395.56"
         ]
       ],
       "nom": "lignes"

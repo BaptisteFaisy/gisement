@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "5903.73",
-    "numero": "84590",
-    "texte_libre": "Contrat cadre - piece comptable standard, aucune donnee sensible",
-    "tiers": "DEMO-FR-01"
+    "montant_ht": "3583.39",
+    "numero": "40661",
+    "texte_libre": "Contrat cadre - conge de maternite a venir",
+    "tiers": "DEMO-FR-03"
   },
-  "confiance": 0.87,
+  "confiance": 0.84,
   "document_id": "D-000159",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-035",
-          24,
-          "779.45"
+          "R-053",
+          28,
+          "115.36"
         ]
       ],
       "nom": "lignes"

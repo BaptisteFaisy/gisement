@@ -19,6 +19,22 @@ from gisement.types.communs import Canal
 SEPARATEUR_GESTE = ";"
 
 
+def _decaler(horodatage: str, secondes: float) -> str:
+    """Timestamp of one exchange: the call start shifted by the segment offset.
+
+    Without it every exchange of a call shares one timestamp and the hourly
+    spread of the channel collapses, which is what the fragmentation
+    coefficient is read from (13.1).
+    """
+    from datetime import datetime, timedelta
+
+    try:
+        base = datetime.fromisoformat(horodatage)
+    except ValueError:
+        return horodatage
+    return (base + timedelta(seconds=float(secondes))).isoformat()
+
+
 class SourceAppels(Source):
     """One activity per exchange (segment) of a consented recording."""
 
@@ -61,8 +77,9 @@ class SourceAppels(Source):
                 "sujet": texte.split(SEPARATEUR_GESTE)[0].strip(),
                 "description": texte,
                 "locuteur": segment.get("locuteur", "LOC-1"),
-                "systeme": "appels",
+                "systeme": appel.get("systeme", "appels"),
                 "duree_minutes": round(float(segment.get("fin", 0)) - float(segment.get("debut", 0)), 2),
+                "atypique": bool(segment.get("atypique", False)),
             }
 
     def volume(self) -> int:

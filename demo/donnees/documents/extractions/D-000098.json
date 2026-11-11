@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "4170.38",
-    "numero": "87240",
-    "texte_libre": "Releve de temperature - hospitalisation prevue",
+    "montant_ht": "2075.06",
+    "numero": "17450",
+    "texte_libre": "Releve de temperature - piece comptable standard, aucune donnee sensible",
     "tiers": "DEMO-FR-11"
   },
-  "confiance": 0.9,
+  "confiance": 0.94,
   "document_id": "D-000098",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-023",
-          40,
-          "311.98"
+          "R-009",
+          8,
+          "331.60"
         ]
       ],
       "nom": "lignes"

@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "3028.85",
-    "numero": "93790",
-    "texte_libre": "Avoir fournisseur - piece comptable standard, aucune donnee sensible",
+    "montant_ht": "7116.20",
+    "numero": "69366",
+    "texte_libre": "Avoir fournisseur - orientation sexuelle mentionnee",
     "tiers": "DEMO-FR-07"
   },
-  "confiance": 0.93,
+  "confiance": 0.86,
   "document_id": "D-000127",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-002",
-          4,
-          "893.32"
+          "R-048",
+          20,
+          "776.25"
         ]
       ],
       "nom": "lignes"

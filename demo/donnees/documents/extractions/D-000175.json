@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "4605.53",
-    "numero": "57924",
-    "texte_libre": "Releve bancaire - piece comptable standard, aucune donnee sensible",
-    "tiers": "DEMO-FR-13"
+    "montant_ht": "7730.72",
+    "numero": "83769",
+    "texte_libre": "Releve bancaire - suite a mon arret de travail",
+    "tiers": "DEMO-FR-12"
   },
-  "confiance": 0.84,
+  "confiance": 0.97,
   "document_id": "D-000175",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-014",
-          15,
-          "626.19"
+          "R-010",
+          30,
+          "87.28"
         ]
       ],
       "nom": "lignes"

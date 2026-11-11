@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "6019.89",
-    "numero": "20579",
-    "texte_libre": "Note de frais - test genetique realise",
-    "tiers": "DEMO-FR-01"
+    "montant_ht": "2346.30",
+    "numero": "73740",
+    "texte_libre": "Note de frais - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-18"
   },
-  "confiance": 0.92,
+  "confiance": 0.87,
   "document_id": "D-000004",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-008",
-          23,
-          "581.41"
+          "R-026",
+          39,
+          "875.92"
         ]
       ],
       "nom": "lignes"

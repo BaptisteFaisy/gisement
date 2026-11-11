@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "6432.15",
-    "numero": "31624",
-    "texte_libre": "Procedure interne - sympathisant d'un mouvement",
-    "tiers": "DEMO-FR-14"
+    "montant_ht": "9075.47",
+    "numero": "65587",
+    "texte_libre": "Procedure interne - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-04"
   },
-  "confiance": 0.84,
+  "confiance": 0.88,
   "document_id": "D-000040",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-012",
-          9,
-          "180.32"
+          "R-045",
+          13,
+          "111.47"
         ]
       ],
       "nom": "lignes"

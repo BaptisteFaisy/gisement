@@ -1,10 +1,10 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "3505.68",
-    "numero": "98964",
-    "texte_libre": "Procedure interne - analyse genetique demandee",
-    "tiers": "DEMO-FR-02"
+    "montant_ht": "5155.99",
+    "numero": "56315",
+    "texte_libre": "Procedure interne - mandat de delegue syndical",
+    "tiers": "DEMO-FR-06"
   },
   "confiance": 0.96,
   "document_id": "D-000200",
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-059",
-          13,
-          "685.78"
+          "R-005",
+          28,
+          "743.62"
         ]
       ],
       "nom": "lignes"

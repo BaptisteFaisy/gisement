@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "1799.78",
-    "numero": "36972",
-    "texte_libre": "Facture fournisseur - situation de vie sexuelle",
-    "tiers": "DEMO-FR-04"
+    "montant_ht": "2840.81",
+    "numero": "49874",
+    "texte_libre": "Facture fournisseur - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-18"
   },
-  "confiance": 0.85,
+  "confiance": 0.92,
   "document_id": "D-000002",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-001",
-          40,
-          "810.74"
+          "R-013",
+          25,
+          "124.75"
         ]
       ],
       "nom": "lignes"

@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "952.56",
-    "numero": "27948",
-    "texte_libre": "Devis client - test genetique realise",
+    "montant_ht": "7203.02",
+    "numero": "78091",
+    "texte_libre": "Devis client - appartenance ethnique",
     "tiers": "DEMO-FR-05"
   },
-  "confiance": 0.89,
+  "confiance": 0.91,
   "document_id": "D-000196",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-058",
-          29,
-          "15.42"
+          "R-055",
+          17,
+          "260.29"
         ]
       ],
       "nom": "lignes"

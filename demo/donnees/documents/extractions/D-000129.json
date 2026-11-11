@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "6442.62",
-    "numero": "79529",
-    "texte_libre": "Contrat cadre - piece comptable standard, aucune donnee sensible",
-    "tiers": "DEMO-FR-12"
+    "montant_ht": "2613.58",
+    "numero": "96733",
+    "texte_libre": "Contrat cadre - prolongation de l'arret maladie",
+    "tiers": "DEMO-FR-08"
   },
-  "confiance": 0.84,
+  "confiance": 0.86,
   "document_id": "D-000129",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-029",
-          22,
-          "488.00"
+          "R-030",
+          24,
+          "873.58"
         ]
       ],
       "nom": "lignes"

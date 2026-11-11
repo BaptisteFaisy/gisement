@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "3986.84",
-    "numero": "83963",
-    "texte_libre": "Procedure interne - engagement politique du salarie",
-    "tiers": "DEMO-FR-12"
+    "montant_ht": "7914.15",
+    "numero": "96132",
+    "texte_libre": "Procedure interne - demande d'absence pour fete religieuse",
+    "tiers": "DEMO-FR-02"
   },
-  "confiance": 0.89,
+  "confiance": 0.95,
   "document_id": "D-000190",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-045",
-          17,
-          "603.33"
+          "R-015",
+          4,
+          "760.89"
         ]
       ],
       "nom": "lignes"

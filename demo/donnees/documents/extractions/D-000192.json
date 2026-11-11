@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "5099.68",
-    "numero": "22952",
+    "montant_ht": "1569.50",
+    "numero": "93404",
     "texte_libre": "Facture fournisseur - identite de genre indiquee",
-    "tiers": "DEMO-FR-09"
+    "tiers": "DEMO-FR-14"
   },
-  "confiance": 0.87,
+  "confiance": 0.86,
   "document_id": "D-000192",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-023",
-          8,
-          "113.26"
+          "R-042",
+          27,
+          "825.40"
         ]
       ],
       "nom": "lignes"

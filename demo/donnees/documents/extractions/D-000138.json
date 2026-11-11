@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "5902.05",
-    "numero": "22048",
-    "texte_libre": "Releve de temperature - campagne electorale interne",
-    "tiers": "DEMO-FR-10"
+    "montant_ht": "6801.86",
+    "numero": "21326",
+    "texte_libre": "Releve de temperature - analyse genetique demandee",
+    "tiers": "DEMO-FR-07"
   },
-  "confiance": 0.97,
+  "confiance": 0.87,
   "document_id": "D-000138",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-042",
-          29,
-          "835.14"
+          "R-016",
+          11,
+          "867.89"
         ]
       ],
       "nom": "lignes"

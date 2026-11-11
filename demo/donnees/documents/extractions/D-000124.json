@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "5679.52",
-    "numero": "48977",
-    "texte_libre": "Note de frais - cotisation syndicale prelevee",
-    "tiers": "DEMO-FR-11"
+    "montant_ht": "1152.18",
+    "numero": "10391",
+    "texte_libre": "Note de frais - adhesion syndicale renouvelee",
+    "tiers": "DEMO-FR-16"
   },
-  "confiance": 0.86,
+  "confiance": 0.91,
   "document_id": "D-000124",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-032",
-          12,
-          "456.80"
+          "R-049",
+          14,
+          "214.02"
         ]
       ],
       "nom": "lignes"

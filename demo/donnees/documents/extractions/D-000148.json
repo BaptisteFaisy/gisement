@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "6062.99",
-    "numero": "69791",
-    "texte_libre": "Releve de temperature - absence pour le careme",
-    "tiers": "DEMO-FR-05"
+    "montant_ht": "9213.82",
+    "numero": "55724",
+    "texte_libre": "Releve de temperature - orientation sexuelle mentionnee",
+    "tiers": "DEMO-FR-03"
   },
-  "confiance": 0.96,
+  "confiance": 0.85,
   "document_id": "D-000148",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-054",
-          23,
-          "477.90"
+          "R-006",
+          38,
+          "325.53"
         ]
       ],
       "nom": "lignes"

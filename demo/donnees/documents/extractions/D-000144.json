@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "1569.50",
-    "numero": "60329",
-    "texte_libre": "Note de frais - sympathisant d'un mouvement",
-    "tiers": "DEMO-FR-14"
+    "montant_ht": "3925.43",
+    "numero": "12997",
+    "texte_libre": "Note de frais - origine ethnique indiquee",
+    "tiers": "DEMO-FR-10"
   },
-  "confiance": 0.95,
+  "confiance": 0.83,
   "document_id": "D-000144",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-042",
-          27,
-          "825.40"
+          "R-037",
+          22,
+          "496.05"
         ]
       ],
       "nom": "lignes"

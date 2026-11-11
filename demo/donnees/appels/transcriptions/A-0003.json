@@ -1,548 +1,148 @@
 {
   "appel_id": "A-0003",
-  "duree_minutes": 54.0,
+  "duree_minutes": 12.0,
   "langue": "fr-FR",
-  "piis_occultees": 6,
+  "piis_occultees": 8,
   "segments": [
     {
+      "atypique": false,
       "debut": 0.0,
-      "fin": 36.0,
-      "locuteur": "LOC-1",
-      "texte": "Rechercher la procedure applicable ; reference R-040 ; cas inhabituel, hors catalogue"
-    },
-    {
-      "debut": 36.0,
-      "fin": 72.0,
-      "locuteur": "LOC-2",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-045 ; cas standard"
-    },
-    {
-      "debut": 72.0,
-      "fin": 108.0,
-      "locuteur": "LOC-3",
-      "texte": "Rechercher la procedure applicable ; reference R-017 ; cas standard"
-    },
-    {
-      "debut": 108.0,
-      "fin": 144.0,
-      "locuteur": "LOC-4",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-030 ; cas standard"
-    },
-    {
-      "debut": 144.0,
-      "fin": 180.0,
-      "locuteur": "LOC-5",
-      "texte": "Rechercher la procedure applicable ; reference R-060 ; cas inhabituel, hors catalogue"
-    },
-    {
-      "debut": 180.0,
-      "fin": 216.0,
-      "locuteur": "LOC-1",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-034 ; cas standard"
-    },
-    {
-      "debut": 216.0,
-      "fin": 252.0,
-      "locuteur": "LOC-2",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-027 ; cas standard"
-    },
-    {
-      "debut": 252.0,
-      "fin": 288.0,
-      "locuteur": "LOC-3",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-011 ; cas standard"
-    },
-    {
-      "debut": 288.0,
-      "fin": 324.0,
-      "locuteur": "LOC-4",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-054 ; cas standard"
-    },
-    {
-      "debut": 324.0,
-      "fin": 360.0,
-      "locuteur": "LOC-5",
-      "texte": "Rechercher la procedure applicable ; reference R-007 ; cas inhabituel, hors catalogue"
-    },
-    {
-      "debut": 360.0,
-      "fin": 396.0,
-      "locuteur": "LOC-1",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-017 ; cas inhabituel, hors catalogue"
-    },
-    {
-      "debut": 396.0,
-      "fin": 432.0,
-      "locuteur": "LOC-2",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-050 ; cas standard"
-    },
-    {
-      "debut": 432.0,
-      "fin": 468.0,
-      "locuteur": "LOC-3",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-002 ; cas standard"
-    },
-    {
-      "debut": 468.0,
-      "fin": 504.0,
-      "locuteur": "LOC-4",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-014 ; cas standard"
-    },
-    {
-      "debut": 504.0,
-      "fin": 540.0,
-      "locuteur": "LOC-5",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-024 ; cas standard"
-    },
-    {
-      "debut": 540.0,
-      "fin": 576.0,
-      "locuteur": "LOC-1",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-036 ; cas standard"
-    },
-    {
-      "debut": 576.0,
-      "fin": 612.0,
-      "locuteur": "LOC-2",
-      "texte": "Rechercher la procedure applicable ; reference R-033 ; cas standard"
-    },
-    {
-      "debut": 612.0,
-      "fin": 648.0,
-      "locuteur": "LOC-3",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-034 ; cas standard"
-    },
-    {
-      "debut": 648.0,
-      "fin": 684.0,
-      "locuteur": "LOC-4",
-      "texte": "Rechercher la procedure applicable ; reference R-056 ; cas standard"
-    },
-    {
-      "debut": 684.0,
-      "fin": 720.0,
-      "locuteur": "LOC-5",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-018 ; cas standard"
-    },
-    {
-      "debut": 720.0,
-      "fin": 756.0,
-      "locuteur": "LOC-1",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-016 ; cas standard"
-    },
-    {
-      "debut": 756.0,
-      "fin": 792.0,
-      "locuteur": "LOC-2",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-028 ; cas inhabituel, hors catalogue"
-    },
-    {
-      "debut": 792.0,
-      "fin": 828.0,
-      "locuteur": "LOC-3",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-002 ; cas inhabituel, hors catalogue"
-    },
-    {
-      "debut": 828.0,
-      "fin": 864.0,
-      "locuteur": "LOC-4",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-045 ; cas standard"
-    },
-    {
-      "debut": 864.0,
-      "fin": 900.0,
-      "locuteur": "LOC-5",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-018 ; cas standard"
-    },
-    {
-      "debut": 900.0,
-      "fin": 936.0,
-      "locuteur": "LOC-1",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-051 ; cas standard"
-    },
-    {
-      "debut": 936.0,
-      "fin": 972.0,
-      "locuteur": "LOC-2",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-059 ; cas inhabituel, hors catalogue"
-    },
-    {
-      "debut": 972.0,
-      "fin": 1008.0,
-      "locuteur": "LOC-3",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-030 ; cas standard"
-    },
-    {
-      "debut": 1008.0,
-      "fin": 1044.0,
-      "locuteur": "LOC-4",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-023 ; cas standard"
-    },
-    {
-      "debut": 1044.0,
-      "fin": 1080.0,
-      "locuteur": "LOC-5",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-054 ; cas inhabituel, hors catalogue"
-    },
-    {
-      "debut": 1080.0,
-      "fin": 1116.0,
-      "locuteur": "LOC-1",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-003 ; cas standard"
-    },
-    {
-      "debut": 1116.0,
-      "fin": 1152.0,
-      "locuteur": "LOC-2",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-023 ; cas inhabituel, hors catalogue"
-    },
-    {
-      "debut": 1152.0,
-      "fin": 1188.0,
-      "locuteur": "LOC-3",
-      "texte": "Rechercher la procedure applicable ; reference R-037 ; cas standard"
-    },
-    {
-      "debut": 1188.0,
-      "fin": 1224.0,
-      "locuteur": "LOC-4",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-033 ; cas inhabituel, hors catalogue"
-    },
-    {
-      "debut": 1224.0,
-      "fin": 1260.0,
-      "locuteur": "LOC-5",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-037 ; cas inhabituel, hors catalogue"
-    },
-    {
-      "debut": 1260.0,
-      "fin": 1296.0,
-      "locuteur": "LOC-1",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-016 ; cas standard"
-    },
-    {
-      "debut": 1296.0,
-      "fin": 1332.0,
-      "locuteur": "LOC-2",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-034 ; cas inhabituel, hors catalogue"
-    },
-    {
-      "debut": 1332.0,
-      "fin": 1368.0,
-      "locuteur": "LOC-3",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-059 ; cas standard"
-    },
-    {
-      "debut": 1368.0,
-      "fin": 1404.0,
-      "locuteur": "LOC-4",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-053 ; cas standard"
-    },
-    {
-      "debut": 1404.0,
-      "fin": 1440.0,
-      "locuteur": "LOC-5",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-036 ; cas standard"
-    },
-    {
-      "debut": 1440.0,
-      "fin": 1476.0,
-      "locuteur": "LOC-1",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-022 ; cas standard"
-    },
-    {
-      "debut": 1476.0,
-      "fin": 1512.0,
-      "locuteur": "LOC-2",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-005 ; cas standard"
-    },
-    {
-      "debut": 1512.0,
-      "fin": 1548.0,
-      "locuteur": "LOC-3",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-046 ; cas standard"
-    },
-    {
-      "debut": 1548.0,
-      "fin": 1584.0,
-      "locuteur": "LOC-4",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-016 ; cas inhabituel, hors catalogue"
-    },
-    {
-      "debut": 1584.0,
-      "fin": 1620.0,
-      "locuteur": "LOC-5",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-051 ; cas standard"
-    },
-    {
-      "debut": 1620.0,
-      "fin": 1656.0,
-      "locuteur": "LOC-1",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-003 ; cas inhabituel, hors catalogue"
-    },
-    {
-      "debut": 1656.0,
-      "fin": 1692.0,
-      "locuteur": "LOC-2",
-      "texte": "Rechercher la procedure applicable ; reference R-003 ; cas standard"
-    },
-    {
-      "debut": 1692.0,
-      "fin": 1728.0,
-      "locuteur": "LOC-3",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-056 ; cas standard"
-    },
-    {
-      "debut": 1728.0,
-      "fin": 1764.0,
-      "locuteur": "LOC-4",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-042 ; cas inhabituel, hors catalogue"
-    },
-    {
-      "debut": 1764.0,
-      "fin": 1800.0,
-      "locuteur": "LOC-5",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-006 ; cas standard"
-    },
-    {
-      "debut": 1800.0,
-      "fin": 1836.0,
-      "locuteur": "LOC-1",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-007 ; cas standard"
-    },
-    {
-      "debut": 1836.0,
-      "fin": 1872.0,
-      "locuteur": "LOC-2",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-035 ; cas standard"
-    },
-    {
-      "debut": 1872.0,
-      "fin": 1908.0,
-      "locuteur": "LOC-3",
-      "texte": "Rechercher la procedure applicable ; reference R-015 ; cas standard"
-    },
-    {
-      "debut": 1908.0,
-      "fin": 1944.0,
-      "locuteur": "LOC-4",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-030 ; cas inhabituel, hors catalogue"
-    },
-    {
-      "debut": 1944.0,
-      "fin": 1980.0,
-      "locuteur": "LOC-5",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-032 ; cas standard"
-    },
-    {
-      "debut": 1980.0,
-      "fin": 2016.0,
-      "locuteur": "LOC-1",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-009 ; cas inhabituel, hors catalogue"
-    },
-    {
-      "debut": 2016.0,
-      "fin": 2052.0,
-      "locuteur": "LOC-2",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-011 ; cas standard"
-    },
-    {
-      "debut": 2052.0,
-      "fin": 2088.0,
-      "locuteur": "LOC-3",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-001 ; cas inhabituel, hors catalogue"
-    },
-    {
-      "debut": 2088.0,
-      "fin": 2124.0,
-      "locuteur": "LOC-4",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-058 ; cas standard"
-    },
-    {
-      "debut": 2124.0,
-      "fin": 2160.0,
-      "locuteur": "LOC-5",
-      "texte": "Rechercher la procedure applicable ; reference R-004 ; cas standard"
-    },
-    {
-      "debut": 2160.0,
-      "fin": 2196.0,
+      "fin": 0.6,
       "locuteur": "LOC-1",
       "texte": "Rechercher un precedent dans l'historique ; reference R-008 ; cas standard"
     },
     {
-      "debut": 2196.0,
-      "fin": 2232.0,
+      "atypique": true,
+      "debut": 0.6,
+      "fin": 1.2,
       "locuteur": "LOC-2",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-031 ; cas standard"
+      "texte": "Rechercher un precedent dans l'historique ; reference R-018 ; cas inhabituel, hors catalogue"
     },
     {
-      "debut": 2232.0,
-      "fin": 2268.0,
+      "atypique": true,
+      "debut": 1.2,
+      "fin": 1.8,
       "locuteur": "LOC-3",
-      "texte": "Rechercher la procedure applicable ; reference R-022 ; cas standard"
+      "texte": "Rechercher un precedent dans l'historique ; reference R-037 ; cas inhabituel, hors catalogue"
     },
     {
-      "debut": 2268.0,
-      "fin": 2304.0,
+      "atypique": false,
+      "debut": 1.8,
+      "fin": 2.4,
       "locuteur": "LOC-4",
+      "texte": "Rechercher un precedent dans l'historique ; reference R-043 ; cas standard"
+    },
+    {
+      "atypique": false,
+      "debut": 2.4,
+      "fin": 3.0,
+      "locuteur": "LOC-5",
       "texte": "Rechercher un precedent dans l'historique ; reference R-054 ; cas standard"
     },
     {
-      "debut": 2304.0,
-      "fin": 2340.0,
-      "locuteur": "LOC-5",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-031 ; cas standard"
+      "atypique": false,
+      "debut": 3.0,
+      "fin": 3.6,
+      "locuteur": "LOC-1",
+      "texte": "Rechercher un precedent dans l'historique ; reference R-046 ; cas standard"
     },
     {
-      "debut": 2340.0,
-      "fin": 2376.0,
+      "atypique": true,
+      "debut": 3.6,
+      "fin": 4.2,
+      "locuteur": "LOC-2",
+      "texte": "Rechercher un precedent dans l'historique ; reference R-051 ; cas inhabituel, hors catalogue"
+    },
+    {
+      "atypique": false,
+      "debut": 4.2,
+      "fin": 4.8,
+      "locuteur": "LOC-3",
+      "texte": "Rechercher un precedent dans l'historique ; reference R-017 ; cas standard"
+    },
+    {
+      "atypique": false,
+      "debut": 4.8,
+      "fin": 5.4,
+      "locuteur": "LOC-4",
+      "texte": "Rechercher un precedent dans l'historique ; reference R-002 ; cas standard"
+    },
+    {
+      "atypique": false,
+      "debut": 5.4,
+      "fin": 6.0,
+      "locuteur": "LOC-5",
+      "texte": "Rechercher un precedent dans l'historique ; reference R-015 ; cas standard"
+    },
+    {
+      "atypique": false,
+      "debut": 6.0,
+      "fin": 6.6,
+      "locuteur": "LOC-1",
+      "texte": "Rechercher un precedent dans l'historique ; reference R-057 ; cas standard"
+    },
+    {
+      "atypique": false,
+      "debut": 6.6,
+      "fin": 7.2,
+      "locuteur": "LOC-2",
+      "texte": "Rechercher un precedent dans l'historique ; reference R-042 ; cas standard"
+    },
+    {
+      "atypique": false,
+      "debut": 7.2,
+      "fin": 7.8,
+      "locuteur": "LOC-3",
+      "texte": "Rechercher un precedent dans l'historique ; reference R-008 ; cas standard"
+    },
+    {
+      "atypique": false,
+      "debut": 7.8,
+      "fin": 8.4,
+      "locuteur": "LOC-4",
+      "texte": "Rechercher un precedent dans l'historique ; reference R-049 ; cas standard"
+    },
+    {
+      "atypique": true,
+      "debut": 8.4,
+      "fin": 9.0,
+      "locuteur": "LOC-5",
+      "texte": "Rechercher un precedent dans l'historique ; reference R-016 ; cas inhabituel, hors catalogue"
+    },
+    {
+      "atypique": false,
+      "debut": 9.0,
+      "fin": 9.6,
       "locuteur": "LOC-1",
       "texte": "Rechercher un precedent dans l'historique ; reference R-007 ; cas standard"
     },
     {
-      "debut": 2376.0,
-      "fin": 2412.0,
+      "atypique": true,
+      "debut": 9.6,
+      "fin": 10.2,
       "locuteur": "LOC-2",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-009 ; cas standard"
+      "texte": "Rechercher un precedent dans l'historique ; reference R-028 ; cas inhabituel, hors catalogue"
     },
     {
-      "debut": 2412.0,
-      "fin": 2448.0,
+      "atypique": false,
+      "debut": 10.2,
+      "fin": 10.8,
       "locuteur": "LOC-3",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-055 ; cas standard"
+      "texte": "Rechercher un precedent dans l'historique ; reference R-023 ; cas standard"
     },
     {
-      "debut": 2448.0,
-      "fin": 2484.0,
+      "atypique": true,
+      "debut": 10.8,
+      "fin": 11.4,
       "locuteur": "LOC-4",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-028 ; cas standard"
+      "texte": "Rechercher un precedent dans l'historique ; reference R-015 ; cas inhabituel, hors catalogue"
     },
     {
-      "debut": 2484.0,
-      "fin": 2520.0,
+      "atypique": false,
+      "debut": 11.4,
+      "fin": 12.0,
       "locuteur": "LOC-5",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-036 ; cas standard"
-    },
-    {
-      "debut": 2520.0,
-      "fin": 2556.0,
-      "locuteur": "LOC-1",
-      "texte": "Rechercher la procedure applicable ; reference R-013 ; cas inhabituel, hors catalogue"
-    },
-    {
-      "debut": 2556.0,
-      "fin": 2592.0,
-      "locuteur": "LOC-2",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-047 ; cas standard"
-    },
-    {
-      "debut": 2592.0,
-      "fin": 2628.0,
-      "locuteur": "LOC-3",
-      "texte": "Rechercher la procedure applicable ; reference R-019 ; cas standard"
-    },
-    {
-      "debut": 2628.0,
-      "fin": 2664.0,
-      "locuteur": "LOC-4",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-042 ; cas inhabituel, hors catalogue"
-    },
-    {
-      "debut": 2664.0,
-      "fin": 2700.0,
-      "locuteur": "LOC-5",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-049 ; cas standard"
-    },
-    {
-      "debut": 2700.0,
-      "fin": 2736.0,
-      "locuteur": "LOC-1",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-058 ; cas standard"
-    },
-    {
-      "debut": 2736.0,
-      "fin": 2772.0,
-      "locuteur": "LOC-2",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-022 ; cas standard"
-    },
-    {
-      "debut": 2772.0,
-      "fin": 2808.0,
-      "locuteur": "LOC-3",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-022 ; cas standard"
-    },
-    {
-      "debut": 2808.0,
-      "fin": 2844.0,
-      "locuteur": "LOC-4",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-032 ; cas standard"
-    },
-    {
-      "debut": 2844.0,
-      "fin": 2880.0,
-      "locuteur": "LOC-5",
-      "texte": "Rechercher la procedure applicable ; reference R-001 ; cas standard"
-    },
-    {
-      "debut": 2880.0,
-      "fin": 2916.0,
-      "locuteur": "LOC-1",
-      "texte": "Rechercher la procedure applicable ; reference R-009 ; cas standard"
-    },
-    {
-      "debut": 2916.0,
-      "fin": 2952.0,
-      "locuteur": "LOC-2",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-009 ; cas standard"
-    },
-    {
-      "debut": 2952.0,
-      "fin": 2988.0,
-      "locuteur": "LOC-3",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-020 ; cas standard"
-    },
-    {
-      "debut": 2988.0,
-      "fin": 3024.0,
-      "locuteur": "LOC-4",
       "texte": "Rechercher un precedent dans l'historique ; reference R-039 ; cas standard"
-    },
-    {
-      "debut": 3024.0,
-      "fin": 3060.0,
-      "locuteur": "LOC-5",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-050 ; cas standard"
-    },
-    {
-      "debut": 3060.0,
-      "fin": 3096.0,
-      "locuteur": "LOC-1",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-018 ; cas standard"
-    },
-    {
-      "debut": 3096.0,
-      "fin": 3132.0,
-      "locuteur": "LOC-2",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-030 ; cas standard"
-    },
-    {
-      "debut": 3132.0,
-      "fin": 3168.0,
-      "locuteur": "LOC-3",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-039 ; cas inhabituel, hors catalogue"
-    },
-    {
-      "debut": 3168.0,
-      "fin": 3204.0,
-      "locuteur": "LOC-4",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-037 ; cas standard"
-    },
-    {
-      "debut": 3204.0,
-      "fin": 3240.0,
-      "locuteur": "LOC-5",
-      "texte": "Rechercher un precedent dans l'historique ; reference R-055 ; cas inhabituel, hors catalogue"
     }
   ],
   "watermark": "SYNTHETIQUE - DEMONSTRATION"

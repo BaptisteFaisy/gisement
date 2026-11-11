@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "8364.17",
-    "numero": "85743",
-    "texte_libre": "Procedure interne - conge de maternite a venir",
-    "tiers": "DEMO-FR-09"
+    "montant_ht": "2782.76",
+    "numero": "66319",
+    "texte_libre": "Procedure interne - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-16"
   },
-  "confiance": 0.86,
+  "confiance": 0.98,
   "document_id": "D-000080",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-029",
-          29,
-          "174.89"
+          "R-004",
+          17,
+          "298.55"
         ]
       ],
       "nom": "lignes"

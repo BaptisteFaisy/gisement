@@ -102,7 +102,7 @@
       ]
     },
     "modele_texte": "Rapprocher la commande de la reception",
-    "duree_unitaire_typique_minutes": "8",
+    "duree_unitaire_typique_minutes": "25",
     "duree_statut_defaut": "inferree",
     "repartition_defaut": "semi_regroupee",
     "taux_revue_defaut": "0.20",

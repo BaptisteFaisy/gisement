@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "5371.32",
-    "numero": "32102",
-    "texte_libre": "Releve de temperature - prolongation de l'arret maladie",
-    "tiers": "DEMO-FR-05"
+    "montant_ht": "7571.75",
+    "numero": "40912",
+    "texte_libre": "Releve de temperature - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-16"
   },
-  "confiance": 0.93,
+  "confiance": 0.9,
   "document_id": "D-000088",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-058",
-          6,
-          "602.77"
+          "R-002",
+          24,
+          "594.23"
         ]
       ],
       "nom": "lignes"

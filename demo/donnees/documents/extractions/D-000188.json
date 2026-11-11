@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "4764.95",
-    "numero": "72534",
-    "texte_libre": "Releve de temperature - test genetique realise",
-    "tiers": "DEMO-FR-15"
+    "montant_ht": "5229.19",
+    "numero": "56763",
+    "texte_libre": "Releve de temperature - analyse genetique demandee",
+    "tiers": "DEMO-FR-13"
   },
-  "confiance": 0.83,
+  "confiance": 0.91,
   "document_id": "D-000188",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-018",
-          38,
-          "291.27"
+          "R-021",
+          25,
+          "195.07"
         ]
       ],
       "nom": "lignes"

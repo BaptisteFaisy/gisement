@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "9074.56",
-    "numero": "93192",
-    "texte_libre": "Devis client - demande d'amenagement pour raison de sante",
-    "tiers": "DEMO-FR-14"
+    "montant_ht": "1033.64",
+    "numero": "32691",
+    "texte_libre": "Devis client - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-07"
   },
-  "confiance": 0.88,
+  "confiance": 0.85,
   "document_id": "D-000056",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-043",
-          37,
-          "678.41"
+          "R-023",
+          24,
+          "189.06"
         ]
       ],
       "nom": "lignes"

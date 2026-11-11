@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "302.67",
-    "numero": "52606",
-    "texte_libre": "Note de frais - prolongation de l'arret maladie",
-    "tiers": "DEMO-FR-05"
+    "montant_ht": "2791.15",
+    "numero": "49806",
+    "texte_libre": "Note de frais - test genetique realise",
+    "tiers": "DEMO-FR-03"
   },
-  "confiance": 0.85,
+  "confiance": 0.88,
   "document_id": "D-000104",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-058",
-          2,
-          "541.54"
+          "R-013",
+          5,
+          "47.65"
         ]
       ],
       "nom": "lignes"

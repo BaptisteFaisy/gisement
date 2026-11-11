@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "2303.76",
-    "numero": "21627",
-    "texte_libre": "Bon de livraison - piece comptable standard, aucune donnee sensible",
-    "tiers": "DEMO-FR-12"
+    "montant_ht": "3059.41",
+    "numero": "79650",
+    "texte_libre": "Bon de livraison - pratique religieuse du salarie",
+    "tiers": "DEMO-FR-02"
   },
-  "confiance": 0.88,
+  "confiance": 0.92,
   "document_id": "D-000183",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-048",
-          31,
-          "618.80"
+          "R-018",
+          1,
+          "492.81"
         ]
       ],
       "nom": "lignes"

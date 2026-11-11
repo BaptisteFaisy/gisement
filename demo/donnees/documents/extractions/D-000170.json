@@ -1,10 +1,10 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "5283.48",
-    "numero": "60888",
-    "texte_libre": "Procedure interne - conge de maternite a venir",
-    "tiers": "DEMO-FR-05"
+    "montant_ht": "6197.21",
+    "numero": "24674",
+    "texte_libre": "Procedure interne - orientation sexuelle mentionnee",
+    "tiers": "DEMO-FR-07"
   },
   "confiance": 0.98,
   "document_id": "D-000170",
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-001",
-          1,
-          "397.87"
+          "R-041",
+          21,
+          "355.48"
         ]
       ],
       "nom": "lignes"

@@ -1,10 +1,10 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "5759.42",
-    "numero": "20437",
-    "texte_libre": "Procedure interne - mandat de delegue syndical",
-    "tiers": "DEMO-FR-13"
+    "montant_ht": "6689.93",
+    "numero": "53184",
+    "texte_libre": "Procedure interne - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-10"
   },
   "confiance": 0.96,
   "document_id": "D-000010",
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-033",
-          4,
-          "22.72"
+          "R-056",
+          15,
+          "445.96"
         ]
       ],
       "nom": "lignes"

@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "2324.35",
-    "numero": "68396",
-    "texte_libre": "Devis client - suite a mon arret de travail",
-    "tiers": "DEMO-FR-18"
+    "montant_ht": "8079.19",
+    "numero": "65204",
+    "texte_libre": "Devis client - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-12"
   },
-  "confiance": 0.87,
+  "confiance": 0.82,
   "document_id": "D-000026",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-055",
-          33,
-          "671.56"
+          "R-008",
+          32,
+          "828.39"
         ]
       ],
       "nom": "lignes"

@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "919.53",
-    "numero": "53878",
-    "texte_libre": "Releve de temperature - tract syndical diffuse",
-    "tiers": "DEMO-FR-13"
+    "montant_ht": "1831.92",
+    "numero": "78275",
+    "texte_libre": "Releve de temperature - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-05"
   },
-  "confiance": 0.9,
+  "confiance": 0.87,
   "document_id": "D-000018",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-024",
-          23,
-          "166.60"
+          "R-007",
+          24,
+          "373.02"
         ]
       ],
       "nom": "lignes"

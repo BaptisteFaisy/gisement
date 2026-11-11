@@ -11,7 +11,15 @@ from collections import defaultdict
 from pathlib import Path
 
 from demo.listes import CATEGORIES_SENSIBLES, DOCUMENTS, FILIGRANE, PLANTES_SENSIBLES, courriel, personne
-from demo.moteur import MINUTES_APPELS, Occurrence, Plan, details, instant, libelle_bruit, systeme_libelle
+from demo.moteur import (
+    DOCUMENTS_SENSIBLES,
+    MINUTES_APPELS,
+    Occurrence,
+    Plan,
+    details,
+    instant,
+    libelle_bruit,
+)
 
 
 def ecrire_tickets(occurrences: list[Occurrence], plan: Plan, rng: random.Random) -> list[dict]:
@@ -22,7 +30,7 @@ def ecrire_tickets(occurrences: list[Occurrence], plan: Plan, rng: random.Random
         records.append(
             {
                 "id": f"T-{index:06d}",
-                "horodatage": instant(plan.mois[oc.mois], "diffuse", rng).isoformat(),
+                "horodatage": instant(plan.mois[oc.mois], oc.repartition, rng).isoformat(),
                 "service": oc.service,
                 "site": "lyon" if rng.random() < 0.7 else "villeurbanne",
                 "agent": personne(rng),
@@ -31,6 +39,7 @@ def ecrire_tickets(occurrences: list[Occurrence], plan: Plan, rng: random.Random
                 "systeme": oc.systemes[0],
                 "duree_traitement_minutes": round(oc.jours * rng.uniform(0.7, 1.3), 1),
                 "statut": "clos",
+                "atypique": oc.atypique,
                 "allers_retours": rng.randint(0, 3),
                 "groupe": _groupe(oc.service, rng),
                 "watermark": FILIGRANE,
@@ -74,12 +83,14 @@ def ecrire_courriels(occurrences: list[Occurrence], plan: Plan, rng: random.Rand
         records.append(
             {
                 "id": f"M-{len(records) + 1:06d}",
-                "horodatage": instant(plan.mois[oc.mois], "semi_regroupee", rng).isoformat(),
+                "horodatage": instant(plan.mois[oc.mois], oc.repartition, rng).isoformat(),
                 "expediteur": expediteur,
                 "destinataires": [destinataire],
                 "objet": oc.geste,
                 "corps": _corps(oc.geste, det),
                 "service": oc.service,
+                "systeme": oc.systemes[0],
+                "atypique": oc.atypique,
                 "stratum": f"{oc.service}_mois_{oc.mois + 1:02d}",
                 "piece_jointe": "bon_commande.pdf" if rng.random() < 0.6 else None,
                 "watermark": FILIGRANE,
@@ -95,6 +106,7 @@ def ecrire_courriels(occurrences: list[Occurrence], plan: Plan, rng: random.Rand
                 "objet": libelle_bruit("courriels", rng),
                 "corps": "message hors du perimetre de la mesure, conserve comme bruit de fond",
                 "service": rng.choice(["adv", "support"]),
+                "systeme": "messagerie",
                 "stratum": "bruit",
                 "piece_jointe": None,
                 "watermark": FILIGRANE,
@@ -109,12 +121,13 @@ def ecrire_journaux(occurrences: list[Occurrence], plan: Plan, rng: random.Rando
         det = details(rng, oc.atypique)
         lignes.append(
             {
-                "horodatage": instant(plan.mois[oc.mois], "semi_regroupee", rng).isoformat(),
+                "horodatage": instant(plan.mois[oc.mois], oc.repartition, rng).isoformat(),
                 "service": oc.service,
                 "action": oc.geste,
                 "entite": f"{det['societe']} {det['produit']} {det['montant']}",
-                "systeme": systeme_libelle(oc.systemes[0]),
+                "systeme": oc.systemes[0],
                 "groupe": _groupe(oc.service, rng),
+                "atypique": oc.atypique,
                 "duree_secondes": max(1, int(oc.jours * 60 * rng.uniform(0.8, 1.2))),
                 "watermark": FILIGRANE,
             }
@@ -126,8 +139,9 @@ def ecrire_journaux(occurrences: list[Occurrence], plan: Plan, rng: random.Rando
                 "service": rng.choice(["adv", "support", "comptabilite"]),
                 "action": "Connexion et navigation",
                 "entite": "session",
-                "systeme": "ERP",
+                "systeme": "erp",
                 "groupe": _groupe("adv", rng),
+                "atypique": False,
                 "duree_secondes": rng.randint(5, 120),
                 "watermark": FILIGRANE,
             }
@@ -136,7 +150,17 @@ def ecrire_journaux(occurrences: list[Occurrence], plan: Plan, rng: random.Rando
 
 
 def entetes_journaux() -> list[str]:
-    return ["horodatage", "service", "action", "entite", "systeme", "groupe", "duree_secondes", "watermark"]
+    return [
+        "horodatage",
+        "service",
+        "action",
+        "entite",
+        "systeme",
+        "groupe",
+        "atypique",
+        "duree_secondes",
+        "watermark",
+    ]
 
 
 def ecrire_documents(
@@ -147,16 +171,21 @@ def ecrire_documents(
     extractions: list[dict] = []
     sensibles: list[dict] = []
     occurrences_docs = [o for o in occurrences if o.canal == "documents"]
-    total = len(occurrences_docs) + plan.bruit_par_canal["documents"]
+    propres = len(occurrences_docs) + plan.bruit_par_canal["documents"]
+    total = propres + DOCUMENTS_SENSIBLES
     for index in range(total):
-        oc = occurrences_docs[index] if index < len(occurrences_docs) else None
+        # the planted sensitive documents come last: a document carrying a
+        # sensitive category is dropped before storage (EF-12), so it must not
+        # eat into the measured volume of a process (R8)
+        sensible = index >= propres
+        oc = None if sensible or index >= len(occurrences_docs) else occurrences_docs[index]
         identifiant = f"D-{index + 1:06d}"
         type_doc, titre_type = DOCUMENTS[index % len(DOCUMENTS)]
-        texte = _texte_document(index % 2 == 1, rng, titre_type)
+        texte = _texte_document(sensible, rng, titre_type)
         det = details(rng, bool(oc and oc.atypique))
         documents.append(_document(identifiant, type_doc, titre_type, oc, plan, rng))
         extractions.append(_extraction(identifiant, det, texte, rng))
-        if index % 2 == 1:
+        if sensible:
             sensibles.append(
                 {"document_id": identifiant, "categorie": _categorie(texte), "texte": texte, "type": type_doc}
             )
@@ -173,6 +202,8 @@ def _document(
         "chemin": f"documents/{identifiant}.pdf",
         "pages": 1,  # annex G.3: 200 documents = 200 pages of Data Automation
         "service": (oc.service if oc else "comptabilite"),
+        "systeme": (oc.systemes[0] if oc else "ged"),
+        "atypique": bool(oc.atypique) if oc else False,
         "horodatage": _date_document(oc, plan, rng),
         "watermark": FILIGRANE,
     }
@@ -261,8 +292,8 @@ def ecrire_appels(
     par_appel: dict[str, list[Occurrence]] = defaultdict(list)
     for oc in [o for o in occurrences if o.canal == "appels"]:
         par_appel[f"{oc.processus}-{oc.mois:02d}"].append(oc)
-    cles = sorted(par_appel)
-    total_segments = sum(len(par_appel[c]) for c in cles) or 1
+    cles = _decouper_appels(par_appel)
+    total_segments = sum(len(par_appel[c]) for c in par_appel) or 1
     secondes_par_segment = (MINUTES_APPELS * 60) / total_segments
     appels: list[dict] = []
     transcriptions: list[dict] = []
@@ -275,10 +306,11 @@ def ecrire_appels(
             {
                 "id": appel_id,
                 "duree_minutes": duree,
-                "horodatage": instant(plan.mois[premier.mois], "regroupee", rng).isoformat(),
+                "horodatage": instant(plan.mois[premier.mois], premier.repartition, rng).isoformat(),
                 "service": premier.service,
                 "consentement": True,
                 "type": "reunion" if len(segments) > 6 else "appel",
+                "systeme": premier.systemes[0] if premier.systemes else "appels",
                 "transcription": f"appels/transcriptions/{appel_id}.json",
                 "watermark": FILIGRANE,
             }
@@ -287,15 +319,42 @@ def ecrire_appels(
     return appels, transcriptions
 
 
+SEGMENTS_PAR_APPEL = 20
+
+
+def _decouper_appels(par_appel: dict[str, list[Occurrence]]) -> list[str]:
+    """Split the exchanges into recordings of at most 20 exchanges each.
+
+    A "call" of 120 exchanges would be a meeting nobody believes, and a long
+    recording flattens the hourly spread the fragmentation coefficient is read
+    from (13.1).
+    """
+    cles: list[str] = []
+    for cle in sorted(par_appel):
+        morceaux = [
+            par_appel[cle][i : i + SEGMENTS_PAR_APPEL]
+            for i in range(0, len(par_appel[cle]), SEGMENTS_PAR_APPEL)
+        ]
+        if len(morceaux) <= 1:
+            cles.append(cle)
+            continue
+        del par_appel[cle]
+        for position, morceau in enumerate(morceaux):
+            nouvelle = f"{cle}-{position}"
+            par_appel[nouvelle] = morceau
+            cles.append(nouvelle)
+    return cles
+
+
 def _transcription(
     appel_id: str, segments: list[Occurrence], duree: float, secondes: float, rng: random.Random
 ) -> dict:
     texte_segments = []
     curseur = 0.0
     for position, oc in enumerate(segments):
-        debut = curseur
-        fin = min(duree * 60, curseur + secondes)
-        curseur = fin
+        debut = curseur / 60
+        fin = min(duree, (curseur + secondes) / 60)
+        curseur += secondes
         det = details(rng, oc.atypique)
         texte_segments.append(
             {
@@ -303,6 +362,7 @@ def _transcription(
                 "fin": round(fin, 2),
                 "locuteur": f"LOC-{position % 5 + 1}",
                 "texte": f"{oc.geste} ; reference {det['produit']} ; {det['mention']}",
+                "atypique": oc.atypique,
             }
         )
     return {

@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "2803.43",
-    "numero": "14072",
-    "texte_libre": "Devis client - conge de maternite a venir",
-    "tiers": "DEMO-FR-01"
+    "montant_ht": "8261.02",
+    "numero": "54015",
+    "texte_libre": "Devis client - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-06"
   },
-  "confiance": 0.99,
+  "confiance": 0.9,
   "document_id": "D-000076",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-032",
-          6,
-          "94.08"
+          "R-038",
+          21,
+          "290.27"
         ]
       ],
       "nom": "lignes"

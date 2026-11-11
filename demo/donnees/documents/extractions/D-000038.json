@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "864.23",
-    "numero": "36299",
-    "texte_libre": "Releve de temperature - militant d'un parti politique",
-    "tiers": "DEMO-FR-07"
+    "montant_ht": "2995.39",
+    "numero": "14507",
+    "texte_libre": "Releve de temperature - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-18"
   },
-  "confiance": 0.88,
+  "confiance": 0.98,
   "document_id": "D-000038",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-025",
-          23,
-          "828.73"
+          "R-048",
+          36,
+          "644.02"
         ]
       ],
       "nom": "lignes"

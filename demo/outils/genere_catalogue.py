@@ -89,7 +89,7 @@ M = [
   {"duree": "12", "types": ["D", "E"], "jours_min": "10", "jours_max": "25", "atyp": "0.45"}),
  ("verification", "VERI-06", "Respect d'un seuil ou d'une regle", "Threshold or rule compliance",
   "Verifier le respect d'un seuil ou d'une regle metier.", ["seuil", "regle", "limite"],
-  ["erp"], "Verifier le respect du seuil", ["journaux"], {"duree": "3", "types": ["B"], "jours_min": "3", "jours_max": "8", "atyp": "0.14"}),
+  ["erp"], "Verifier le respect du seuil", ["journaux"], {"duree": "12", "types": ["B"], "jours_min": "3", "jours_max": "8", "atyp": "0.14"}),
  ("relance", "RELAN-01", "Devis sans reponse", "Unanswered quotation",
   "Relancer un client dont le devis est sans reponse.", ["devis", "relance", "reponse"],
   ["crm"], "Relancer le devis sans reponse", ["tickets", "journaux", "courriels"],
@@ -184,6 +184,27 @@ for famille, ref, nom, nom_en, desc, objets, systemes, modele, canaux, sur in M:
         "cout_jours_min": base["jours_min"], "cout_jours_max": base["jours_max"],
         "abonnement_mensuel": base["abo"],
     })
+
+# Typical durations aligned with the reference client (demo/spec-processus.json).
+# When a channel carries no timestamp - an email, a document, a call segment -
+# the measure falls back on the catalogue's typical duration (9.3), so the two
+# must agree, or the published hours of that process would be invented.
+DUREES_ALIGNEES = {
+    "RESS-01": "9", "RESS-04": "5", "RAPPR-03": "25", "VERI-03": "18", "VERI-04": "25",
+    "VERI-05": "22", "VERI-06": "12", "REPO-01": "210", "REPO-03": "960", "RECH-01": "12",
+}
+#: Same alignment for the typical spread: it is what the measure falls back on
+#: when the clock cannot be read (a call, a document, a small sample).
+REPARTITIONS_ALIGNEES = {
+    "RECH-01": "semi_regroupee", "RECH-02": "semi_regroupee", "RESS-04": "regroupee",
+    "VERI-03": "diffuse", "VERI-04": "diffuse", "RAPPR-03": "semi_regroupee",
+}
+for motifs in sortie.values():
+    for motif in motifs:
+        if motif["ref"] in DUREES_ALIGNEES:
+            motif["duree_unitaire_typique_minutes"] = DUREES_ALIGNEES[motif["ref"]]
+        if motif["ref"] in REPARTITIONS_ALIGNEES:
+            motif["repartition_defaut"] = REPARTITIONS_ALIGNEES[motif["ref"]]
 
 racine = Path("catalogue/motifs")
 racine.mkdir(parents=True, exist_ok=True)

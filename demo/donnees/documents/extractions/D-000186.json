@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "2669.55",
-    "numero": "29179",
-    "texte_libre": "Devis client - absence pour le careme",
-    "tiers": "DEMO-FR-04"
+    "montant_ht": "1183.45",
+    "numero": "35536",
+    "texte_libre": "Devis client - situation de vie sexuelle",
+    "tiers": "DEMO-FR-08"
   },
-  "confiance": 0.91,
+  "confiance": 0.94,
   "document_id": "D-000186",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-043",
-          27,
-          "877.47"
+          "R-046",
+          40,
+          "818.22"
         ]
       ],
       "nom": "lignes"

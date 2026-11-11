@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "6524.13",
-    "numero": "53967",
-    "texte_libre": "Procedure interne - identite de genre indiquee",
-    "tiers": "DEMO-FR-08"
+    "montant_ht": "400.98",
+    "numero": "68512",
+    "texte_libre": "Procedure interne - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-11"
   },
-  "confiance": 0.94,
+  "confiance": 0.92,
   "document_id": "D-000090",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-001",
-          28,
-          "163.45"
+          "R-004",
+          20,
+          "690.88"
         ]
       ],
       "nom": "lignes"

@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "8728.87",
-    "numero": "37208",
-    "texte_libre": "Note de frais - origine presumee du candidat",
-    "tiers": "DEMO-FR-05"
+    "montant_ht": "3598.60",
+    "numero": "89122",
+    "texte_libre": "Note de frais - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-08"
   },
-  "confiance": 0.84,
+  "confiance": 0.86,
   "document_id": "D-000034",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-010",
-          27,
-          "502.88"
+          "R-028",
+          39,
+          "337.04"
         ]
       ],
       "nom": "lignes"

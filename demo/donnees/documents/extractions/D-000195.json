@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "6112.62",
-    "numero": "59196",
-    "texte_libre": "Releve bancaire - piece comptable standard, aucune donnee sensible",
-    "tiers": "DEMO-FR-09"
+    "montant_ht": "8036.19",
+    "numero": "67443",
+    "texte_libre": "Releve bancaire - campagne electorale interne",
+    "tiers": "DEMO-FR-13"
   },
-  "confiance": 0.85,
+  "confiance": 0.97,
   "document_id": "D-000195",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-055",
-          33,
-          "721.30"
+          "R-029",
+          21,
+          "133.24"
         ]
       ],
       "nom": "lignes"

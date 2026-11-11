@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "7984.73",
-    "numero": "12161",
-    "texte_libre": "Avoir fournisseur - piece comptable standard, aucune donnee sensible",
-    "tiers": "DEMO-FR-02"
+    "montant_ht": "3995.76",
+    "numero": "44977",
+    "texte_libre": "Avoir fournisseur - demande liee au ramadan",
+    "tiers": "DEMO-FR-18"
   },
-  "confiance": 0.94,
+  "confiance": 0.92,
   "document_id": "D-000197",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-043",
-          22,
-          "610.98"
+          "R-021",
+          33,
+          "833.14"
         ]
       ],
       "nom": "lignes"

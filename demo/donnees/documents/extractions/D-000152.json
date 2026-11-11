@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "635.27",
-    "numero": "84600",
-    "texte_libre": "Facture fournisseur - adhesion syndicale renouvelee",
-    "tiers": "DEMO-FR-02"
+    "montant_ht": "180.89",
+    "numero": "95344",
+    "texte_libre": "Facture fournisseur - conviction religieuse mentionnee",
+    "tiers": "DEMO-FR-05"
   },
-  "confiance": 0.94,
+  "confiance": 0.97,
   "document_id": "D-000152",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-010",
-          8,
-          "496.20"
+          "R-015",
+          31,
+          "580.61"
         ]
       ],
       "nom": "lignes"

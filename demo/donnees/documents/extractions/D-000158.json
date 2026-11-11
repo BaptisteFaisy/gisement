@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "7221.56",
-    "numero": "28262",
-    "texte_libre": "Releve de temperature - adhesion syndicale renouvelee",
-    "tiers": "DEMO-FR-09"
+    "montant_ht": "2367.04",
+    "numero": "46294",
+    "texte_libre": "Releve de temperature - orientation sexuelle mentionnee",
+    "tiers": "DEMO-FR-08"
   },
-  "confiance": 0.83,
+  "confiance": 0.97,
   "document_id": "D-000158",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-037",
-          10,
-          "265.24"
+          "R-021",
+          15,
+          "232.18"
         ]
       ],
       "nom": "lignes"

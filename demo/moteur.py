@@ -28,13 +28,20 @@ from demo.listes import (
 #: this many exchanges, spread over the recorded calls (annex F.2: six hours).
 CAPACITE_APPELS = 600
 
+#: Documents tied to a process; the planted sensitive ones are added on top.
+DOCUMENTS_PROCESSUS = 100
+DOCUMENTS_SENSIBLES = 100
+
 #: Nominal channel volumes of annex F.2, plus the call-segment capacity.
 CAPACITES: dict[str, int] = {
     "journaux": 12400,
     "tickets": 4800,
     "courriels": 2000,
     "appels": CAPACITE_APPELS,
-    "documents": 200,
+    # 100 documents tied to a process + 100 carrying a planted sensitive
+    # category (R8): a sensitive document is dropped before storage, so it must
+    # not eat into a process's measured volume.
+    "documents": DOCUMENTS_PROCESSUS,
 }
 
 #: Total recorded call time of the campaign (annex F.2: six hours).
@@ -75,6 +82,7 @@ class Occurrence:
     geste: str
     jours: float
     systemes: tuple[str, ...]
+    repartition: str
 
 
 @dataclass(frozen=True)
@@ -138,12 +146,16 @@ def _tirage_pondere(eligibles: list[str], poids: dict[str, float], rng: random.R
     return eligibles[-1]
 
 
-def choisir_motif(processus: dict, rng: random.Random) -> str:
-    """The primary motif carries 80 % of the occurrences, the others the rest."""
-    motifs = processus["motifs"]
-    if len(motifs) == 1 or rng.random() < 0.80:
-        return motifs[0]
-    return motifs[rng.randrange(1, len(motifs))]
+def choisir_motif(processus: dict, _rng: random.Random) -> str:
+    """The gesture of a process is its **primary** motif.
+
+    Every occurrence of a process carries the same canonical gesture, so the
+    fingerprint groups them and the aggregation back to the process is exact.
+    The other motifs of a process stay descriptive metadata on its sheet: two
+    processes of one service must not share a primary motif, which the ground
+    truth guarantees (lot 11 aggregates on motif + service).
+    """
+    return processus["motifs"][0]
 
 
 def planifier(verite: dict, graine: int) -> Plan:
@@ -174,6 +186,7 @@ def planifier(verite: dict, graine: int) -> Plan:
                         geste=_geste_du_motif(motif, gestes, processus),
                         jours=float(processus["duree_unitaire_minutes"]),
                         systemes=_systemes(processus, verite),
+                        repartition=processus["repartition"],
                     )
                 )
     bruit = {c: max(0, CAPACITES[c] - par_canal[c]) for c in CAPACITES}
@@ -206,11 +219,13 @@ def _gestes(processus: dict, verite: dict) -> tuple[str, ...]:
 
 
 def _systemes(processus: dict, verite: dict) -> tuple[str, ...]:
+    """The systems of the process's primary motif: they are part of the
+    fingerprint, so every channel must write the same ones."""
     systemes: list[str] = []
     for ref in processus["motifs"]:
         motif = verite["catalogue"].get(ref)
         if motif:
-            systemes.extend(motif.get("systemes", ()))
+            systemes.extend(motif.get("indices", {}).get("systemes", ()))
     return tuple(dict.fromkeys(systemes)) or ("erp",)
 
 

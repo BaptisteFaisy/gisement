@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "8178.44",
-    "numero": "43978",
-    "texte_libre": "Facture fournisseur - suivi medical en cours",
-    "tiers": "DEMO-FR-15"
+    "montant_ht": "7139.28",
+    "numero": "80663",
+    "texte_libre": "Facture fournisseur - origine presumee du candidat",
+    "tiers": "DEMO-FR-03"
   },
-  "confiance": 0.99,
+  "confiance": 0.88,
   "document_id": "D-000172",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-038",
-          14,
-          "112.72"
+          "R-042",
+          23,
+          "416.97"
         ]
       ],
       "nom": "lignes"

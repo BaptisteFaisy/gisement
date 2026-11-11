@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "8418.06",
-    "numero": "73653",
-    "texte_libre": "Devis client - cotisation syndicale prelevee",
-    "tiers": "DEMO-FR-06"
+    "montant_ht": "1449.85",
+    "numero": "88437",
+    "texte_libre": "Devis client - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-14"
   },
-  "confiance": 0.84,
+  "confiance": 0.82,
   "document_id": "D-000066",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-046",
-          8,
-          "653.06"
+          "R-027",
+          10,
+          "75.12"
         ]
       ],
       "nom": "lignes"

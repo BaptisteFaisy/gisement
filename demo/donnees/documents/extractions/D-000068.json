@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "5245.55",
-    "numero": "90876",
-    "texte_libre": "Releve de temperature - pratique religieuse du salarie",
-    "tiers": "DEMO-FR-17"
+    "montant_ht": "8607.32",
+    "numero": "98652",
+    "texte_libre": "Releve de temperature - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-12"
   },
-  "confiance": 0.99,
+  "confiance": 0.9,
   "document_id": "D-000068",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-038",
-          10,
-          "229.99"
+          "R-052",
+          40,
+          "651.52"
         ]
       ],
       "nom": "lignes"

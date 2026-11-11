@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "8600.98",
-    "numero": "60650",
-    "texte_libre": "Contrat cadre - piece comptable standard, aucune donnee sensible",
-    "tiers": "DEMO-FR-06"
+    "montant_ht": "8903.81",
+    "numero": "60551",
+    "texte_libre": "Contrat cadre - analyse genetique demandee",
+    "tiers": "DEMO-FR-11"
   },
-  "confiance": 0.93,
+  "confiance": 0.92,
   "document_id": "D-000119",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-008",
-          26,
-          "115.17"
+          "R-043",
+          39,
+          "583.95"
         ]
       ],
       "nom": "lignes"

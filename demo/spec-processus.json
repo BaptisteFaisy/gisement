@@ -1382,7 +1382,8 @@
         "taux_maintenance": "0.08"
       },
       "faits": {
-        "etape_supprimable_amont": true
+        "etape_supprimable_amont": true,
+        "interface_stable": true
       },
       "part_volume_traitee": "0.60",
       "suppression_etape": true,
@@ -1482,7 +1483,8 @@
         "taux_maintenance": "0"
       },
       "faits": {
-        "etape_supprimable_amont": true
+        "etape_supprimable_amont": true,
+        "interface_stable": true
       },
       "part_volume_traitee": "0.73",
       "suppression_etape": true,
@@ -1645,8 +1647,8 @@
       "service": "approvisionnements",
       "famille_poste": "administratif",
       "motifs": [
-        "RESS-01",
-        "VERI-06"
+        "RAPPR-03",
+        "RESS-01"
       ],
       "canaux": [
         "courriels",
@@ -1850,8 +1852,8 @@
       "service": "adv",
       "famille_poste": "administratif",
       "motifs": [
-        "VERI-05",
-        "VERI-06"
+        "VERI-06",
+        "VERI-05"
       ],
       "canaux": [
         "courriels",
@@ -2177,8 +2179,8 @@
       "service": "support",
       "famille_poste": "administratif",
       "motifs": [
-        "COORD-04",
-        "RECH-01"
+        "RECH-01",
+        "COORD-04"
       ],
       "canaux": [
         "appels",

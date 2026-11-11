@@ -1,10 +1,10 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "2314.20",
-    "numero": "87944",
-    "texte_libre": "Releve bancaire - piece comptable standard, aucune donnee sensible",
-    "tiers": "DEMO-FR-05"
+    "montant_ht": "6058.96",
+    "numero": "80055",
+    "texte_libre": "Releve bancaire - tract syndical diffuse",
+    "tiers": "DEMO-FR-13"
   },
   "confiance": 0.91,
   "document_id": "D-000115",
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-055",
-          15,
-          "702.01"
+          "R-007",
+          27,
+          "344.25"
         ]
       ],
       "nom": "lignes"

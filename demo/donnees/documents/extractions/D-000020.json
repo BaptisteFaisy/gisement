@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "8391.40",
-    "numero": "98714",
-    "texte_libre": "Procedure interne - demande liee au ramadan",
-    "tiers": "DEMO-FR-05"
+    "montant_ht": "4519.60",
+    "numero": "93562",
+    "texte_libre": "Procedure interne - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-08"
   },
-  "confiance": 0.95,
+  "confiance": 0.87,
   "document_id": "D-000020",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-017",
-          31,
-          "60.91"
+          "R-052",
+          20,
+          "91.26"
         ]
       ],
       "nom": "lignes"

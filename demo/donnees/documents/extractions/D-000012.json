@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "5057.36",
-    "numero": "74172",
-    "texte_libre": "Facture fournisseur - analyse genetique demandee",
-    "tiers": "DEMO-FR-14"
+    "montant_ht": "8381.59",
+    "numero": "61507",
+    "texte_libre": "Facture fournisseur - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-06"
   },
-  "confiance": 0.91,
+  "confiance": 0.87,
   "document_id": "D-000012",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-016",
-          15,
-          "562.84"
+          "R-030",
+          39,
+          "439.31"
         ]
       ],
       "nom": "lignes"

@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "3695.59",
-    "numero": "39945",
-    "texte_libre": "Note de frais - demande liee au ramadan",
-    "tiers": "DEMO-FR-10"
+    "montant_ht": "7269.16",
+    "numero": "84299",
+    "texte_libre": "Note de frais - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-12"
   },
-  "confiance": 0.95,
+  "confiance": 0.9,
   "document_id": "D-000064",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-030",
-          37,
-          "121.77"
+          "R-042",
+          15,
+          "815.27"
         ]
       ],
       "nom": "lignes"

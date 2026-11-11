@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "5035.47",
-    "numero": "49213",
-    "texte_libre": "Note de frais - permanence syndicale du jeudi",
-    "tiers": "DEMO-FR-02"
+    "montant_ht": "3721.54",
+    "numero": "94755",
+    "texte_libre": "Note de frais - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-08"
   },
-  "confiance": 0.88,
+  "confiance": 0.82,
   "document_id": "D-000054",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-010",
-          5,
-          "105.41"
+          "R-045",
+          12,
+          "104.73"
         ]
       ],
       "nom": "lignes"

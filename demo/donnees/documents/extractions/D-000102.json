@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "5201.92",
-    "numero": "92857",
-    "texte_libre": "Facture fournisseur - engagement politique du salarie",
-    "tiers": "DEMO-FR-03"
+    "montant_ht": "8827.47",
+    "numero": "55715",
+    "texte_libre": "Facture fournisseur - situation de vie sexuelle",
+    "tiers": "DEMO-FR-08"
   },
-  "confiance": 0.96,
+  "confiance": 0.95,
   "document_id": "D-000102",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-020",
-          40,
-          "786.26"
+          "R-005",
+          9,
+          "680.85"
         ]
       ],
       "nom": "lignes"

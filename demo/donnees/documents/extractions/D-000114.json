@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "7187.85",
-    "numero": "43396",
-    "texte_libre": "Note de frais - appartenance ethnique",
-    "tiers": "DEMO-FR-14"
+    "montant_ht": "9208.16",
+    "numero": "29286",
+    "texte_libre": "Note de frais - prolongation de l'arret maladie",
+    "tiers": "DEMO-FR-16"
   },
-  "confiance": 0.96,
+  "confiance": 0.86,
   "document_id": "D-000114",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-029",
-          16,
-          "457.85"
+          "R-040",
+          35,
+          "648.36"
         ]
       ],
       "nom": "lignes"

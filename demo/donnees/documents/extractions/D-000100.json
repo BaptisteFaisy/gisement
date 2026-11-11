@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "5907.95",
-    "numero": "31418",
-    "texte_libre": "Procedure interne - engagement politique du salarie",
-    "tiers": "DEMO-FR-15"
+    "montant_ht": "1396.31",
+    "numero": "53516",
+    "texte_libre": "Procedure interne - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-16"
   },
-  "confiance": 0.96,
+  "confiance": 0.85,
   "document_id": "D-000100",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-057",
-          14,
-          "410.97"
+          "R-025",
+          35,
+          "699.49"
         ]
       ],
       "nom": "lignes"

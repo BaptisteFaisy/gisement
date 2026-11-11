@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "2547.35",
-    "numero": "40759",
-    "texte_libre": "Bon de livraison - piece comptable standard, aucune donnee sensible",
+    "montant_ht": "2673.18",
+    "numero": "45139",
+    "texte_libre": "Bon de livraison - conviction religieuse mentionnee",
     "tiers": "DEMO-FR-10"
   },
-  "confiance": 0.98,
+  "confiance": 0.93,
   "document_id": "D-000153",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-021",
+          "R-039",
           11,
-          "537.99"
+          "743.18"
         ]
       ],
       "nom": "lignes"

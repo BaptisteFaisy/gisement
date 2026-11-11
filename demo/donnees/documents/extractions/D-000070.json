@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "883.64",
-    "numero": "93313",
-    "texte_libre": "Procedure interne - suite a mon arret de travail",
-    "tiers": "DEMO-FR-14"
+    "montant_ht": "7128.38",
+    "numero": "14762",
+    "texte_libre": "Procedure interne - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-09"
   },
-  "confiance": 0.97,
+  "confiance": 0.91,
   "document_id": "D-000070",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-038",
-          21,
-          "622.05"
+          "R-018",
+          6,
+          "528.92"
         ]
       ],
       "nom": "lignes"

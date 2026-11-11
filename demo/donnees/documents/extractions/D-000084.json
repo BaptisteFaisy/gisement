@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "9284.48",
-    "numero": "83300",
-    "texte_libre": "Note de frais - origine ethnique indiquee",
-    "tiers": "DEMO-FR-18"
+    "montant_ht": "8795.62",
+    "numero": "41241",
+    "texte_libre": "Note de frais - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-05"
   },
-  "confiance": 0.97,
+  "confiance": 0.89,
   "document_id": "D-000084",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-022",
-          20,
-          "764.65"
+          "R-017",
+          14,
+          "765.77"
         ]
       ],
       "nom": "lignes"

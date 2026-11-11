@@ -1,10 +1,10 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "4873.84",
-    "numero": "87423",
-    "texte_libre": "Contrat cadre - piece comptable standard, aucune donnee sensible",
-    "tiers": "DEMO-FR-16"
+    "montant_ht": "5139.25",
+    "numero": "43253",
+    "texte_libre": "Contrat cadre - hospitalisation prevue",
+    "tiers": "DEMO-FR-17"
   },
   "confiance": 0.87,
   "document_id": "D-000179",
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-027",
-          26,
-          "771.82"
+          "R-022",
+          13,
+          "110.99"
         ]
       ],
       "nom": "lignes"

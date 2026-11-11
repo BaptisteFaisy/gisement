@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "2758.28",
-    "numero": "45234",
-    "texte_libre": "Bon de commande - piece comptable standard, aucune donnee sensible",
-    "tiers": "DEMO-FR-14"
+    "montant_ht": "1505.43",
+    "numero": "17534",
+    "texte_libre": "Bon de commande - demande liee au ramadan",
+    "tiers": "DEMO-FR-06"
   },
-  "confiance": 0.86,
+  "confiance": 0.9,
   "document_id": "D-000121",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-031",
-          5,
-          "880.21"
+          "R-039",
+          38,
+          "280.08"
         ]
       ],
       "nom": "lignes"

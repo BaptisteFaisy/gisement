@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "7178.03",
-    "numero": "53273",
-    "texte_libre": "Bon de commande - piece comptable standard, aucune donnee sensible",
-    "tiers": "DEMO-FR-08"
+    "montant_ht": "6702.53",
+    "numero": "20201",
+    "texte_libre": "Bon de commande - reunion de section syndicale",
+    "tiers": "DEMO-FR-12"
   },
-  "confiance": 0.92,
+  "confiance": 0.93,
   "document_id": "D-000181",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-045",
-          39,
-          "74.33"
+          "R-005",
+          23,
+          "244.05"
         ]
       ],
       "nom": "lignes"

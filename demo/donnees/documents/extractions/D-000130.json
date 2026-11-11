@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "2313.48",
-    "numero": "61640",
-    "texte_libre": "Procedure interne - mandat de delegue syndical",
-    "tiers": "DEMO-FR-01"
+    "montant_ht": "4951.40",
+    "numero": "80251",
+    "texte_libre": "Procedure interne - origine presumee du candidat",
+    "tiers": "DEMO-FR-06"
   },
-  "confiance": 0.83,
+  "confiance": 0.82,
   "document_id": "D-000130",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-047",
+          "R-007",
           11,
-          "61.63"
+          "344.16"
         ]
       ],
       "nom": "lignes"

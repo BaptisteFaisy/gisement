@@ -38,7 +38,7 @@ class SourceDocuments(Source):
         champs = extraction.get("champs", {})
         return {
             **document,
-            "systeme": "ged",
+            "systeme": document.get("systeme", "ged"),
             "extraction_confiance": extraction.get("confiance", 0.0),
             "champs": champs,
             "tableaux": extraction.get("tableaux", []),

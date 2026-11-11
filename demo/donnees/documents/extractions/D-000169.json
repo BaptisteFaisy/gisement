@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "4760.45",
-    "numero": "34397",
-    "texte_libre": "Contrat cadre - piece comptable standard, aucune donnee sensible",
-    "tiers": "DEMO-FR-03"
+    "montant_ht": "5839.45",
+    "numero": "61880",
+    "texte_libre": "Contrat cadre - tract syndical diffuse",
+    "tiers": "DEMO-FR-05"
   },
-  "confiance": 0.91,
+  "confiance": 0.97,
   "document_id": "D-000169",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-006",
-          21,
-          "851.28"
+          "R-051",
+          6,
+          "675.99"
         ]
       ],
       "nom": "lignes"

@@ -1,16 +1,16 @@
 {
   "activites_par_canal": {
     "appels": 600,
-    "courriels": 1916,
-    "documents": 200,
-    "journaux": 12316,
+    "courriels": 1966,
+    "documents": 100,
+    "journaux": 12366,
     "tickets": 4800
   },
   "bruit_par_canal": {
     "appels": 0,
-    "courriels": 84,
+    "courriels": 34,
     "documents": 0,
-    "journaux": 84,
+    "journaux": 34,
     "tickets": 0
   },
   "client": {
@@ -148,7 +148,7 @@
   },
   "version": "1.0",
   "volumes": {
-    "appels": 7,
+    "appels": 34,
     "courriels": 2000,
     "documents": 200,
     "journaux": 12400,
@@ -159,7 +159,7 @@
   "volumes_nominaux": {
     "appels": 600,
     "courriels": 2000,
-    "documents": 200,
+    "documents": 100,
     "journaux": 12400,
     "tickets": 4800
   },

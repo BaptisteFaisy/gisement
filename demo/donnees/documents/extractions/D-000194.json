@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "3149.57",
-    "numero": "26904",
-    "texte_libre": "Note de frais - militant d'un parti politique",
-    "tiers": "DEMO-FR-12"
+    "montant_ht": "1457.71",
+    "numero": "15607",
+    "texte_libre": "Note de frais - engagement politique du salarie",
+    "tiers": "DEMO-FR-15"
   },
-  "confiance": 0.86,
+  "confiance": 0.84,
   "document_id": "D-000194",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-004",
-          7,
-          "302.30"
+          "R-026",
+          18,
+          "625.45"
         ]
       ],
       "nom": "lignes"

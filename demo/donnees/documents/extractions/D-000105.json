@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "4871.24",
-    "numero": "88716",
-    "texte_libre": "Releve bancaire - piece comptable standard, aucune donnee sensible",
-    "tiers": "DEMO-FR-08"
+    "montant_ht": "1969.60",
+    "numero": "92037",
+    "texte_libre": "Releve bancaire - situation de vie sexuelle",
+    "tiers": "DEMO-FR-02"
   },
-  "confiance": 0.89,
+  "confiance": 0.93,
   "document_id": "D-000105",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-015",
-          40,
-          "390.66"
+          "R-031",
+          2,
+          "445.79"
         ]
       ],
       "nom": "lignes"

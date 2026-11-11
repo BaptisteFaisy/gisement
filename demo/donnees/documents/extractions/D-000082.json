@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "355.04",
-    "numero": "49685",
-    "texte_libre": "Facture fournisseur - traitement medical en cours",
-    "tiers": "DEMO-FR-03"
+    "montant_ht": "6812.68",
+    "numero": "56692",
+    "texte_libre": "Facture fournisseur - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-14"
   },
-  "confiance": 0.9,
+  "confiance": 0.85,
   "document_id": "D-000082",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-005",
-          19,
-          "201.29"
+          "R-037",
+          30,
+          "298.79"
         ]
       ],
       "nom": "lignes"

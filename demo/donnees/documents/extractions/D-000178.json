@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "7357.17",
-    "numero": "33362",
-    "texte_libre": "Releve de temperature - suite a mon arret de travail",
-    "tiers": "DEMO-FR-02"
+    "montant_ht": "4017.84",
+    "numero": "27619",
+    "texte_libre": "Releve de temperature - origine ethnique indiquee",
+    "tiers": "DEMO-FR-06"
   },
-  "confiance": 0.88,
+  "confiance": 0.9,
   "document_id": "D-000178",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-030",
-          13,
-          "861.55"
+          "R-043",
+          30,
+          "808.46"
         ]
       ],
       "nom": "lignes"

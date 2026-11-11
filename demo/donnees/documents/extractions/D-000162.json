@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "6651.55",
-    "numero": "83533",
-    "texte_libre": "Facture fournisseur - reunion de section syndicale",
-    "tiers": "DEMO-FR-15"
+    "montant_ht": "896.12",
+    "numero": "83781",
+    "texte_libre": "Facture fournisseur - appartenance ethnique",
+    "tiers": "DEMO-FR-03"
   },
-  "confiance": 0.98,
+  "confiance": 0.88,
   "document_id": "D-000162",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-037",
-          26,
-          "880.72"
+          "R-020",
+          36,
+          "167.36"
         ]
       ],
       "nom": "lignes"

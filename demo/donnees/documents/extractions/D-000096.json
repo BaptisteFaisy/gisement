@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "2565.48",
-    "numero": "13620",
-    "texte_libre": "Devis client - suivi medical en cours",
-    "tiers": "DEMO-FR-11"
+    "montant_ht": "2188.79",
+    "numero": "83786",
+    "texte_libre": "Devis client - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-04"
   },
-  "confiance": 0.89,
+  "confiance": 0.95,
   "document_id": "D-000096",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-012",
-          40,
-          "352.95"
+          "R-055",
+          25,
+          "492.92"
         ]
       ],
       "nom": "lignes"

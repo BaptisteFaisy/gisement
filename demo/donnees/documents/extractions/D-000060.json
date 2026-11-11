@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "3812.32",
-    "numero": "38827",
-    "texte_libre": "Procedure interne - campagne electorale interne",
-    "tiers": "DEMO-FR-14"
+    "montant_ht": "4148.15",
+    "numero": "82871",
+    "texte_libre": "Procedure interne - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-06"
   },
-  "confiance": 0.85,
+  "confiance": 0.87,
   "document_id": "D-000060",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-036",
-          25,
-          "696.44"
+          "R-058",
+          26,
+          "100.91"
         ]
       ],
       "nom": "lignes"

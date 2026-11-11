@@ -25,7 +25,7 @@
       ]
     },
     "modele_texte": "Extraire les donnees periodiques",
-    "duree_unitaire_typique_minutes": "25",
+    "duree_unitaire_typique_minutes": "210",
     "duree_statut_defaut": "inferree",
     "repartition_defaut": "regroupee",
     "taux_revue_defaut": "0.20",
@@ -103,7 +103,7 @@
       ]
     },
     "modele_texte": "Consolider les donnees multi-sources",
-    "duree_unitaire_typique_minutes": "90",
+    "duree_unitaire_typique_minutes": "960",
     "duree_statut_defaut": "inferree",
     "repartition_defaut": "regroupee",
     "taux_revue_defaut": "0.20",

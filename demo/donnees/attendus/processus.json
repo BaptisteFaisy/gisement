@@ -1416,7 +1416,8 @@
       "duree_unitaire_minutes": "3",
       "ecart_procedure": true,
       "faits": {
-        "etape_supprimable_amont": true
+        "etape_supprimable_amont": true,
+        "interface_stable": true
       },
       "famille_poste": "administratif",
       "id": "P-13",
@@ -1525,7 +1526,8 @@
       "duree_unitaire_minutes": "4",
       "ecart_procedure": true,
       "faits": {
-        "etape_supprimable_amont": true
+        "etape_supprimable_amont": true,
+        "interface_stable": true
       },
       "famille_poste": "administratif",
       "id": "P-14",
@@ -1733,8 +1735,8 @@
       "famille_poste": "administratif",
       "id": "P-16",
       "motifs": [
-        "RESS-01",
-        "VERI-06"
+        "RAPPR-03",
+        "RESS-01"
       ],
       "nom": "Traitement du reassort de fin d annee",
       "nom_en": "Handling the year-end replenishment",
@@ -1976,8 +1978,8 @@
       "famille_poste": "administratif",
       "id": "P-18",
       "motifs": [
-        "VERI-05",
-        "VERI-06"
+        "VERI-06",
+        "VERI-05"
       ],
       "nom": "Validation des remises exceptionnelles",
       "nom_en": "Approving exceptional discounts",
@@ -2308,8 +2310,8 @@
       "famille_poste": "administratif",
       "id": "P-21",
       "motifs": [
-        "COORD-04",
-        "RECH-01"
+        "RECH-01",
+        "COORD-04"
       ],
       "nom": "Analyse des appels entrants du support",
       "nom_en": "Analysing inbound support calls",

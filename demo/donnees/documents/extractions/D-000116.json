@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "3252.09",
-    "numero": "32055",
-    "texte_libre": "Devis client - analyse genetique demandee",
-    "tiers": "DEMO-FR-05"
+    "montant_ht": "7735.76",
+    "numero": "94160",
+    "texte_libre": "Devis client - identite de genre indiquee",
+    "tiers": "DEMO-FR-15"
   },
-  "confiance": 0.91,
+  "confiance": 0.95,
   "document_id": "D-000116",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-056",
-          14,
-          "557.78"
+          "R-019",
+          7,
+          "146.04"
         ]
       ],
       "nom": "lignes"

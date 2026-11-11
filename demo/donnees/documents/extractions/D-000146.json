@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "4393.49",
-    "numero": "26383",
-    "texte_libre": "Devis client - opinion politique exprimee",
-    "tiers": "DEMO-FR-09"
+    "montant_ht": "3054.58",
+    "numero": "38843",
+    "texte_libre": "Devis client - orientation sexuelle mentionnee",
+    "tiers": "DEMO-FR-08"
   },
-  "confiance": 0.83,
+  "confiance": 0.87,
   "document_id": "D-000146",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-008",
-          3,
-          "259.21"
+          "R-042",
+          33,
+          "868.58"
         ]
       ],
       "nom": "lignes"

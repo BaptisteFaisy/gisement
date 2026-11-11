@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "896.12",
-    "numero": "83781",
-    "texte_libre": "Procedure interne - appartenance ethnique",
-    "tiers": "DEMO-FR-03"
+    "montant_ht": "2721.70",
+    "numero": "14989",
+    "texte_libre": "Procedure interne - identite de genre indiquee",
+    "tiers": "DEMO-FR-14"
   },
-  "confiance": 0.95,
+  "confiance": 0.92,
   "document_id": "D-000110",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-020",
-          36,
-          "167.36"
+          "R-054",
+          10,
+          "189.69"
         ]
       ],
       "nom": "lignes"

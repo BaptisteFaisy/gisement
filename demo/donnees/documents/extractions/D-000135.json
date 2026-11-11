@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "6316.18",
-    "numero": "30010",
-    "texte_libre": "Releve bancaire - piece comptable standard, aucune donnee sensible",
-    "tiers": "DEMO-FR-14"
+    "montant_ht": "6961.56",
+    "numero": "43223",
+    "texte_libre": "Releve bancaire - absence pour le careme",
+    "tiers": "DEMO-FR-11"
   },
-  "confiance": 0.98,
+  "confiance": 0.87,
   "document_id": "D-000135",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-050",
-          2,
-          "221.70"
+          "R-045",
+          11,
+          "150.18"
         ]
       ],
       "nom": "lignes"

@@ -1,12 +1,12 @@
 {
   "categories_sensibles_detectees": [],
   "champs": {
-    "montant_ht": "9253.36",
-    "numero": "78274",
-    "texte_libre": "Note de frais - demande liee au ramadan",
-    "tiers": "DEMO-FR-01"
+    "montant_ht": "7604.33",
+    "numero": "82061",
+    "texte_libre": "Note de frais - analyse genetique demandee",
+    "tiers": "DEMO-FR-10"
   },
-  "confiance": 0.94,
+  "confiance": 0.95,
   "document_id": "D-000184",
   "tableaux": [
     {
@@ -17,9 +17,9 @@
       ],
       "lignes": [
         [
-          "R-010",
-          11,
-          "64.69"
+          "R-003",
+          21,
+          "586.31"
         ]
       ],
       "nom": "lignes"
