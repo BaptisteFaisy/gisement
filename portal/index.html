@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gisement - cartographie du travail reel</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="bandeau">
+  <div>
+    <h1>Gisement</h1>
+    <p class="sous-titre">Le travail reel, mesure. Un portefeuille de projets d'automatisation, sequence.</p>
+  </div>
+  <div class="session">
+    <label for="jeton">Jeton</label>
+    <select id="jeton">
+      <option value="jeton-demo-msp">Consultant MSP</option>
+      <option value="jeton-demo-dpo">DPO / representants</option>
+      <option value="jeton-demo-commanditaire">Commanditaire</option>
+      <option value="jeton-autre-client">Autre client (tenant different)</option>
+    </select>
+  </div>
+</header>
+
+<main>
+  <section class="carte">
+    <h2>1. Perimetre et conformite</h2>
+    <p id="etat-conformite" class="etat">Validation DPO : <strong>non enregistree</strong></p>
+    <div class="actions">
+      <button id="btn-conformite">Enregistrer la validation DPO</button>
+      <button id="btn-lancer" disabled>Lancer la mesure</button>
+      <button id="btn-suspendre" disabled>Suspendre</button>
+    </div>
+    <p class="note">Sans validation enregistree, le bouton <em>Lancer</em> reste grise et aucune
+      ingestion n'a lieu (EF-04, R1).</p>
+  </section>
+
+  <section class="carte">
+    <h2>2. Mesure</h2>
+    <div id="mesure" class="grille">Lancer la mesure pour voir les resultats.</div>
+  </section>
+
+  <section class="carte">
+    <h2>3. Couverture de la mesure</h2>
+    <p id="couverture" class="etat">La couverture est publiee, jamais implicite (10.3).</p>
+  </section>
+
+  <section class="carte">
+    <h2>4. Une tentative de mesure individuelle</h2>
+    <p class="note">La regle k &ge; 5 est appliquee par la passerelle, avant l'outil (R5).</p>
+    <div class="actions">
+      <button id="btn-individuel">Demander une mesure par salarie</button>
+      <button id="btn-agregat">Demander une mesure agregee (service)</button>
+    </div>
+    <pre id="verdict" class="verdict"></pre>
+  </section>
+
+  <section class="carte">
+    <h2>5. Cas de reference : saisie des commandes fournisseurs</h2>
+    <div id="reference" class="grille"></div>
+  </section>
+
+  <section class="carte">
+    <h2>6. Sequence : les trois vagues</h2>
+    <div id="vagues" class="grille"></div>
+  </section>
+
+  <section class="carte">
+    <h2>7. A ne pas automatiser</h2>
+    <div id="deconseilles" class="grille"></div>
+  </section>
+
+  <section class="carte">
+    <h2>8. Rapport, registre et cout</h2>
+    <div class="actions">
+      <button id="btn-rapport">Rapport dirigeant (FR)</button>
+      <button id="btn-registre">Registre de conformite</button>
+      <button id="btn-budget">Cout mesure</button>
+    </div>
+    <pre id="document" class="verdict"></pre>
+  </section>
+</main>
+
+<footer>
+  <p>Demo Distribution SAS - jeu entierement synthetique (SYNTHETIQUE - DEMONSTRATION).
+     Aucune donnee personnelle reelle. Mesure agregee au-dessus de cinq individus :
+     aucune attribution individuelle n'est techniquement possible.</p>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>
