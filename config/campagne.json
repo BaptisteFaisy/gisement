@@ -1,0 +1,29 @@
+{
+  "version": "1.0",
+  "graine_defaut": 20261111,
+  "fenetre_mois": 6,
+  "seuil_agregation": 5,
+  "retention_jours": 180,
+  "quota_requetes_utilisateur": 200,
+  "budget": {
+    "cartographie_usd": "20.00",
+    "credits_compte_usd": "200.00",
+    "cartographies_completes_max": 4,
+    "runs_developpement_max": 25,
+    "appels_modele_max": 400,
+    "jetons_entree_max": 2000000,
+    "jetons_sortie_max": 400000
+  },
+  "bornes": {
+    "audio_heures_max": 6,
+    "documents_pages_max": 200,
+    "tickets_max": 5000,
+    "courriels_echantillon_min": 1500,
+    "courriels_echantillon_max": 3000,
+    "courriels_echantillon_cible": 2000,
+    "journaux_lignes_max": 20000
+  },
+  "tirages_monte_carlo": 10000,
+  "seuil_confiance_classification": "0.70",
+  "note": "ENF-09: the token and call budget is capped per campaign and the run stops cleanly when it is reached. Rule 1 of section 26.4: no Transcribe and no Data Automation during development - the frozen transcripts and extractions of demo/donnees are used instead."
+}

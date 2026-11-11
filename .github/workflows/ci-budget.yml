@@ -1,0 +1,32 @@
+name: ci-budget (<= 5 min)
+
+# Configuration guard, not an application test: fails if any job declares
+# more than 5 minutes (or no timeout at all). Runs on every PR so the
+# `ci-budget` check always exists (Mergify queue condition).
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-budget-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci-budget:
+    name: ci-budget
+    runs-on: ${{ fromJSON(vars.CI_RUNNER || '"ubuntu-latest"') }}
+    timeout-minutes: 5
+    steps:
+      - name: Checkout (shallow)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+      - name: Check the 5 min budget of every job
+        run: python3 .github/ci-budget/check_timeouts.py

@@ -1,0 +1,38 @@
+# Mergify merge queue - Gisement (AWS MSP AI Hackathon, Track 2).
+#
+# Queue conditions:
+#   - `ci`        (ruff + 500/50 size guard + offline pytest + demo smoke)
+#   - `ci-budget` (5 min budget per job, user rule 2026-10-24)
+# Mergify is the only merge driver: no manual merge, no second pilot.
+
+queue_rules:
+  - name: default
+    queue_conditions:
+      - check-success = ci
+      - check-success = ci-budget
+      - -conflict
+      - -draft
+      - base = main
+    batch_size:
+      min: 1
+      max: 3
+    batch_max_wait_time: "30 seconds"
+    max_checks_retries: 1
+    merge_method: rebase
+    update_method: rebase
+
+priority_rules:
+  - name: urgent
+    conditions:
+      - label = urgent
+    priority: high
+  - name: priority-low
+    conditions:
+      - label = priority-low
+    priority: low
+
+merge_queue:
+  max_parallel_checks: 3
+
+merge_protections_settings:
+  auto_merge_conditions: true

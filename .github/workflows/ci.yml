@@ -1,0 +1,59 @@
+name: ci
+
+# CI budget: 5 minutes max per job (user rule 2026-10-24). One job, no
+# network dependency at test time: every test runs offline against fakes and
+# against the frozen demo corpus committed in `demo/donnees/`. Transcribe and
+# Bedrock Data Automation are never called from CI (budget rule, spec 26.4).
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHONPATH: src
+
+jobs:
+  ci:
+    name: ci
+    runs-on: ${{ fromJSON(vars.CI_RUNNER || '"ubuntu-latest"') }}
+    timeout-minutes: 5
+    steps:
+      - name: Checkout (shallow)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Tooling (ruff, pytest)
+        run: |
+          python3 -m pip install --quiet --upgrade pip
+          python3 -m pip install --quiet ruff pytest || \
+            python3 -m pip install --quiet --user --break-system-packages ruff pytest
+
+      - name: Lint (ruff)
+        run: |
+          python3 -m ruff --version
+          PATHS=""
+          for d in src tests eval infra scripts; do
+            [ -d "$d" ] && PATHS="$PATHS $d"
+          done
+          python3 -m ruff check $PATHS
+          python3 -m ruff format --check $PATHS
+
+      - name: Size guard (< 500 lines per file, < 50 per function)
+        run: python3 scripts/check_limits.py
+
+      - name: Tests (offline)
+        run: python3 -m pytest -m "not slow" --maxfail=20
+
+      - name: Demo smoke (frozen synthetic corpus, offline)
+        run: python3 -m gisement.cli smoke

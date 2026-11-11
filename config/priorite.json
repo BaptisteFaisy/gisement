@@ -1,0 +1,49 @@
+{
+  "version": "1.0",
+  "poids": {
+    "gain": "0.35",
+    "faisabilite": "0.25",
+    "rapidite": "0.20",
+    "visibilite": "0.15",
+    "securite_juridique": "0.05"
+  },
+  "score_faisabilite_par_type": {
+    "A": "1.00",
+    "B": "0.80",
+    "C": "0.55",
+    "D": "0.30",
+    "E": "0.00"
+  },
+  "rapidite_delai_reference_mois": "36",
+  "vagues": {
+    "vague_1": {
+      "types": ["A", "B"],
+      "delai_retour_max_mois": "6",
+      "budget_max": "15000",
+      "risque_max": "faible",
+      "visibilite_minimale": true,
+      "projets_min": 1,
+      "projets_max": 2
+    },
+    "vague_2": {
+      "types": ["B", "C"],
+      "delai_retour_max_mois": "18",
+      "projets_min": 2,
+      "projets_max": 4
+    },
+    "vague_3": {
+      "types": ["D"],
+      "projets_min": 0,
+      "projets_max": 6
+    }
+  },
+  "deconseil": {
+    "gain_annuel_minimal": "3000",
+    "delai_retour_max_mois": "36",
+    "part_atypique_maximale": "0.40",
+    "changements_instabilite": 3,
+    "part_portefeuille_minimale": "0.15",
+    "part_portefeuille_maximale": "0.30"
+  },
+  "note": "Section 15.2: the weights are configuration, versioned. One MSP may prefer the gain, another the speed - no code change."
+}

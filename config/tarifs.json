@@ -1,0 +1,17 @@
+{
+  "version": "1.0",
+  "devise": "USD",
+  "region": "eu-west-3",
+  "region_repli": "eu-central-1",
+  "transcribe_usd_par_minute": "0.024",
+  "data_automation_usd_par_page": "0.05",
+  "nova_lite_usd_par_million_entree": "0.06",
+  "nova_lite_usd_par_million_sortie": "0.24",
+  "modele_fort_usd_par_million_entree": "3.00",
+  "modele_fort_usd_par_million_sortie": "15.00",
+  "a_confirmer": [
+    "transcribe_usd_par_minute",
+    "data_automation_usd_par_page"
+  ],
+  "note": "Annex G.3: Transcribe and Bedrock Data Automation are 94 % of the cost of one mapping. Both prices must be confirmed in eu-west-3 at J+2 (spec chapter 34, points 1 and 2)."
+}
