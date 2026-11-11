@@ -1,0 +1,364 @@
+{
+  "POST /api/campagnes/courante/conformite": {
+    "statut": 200,
+    "corps": {
+      "ok": true,
+      "donnees": {
+        "conformite": "validee",
+        "seuil": 5
+      }
+    }
+  },
+  "POST /api/campagnes/courante/lancer": {
+    "statut": 200,
+    "corps": {
+      "ok": true,
+      "donnees": {
+        "campagne": "CMP-0031",
+        "statut": "terminee"
+      }
+    }
+  },
+  "POST /api/campagnes/courante/suspendre": {
+    "statut": 200,
+    "corps": {
+      "ok": true,
+      "donnees": {
+        "suspendue": true,
+        "etat_conserve": true,
+        "reprise_possible": true
+      }
+    }
+  },
+  "GET /api/campagnes/courante": {
+    "statut": 200,
+    "corps": {
+      "ok": true,
+      "donnees": {
+        "campagne": "CMP-0031",
+        "activites": 19900,
+        "groupes": 42,
+        "motifs": 42,
+        "revue_humaine": 24,
+        "couverture": "62 % du volume de travail estime du perimetre est couvert par les canaux observes ; 1536.8 heures ne le sont pas, principalement : travail de terrain (entrepot, livraisons), reunions non enregistrees, echanges oraux informels, messagerie instantanee hors perimetre.",
+        "couverture_par_canal": [
+          "tickets : 62.0 %"
+        ],
+        "gisement_net_annuel": "108318.12",
+        "cout_mesure_usd": "19.27"
+      }
+    }
+  },
+  "GET /api/projets": {
+    "statut": 200,
+    "corps": {
+      "ok": true,
+      "donnees": {
+        "vague1_existe": true,
+        "recommandation_elargissement": "",
+        "part_deconseilles": "0.26",
+        "projets": [
+          {
+            "processus_id": "P-07",
+            "type": "A",
+            "vague": "vague_1",
+            "rang": 1,
+            "gain_mensuel": "1102.50",
+            "delai_retour_mois": "1.8",
+            "risque": "faible",
+            "score": "0.9120"
+          },
+          {
+            "processus_id": "P-14",
+            "type": "A",
+            "vague": "vague_1",
+            "rang": 2,
+            "gain_mensuel": "257.39",
+            "delai_retour_mois": "0.0",
+            "risque": "faible",
+            "score": "0.7135"
+          },
+          {
+            "processus_id": "P-19",
+            "type": "B",
+            "vague": "vague_2",
+            "rang": 1,
+            "gain_mensuel": "1418.63",
+            "delai_retour_mois": "12.4",
+            "risque": "faible",
+            "score": "0.8811"
+          },
+          {
+            "processus_id": "P-01",
+            "type": "B",
+            "vague": "vague_2",
+            "rang": 2,
+            "gain_mensuel": "648.16",
+            "delai_retour_mois": "13.1",
+            "risque": "faible",
+            "score": "0.6871"
+          },
+          {
+            "processus_id": "P-16",
+            "type": "B",
+            "vague": "vague_2",
+            "rang": 3,
+            "gain_mensuel": "354.58",
+            "delai_retour_mois": "9.9",
+            "risque": "faible",
+            "score": "0.6325"
+          },
+          {
+            "processus_id": "P-11",
+            "type": "B",
+            "vague": "vague_2",
+            "rang": 4,
+            "gain_mensuel": "382.45",
+            "delai_retour_mois": "13.2",
+            "risque": "faible",
+            "score": "0.6210"
+          },
+          {
+            "processus_id": "P-21",
+            "type": "D",
+            "vague": "vague_3",
+            "rang": 1,
+            "gain_mensuel": "815.00",
+            "delai_retour_mois": "27.4",
+            "risque": "eleve",
+            "score": "0.5239"
+          },
+          {
+            "processus_id": "P-15",
+            "type": "D",
+            "vague": "vague_3",
+            "rang": 2,
+            "gain_mensuel": "379.81",
+            "delai_retour_mois": "30.1",
+            "risque": "eleve",
+            "score": "0.2965"
+          },
+          {
+            "processus_id": "P-12",
+            "type": "B",
+            "vague": "aucune",
+            "rang": 0,
+            "gain_mensuel": "425.70",
+            "delai_retour_mois": "16.3",
+            "risque": "faible",
+            "score": "0.6145"
+          },
+          {
+            "processus_id": "P-13",
+            "type": "A",
+            "vague": "aucune",
+            "rang": 0,
+            "gain_mensuel": "401.63",
+            "delai_retour_mois": "7.0",
+            "risque": "faible",
+            "score": "0.6052"
+          },
+          {
+            "processus_id": "P-17",
+            "type": "B",
+            "vague": "aucune",
+            "rang": 0,
+            "gain_mensuel": "372.00",
+            "delai_retour_mois": "16.1",
+            "risque": "faible",
+            "score": "0.6023"
+          },
+          {
+            "processus_id": "P-03",
+            "type": "B",
+            "vague": "aucune",
+            "rang": 0,
+            "gain_mensuel": "379.97",
+            "delai_retour_mois": "16.6",
+            "risque": "faible",
+            "score": "0.6015"
+          },
+          {
+            "processus_id": "P-08",
+            "type": "B",
+            "vague": "aucune",
+            "rang": 0,
+            "gain_mensuel": "305.99",
+            "delai_retour_mois": "19.2",
+            "risque": "faible",
+            "score": "0.5688"
+          },
+          {
+            "processus_id": "P-23",
+            "type": "B",
+            "vague": "aucune",
+            "rang": 0,
+            "gain_mensuel": "388.50",
+            "delai_retour_mois": "18.2",
+            "risque": "faible",
+            "score": "0.4898"
+          },
+          {
+            "processus_id": "P-05",
+            "type": "B",
+            "vague": "aucune",
+            "rang": 0,
+            "gain_mensuel": "315.53",
+            "delai_retour_mois": "22.4",
+            "risque": "faible",
+            "score": "0.4484"
+          },
+          {
+            "processus_id": "P-04",
+            "type": "B",
+            "vague": "aucune",
+            "rang": 0,
+            "gain_mensuel": "258.08",
+            "delai_retour_mois": "25.9",
+            "risque": "faible",
+            "score": "0.4148"
+          },
+          {
+            "processus_id": "P-10",
+            "type": "C",
+            "vague": "aucune",
+            "rang": 0,
+            "gain_mensuel": "380.76",
+            "delai_retour_mois": "29.5",
+            "risque": "faible",
+            "score": "0.3626"
+          }
+        ]
+      }
+    }
+  },
+  "GET /api/deconseilles": {
+    "statut": 200,
+    "corps": {
+      "ok": true,
+      "donnees": [
+        {
+          "processus_id": "P-22",
+          "motif": "volume_insuffisant",
+          "seuil_atteint": "gain annuel net 1064.40 EUR inferieur a 3000 EUR",
+          "condition_reexamen": "reexamen si le volume depasse 15 occurrences par mois"
+        },
+        {
+          "processus_id": "P-02",
+          "motif": "volume_insuffisant",
+          "seuil_atteint": "gain annuel net 858.00 EUR inferieur a 3000 EUR",
+          "condition_reexamen": "reexamen si le volume depasse 15 occurrences par mois"
+        },
+        {
+          "processus_id": "P-20",
+          "motif": "dependance_externe",
+          "seuil_atteint": "interface tierce sans API ni engagement de stabilite",
+          "condition_reexamen": "reexamen si une API contractuelle devient disponible"
+        },
+        {
+          "processus_id": "P-06",
+          "motif": "instabilite",
+          "seuil_atteint": "3 changements du processus en 12 mois",
+          "condition_reexamen": "reexamen apres six mois de stabilite du processus"
+        },
+        {
+          "processus_id": "P-09",
+          "motif": "volume_insuffisant",
+          "seuil_atteint": "gain annuel net 149.88 EUR inferieur a 3000 EUR",
+          "condition_reexamen": "reexamen si le volume depasse 15 occurrences par mois"
+        },
+        {
+          "processus_id": "P-18",
+          "motif": "obligation_legale",
+          "seuil_atteint": "obligation legale de traitement humain (signature)",
+          "condition_reexamen": "reexamen si le texte qui impose un traitement humain change"
+        }
+      ]
+    }
+  },
+  "GET /api/gisements/P-07": {
+    "statut": 200,
+    "corps": {
+      "ok": true,
+      "donnees": {
+        "processus_id": "P-07",
+        "temps_brut": "37.5",
+        "temps_net": "26.3",
+        "intervalle": [
+          "23.5",
+          "29.2"
+        ],
+        "gain_mensuel": "1102.50",
+        "gain_naif_mensuel": "1575.00",
+        "ecart_naif": "1.43",
+        "delai_retour_mois": "1.8"
+      }
+    }
+  },
+  "GET /api/rapports/CMP-0031?langue=fr": {
+    "statut": 200,
+    "corps": {
+      "ok": true,
+      "donnees": {
+        "langue": "fr",
+        "rapport": "Rapport dirigeant - Gisement\nCampagne CMP-0031 - fenetre 2026-05-01 .. 2026-11-01\n\n\nCouverture de la mesure: 62 % du volume de travail estime du perimetre est couvert par les canaux observes ; 1536.8 heures ne le sont pas, principalement : travail de terrain (entrepot, livraisons), reunions non enregistrees, echanges oraux informels, messagerie instantanee hors perimetre.\nGisement net annuel: 108318.12 EUR (108318.12 avec l'incertitude).\nA ne pas automatiser: 6 processus (26 %).\n\nVague 1 - amorcage\n  1. P-07 [A] gain 1102.50 EUR/mois, retour 1.8 mois\n  2. P-14 [A] gain 257.39 EUR/mois, retour 0 mois\nVague 2 - structurel\n  1. P-19 [B] gain 1418.63 EUR/mois, retour 12.4 mois\n  2. P-01 [B] gain 648.16 EUR/mois, retour 13.1 mois\n  3. P-16 [B] gain 354.58 EUR/mois, retour 9.9 mois\n  4. P-11 [B] gain 382.45 EUR/mois, retour 13.2 mois\nVague 3 - transformation\n  1. P-21 [D] gain 815.00 EUR/mois, retour 27.4 mois\n  2. P-15 [D] gain 379.81 EUR/mois, retour 30.1 mois\n\nCas de reference : saisie des commandes fournisseurs\n  Calcul naif:    2016.00 EUR/mois, retour 5.2 mois\n  Gisement:      779.05 EUR/mois, retour 13.6 mois\n  Facteur de surestimation: 2.59\n\n- Gisement ne produit aucun classement, score ou indicateur individuel.\n- Aucune mesure du temps de travail utilisable en paie ou en discipline.\n- Aucune analyse de sentiment, d'opinion ou d'humeur.\n- Aucune identification de sous-performance individuelle.\n- Aucun croisement avec les donnees RH (evaluation, absence, sanction)."
+      }
+    }
+  },
+  "GET /api/rapports/CMP-0031?langue=en": {
+    "statut": 200,
+    "corps": {
+      "ok": true,
+      "donnees": {
+        "langue": "en",
+        "rapport": "Executive report - Gisement\nCampagne CMP-0031 - fenetre 2026-05-01 .. 2026-11-01\n\n\nMeasurement coverage: 62% of the estimated work volume of the perimeter is covered by the observed channels; 1536.8 hours are not, mainly: travail de terrain (entrepot, livraisons), reunions non enregistrees, echanges oraux informels, messagerie instantanee hors perimetre.\nGisement net annuel: 108318.12 EUR (108318.12 avec l'incertitude).\nDo not automate: 6 processus (26 %).\n\nWave 1 - quick wins\n  1. P-07 [A] gain 1102.50 EUR/mois, retour 1.8 mois\n  2. P-14 [A] gain 257.39 EUR/mois, retour 0 mois\nWave 2 - structural\n  1. P-19 [B] gain 1418.63 EUR/mois, retour 12.4 mois\n  2. P-01 [B] gain 648.16 EUR/mois, retour 13.1 mois\n  3. P-16 [B] gain 354.58 EUR/mois, retour 9.9 mois\n  4. P-11 [B] gain 382.45 EUR/mois, retour 13.2 mois\nWave 3 - transformation\n  1. P-21 [D] gain 815.00 EUR/mois, retour 27.4 mois\n  2. P-15 [D] gain 379.81 EUR/mois, retour 30.1 mois\n\nReference case: keying supplier orders\n  Naive calculation:    2016.00 EUR/mois, retour 5.2 mois\n  Gisement:      779.05 EUR/mois, retour 13.6 mois\n  Overstatement factor: 2.59\n\n- Gisement produces no individual ranking, score or indicator.\n- No measure of working time usable for payroll or discipline.\n- No sentiment, opinion or mood analysis.\n- No identification of individual underperformance.\n- No cross-referencing with HR data (appraisal, absence, sanction)."
+      }
+    }
+  },
+  "GET /api/registre-conformite/CMP-0031?langue=fr": {
+    "statut": 200,
+    "corps": {
+      "ok": true,
+      "donnees": {
+        "registre": "Registre de conformite - CMP-0031\nFinalite : mesure des processus de travail\nCanaux autorises : tickets, courriels, documents, appels, journaux\nSeuil d'agregation : k >= 5\nValidations : DPO oui, representants oui\nCategories filtrees avant stockage : sante, opinion_syndicale, opinion_politique, religion, vie_sexuelle, origine_pretendue_ethnie, donnee_genetique\nDuree de conservation : 180 jours\nSuspension : non\nInterdictions (chapitre 18.5) :\n- Gisement ne produit aucun classement, score ou indicateur individuel.\n- Aucune mesure du temps de travail utilisable en paie ou en discipline.\n- Aucune analyse de sentiment, d'opinion ou d'humeur.\n- Aucune identification de sous-performance individuelle.\n- Aucun croisement avec les donnees RH (evaluation, absence, sanction)."
+      }
+    }
+  },
+  "GET /api/budget": {
+    "statut": 200,
+    "corps": {
+      "ok": true,
+      "donnees": {
+        "cout_mesure_usd": "19.27",
+        "transcribe_usd": "8.64",
+        "data_automation_usd": "10.00",
+        "inference_usd": "0.63",
+        "ecart_a_l_estimation": "0.0248",
+        "budget_restant_usd": "0.73"
+      }
+    }
+  },
+  "POST /api/mesure#individu": {
+    "statut": 403,
+    "corps": {
+      "ok": false,
+      "erreur": "Aucune attribution individuelle : ce groupement designe une personne. ; Mesure portant sur moins de cinq individus : elle est supprimee, pas arrondie. ; La combinaison de filtres isole moins de cinq individus.",
+      "regles_violees": [
+        "regle_individu",
+        "regle_k5",
+        "regle_combinaison"
+      ],
+      "seuil_agregation": 5
+    }
+  },
+  "POST /api/mesure#agrege": {
+    "statut": 200,
+    "corps": {
+      "ok": true,
+      "donnees": {
+        "mesure": "agregee",
+        "seuil_applique": 5
+      }
+    }
+  }
+}
