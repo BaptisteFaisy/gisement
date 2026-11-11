@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "5371.32",
+    "numero": "32102",
+    "texte_libre": "Releve de temperature - prolongation de l'arret maladie",
+    "tiers": "DEMO-FR-05"
+  },
+  "confiance": 0.93,
+  "document_id": "D-000088",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-058",
+          6,
+          "602.77"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "1569.50",
+    "numero": "60329",
+    "texte_libre": "Note de frais - sympathisant d'un mouvement",
+    "tiers": "DEMO-FR-14"
+  },
+  "confiance": 0.95,
+  "document_id": "D-000144",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-042",
+          27,
+          "825.40"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

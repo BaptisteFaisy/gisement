@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "8178.44",
+    "numero": "43978",
+    "texte_libre": "Facture fournisseur - suivi medical en cours",
+    "tiers": "DEMO-FR-15"
+  },
+  "confiance": 0.99,
+  "document_id": "D-000172",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-038",
+          14,
+          "112.72"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

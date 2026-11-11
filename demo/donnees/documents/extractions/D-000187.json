@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "8318.82",
+    "numero": "81878",
+    "texte_libre": "Avoir fournisseur - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-16"
+  },
+  "confiance": 0.87,
+  "document_id": "D-000187",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-038",
+          33,
+          "45.74"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

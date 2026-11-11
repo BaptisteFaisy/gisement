@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "1950.02",
+    "numero": "52284",
+    "texte_libre": "Contrat cadre - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-15"
+  },
+  "confiance": 0.9,
+  "document_id": "D-000079",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-039",
+          34,
+          "480.14"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

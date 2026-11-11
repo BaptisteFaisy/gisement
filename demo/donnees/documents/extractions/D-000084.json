@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "9284.48",
+    "numero": "83300",
+    "texte_libre": "Note de frais - origine ethnique indiquee",
+    "tiers": "DEMO-FR-18"
+  },
+  "confiance": 0.97,
+  "document_id": "D-000084",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-022",
+          20,
+          "764.65"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

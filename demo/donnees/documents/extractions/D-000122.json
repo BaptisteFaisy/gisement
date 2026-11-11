@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "1232.89",
+    "numero": "62603",
+    "texte_libre": "Facture fournisseur - appartenance ethnique",
+    "tiers": "DEMO-FR-11"
+  },
+  "confiance": 0.88,
+  "document_id": "D-000122",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-039",
+          18,
+          "309.99"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

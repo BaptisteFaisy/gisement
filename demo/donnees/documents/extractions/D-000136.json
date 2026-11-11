@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "1785.44",
+    "numero": "71350",
+    "texte_libre": "Devis client - identite de genre indiquee",
+    "tiers": "DEMO-FR-11"
+  },
+  "confiance": 0.97,
+  "document_id": "D-000136",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-042",
+          31,
+          "253.06"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

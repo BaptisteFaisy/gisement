@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "2313.48",
+    "numero": "61640",
+    "texte_libre": "Procedure interne - mandat de delegue syndical",
+    "tiers": "DEMO-FR-01"
+  },
+  "confiance": 0.83,
+  "document_id": "D-000130",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-047",
+          11,
+          "61.63"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

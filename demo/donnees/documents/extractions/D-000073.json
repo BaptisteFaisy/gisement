@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "3501.17",
+    "numero": "34482",
+    "texte_libre": "Bon de livraison - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-02"
+  },
+  "confiance": 0.84,
+  "document_id": "D-000073",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-034",
+          7,
+          "470.25"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

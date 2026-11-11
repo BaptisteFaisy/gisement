@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "3505.68",
+    "numero": "98964",
+    "texte_libre": "Procedure interne - analyse genetique demandee",
+    "tiers": "DEMO-FR-02"
+  },
+  "confiance": 0.96,
+  "document_id": "D-000200",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-059",
+          13,
+          "685.78"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

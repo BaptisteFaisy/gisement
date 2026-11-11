@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "8364.17",
+    "numero": "85743",
+    "texte_libre": "Procedure interne - conge de maternite a venir",
+    "tiers": "DEMO-FR-09"
+  },
+  "confiance": 0.86,
+  "document_id": "D-000080",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-029",
+          29,
+          "174.89"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

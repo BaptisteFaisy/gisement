@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "2936.31",
+    "numero": "29421",
+    "texte_libre": "Procedure interne - pratique religieuse du salarie",
+    "tiers": "DEMO-FR-01"
+  },
+  "confiance": 0.94,
+  "document_id": "D-000160",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-040",
+          1,
+          "585.09"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

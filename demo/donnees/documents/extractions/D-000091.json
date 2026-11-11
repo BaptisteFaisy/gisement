@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "9153.99",
+    "numero": "89502",
+    "texte_libre": "Bon de commande - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-02"
+  },
+  "confiance": 0.93,
+  "document_id": "D-000091",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-024",
+          6,
+          "50.12"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

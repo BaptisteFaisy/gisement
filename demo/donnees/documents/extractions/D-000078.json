@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "3649.58",
+    "numero": "14830",
+    "texte_libre": "Releve de temperature - appartenance ethnique",
+    "tiers": "DEMO-FR-16"
+  },
+  "confiance": 0.94,
+  "document_id": "D-000078",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-042",
+          20,
+          "56.07"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

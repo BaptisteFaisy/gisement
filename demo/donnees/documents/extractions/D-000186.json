@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "2669.55",
+    "numero": "29179",
+    "texte_libre": "Devis client - absence pour le careme",
+    "tiers": "DEMO-FR-04"
+  },
+  "confiance": 0.91,
+  "document_id": "D-000186",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-043",
+          27,
+          "877.47"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "6432.15",
+    "numero": "31624",
+    "texte_libre": "Procedure interne - sympathisant d'un mouvement",
+    "tiers": "DEMO-FR-14"
+  },
+  "confiance": 0.84,
+  "document_id": "D-000040",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-012",
+          9,
+          "180.32"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

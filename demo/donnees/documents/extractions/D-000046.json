@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "998.88",
+    "numero": "69161",
+    "texte_libre": "Devis client - origine presumee du candidat",
+    "tiers": "DEMO-FR-01"
+  },
+  "confiance": 0.91,
+  "document_id": "D-000046",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-032",
+          11,
+          "64.73"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "7093.27",
+    "numero": "70282",
+    "texte_libre": "Releve de temperature - tract syndical diffuse",
+    "tiers": "DEMO-FR-03"
+  },
+  "confiance": 0.88,
+  "document_id": "D-000108",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-050",
+          8,
+          "286.01"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "1799.78",
+    "numero": "36972",
+    "texte_libre": "Facture fournisseur - situation de vie sexuelle",
+    "tiers": "DEMO-FR-04"
+  },
+  "confiance": 0.85,
+  "document_id": "D-000002",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-001",
+          40,
+          "810.74"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

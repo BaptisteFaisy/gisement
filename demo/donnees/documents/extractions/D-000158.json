@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "7221.56",
+    "numero": "28262",
+    "texte_libre": "Releve de temperature - adhesion syndicale renouvelee",
+    "tiers": "DEMO-FR-09"
+  },
+  "confiance": 0.83,
+  "document_id": "D-000158",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-037",
+          10,
+          "265.24"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "8192.59",
+    "numero": "93040",
+    "texte_libre": "Procedure interne - origine ethnique indiquee",
+    "tiers": "DEMO-FR-14"
+  },
+  "confiance": 0.97,
+  "document_id": "D-000180",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-040",
+          22,
+          "798.29"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

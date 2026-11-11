@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "7187.85",
+    "numero": "43396",
+    "texte_libre": "Note de frais - appartenance ethnique",
+    "tiers": "DEMO-FR-14"
+  },
+  "confiance": 0.96,
+  "document_id": "D-000114",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-029",
+          16,
+          "457.85"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

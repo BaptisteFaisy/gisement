@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "7714.99",
+    "numero": "12758",
+    "texte_libre": "Releve bancaire - piece comptable standard, aucune donnee sensible",
+    "tiers": "DEMO-FR-03"
+  },
+  "confiance": 0.9,
+  "document_id": "D-000125",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-002",
+          33,
+          "325.50"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "1622.55",
+    "numero": "80631",
+    "texte_libre": "Procedure interne - situation de vie sexuelle",
+    "tiers": "DEMO-FR-10"
+  },
+  "confiance": 0.87,
+  "document_id": "D-000050",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-025",
+          32,
+          "885.87"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

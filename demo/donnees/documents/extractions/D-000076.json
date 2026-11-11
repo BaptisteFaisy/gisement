@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "2803.43",
+    "numero": "14072",
+    "texte_libre": "Devis client - conge de maternite a venir",
+    "tiers": "DEMO-FR-01"
+  },
+  "confiance": 0.99,
+  "document_id": "D-000076",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-032",
+          6,
+          "94.08"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "4300.49",
+    "numero": "75958",
+    "texte_libre": "Devis client - situation de vie sexuelle",
+    "tiers": "DEMO-FR-04"
+  },
+  "confiance": 0.9,
+  "document_id": "D-000016",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-059",
+          7,
+          "524.53"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

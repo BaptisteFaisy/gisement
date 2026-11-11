@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "4764.95",
+    "numero": "72534",
+    "texte_libre": "Releve de temperature - test genetique realise",
+    "tiers": "DEMO-FR-15"
+  },
+  "confiance": 0.83,
+  "document_id": "D-000188",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-018",
+          38,
+          "291.27"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

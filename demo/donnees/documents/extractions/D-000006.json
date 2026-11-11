@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "1766.93",
+    "numero": "42385",
+    "texte_libre": "Devis client - opinion politique exprimee",
+    "tiers": "DEMO-FR-14"
+  },
+  "confiance": 0.84,
+  "document_id": "D-000006",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-028",
+          36,
+          "630.34"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

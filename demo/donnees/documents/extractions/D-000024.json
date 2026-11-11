@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "1724.27",
+    "numero": "43334",
+    "texte_libre": "Note de frais - suite a mon arret de travail",
+    "tiers": "DEMO-FR-01"
+  },
+  "confiance": 0.99,
+  "document_id": "D-000024",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-028",
+          29,
+          "663.49"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

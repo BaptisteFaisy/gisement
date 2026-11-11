@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "5035.47",
+    "numero": "49213",
+    "texte_libre": "Note de frais - permanence syndicale du jeudi",
+    "tiers": "DEMO-FR-02"
+  },
+  "confiance": 0.88,
+  "document_id": "D-000054",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-010",
+          5,
+          "105.41"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

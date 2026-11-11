@@ -14,6 +14,7 @@ from __future__ import annotations
 import hashlib
 import hmac
 import re
+from collections.abc import Sequence
 from dataclasses import dataclass
 
 PREFIXE_PSEUDONYME = "PSD-"
@@ -77,13 +78,32 @@ def groupe_pseudonyme(service: str, site: str = "", equipe: str = "") -> str:
     return f"{racine}-{suffixe}" if suffixe else racine
 
 
+def construire_motif_noms(prenoms: Sequence[str], noms: Sequence[str]) -> re.Pattern[str]:
+    """One regex for "Firstname Lastname", built from the published name lists.
+
+    Testing 900 combinations one by one on every record would cost more than
+    the whole ingestion; a single alternation costs nothing. The demo manifest
+    publishes its own lists, so the detector never has to guess a name.
+    """
+    if not prenoms or not noms:
+        return re.compile(r"(?!)")
+    alternance_p = "|".join(sorted({re.escape(p) for p in prenoms}))
+    alternance_n = "|".join(sorted({re.escape(n) for n in noms}))
+    return re.compile(rf"\b(?:{alternance_p})\s+(?:{alternance_n})\b")
+
+
 def pseudonymiser_texte(
-    texte: str, cle: str | bytes, sel: str = "", noms: tuple[str, ...] = ()
+    texte: str,
+    cle: str | bytes,
+    sel: str = "",
+    noms: tuple[str, ...] = (),
+    motif_noms: re.Pattern[str] | None = None,
 ) -> tuple[str, tuple[OccurrencePii, ...]]:
     """Replace every personal identifier of a text by its pseudonym.
 
-    `noms` is an explicit list of person names to catch (the demo dataset
-    publishes its own generated name list, so the detector never has to guess).
+    `noms` is an explicit list of person names, `motif_noms` a precompiled
+    "Firstname Lastname" pattern built from the lists the demo manifest
+    publishes: the detector never has to guess what a name looks like.
     """
     if not texte:
         return texte, ()
@@ -91,6 +111,8 @@ def pseudonymiser_texte(
     resultat = texte
     for categorie, motif in REGEX_PII:
         resultat = _remplacer(resultat, motif, categorie, cle, sel, occurrences)
+    if motif_noms is not None:
+        resultat = _remplacer(resultat, motif_noms, "personne", cle, sel, occurrences)
     for nom in noms:
         if nom and nom in resultat:
             resultat = _remplacer(resultat, re.compile(re.escape(nom)), "personne", cle, sel, occurrences)

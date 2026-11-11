@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "9253.36",
+    "numero": "78274",
+    "texte_libre": "Note de frais - demande liee au ramadan",
+    "tiers": "DEMO-FR-01"
+  },
+  "confiance": 0.94,
+  "document_id": "D-000184",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-010",
+          11,
+          "64.69"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

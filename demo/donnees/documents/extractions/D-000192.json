@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "5099.68",
+    "numero": "22952",
+    "texte_libre": "Facture fournisseur - identite de genre indiquee",
+    "tiers": "DEMO-FR-09"
+  },
+  "confiance": 0.87,
+  "document_id": "D-000192",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-023",
+          8,
+          "113.26"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

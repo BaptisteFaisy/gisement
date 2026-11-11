@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "896.12",
+    "numero": "83781",
+    "texte_libre": "Procedure interne - appartenance ethnique",
+    "tiers": "DEMO-FR-03"
+  },
+  "confiance": 0.95,
+  "document_id": "D-000110",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-020",
+          36,
+          "167.36"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

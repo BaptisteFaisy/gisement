@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "302.67",
+    "numero": "52606",
+    "texte_libre": "Note de frais - prolongation de l'arret maladie",
+    "tiers": "DEMO-FR-05"
+  },
+  "confiance": 0.85,
+  "document_id": "D-000104",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-058",
+          2,
+          "541.54"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

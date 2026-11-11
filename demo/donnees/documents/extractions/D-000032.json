@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "3092.41",
+    "numero": "82142",
+    "texte_libre": "Facture fournisseur - suite a mon arret de travail",
+    "tiers": "DEMO-FR-13"
+  },
+  "confiance": 0.88,
+  "document_id": "D-000032",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-007",
+          36,
+          "113.11"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

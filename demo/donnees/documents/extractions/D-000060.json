@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "3812.32",
+    "numero": "38827",
+    "texte_libre": "Procedure interne - campagne electorale interne",
+    "tiers": "DEMO-FR-14"
+  },
+  "confiance": 0.85,
+  "document_id": "D-000060",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-036",
+          25,
+          "696.44"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

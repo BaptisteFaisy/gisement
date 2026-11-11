@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "8728.87",
+    "numero": "37208",
+    "texte_libre": "Note de frais - origine presumee du candidat",
+    "tiers": "DEMO-FR-05"
+  },
+  "confiance": 0.84,
+  "document_id": "D-000034",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-010",
+          27,
+          "502.88"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

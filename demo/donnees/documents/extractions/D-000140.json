@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "8981.65",
+    "numero": "98217",
+    "texte_libre": "Procedure interne - identite de genre indiquee",
+    "tiers": "DEMO-FR-10"
+  },
+  "confiance": 0.95,
+  "document_id": "D-000140",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-058",
+          20,
+          "668.54"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

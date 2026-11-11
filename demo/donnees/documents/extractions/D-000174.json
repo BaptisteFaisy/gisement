@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "3437.25",
+    "numero": "65907",
+    "texte_libre": "Note de frais - orientation sexuelle mentionnee",
+    "tiers": "DEMO-FR-18"
+  },
+  "confiance": 0.87,
+  "document_id": "D-000174",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-021",
+          39,
+          "25.81"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

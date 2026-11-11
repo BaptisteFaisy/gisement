@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "5057.36",
+    "numero": "74172",
+    "texte_libre": "Facture fournisseur - analyse genetique demandee",
+    "tiers": "DEMO-FR-14"
+  },
+  "confiance": 0.91,
+  "document_id": "D-000012",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-016",
+          15,
+          "562.84"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

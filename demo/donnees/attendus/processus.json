@@ -1,0 +1,2589 @@
+{
+  "graine": 20261111,
+  "nb_processus": 23,
+  "processus": [
+    {
+      "attendu": {
+        "coefficient_fragmentation": "0.70",
+        "cout": {
+          "annee_1": "8460.00",
+          "developpement": "6500.00",
+          "maintenance_annuelle": "520.00",
+          "outil_annuel": "1440.00",
+          "recurrent": "1960.00"
+        },
+        "delai_retour_mois": "13.1",
+        "ecart_naif": "2.22",
+        "gain_annuel": "7721.28",
+        "gain_mensuel": "643.44",
+        "gain_naif_mensuel": "1428.00",
+        "gain_trois_ans": "10783.84",
+        "temps_brut_heures": "34.0",
+        "temps_fragmente_heures": "23.8",
+        "temps_ineliminable_heures": "4.1",
+        "temps_net_heures": "15.3",
+        "temps_transfere_heures": "4.4"
+      },
+      "canaux": [
+        "courriels",
+        "tickets",
+        "journaux"
+      ],
+      "changements_douze_mois": 0,
+      "cout": {
+        "abonnement_mensuel": "120",
+        "jours": "10",
+        "taux_maintenance": "0.08",
+        "tjm": "650"
+      },
+      "deconseil_attendu": [],
+      "duree_ecart_minutes": "1.6",
+      "duree_nb_cas": 1480,
+      "duree_statut": "mesuree",
+      "duree_unitaire_minutes": "8",
+      "ecart_procedure": true,
+      "faits": {
+        "api_ou_flux_natif": true,
+        "interface_stable": true,
+        "travail_deterministe": true
+      },
+      "famille_poste": "administratif",
+      "id": "P-01",
+      "motifs": [
+        "RESS-01",
+        "VERI-03"
+      ],
+      "nom": "Saisie des commandes clients recues par courriel",
+      "nom_en": "Keying customer orders received by email",
+      "occurrences": {
+        "ecart_type": "17.32",
+        "maximum": "280",
+        "mediane": "255.0",
+        "minimum": "230",
+        "nb_mois": 6,
+        "serie": [
+          "230",
+          "245",
+          "260",
+          "265",
+          "280",
+          "250"
+        ]
+      },
+      "occurrences_generees": {
+        "mois_01": 230,
+        "mois_02": 245,
+        "mois_03": 260,
+        "mois_04": 265,
+        "mois_05": 280,
+        "mois_06": 250,
+        "total": 1530
+      },
+      "part_atypique": "0.12",
+      "part_atypique_nb_cas": 1480,
+      "part_pratique_divergente": "0",
+      "part_volume_traitee": "1",
+      "piege": null,
+      "procedure_ref": "PROC-01",
+      "repartition": "semi_regroupee",
+      "risque_attendu": "moyen",
+      "service": "adv",
+      "suppression_etape": false,
+      "transfert": [
+        {
+          "duree_minutes": "1.5",
+          "forfait_heures": null,
+          "nom": "revue",
+          "taux": "0.20"
+        },
+        {
+          "duree_minutes": "10",
+          "forfait_heures": null,
+          "nom": "rejets",
+          "taux": "0.05"
+        },
+        {
+          "duree_minutes": null,
+          "forfait_heures": "1.0",
+          "nom": "supervision",
+          "taux": null
+        }
+      ],
+      "type_arbre_attendu": "B",
+      "type_final_attendu": "B",
+      "vague_attendue": "vague_2",
+      "variante_b": null,
+      "visibilite_dirigeant": true
+    },
+    {
+      "attendu": {
+        "coefficient_fragmentation": "0.70",
+        "cout": {
+          "annee_1": "26460.00",
+          "developpement": "19500.00",
+          "maintenance_annuelle": "1560.00",
+          "outil_annuel": "5400.00",
+          "recurrent": "6960.00"
+        },
+        "delai_retour_mois": "432.0",
+        "ecart_naif": "14.83",
+        "gain_annuel": "735.00",
+        "gain_mensuel": "61.25",
+        "gain_naif_mensuel": "908.60",
+        "gain_trois_ans": "-38175.00",
+        "temps_brut_heures": "21.6",
+        "temps_fragmente_heures": "15.1",
+        "temps_ineliminable_heures": "11.9",
+        "temps_net_heures": "1.5",
+        "temps_transfere_heures": "1.8"
+      },
+      "canaux": [
+        "courriels",
+        "tickets",
+        "appels"
+      ],
+      "changements_douze_mois": 0,
+      "cout": {
+        "abonnement_mensuel": "450",
+        "jours": "30",
+        "taux_maintenance": "0.08",
+        "tjm": "650"
+      },
+      "deconseil_attendu": [
+        {
+          "condition": "reexamen si le volume depasse 15 occurrences/mois",
+          "motif": "volume_insuffisant",
+          "seuil": "gain annuel net 735.00 EUR < 3 000 EUR"
+        },
+        {
+          "condition": "reexamen si la part atypique passe sous 30 %",
+          "motif": "jugement_non_formalisable",
+          "seuil": "part atypique 55 % > 40 %"
+        },
+        {
+          "condition": "reexamen si le cout baisse sous 12 mois de gain",
+          "motif": "retour_trop_long",
+          "seuil": "delai de retour 432.0 mois > 36 mois"
+        }
+      ],
+      "duree_ecart_minutes": "6.5",
+      "duree_nb_cas": 356,
+      "duree_statut": "mesuree",
+      "duree_unitaire_minutes": "22",
+      "ecart_procedure": false,
+      "faits": {
+        "jugement_requis": true
+      },
+      "famille_poste": "administratif",
+      "id": "P-02",
+      "motifs": [
+        "VERI-05",
+        "RECH-02"
+      ],
+      "nom": "Reponse aux demandes de devis clients",
+      "nom_en": "Answering customer requests for quotation",
+      "occurrences": {
+        "ecart_type": "3.33",
+        "maximum": "64",
+        "mediane": "59.0",
+        "minimum": "55",
+        "nb_mois": 6,
+        "serie": [
+          "55",
+          "58",
+          "60",
+          "62",
+          "64",
+          "57"
+        ]
+      },
+      "occurrences_generees": {
+        "mois_01": 55,
+        "mois_02": 58,
+        "mois_03": 60,
+        "mois_04": 62,
+        "mois_05": 64,
+        "mois_06": 57,
+        "total": 356
+      },
+      "part_atypique": "0.55",
+      "part_atypique_nb_cas": 356,
+      "part_pratique_divergente": "0",
+      "part_volume_traitee": "1",
+      "piege": null,
+      "procedure_ref": "PROC-02",
+      "repartition": "semi_regroupee",
+      "risque_attendu": "eleve",
+      "service": "adv",
+      "suppression_etape": false,
+      "transfert": [
+        {
+          "duree_minutes": "1.5",
+          "forfait_heures": null,
+          "nom": "revue",
+          "taux": "0.20"
+        },
+        {
+          "duree_minutes": "10",
+          "forfait_heures": null,
+          "nom": "rejets",
+          "taux": "0.05"
+        },
+        {
+          "duree_minutes": null,
+          "forfait_heures": "1.0",
+          "nom": "supervision",
+          "taux": null
+        }
+      ],
+      "type_arbre_attendu": "D",
+      "type_final_attendu": "E",
+      "vague_attendue": "aucune",
+      "variante_b": null,
+      "visibilite_dirigeant": true
+    },
+    {
+      "attendu": {
+        "coefficient_fragmentation": "0.70",
+        "cout": {
+          "annee_1": "6318.00",
+          "developpement": "5850.00",
+          "maintenance_annuelle": "468.00",
+          "outil_annuel": "0.00",
+          "recurrent": "468.00"
+        },
+        "delai_retour_mois": "16.0",
+        "ecart_naif": "2.57",
+        "gain_annuel": "4738.68",
+        "gain_mensuel": "394.89",
+        "gain_naif_mensuel": "1016.75",
+        "gain_trois_ans": "6962.04",
+        "temps_brut_heures": "24.2",
+        "temps_fragmente_heures": "16.9",
+        "temps_ineliminable_heures": "3.6",
+        "temps_net_heures": "9.4",
+        "temps_transfere_heures": "3.9"
+      },
+      "canaux": [
+        "documents",
+        "journaux",
+        "tickets"
+      ],
+      "changements_douze_mois": 0,
+      "cout": {
+        "abonnement_mensuel": "0",
+        "jours": "9",
+        "taux_maintenance": "0.08",
+        "tjm": "650"
+      },
+      "deconseil_attendu": [],
+      "duree_ecart_minutes": "1.4",
+      "duree_nb_cas": 1250,
+      "duree_statut": "mesuree",
+      "duree_unitaire_minutes": "7",
+      "ecart_procedure": false,
+      "faits": {
+        "api_ou_flux_natif": true,
+        "interface_stable": true,
+        "travail_deterministe": true
+      },
+      "famille_poste": "administratif",
+      "id": "P-03",
+      "motifs": [
+        "RAPPR-01",
+        "VERI-03"
+      ],
+      "nom": "Rapprochement factures et bons de livraison",
+      "nom_en": "Matching invoices with delivery notes",
+      "occurrences": {
+        "ecart_type": "10.8",
+        "maximum": "225",
+        "mediane": "207.5",
+        "minimum": "195",
+        "nb_mois": 6,
+        "serie": [
+          "195",
+          "205",
+          "210",
+          "215",
+          "225",
+          "200"
+        ]
+      },
+      "occurrences_generees": {
+        "mois_01": 195,
+        "mois_02": 205,
+        "mois_03": 210,
+        "mois_04": 215,
+        "mois_05": 225,
+        "mois_06": 200,
+        "total": 1250
+      },
+      "part_atypique": "0.15",
+      "part_atypique_nb_cas": 1250,
+      "part_pratique_divergente": "0",
+      "part_volume_traitee": "1",
+      "piege": null,
+      "procedure_ref": "PROC-03",
+      "repartition": "semi_regroupee",
+      "risque_attendu": "faible",
+      "service": "comptabilite",
+      "suppression_etape": false,
+      "transfert": [
+        {
+          "duree_minutes": "1.5",
+          "forfait_heures": null,
+          "nom": "revue",
+          "taux": "0.20"
+        },
+        {
+          "duree_minutes": "12",
+          "forfait_heures": null,
+          "nom": "rejets",
+          "taux": "0.05"
+        },
+        {
+          "duree_minutes": null,
+          "forfait_heures": "0.8",
+          "nom": "supervision",
+          "taux": null
+        }
+      ],
+      "type_arbre_attendu": "B",
+      "type_final_attendu": "B",
+      "vague_attendue": "vague_1",
+      "variante_b": null,
+      "visibilite_dirigeant": true
+    },
+    {
+      "attendu": {
+        "coefficient_fragmentation": "0.90",
+        "cout": {
+          "annee_1": "6696.00",
+          "developpement": "5200.00",
+          "maintenance_annuelle": "416.00",
+          "outil_annuel": "1080.00",
+          "recurrent": "1496.00"
+        },
+        "delai_retour_mois": "26.0",
+        "ecart_naif": "1.45",
+        "gain_annuel": "3089.76",
+        "gain_mensuel": "257.48",
+        "gain_naif_mensuel": "373.80",
+        "gain_trois_ans": "-418.72",
+        "temps_brut_heures": "8.9",
+        "temps_fragmente_heures": "8.0",
+        "temps_ineliminable_heures": "0.7",
+        "temps_net_heures": "6.1",
+        "temps_transfere_heures": "1.2"
+      },
+      "canaux": [
+        "documents",
+        "journaux"
+      ],
+      "changements_douze_mois": 0,
+      "cout": {
+        "abonnement_mensuel": "90",
+        "jours": "8",
+        "taux_maintenance": "0.08",
+        "tjm": "650"
+      },
+      "deconseil_attendu": [],
+      "duree_ecart_minutes": "1.2",
+      "duree_nb_cas": 540,
+      "duree_statut": "mesuree",
+      "duree_unitaire_minutes": "6",
+      "ecart_procedure": false,
+      "faits": {
+        "api_ou_flux_natif": true,
+        "interface_stable": true,
+        "travail_deterministe": true
+      },
+      "famille_poste": "administratif",
+      "id": "P-04",
+      "motifs": [
+        "RAPPR-02"
+      ],
+      "nom": "Rapprochement releves bancaires et factures",
+      "nom_en": "Matching bank statements with invoices",
+      "occurrences": {
+        "ecart_type": "3.78",
+        "maximum": "95",
+        "mediane": "89.0",
+        "minimum": "85",
+        "nb_mois": 6,
+        "serie": [
+          "85",
+          "88",
+          "90",
+          "92",
+          "95",
+          "86"
+        ]
+      },
+      "occurrences_generees": {
+        "mois_01": 85,
+        "mois_02": 88,
+        "mois_03": 90,
+        "mois_04": 92,
+        "mois_05": 95,
+        "mois_06": 86,
+        "total": 536
+      },
+      "part_atypique": "0.08",
+      "part_atypique_nb_cas": 540,
+      "part_pratique_divergente": "0",
+      "part_volume_traitee": "1",
+      "piege": null,
+      "procedure_ref": "PROC-03",
+      "repartition": "regroupee",
+      "risque_attendu": "faible",
+      "service": "comptabilite",
+      "suppression_etape": false,
+      "transfert": [
+        {
+          "duree_minutes": "1.0",
+          "forfait_heures": null,
+          "nom": "revue",
+          "taux": "0.15"
+        },
+        {
+          "duree_minutes": "6",
+          "forfait_heures": null,
+          "nom": "rejets",
+          "taux": "0.05"
+        },
+        {
+          "duree_minutes": null,
+          "forfait_heures": "0.5",
+          "nom": "supervision",
+          "taux": null
+        }
+      ],
+      "type_arbre_attendu": "B",
+      "type_final_attendu": "B",
+      "vague_attendue": "vague_2",
+      "variante_b": null,
+      "visibilite_dirigeant": false
+    },
+    {
+      "attendu": {
+        "coefficient_fragmentation": "0.45",
+        "cout": {
+          "annee_1": "7056.00",
+          "developpement": "5200.00",
+          "maintenance_annuelle": "416.00",
+          "outil_annuel": "1440.00",
+          "recurrent": "1856.00"
+        },
+        "delai_retour_mois": "22.7",
+        "ecart_naif": "2.78",
+        "gain_annuel": "3737.52",
+        "gain_mensuel": "311.46",
+        "gain_naif_mensuel": "866.25",
+        "gain_trois_ans": "444.56",
+        "temps_brut_heures": "20.6",
+        "temps_fragmente_heures": "9.3",
+        "temps_ineliminable_heures": "1.0",
+        "temps_net_heures": "7.4",
+        "temps_transfere_heures": "0.8"
+      },
+      "canaux": [
+        "documents",
+        "journaux",
+        "tickets"
+      ],
+      "changements_douze_mois": 0,
+      "cout": {
+        "abonnement_mensuel": "120",
+        "jours": "8",
+        "taux_maintenance": "0.08",
+        "tjm": "650"
+      },
+      "deconseil_attendu": [],
+      "duree_ecart_minutes": "0.8",
+      "duree_nb_cas": 2480,
+      "duree_statut": "mesuree",
+      "duree_unitaire_minutes": "3",
+      "ecart_procedure": true,
+      "faits": {
+        "api_ou_flux_natif": true,
+        "interface_stable": true,
+        "travail_deterministe": true
+      },
+      "famille_poste": "administratif",
+      "id": "P-05",
+      "motifs": [
+        "CLASS-03",
+        "CLASS-01"
+      ],
+      "nom": "Classement et indexation des documents",
+      "nom_en": "Filing and indexing documents",
+      "occurrences": {
+        "ecart_type": "22.0",
+        "maximum": "450",
+        "mediane": "412.5",
+        "minimum": "390",
+        "nb_mois": 6,
+        "serie": [
+          "390",
+          "405",
+          "420",
+          "430",
+          "450",
+          "400"
+        ]
+      },
+      "occurrences_generees": {
+        "mois_01": 390,
+        "mois_02": 405,
+        "mois_03": 420,
+        "mois_04": 430,
+        "mois_05": 450,
+        "mois_06": 400,
+        "total": 2495
+      },
+      "part_atypique": "0.05",
+      "part_atypique_nb_cas": 2480,
+      "part_pratique_divergente": "0.35",
+      "part_volume_traitee": "1",
+      "piege": null,
+      "procedure_ref": "PROC-05",
+      "repartition": "diffuse",
+      "risque_attendu": "faible",
+      "service": "adv",
+      "suppression_etape": false,
+      "transfert": [
+        {
+          "duree_minutes": "0.5",
+          "forfait_heures": null,
+          "nom": "revue",
+          "taux": "0.05"
+        },
+        {
+          "duree_minutes": "3",
+          "forfait_heures": null,
+          "nom": "rejets",
+          "taux": "0.02"
+        },
+        {
+          "duree_minutes": null,
+          "forfait_heures": "0.25",
+          "nom": "supervision",
+          "taux": null
+        }
+      ],
+      "type_arbre_attendu": "B",
+      "type_final_attendu": "B",
+      "vague_attendue": "vague_2",
+      "variante_b": null,
+      "visibilite_dirigeant": false
+    },
+    {
+      "attendu": {
+        "coefficient_fragmentation": "0.45",
+        "cout": {
+          "annee_1": "15036.00",
+          "developpement": "11700.00",
+          "maintenance_annuelle": "936.00",
+          "outil_annuel": "2400.00",
+          "recurrent": "3336.00"
+        },
+        "delai_retour_mois": "541.1",
+        "ecart_naif": "21.41",
+        "gain_annuel": "333.48",
+        "gain_mensuel": "27.79",
+        "gain_naif_mensuel": "595.00",
+        "gain_trois_ans": "-20707.56",
+        "temps_brut_heures": "14.2",
+        "temps_fragmente_heures": "6.4",
+        "temps_ineliminable_heures": "5.0",
+        "temps_net_heures": "0.7",
+        "temps_transfere_heures": "0.8"
+      },
+      "canaux": [
+        "courriels",
+        "tickets",
+        "appels"
+      ],
+      "changements_douze_mois": 3,
+      "cout": {
+        "abonnement_mensuel": "200",
+        "jours": "18",
+        "taux_maintenance": "0.08",
+        "tjm": "650"
+      },
+      "deconseil_attendu": [
+        {
+          "condition": "reexamen apres 6 mois de stabilite",
+          "motif": "instabilite",
+          "seuil": "3 changements en 12 mois"
+        },
+        {
+          "condition": "reexamen si le volume depasse 15 occurrences/mois",
+          "motif": "volume_insuffisant",
+          "seuil": "gain annuel net 333.48 EUR < 3 000 EUR"
+        },
+        {
+          "condition": "reexamen si le cout baisse sous 12 mois de gain",
+          "motif": "retour_trop_long",
+          "seuil": "delai de retour 541.1 mois > 36 mois"
+        }
+      ],
+      "duree_ecart_minutes": "9",
+      "duree_nb_cas": 0,
+      "duree_statut": "inferree",
+      "duree_unitaire_minutes": "25",
+      "ecart_procedure": true,
+      "faits": {
+        "jugement_requis": true
+      },
+      "famille_poste": "administratif",
+      "id": "P-06",
+      "motifs": [
+        "VERI-04",
+        "RECH-02"
+      ],
+      "nom": "Traitement des litiges fournisseurs",
+      "nom_en": "Handling supplier disputes",
+      "occurrences": {
+        "ecart_type": "2.9",
+        "maximum": "38",
+        "mediane": "34.0",
+        "minimum": "30",
+        "nb_mois": 6,
+        "serie": [
+          "30",
+          "32",
+          "35",
+          "36",
+          "38",
+          "33"
+        ]
+      },
+      "occurrences_generees": {
+        "mois_01": 30,
+        "mois_02": 32,
+        "mois_03": 35,
+        "mois_04": 36,
+        "mois_05": 38,
+        "mois_06": 33,
+        "total": 204
+      },
+      "part_atypique": "0.35",
+      "part_atypique_nb_cas": 120,
+      "part_pratique_divergente": "0",
+      "part_volume_traitee": "1",
+      "piege": null,
+      "procedure_ref": "PROC-04",
+      "repartition": "diffuse",
+      "risque_attendu": "eleve",
+      "service": "approvisionnements",
+      "suppression_etape": false,
+      "transfert": [
+        {
+          "duree_minutes": "1.0",
+          "forfait_heures": null,
+          "nom": "revue",
+          "taux": "0.15"
+        },
+        {
+          "duree_minutes": "6",
+          "forfait_heures": null,
+          "nom": "rejets",
+          "taux": "0.05"
+        },
+        {
+          "duree_minutes": null,
+          "forfait_heures": "0.5",
+          "nom": "supervision",
+          "taux": null
+        }
+      ],
+      "type_arbre_attendu": "D",
+      "type_final_attendu": "E",
+      "vague_attendue": "aucune",
+      "variante_b": null,
+      "visibilite_dirigeant": false
+    },
+    {
+      "attendu": {
+        "coefficient_fragmentation": "0.70",
+        "cout": {
+          "annee_1": "1950.00",
+          "developpement": "1950.00",
+          "maintenance_annuelle": "0.00",
+          "outil_annuel": "0.00",
+          "recurrent": "0.00"
+        },
+        "delai_retour_mois": "1.8",
+        "ecart_naif": "1.43",
+        "gain_annuel": "13230.00",
+        "gain_mensuel": "1102.50",
+        "gain_naif_mensuel": "1575.00",
+        "gain_trois_ans": "37740.00",
+        "temps_brut_heures": "37.5",
+        "temps_fragmente_heures": "26.3",
+        "temps_ineliminable_heures": "0.0",
+        "temps_net_heures": "26.3",
+        "temps_transfere_heures": "0.0"
+      },
+      "canaux": [
+        "courriels",
+        "tickets",
+        "journaux"
+      ],
+      "changements_douze_mois": 0,
+      "cout": {
+        "abonnement_mensuel": "0",
+        "jours": "3",
+        "taux_maintenance": "0",
+        "tjm": "650"
+      },
+      "deconseil_attendu": [],
+      "duree_ecart_minutes": "1.8",
+      "duree_nb_cas": 1840,
+      "duree_statut": "mesuree",
+      "duree_unitaire_minutes": "9",
+      "ecart_procedure": true,
+      "faits": {
+        "api_ou_flux_natif": true,
+        "etape_supprimable_amont": true,
+        "interface_stable": true,
+        "travail_deterministe": true
+      },
+      "famille_poste": "administratif",
+      "id": "P-07",
+      "motifs": [
+        "RESS-01",
+        "VERI-03"
+      ],
+      "nom": "Saisie des commandes fournisseurs recues par courriel",
+      "nom_en": "Keying supplier orders received by email",
+      "occurrences": {
+        "ecart_type": "42",
+        "maximum": "465",
+        "mediane": "320.0",
+        "minimum": "210",
+        "nb_mois": 6,
+        "serie": [
+          "270",
+          "295",
+          "310",
+          "330",
+          "355",
+          "380"
+        ]
+      },
+      "occurrences_generees": {
+        "mois_01": 270,
+        "mois_02": 295,
+        "mois_03": 310,
+        "mois_04": 330,
+        "mois_05": 355,
+        "mois_06": 380,
+        "total": 1940
+      },
+      "part_atypique": "0.15",
+      "part_atypique_nb_cas": 1840,
+      "part_pratique_divergente": "0.78",
+      "part_volume_traitee": "0.78125",
+      "piege": "procedure_divergente",
+      "procedure_ref": "PROC-04",
+      "repartition": "semi_regroupee",
+      "risque_attendu": "faible",
+      "service": "approvisionnements",
+      "suppression_etape": true,
+      "transfert": [
+        {
+          "duree_minutes": "1.5",
+          "forfait_heures": null,
+          "nom": "revue",
+          "taux": "0.20"
+        },
+        {
+          "duree_minutes": "12",
+          "forfait_heures": null,
+          "nom": "rejets",
+          "taux": "0.05"
+        },
+        {
+          "duree_minutes": null,
+          "forfait_heures": "3.2",
+          "nom": "supervision",
+          "taux": null
+        }
+      ],
+      "type_arbre_attendu": "A",
+      "type_final_attendu": "A",
+      "vague_attendue": "vague_1",
+      "variante_b": {
+        "abo": "180",
+        "jours": "12",
+        "maintenance": "0.08",
+        "part_volume": "0.22",
+        "suppression": false,
+        "transfert": "reference"
+      },
+      "visibilite_dirigeant": true
+    },
+    {
+      "attendu": {
+        "coefficient_fragmentation": "0.90",
+        "cout": {
+          "annee_1": "5874.00",
+          "developpement": "4550.00",
+          "maintenance_annuelle": "364.00",
+          "outil_annuel": "960.00",
+          "recurrent": "1324.00"
+        },
+        "delai_retour_mois": "19.6",
+        "ecart_naif": "1.51",
+        "gain_annuel": "3594.84",
+        "gain_mensuel": "299.57",
+        "gain_naif_mensuel": "451.50",
+        "gain_trois_ans": "2262.52",
+        "temps_brut_heures": "10.8",
+        "temps_fragmente_heures": "9.7",
+        "temps_ineliminable_heures": "1.1",
+        "temps_net_heures": "7.1",
+        "temps_transfere_heures": "1.5"
+      },
+      "canaux": [
+        "journaux",
+        "courriels"
+      ],
+      "changements_douze_mois": 0,
+      "cout": {
+        "abonnement_mensuel": "80",
+        "jours": "7",
+        "taux_maintenance": "0.08",
+        "tjm": "650"
+      },
+      "deconseil_attendu": [],
+      "duree_ecart_minutes": "1.1",
+      "duree_nb_cas": 770,
+      "duree_statut": "mesuree",
+      "duree_unitaire_minutes": "5",
+      "ecart_procedure": false,
+      "faits": {
+        "api_ou_flux_natif": true,
+        "interface_stable": true,
+        "travail_deterministe": true
+      },
+      "famille_poste": "administratif",
+      "id": "P-08",
+      "motifs": [
+        "RELAN-02"
+      ],
+      "nom": "Relance des factures echues",
+      "nom_en": "Chasing overdue invoices",
+      "occurrences": {
+        "ecart_type": "7.12",
+        "maximum": "140",
+        "mediane": "129.0",
+        "minimum": "120",
+        "nb_mois": 6,
+        "serie": [
+          "120",
+          "125",
+          "130",
+          "135",
+          "140",
+          "128"
+        ]
+      },
+      "occurrences_generees": {
+        "mois_01": 120,
+        "mois_02": 125,
+        "mois_03": 130,
+        "mois_04": 135,
+        "mois_05": 140,
+        "mois_06": 128,
+        "total": 778
+      },
+      "part_atypique": "0.10",
+      "part_atypique_nb_cas": 770,
+      "part_pratique_divergente": "0",
+      "part_volume_traitee": "1",
+      "piege": null,
+      "procedure_ref": "PROC-03",
+      "repartition": "regroupee",
+      "risque_attendu": "faible",
+      "service": "comptabilite",
+      "suppression_etape": false,
+      "transfert": [
+        {
+          "duree_minutes": "1.0",
+          "forfait_heures": null,
+          "nom": "revue",
+          "taux": "0.15"
+        },
+        {
+          "duree_minutes": "6",
+          "forfait_heures": null,
+          "nom": "rejets",
+          "taux": "0.05"
+        },
+        {
+          "duree_minutes": null,
+          "forfait_heures": "0.5",
+          "nom": "supervision",
+          "taux": null
+        }
+      ],
+      "type_arbre_attendu": "B",
+      "type_final_attendu": "B",
+      "vague_attendue": "vague_2",
+      "variante_b": null,
+      "visibilite_dirigeant": true
+    },
+    {
+      "attendu": {
+        "coefficient_fragmentation": "0.45",
+        "cout": {
+          "annee_1": "4932.00",
+          "developpement": "3900.00",
+          "maintenance_annuelle": "312.00",
+          "outil_annuel": "720.00",
+          "recurrent": "1032.00"
+        },
+        "delai_retour_mois": "391.4",
+        "ecart_naif": "4.00",
+        "gain_annuel": "151.20",
+        "gain_mensuel": "12.60",
+        "gain_naif_mensuel": "50.40",
+        "gain_trois_ans": "-6542.40",
+        "temps_brut_heures": "1.2",
+        "temps_fragmente_heures": "0.5",
+        "temps_ineliminable_heures": "0.2",
+        "temps_net_heures": "0.3",
+        "temps_transfere_heures": "0.0"
+      },
+      "canaux": [
+        "documents",
+        "tickets"
+      ],
+      "changements_douze_mois": 0,
+      "cout": {
+        "abonnement_mensuel": "60",
+        "jours": "6",
+        "taux_maintenance": "0.08",
+        "tjm": "650"
+      },
+      "deconseil_attendu": [
+        {
+          "condition": "reexamen si le volume depasse 15 occurrences/mois",
+          "motif": "volume_insuffisant",
+          "seuil": "gain annuel net 151.20 EUR < 3 000 EUR"
+        },
+        {
+          "condition": "reexamen si le cout baisse sous 12 mois de gain",
+          "motif": "retour_trop_long",
+          "seuil": "delai de retour 391.4 mois > 36 mois"
+        }
+      ],
+      "duree_ecart_minutes": "4",
+      "duree_nb_cas": 140,
+      "duree_statut": "mesuree",
+      "duree_unitaire_minutes": "18",
+      "ecart_procedure": false,
+      "faits": {
+        "api_ou_flux_natif": true,
+        "interface_stable": true,
+        "travail_deterministe": true
+      },
+      "famille_poste": "administratif",
+      "id": "P-09",
+      "motifs": [
+        "VERI-03"
+      ],
+      "nom": "Verification des avoirs fournisseurs",
+      "nom_en": "Checking supplier credit notes",
+      "occurrences": {
+        "ecart_type": "0.63",
+        "maximum": "5",
+        "mediane": "4.0",
+        "minimum": "3",
+        "nb_mois": 6,
+        "serie": [
+          "3",
+          "4",
+          "4",
+          "5",
+          "4",
+          "4"
+        ]
+      },
+      "occurrences_generees": {
+        "mois_01": 3,
+        "mois_02": 4,
+        "mois_03": 4,
+        "mois_04": 5,
+        "mois_05": 4,
+        "mois_06": 4,
+        "total": 24
+      },
+      "part_atypique": "0.20",
+      "part_atypique_nb_cas": 140,
+      "part_pratique_divergente": "0",
+      "part_volume_traitee": "1",
+      "piege": null,
+      "procedure_ref": "PROC-03",
+      "repartition": "diffuse",
+      "risque_attendu": "faible",
+      "service": "comptabilite",
+      "suppression_etape": false,
+      "transfert": [],
+      "type_arbre_attendu": "B",
+      "type_final_attendu": "E",
+      "vague_attendue": "aucune",
+      "variante_b": null,
+      "visibilite_dirigeant": false
+    },
+    {
+      "attendu": {
+        "coefficient_fragmentation": "0.70",
+        "cout": {
+          "annee_1": "11232.00",
+          "developpement": "10400.00",
+          "maintenance_annuelle": "832.00",
+          "outil_annuel": "0.00",
+          "recurrent": "832.00"
+        },
+        "delai_retour_mois": "27.3",
+        "ecart_naif": "2.43",
+        "gain_annuel": "4933.80",
+        "gain_mensuel": "411.15",
+        "gain_naif_mensuel": "999.60",
+        "gain_trois_ans": "1905.40",
+        "temps_brut_heures": "23.8",
+        "temps_fragmente_heures": "16.7",
+        "temps_ineliminable_heures": "4.3",
+        "temps_net_heures": "9.8",
+        "temps_transfere_heures": "2.6"
+      },
+      "canaux": [
+        "documents",
+        "journaux"
+      ],
+      "changements_douze_mois": 0,
+      "cout": {
+        "abonnement_mensuel": "0",
+        "jours": "16",
+        "taux_maintenance": "0.08",
+        "tjm": "650"
+      },
+      "deconseil_attendu": [],
+      "duree_ecart_minutes": "3",
+      "duree_nb_cas": 440,
+      "duree_statut": "mesuree",
+      "duree_unitaire_minutes": "12",
+      "ecart_procedure": false,
+      "faits": {
+        "interface_stable": true,
+        "travail_deterministe": true
+      },
+      "famille_poste": "administratif",
+      "id": "P-10",
+      "motifs": [
+        "VERI-01",
+        "VERI-06"
+      ],
+      "nom": "Controle de conformite des fiches produits",
+      "nom_en": "Compliance check of product sheets",
+      "occurrences": {
+        "ecart_type": "6.15",
+        "maximum": "128",
+        "mediane": "119.0",
+        "minimum": "110",
+        "nb_mois": 6,
+        "serie": [
+          "110",
+          "115",
+          "118",
+          "120",
+          "122",
+          "128"
+        ]
+      },
+      "occurrences_generees": {
+        "mois_01": 110,
+        "mois_02": 115,
+        "mois_03": 118,
+        "mois_04": 120,
+        "mois_05": 122,
+        "mois_06": 128,
+        "total": 713
+      },
+      "part_atypique": "0.18",
+      "part_atypique_nb_cas": 440,
+      "part_pratique_divergente": "0",
+      "part_volume_traitee": "1",
+      "piege": null,
+      "procedure_ref": "PROC-06",
+      "repartition": "semi_regroupee",
+      "risque_attendu": "moyen",
+      "service": "adv",
+      "suppression_etape": false,
+      "transfert": [
+        {
+          "duree_minutes": "1.5",
+          "forfait_heures": null,
+          "nom": "revue",
+          "taux": "0.20"
+        },
+        {
+          "duree_minutes": "10",
+          "forfait_heures": null,
+          "nom": "rejets",
+          "taux": "0.05"
+        },
+        {
+          "duree_minutes": null,
+          "forfait_heures": "1.0",
+          "nom": "supervision",
+          "taux": null
+        }
+      ],
+      "type_arbre_attendu": "C",
+      "type_final_attendu": "C",
+      "vague_attendue": "vague_2",
+      "variante_b": null,
+      "visibilite_dirigeant": false
+    },
+    {
+      "attendu": {
+        "coefficient_fragmentation": "0.90",
+        "cout": {
+          "annee_1": "5052.00",
+          "developpement": "3900.00",
+          "maintenance_annuelle": "312.00",
+          "outil_annuel": "840.00",
+          "recurrent": "1152.00"
+        },
+        "delai_retour_mois": "13.1",
+        "ecart_naif": "1.36",
+        "gain_annuel": "4635.60",
+        "gain_mensuel": "386.30",
+        "gain_naif_mensuel": "526.40",
+        "gain_trois_ans": "6550.80",
+        "temps_brut_heures": "12.5",
+        "temps_fragmente_heures": "11.3",
+        "temps_ineliminable_heures": "0.9",
+        "temps_net_heures": "9.2",
+        "temps_transfere_heures": "1.2"
+      },
+      "canaux": [
+        "tickets",
+        "journaux",
+        "courriels"
+      ],
+      "changements_douze_mois": 0,
+      "cout": {
+        "abonnement_mensuel": "70",
+        "jours": "6",
+        "taux_maintenance": "0.08",
+        "tjm": "650"
+      },
+      "deconseil_attendu": [],
+      "duree_ecart_minutes": "0.9",
+      "duree_nb_cas": 560,
+      "duree_statut": "mesuree",
+      "duree_unitaire_minutes": "8",
+      "ecart_procedure": true,
+      "faits": {
+        "api_ou_flux_natif": true,
+        "interface_stable": true,
+        "travail_deterministe": true
+      },
+      "famille_poste": "administratif",
+      "id": "P-11",
+      "motifs": [
+        "RELAN-01"
+      ],
+      "nom": "Relance des devis sans reponse",
+      "nom_en": "Following up unanswered quotations",
+      "occurrences": {
+        "ecart_type": "4.89",
+        "maximum": "102",
+        "mediane": "94.0",
+        "minimum": "88",
+        "nb_mois": 6,
+        "serie": [
+          "88",
+          "92",
+          "95",
+          "98",
+          "102",
+          "93"
+        ]
+      },
+      "occurrences_generees": {
+        "mois_01": 88,
+        "mois_02": 92,
+        "mois_03": 95,
+        "mois_04": 98,
+        "mois_05": 102,
+        "mois_06": 93,
+        "total": 568
+      },
+      "part_atypique": "0.07",
+      "part_atypique_nb_cas": 560,
+      "part_pratique_divergente": "0",
+      "part_volume_traitee": "1",
+      "piege": null,
+      "procedure_ref": "PROC-02",
+      "repartition": "regroupee",
+      "risque_attendu": "faible",
+      "service": "adv",
+      "suppression_etape": false,
+      "transfert": [
+        {
+          "duree_minutes": "1.0",
+          "forfait_heures": null,
+          "nom": "revue",
+          "taux": "0.15"
+        },
+        {
+          "duree_minutes": "6",
+          "forfait_heures": null,
+          "nom": "rejets",
+          "taux": "0.05"
+        },
+        {
+          "duree_minutes": null,
+          "forfait_heures": "0.5",
+          "nom": "supervision",
+          "taux": null
+        }
+      ],
+      "type_arbre_attendu": "B",
+      "type_final_attendu": "B",
+      "vague_attendue": "vague_2",
+      "variante_b": null,
+      "visibilite_dirigeant": true
+    },
+    {
+      "attendu": {
+        "coefficient_fragmentation": "0.85",
+        "cout": {
+          "annee_1": "6936.00",
+          "developpement": "5200.00",
+          "maintenance_annuelle": "416.00",
+          "outil_annuel": "1320.00",
+          "recurrent": "1736.00"
+        },
+        "delai_retour_mois": "17.0",
+        "ecart_naif": "1.54",
+        "gain_annuel": "4892.04",
+        "gain_mensuel": "407.67",
+        "gain_naif_mensuel": "625.80",
+        "gain_trois_ans": "4268.12",
+        "temps_brut_heures": "14.9",
+        "temps_fragmente_heures": "12.7",
+        "temps_ineliminable_heures": "1.3",
+        "temps_net_heures": "9.7",
+        "temps_transfere_heures": "1.6"
+      },
+      "canaux": [
+        "appels",
+        "tickets"
+      ],
+      "changements_douze_mois": 0,
+      "cout": {
+        "abonnement_mensuel": "110",
+        "jours": "8",
+        "taux_maintenance": "0.08",
+        "tjm": "650"
+      },
+      "deconseil_attendu": [],
+      "duree_ecart_minutes": "1.5",
+      "duree_nb_cas": 890,
+      "duree_statut": "mesuree",
+      "duree_unitaire_minutes": "6",
+      "ecart_procedure": false,
+      "faits": {
+        "api_ou_flux_natif": true,
+        "interface_stable": true,
+        "travail_deterministe": true
+      },
+      "famille_poste": "administratif",
+      "id": "P-12",
+      "motifs": [
+        "COORD-01"
+      ],
+      "nom": "Prise de rendez-vous des techniciens",
+      "nom_en": "Booking technician appointments",
+      "occurrences": {
+        "ecart_type": "7.12",
+        "maximum": "160",
+        "mediane": "149.0",
+        "minimum": "140",
+        "nb_mois": 6,
+        "serie": [
+          "140",
+          "145",
+          "150",
+          "155",
+          "160",
+          "148"
+        ]
+      },
+      "occurrences_generees": {
+        "mois_01": 140,
+        "mois_02": 145,
+        "mois_03": 150,
+        "mois_04": 155,
+        "mois_05": 160,
+        "mois_06": 148,
+        "total": 898
+      },
+      "part_atypique": "0.09",
+      "part_atypique_nb_cas": 890,
+      "part_pratique_divergente": "0",
+      "part_volume_traitee": "1",
+      "piege": null,
+      "procedure_ref": "PROC-06",
+      "repartition": "interruptive",
+      "risque_attendu": "faible",
+      "service": "support",
+      "suppression_etape": false,
+      "transfert": [
+        {
+          "duree_minutes": "1.0",
+          "forfait_heures": null,
+          "nom": "revue",
+          "taux": "0.15"
+        },
+        {
+          "duree_minutes": "6",
+          "forfait_heures": null,
+          "nom": "rejets",
+          "taux": "0.05"
+        },
+        {
+          "duree_minutes": null,
+          "forfait_heures": "0.5",
+          "nom": "supervision",
+          "taux": null
+        }
+      ],
+      "type_arbre_attendu": "B",
+      "type_final_attendu": "B",
+      "vague_attendue": "vague_2",
+      "variante_b": null,
+      "visibilite_dirigeant": true
+    },
+    {
+      "attendu": {
+        "coefficient_fragmentation": "0.85",
+        "cout": {
+          "annee_1": "2808.00",
+          "developpement": "2600.00",
+          "maintenance_annuelle": "208.00",
+          "outil_annuel": "0.00",
+          "recurrent": "208.00"
+        },
+        "delai_retour_mois": "7.0",
+        "ecart_naif": "1.18",
+        "gain_annuel": "4819.56",
+        "gain_mensuel": "401.63",
+        "gain_naif_mensuel": "472.50",
+        "gain_trois_ans": "11234.68",
+        "temps_brut_heures": "11.3",
+        "temps_fragmente_heures": "9.6",
+        "temps_ineliminable_heures": "0.0",
+        "temps_net_heures": "9.6",
+        "temps_transfere_heures": "0.0"
+      },
+      "canaux": [
+        "courriels",
+        "tickets",
+        "appels"
+      ],
+      "changements_douze_mois": 0,
+      "cout": {
+        "abonnement_mensuel": "0",
+        "jours": "4",
+        "taux_maintenance": "0.08",
+        "tjm": "650"
+      },
+      "deconseil_attendu": [],
+      "duree_ecart_minutes": "1.2",
+      "duree_nb_cas": 0,
+      "duree_statut": "inferree",
+      "duree_unitaire_minutes": "3",
+      "ecart_procedure": true,
+      "faits": {
+        "etape_supprimable_amont": true
+      },
+      "famille_poste": "administratif",
+      "id": "P-13",
+      "motifs": [
+        "COORD-02"
+      ],
+      "nom": "Transmission des informations entre services",
+      "nom_en": "Passing information between departments",
+      "occurrences": {
+        "ecart_type": "18.0",
+        "maximum": "400",
+        "mediane": "375.0",
+        "minimum": "350",
+        "nb_mois": 6,
+        "serie": [
+          "350",
+          "365",
+          "380",
+          "390",
+          "400",
+          "370"
+        ]
+      },
+      "occurrences_generees": {
+        "mois_01": 350,
+        "mois_02": 365,
+        "mois_03": 380,
+        "mois_04": 390,
+        "mois_05": 400,
+        "mois_06": 370,
+        "total": 2255
+      },
+      "part_atypique": "0.06",
+      "part_atypique_nb_cas": 1200,
+      "part_pratique_divergente": "0",
+      "part_volume_traitee": "0.60",
+      "piege": null,
+      "procedure_ref": "PROC-06",
+      "repartition": "interruptive",
+      "risque_attendu": "faible",
+      "service": "support",
+      "suppression_etape": true,
+      "transfert": [
+        {
+          "duree_minutes": "1.0",
+          "forfait_heures": null,
+          "nom": "revue",
+          "taux": "0.15"
+        },
+        {
+          "duree_minutes": "6",
+          "forfait_heures": null,
+          "nom": "rejets",
+          "taux": "0.05"
+        },
+        {
+          "duree_minutes": null,
+          "forfait_heures": "0.5",
+          "nom": "supervision",
+          "taux": null
+        }
+      ],
+      "type_arbre_attendu": "A",
+      "type_final_attendu": "A",
+      "vague_attendue": "vague_2",
+      "variante_b": null,
+      "visibilite_dirigeant": false
+    },
+    {
+      "attendu": {
+        "coefficient_fragmentation": "0.70",
+        "cout": {
+          "annee_1": "0.00",
+          "developpement": "0.00",
+          "maintenance_annuelle": "0.00",
+          "outil_annuel": "0.00",
+          "recurrent": "0.00"
+        },
+        "delai_retour_mois": "0.0",
+        "ecart_naif": "1.43",
+        "gain_annuel": "3073.32",
+        "gain_mensuel": "256.11",
+        "gain_naif_mensuel": "365.88",
+        "gain_trois_ans": "9219.96",
+        "temps_brut_heures": "8.7",
+        "temps_fragmente_heures": "6.1",
+        "temps_ineliminable_heures": "0.0",
+        "temps_net_heures": "6.1",
+        "temps_transfere_heures": "0.0"
+      },
+      "canaux": [
+        "documents",
+        "tickets"
+      ],
+      "changements_douze_mois": 0,
+      "cout": {
+        "abonnement_mensuel": "0",
+        "jours": "0",
+        "taux_maintenance": "0",
+        "tjm": "650"
+      },
+      "deconseil_attendu": [],
+      "duree_ecart_minutes": "1.0",
+      "duree_nb_cas": 1060,
+      "duree_statut": "mesuree",
+      "duree_unitaire_minutes": "4",
+      "ecart_procedure": true,
+      "faits": {
+        "etape_supprimable_amont": true
+      },
+      "famille_poste": "administratif",
+      "id": "P-14",
+      "motifs": [
+        "RESS-06"
+      ],
+      "nom": "Saisie des notes de frais",
+      "nom_en": "Keying expense claims",
+      "occurrences": {
+        "ecart_type": "5.32",
+        "maximum": "185",
+        "mediane": "179.0",
+        "minimum": "170",
+        "nb_mois": 6,
+        "serie": [
+          "170",
+          "175",
+          "178",
+          "180",
+          "182",
+          "185"
+        ]
+      },
+      "occurrences_generees": {
+        "mois_01": 170,
+        "mois_02": 175,
+        "mois_03": 178,
+        "mois_04": 180,
+        "mois_05": 182,
+        "mois_06": 185,
+        "total": 1070
+      },
+      "part_atypique": "0.10",
+      "part_atypique_nb_cas": 1060,
+      "part_pratique_divergente": "0.65",
+      "part_volume_traitee": "0.73",
+      "piege": null,
+      "procedure_ref": "PROC-08",
+      "repartition": "semi_regroupee",
+      "risque_attendu": "faible",
+      "service": "comptabilite",
+      "suppression_etape": true,
+      "transfert": [],
+      "type_arbre_attendu": "A",
+      "type_final_attendu": "A",
+      "vague_attendue": "vague_1",
+      "variante_b": null,
+      "visibilite_dirigeant": true
+    },
+    {
+      "attendu": {
+        "coefficient_fragmentation": "0.70",
+        "cout": {
+          "annee_1": "11424.00",
+          "developpement": "7800.00",
+          "maintenance_annuelle": "624.00",
+          "outil_annuel": "3000.00",
+          "recurrent": "3624.00"
+        },
+        "delai_retour_mois": "30.8",
+        "ecart_naif": "2.52",
+        "gain_annuel": "4457.88",
+        "gain_mensuel": "371.49",
+        "gain_naif_mensuel": "934.50",
+        "gain_trois_ans": "-5298.36",
+        "temps_brut_heures": "22.3",
+        "temps_fragmente_heures": "15.6",
+        "temps_ineliminable_heures": "5.6",
+        "temps_net_heures": "8.8",
+        "temps_transfere_heures": "1.2"
+      },
+      "canaux": [
+        "tickets",
+        "appels",
+        "documents"
+      ],
+      "changements_douze_mois": 0,
+      "cout": {
+        "abonnement_mensuel": "250",
+        "jours": "12",
+        "taux_maintenance": "0.08",
+        "tjm": "650"
+      },
+      "deconseil_attendu": [],
+      "duree_ecart_minutes": "5",
+      "duree_nb_cas": 0,
+      "duree_statut": "inferree",
+      "duree_unitaire_minutes": "15",
+      "ecart_procedure": false,
+      "faits": {
+        "jugement_requis": true
+      },
+      "famille_poste": "administratif",
+      "id": "P-15",
+      "motifs": [
+        "RECH-02",
+        "RECH-03"
+      ],
+      "nom": "Recherche de precedents et de procedures applicables",
+      "nom_en": "Searching precedents and applicable procedures",
+      "occurrences": {
+        "ecart_type": "5.0",
+        "maximum": "96",
+        "mediane": "89.0",
+        "minimum": "82",
+        "nb_mois": 6,
+        "serie": [
+          "82",
+          "86",
+          "90",
+          "93",
+          "96",
+          "88"
+        ]
+      },
+      "occurrences_generees": {
+        "mois_01": 82,
+        "mois_02": 86,
+        "mois_03": 90,
+        "mois_04": 93,
+        "mois_05": 96,
+        "mois_06": 88,
+        "total": 535
+      },
+      "part_atypique": "0.25",
+      "part_atypique_nb_cas": 200,
+      "part_pratique_divergente": "0",
+      "part_volume_traitee": "1",
+      "piege": null,
+      "procedure_ref": "PROC-08",
+      "repartition": "semi_regroupee",
+      "risque_attendu": "moyen",
+      "service": "support",
+      "suppression_etape": false,
+      "transfert": [
+        {
+          "duree_minutes": "1.0",
+          "forfait_heures": null,
+          "nom": "revue",
+          "taux": "0.15"
+        },
+        {
+          "duree_minutes": "6",
+          "forfait_heures": null,
+          "nom": "rejets",
+          "taux": "0.05"
+        },
+        {
+          "duree_minutes": null,
+          "forfait_heures": "0.5",
+          "nom": "supervision",
+          "taux": null
+        }
+      ],
+      "type_arbre_attendu": "D",
+      "type_final_attendu": "D",
+      "vague_attendue": "vague_3",
+      "variante_b": null,
+      "visibilite_dirigeant": false
+    },
+    {
+      "attendu": {
+        "coefficient_fragmentation": "0.70",
+        "cout": {
+          "annee_1": "3510.00",
+          "developpement": "3250.00",
+          "maintenance_annuelle": "260.00",
+          "outil_annuel": "0.00",
+          "recurrent": "260.00"
+        },
+        "delai_retour_mois": "10.4",
+        "ecart_naif": "2.13",
+        "gain_annuel": "4042.08",
+        "gain_mensuel": "336.84",
+        "gain_naif_mensuel": "717.50",
+        "gain_trois_ans": "8096.24",
+        "temps_brut_heures": "17.1",
+        "temps_fragmente_heures": "12.0",
+        "temps_ineliminable_heures": "2.4",
+        "temps_net_heures": "8.0",
+        "temps_transfere_heures": "1.5"
+      },
+      "canaux": [
+        "courriels",
+        "journaux"
+      ],
+      "changements_douze_mois": 0,
+      "cout": {
+        "abonnement_mensuel": "0",
+        "jours": "5",
+        "taux_maintenance": "0.08",
+        "tjm": "650"
+      },
+      "deconseil_attendu": [],
+      "duree_ecart_minutes": "2.2",
+      "duree_nb_cas": 480,
+      "duree_statut": "mesuree",
+      "duree_unitaire_minutes": "25",
+      "ecart_procedure": false,
+      "faits": {
+        "api_ou_flux_natif": true,
+        "interface_stable": true,
+        "travail_deterministe": true
+      },
+      "famille_poste": "administratif",
+      "id": "P-16",
+      "motifs": [
+        "RESS-01",
+        "VERI-06"
+      ],
+      "nom": "Traitement du reassort de fin d annee",
+      "nom_en": "Handling the year-end replenishment",
+      "occurrences": {
+        "ecart_type": "110.28",
+        "maximum": "310",
+        "mediane": "41.0",
+        "minimum": "35",
+        "nb_mois": 6,
+        "serie": [
+          "35",
+          "38",
+          "40",
+          "42",
+          "310",
+          "45"
+        ]
+      },
+      "occurrences_generees": {
+        "mois_01": 35,
+        "mois_02": 38,
+        "mois_03": 40,
+        "mois_04": 42,
+        "mois_05": 310,
+        "mois_06": 45,
+        "total": 510
+      },
+      "part_atypique": "0.14",
+      "part_atypique_nb_cas": 480,
+      "part_pratique_divergente": "0",
+      "part_volume_traitee": "1",
+      "piege": "pic_saisonnier",
+      "procedure_ref": "PROC-04",
+      "repartition": "semi_regroupee",
+      "risque_attendu": "moyen",
+      "service": "approvisionnements",
+      "suppression_etape": false,
+      "transfert": [
+        {
+          "duree_minutes": "1.5",
+          "forfait_heures": null,
+          "nom": "revue",
+          "taux": "0.20"
+        },
+        {
+          "duree_minutes": "10",
+          "forfait_heures": null,
+          "nom": "rejets",
+          "taux": "0.05"
+        },
+        {
+          "duree_minutes": null,
+          "forfait_heures": "1.0",
+          "nom": "supervision",
+          "taux": null
+        }
+      ],
+      "type_arbre_attendu": "B",
+      "type_final_attendu": "B",
+      "vague_attendue": "vague_2",
+      "variante_b": null,
+      "visibilite_dirigeant": true
+    },
+    {
+      "attendu": {
+        "coefficient_fragmentation": "0.85",
+        "cout": {
+          "annee_1": "5994.00",
+          "developpement": "4550.00",
+          "maintenance_annuelle": "364.00",
+          "outil_annuel": "1080.00",
+          "recurrent": "1444.00"
+        },
+        "delai_retour_mois": "16.1",
+        "ecart_naif": "1.79",
+        "gain_annuel": "4468.56",
+        "gain_mensuel": "372.38",
+        "gain_naif_mensuel": "666.75",
+        "gain_trois_ans": "4523.68",
+        "temps_brut_heures": "15.9",
+        "temps_fragmente_heures": "13.5",
+        "temps_ineliminable_heures": "1.7",
+        "temps_net_heures": "8.9",
+        "temps_transfere_heures": "2.9"
+      },
+      "canaux": [
+        "tickets",
+        "journaux"
+      ],
+      "changements_douze_mois": 0,
+      "cout": {
+        "abonnement_mensuel": "90",
+        "jours": "7",
+        "taux_maintenance": "0.08",
+        "tjm": "650"
+      },
+      "deconseil_attendu": [],
+      "duree_ecart_minutes": "0.7",
+      "duree_nb_cas": 1230,
+      "duree_statut": "mesuree",
+      "duree_unitaire_minutes": "3",
+      "ecart_procedure": false,
+      "faits": {
+        "api_ou_flux_natif": true,
+        "interface_stable": true,
+        "travail_deterministe": true
+      },
+      "famille_poste": "administratif",
+      "id": "P-17",
+      "motifs": [
+        "COORD-03"
+      ],
+      "nom": "Affectation des demandes d intervention",
+      "nom_en": "Assigning intervention requests",
+      "occurrences": {
+        "ecart_type": "12.14",
+        "maximum": "335",
+        "mediane": "317.5",
+        "minimum": "300",
+        "nb_mois": 6,
+        "serie": [
+          "300",
+          "310",
+          "320",
+          "325",
+          "335",
+          "315"
+        ]
+      },
+      "occurrences_generees": {
+        "mois_01": 300,
+        "mois_02": 310,
+        "mois_03": 320,
+        "mois_04": 325,
+        "mois_05": 335,
+        "mois_06": 315,
+        "total": 1905
+      },
+      "part_atypique": "0.11",
+      "part_atypique_nb_cas": 1230,
+      "part_pratique_divergente": "0",
+      "part_volume_traitee": "1",
+      "piege": null,
+      "procedure_ref": "PROC-06",
+      "repartition": "interruptive",
+      "risque_attendu": "faible",
+      "service": "support",
+      "suppression_etape": false,
+      "transfert": [
+        {
+          "duree_minutes": "1.0",
+          "forfait_heures": null,
+          "nom": "revue",
+          "taux": "0.15"
+        },
+        {
+          "duree_minutes": "6",
+          "forfait_heures": null,
+          "nom": "rejets",
+          "taux": "0.05"
+        },
+        {
+          "duree_minutes": null,
+          "forfait_heures": "0.5",
+          "nom": "supervision",
+          "taux": null
+        }
+      ],
+      "type_arbre_attendu": "B",
+      "type_final_attendu": "B",
+      "vague_attendue": "vague_2",
+      "variante_b": null,
+      "visibilite_dirigeant": true
+    },
+    {
+      "attendu": {
+        "coefficient_fragmentation": "0.70",
+        "cout": {
+          "annee_1": "8424.00",
+          "developpement": "7800.00",
+          "maintenance_annuelle": "624.00",
+          "outil_annuel": "0.00",
+          "recurrent": "624.00"
+        },
+        "delai_retour_mois": "163.7",
+        "ecart_naif": "4.00",
+        "gain_annuel": "617.40",
+        "gain_mensuel": "51.45",
+        "gain_naif_mensuel": "205.80",
+        "gain_trois_ans": "-7819.80",
+        "temps_brut_heures": "4.9",
+        "temps_fragmente_heures": "3.4",
+        "temps_ineliminable_heures": "2.2",
+        "temps_net_heures": "1.2",
+        "temps_transfere_heures": "0.0"
+      },
+      "canaux": [
+        "courriels",
+        "tickets"
+      ],
+      "changements_douze_mois": 0,
+      "cout": {
+        "abonnement_mensuel": "0",
+        "jours": "12",
+        "taux_maintenance": "0.08",
+        "tjm": "650"
+      },
+      "deconseil_attendu": [
+        {
+          "condition": "reexamen si le texte change",
+          "motif": "obligation_legale",
+          "seuil": "obligation legale de traitement humain (signature)"
+        },
+        {
+          "condition": "reexamen si le volume depasse 15 occurrences/mois",
+          "motif": "volume_insuffisant",
+          "seuil": "gain annuel net 617.40 EUR < 3 000 EUR"
+        },
+        {
+          "condition": "reexamen si la part atypique passe sous 30 %",
+          "motif": "jugement_non_formalisable",
+          "seuil": "part atypique 45 % > 40 %"
+        },
+        {
+          "condition": "reexamen si le cout baisse sous 12 mois de gain",
+          "motif": "retour_trop_long",
+          "seuil": "delai de retour 163.7 mois > 36 mois"
+        }
+      ],
+      "duree_ecart_minutes": "3",
+      "duree_nb_cas": 290,
+      "duree_statut": "mesuree",
+      "duree_unitaire_minutes": "12",
+      "ecart_procedure": false,
+      "faits": {
+        "jugement_requis": true,
+        "obligation_legale_humaine": true
+      },
+      "famille_poste": "administratif",
+      "id": "P-18",
+      "motifs": [
+        "VERI-05",
+        "VERI-06"
+      ],
+      "nom": "Validation des remises exceptionnelles",
+      "nom_en": "Approving exceptional discounts",
+      "occurrences": {
+        "ecart_type": "2.16",
+        "maximum": "28",
+        "mediane": "24.5",
+        "minimum": "22",
+        "nb_mois": 6,
+        "serie": [
+          "22",
+          "24",
+          "25",
+          "26",
+          "28",
+          "23"
+        ]
+      },
+      "occurrences_generees": {
+        "mois_01": 22,
+        "mois_02": 24,
+        "mois_03": 25,
+        "mois_04": 26,
+        "mois_05": 28,
+        "mois_06": 23,
+        "total": 148
+      },
+      "part_atypique": "0.45",
+      "part_atypique_nb_cas": 290,
+      "part_pratique_divergente": "0",
+      "part_volume_traitee": "1",
+      "piege": null,
+      "procedure_ref": "PROC-08",
+      "repartition": "semi_regroupee",
+      "risque_attendu": "eleve",
+      "service": "adv",
+      "suppression_etape": false,
+      "transfert": [],
+      "type_arbre_attendu": "D",
+      "type_final_attendu": "E",
+      "vague_attendue": "aucune",
+      "variante_b": null,
+      "visibilite_dirigeant": false
+    },
+    {
+      "attendu": {
+        "coefficient_fragmentation": "0.90",
+        "cout": {
+          "annee_1": "17640.00",
+          "developpement": "13000.00",
+          "maintenance_annuelle": "1040.00",
+          "outil_annuel": "3600.00",
+          "recurrent": "4640.00"
+        },
+        "delai_retour_mois": "12.7",
+        "ecart_naif": "1.27",
+        "gain_annuel": "16637.04",
+        "gain_mensuel": "1386.42",
+        "gain_naif_mensuel": "1764.00",
+        "gain_trois_ans": "22991.12",
+        "temps_brut_heures": "42.0",
+        "temps_fragmente_heures": "37.8",
+        "temps_ineliminable_heures": "4.2",
+        "temps_net_heures": "33.0",
+        "temps_transfere_heures": "0.6"
+      },
+      "canaux": [
+        "journaux",
+        "documents",
+        "tickets"
+      ],
+      "changements_douze_mois": 0,
+      "cout": {
+        "abonnement_mensuel": "300",
+        "jours": "20",
+        "taux_maintenance": "0.08",
+        "tjm": "650"
+      },
+      "deconseil_attendu": [],
+      "duree_ecart_minutes": "35",
+      "duree_nb_cas": 72,
+      "duree_statut": "mesuree",
+      "duree_unitaire_minutes": "210",
+      "ecart_procedure": true,
+      "faits": {
+        "api_ou_flux_natif": true,
+        "interface_stable": true,
+        "travail_deterministe": true
+      },
+      "famille_poste": "administratif",
+      "id": "P-19",
+      "motifs": [
+        "REPO-01",
+        "REPO-03",
+        "REPO-04"
+      ],
+      "nom": "Preparation du reporting mensuel de gestion",
+      "nom_en": "Preparing the monthly management reporting",
+      "occurrences": {
+        "ecart_type": "0.0",
+        "maximum": "12",
+        "mediane": "12.0",
+        "minimum": "12",
+        "nb_mois": 6,
+        "serie": [
+          "12",
+          "12",
+          "12",
+          "12",
+          "12",
+          "12"
+        ]
+      },
+      "occurrences_generees": {
+        "mois_01": 12,
+        "mois_02": 12,
+        "mois_03": 12,
+        "mois_04": 12,
+        "mois_05": 12,
+        "mois_06": 12,
+        "total": 72
+      },
+      "part_atypique": "0.10",
+      "part_atypique_nb_cas": 72,
+      "part_pratique_divergente": "0",
+      "part_volume_traitee": "1",
+      "piege": null,
+      "procedure_ref": "PROC-07",
+      "repartition": "regroupee",
+      "risque_attendu": "moyen",
+      "service": "comptabilite",
+      "suppression_etape": false,
+      "transfert": [
+        {
+          "duree_minutes": "1.0",
+          "forfait_heures": null,
+          "nom": "revue",
+          "taux": "0.15"
+        },
+        {
+          "duree_minutes": "6",
+          "forfait_heures": null,
+          "nom": "rejets",
+          "taux": "0.05"
+        },
+        {
+          "duree_minutes": null,
+          "forfait_heures": "0.5",
+          "nom": "supervision",
+          "taux": null
+        }
+      ],
+      "type_arbre_attendu": "B",
+      "type_final_attendu": "B",
+      "vague_attendue": "vague_2",
+      "variante_b": null,
+      "visibilite_dirigeant": true
+    },
+    {
+      "attendu": {
+        "coefficient_fragmentation": "0.90",
+        "cout": {
+          "annee_1": "9828.00",
+          "developpement": "9100.00",
+          "maintenance_annuelle": "728.00",
+          "outil_annuel": "0.00",
+          "recurrent": "728.00"
+        },
+        "delai_retour_mois": "68.9",
+        "ecart_naif": "1.51",
+        "gain_annuel": "1711.08",
+        "gain_mensuel": "142.59",
+        "gain_naif_mensuel": "215.25",
+        "gain_trois_ans": "-6150.76",
+        "temps_brut_heures": "5.1",
+        "temps_fragmente_heures": "4.6",
+        "temps_ineliminable_heures": "0.3",
+        "temps_net_heures": "3.4",
+        "temps_transfere_heures": "1.0"
+      },
+      "canaux": [
+        "documents"
+      ],
+      "changements_douze_mois": 0,
+      "cout": {
+        "abonnement_mensuel": "0",
+        "jours": "14",
+        "taux_maintenance": "0.08",
+        "tjm": "650"
+      },
+      "deconseil_attendu": [
+        {
+          "condition": "reexamen si une API contractuelle est disponible",
+          "motif": "dependance_externe",
+          "seuil": "portail tiers sans API ni engagement de stabilite"
+        },
+        {
+          "condition": "reexamen si le volume depasse 15 occurrences/mois",
+          "motif": "volume_insuffisant",
+          "seuil": "gain annuel net 1711.08 EUR < 3 000 EUR"
+        },
+        {
+          "condition": "reexamen si le cout baisse sous 12 mois de gain",
+          "motif": "retour_trop_long",
+          "seuil": "delai de retour 68.9 mois > 36 mois"
+        }
+      ],
+      "duree_ecart_minutes": "1.0",
+      "duree_nb_cas": 370,
+      "duree_statut": "mesuree",
+      "duree_unitaire_minutes": "5",
+      "ecart_procedure": false,
+      "faits": {
+        "dependance_externe_non_contractuelle": true,
+        "interface_stable": false,
+        "travail_deterministe": true
+      },
+      "famille_poste": "administratif",
+      "id": "P-20",
+      "motifs": [
+        "RESS-04",
+        "RESS-05"
+      ],
+      "nom": "Saisie des releves de temperature",
+      "nom_en": "Keying temperature readings",
+      "occurrences": {
+        "ecart_type": "2.86",
+        "maximum": "66",
+        "mediane": "61.5",
+        "minimum": "58",
+        "nb_mois": 6,
+        "serie": [
+          "58",
+          "60",
+          "62",
+          "64",
+          "66",
+          "61"
+        ]
+      },
+      "occurrences_generees": {
+        "mois_01": 58,
+        "mois_02": 60,
+        "mois_03": 62,
+        "mois_04": 64,
+        "mois_05": 66,
+        "mois_06": 61,
+        "total": 371
+      },
+      "part_atypique": "0.05",
+      "part_atypique_nb_cas": 370,
+      "part_pratique_divergente": "0",
+      "part_volume_traitee": "1",
+      "piege": null,
+      "procedure_ref": "PROC-04",
+      "repartition": "regroupee",
+      "risque_attendu": "moyen",
+      "service": "approvisionnements",
+      "suppression_etape": false,
+      "transfert": [
+        {
+          "duree_minutes": "1.0",
+          "forfait_heures": null,
+          "nom": "revue",
+          "taux": "0.15"
+        },
+        {
+          "duree_minutes": "6",
+          "forfait_heures": null,
+          "nom": "rejets",
+          "taux": "0.05"
+        },
+        {
+          "duree_minutes": null,
+          "forfait_heures": "0.5",
+          "nom": "supervision",
+          "taux": null
+        }
+      ],
+      "type_arbre_attendu": "E",
+      "type_final_attendu": "E",
+      "vague_attendue": "aucune",
+      "variante_b": null,
+      "visibilite_dirigeant": false
+    },
+    {
+      "attendu": {
+        "coefficient_fragmentation": "0.70",
+        "cout": {
+          "annee_1": "22350.00",
+          "developpement": "16250.00",
+          "maintenance_annuelle": "1300.00",
+          "outil_annuel": "4800.00",
+          "recurrent": "6100.00"
+        },
+        "delai_retour_mois": "27.2",
+        "ecart_naif": "2.43",
+        "gain_annuel": "9870.00",
+        "gain_mensuel": "822.50",
+        "gain_naif_mensuel": "1995.00",
+        "gain_trois_ans": "-4940.00",
+        "temps_brut_heures": "47.5",
+        "temps_fragmente_heures": "33.3",
+        "temps_ineliminable_heures": "9.5",
+        "temps_net_heures": "19.6",
+        "temps_transfere_heures": "4.2"
+      },
+      "canaux": [
+        "appels",
+        "tickets"
+      ],
+      "changements_douze_mois": 0,
+      "cout": {
+        "abonnement_mensuel": "400",
+        "jours": "25",
+        "taux_maintenance": "0.08",
+        "tjm": "650"
+      },
+      "deconseil_attendu": [],
+      "duree_ecart_minutes": "3.5",
+      "duree_nb_cas": 1430,
+      "duree_statut": "mesuree",
+      "duree_unitaire_minutes": "12",
+      "ecart_procedure": false,
+      "faits": {
+        "jugement_requis": true
+      },
+      "famille_poste": "administratif",
+      "id": "P-21",
+      "motifs": [
+        "COORD-04",
+        "RECH-01"
+      ],
+      "nom": "Analyse des appels entrants du support",
+      "nom_en": "Analysing inbound support calls",
+      "occurrences": {
+        "ecart_type": "10.94",
+        "maximum": "255",
+        "mediane": "237.5",
+        "minimum": "225",
+        "nb_mois": 6,
+        "serie": [
+          "225",
+          "232",
+          "240",
+          "248",
+          "255",
+          "235"
+        ]
+      },
+      "occurrences_generees": {
+        "mois_01": 225,
+        "mois_02": 232,
+        "mois_03": 240,
+        "mois_04": 248,
+        "mois_05": 255,
+        "mois_06": 235,
+        "total": 1435
+      },
+      "part_atypique": "0.20",
+      "part_atypique_nb_cas": 1430,
+      "part_pratique_divergente": "0",
+      "part_volume_traitee": "1",
+      "piege": null,
+      "procedure_ref": "PROC-06",
+      "repartition": "semi_regroupee",
+      "risque_attendu": "eleve",
+      "service": "support",
+      "suppression_etape": false,
+      "transfert": [
+        {
+          "duree_minutes": "1.5",
+          "forfait_heures": null,
+          "nom": "revue",
+          "taux": "0.20"
+        },
+        {
+          "duree_minutes": "10",
+          "forfait_heures": null,
+          "nom": "rejets",
+          "taux": "0.05"
+        },
+        {
+          "duree_minutes": null,
+          "forfait_heures": "1.0",
+          "nom": "supervision",
+          "taux": null
+        }
+      ],
+      "type_arbre_attendu": "D",
+      "type_final_attendu": "D",
+      "vague_attendue": "vague_3",
+      "variante_b": null,
+      "visibilite_dirigeant": true
+    },
+    {
+      "attendu": {
+        "coefficient_fragmentation": "0.90",
+        "cout": {
+          "annee_1": "7020.00",
+          "developpement": "6500.00",
+          "maintenance_annuelle": "520.00",
+          "outil_annuel": "0.00",
+          "recurrent": "520.00"
+        },
+        "delai_retour_mois": "79.1",
+        "ecart_naif": "2.50",
+        "gain_annuel": "1064.40",
+        "gain_mensuel": "88.70",
+        "gain_naif_mensuel": "221.76",
+        "gain_trois_ans": "-4866.80",
+        "temps_brut_heures": "5.3",
+        "temps_fragmente_heures": "4.8",
+        "temps_ineliminable_heures": "2.6",
+        "temps_net_heures": "2.1",
+        "temps_transfere_heures": "0.0"
+      },
+      "canaux": [
+        "documents"
+      ],
+      "changements_douze_mois": 0,
+      "cout": {
+        "abonnement_mensuel": "0",
+        "jours": "10",
+        "taux_maintenance": "0.08",
+        "tjm": "650"
+      },
+      "deconseil_attendu": [
+        {
+          "condition": "reexamen si le volume depasse 15 occurrences/mois",
+          "motif": "volume_insuffisant",
+          "seuil": "gain annuel net 1064.40 EUR < 3 000 EUR"
+        },
+        {
+          "condition": "reexamen si la part atypique passe sous 30 %",
+          "motif": "jugement_non_formalisable",
+          "seuil": "part atypique 50 % > 40 %"
+        },
+        {
+          "condition": "reexamen si le cout baisse sous 12 mois de gain",
+          "motif": "retour_trop_long",
+          "seuil": "delai de retour 79.1 mois > 36 mois"
+        }
+      ],
+      "duree_ecart_minutes": "200",
+      "duree_nb_cas": 0,
+      "duree_statut": "inferree",
+      "duree_unitaire_minutes": "960",
+      "ecart_procedure": false,
+      "faits": {
+        "jugement_requis": true
+      },
+      "famille_poste": "administratif",
+      "id": "P-22",
+      "motifs": [
+        "REPO-03",
+        "REPO-04"
+      ],
+      "nom": "Preparation du reporting du conseil d administration",
+      "nom_en": "Preparing the board reporting",
+      "occurrences": {
+        "ecart_type": "0.01",
+        "maximum": "0.34",
+        "mediane": "0.33",
+        "minimum": "0.33",
+        "nb_mois": 6,
+        "serie": [
+          "0.33",
+          "0.33",
+          "0.34",
+          "0.33",
+          "0.33",
+          "0.34"
+        ]
+      },
+      "occurrences_generees": {},
+      "part_atypique": "0.50",
+      "part_atypique_nb_cas": 2,
+      "part_pratique_divergente": "0",
+      "part_volume_traitee": "1",
+      "piege": "volume_faible",
+      "procedure_ref": "PROC-07",
+      "repartition": "regroupee",
+      "risque_attendu": "eleve",
+      "service": "comptabilite",
+      "suppression_etape": false,
+      "transfert": [],
+      "type_arbre_attendu": "D",
+      "type_final_attendu": "E",
+      "vague_attendue": "aucune",
+      "variante_b": null,
+      "visibilite_dirigeant": true
+    },
+    {
+      "attendu": {
+        "coefficient_fragmentation": "0.90",
+        "cout": {
+          "annee_1": "7056.00",
+          "developpement": "5200.00",
+          "maintenance_annuelle": "416.00",
+          "outil_annuel": "1440.00",
+          "recurrent": "1856.00"
+        },
+        "delai_retour_mois": "17.7",
+        "ecart_naif": "1.39",
+        "gain_annuel": "4774.80",
+        "gain_mensuel": "397.90",
+        "gain_naif_mensuel": "553.00",
+        "gain_trois_ans": "3556.40",
+        "temps_brut_heures": "13.2",
+        "temps_fragmente_heures": "11.9",
+        "temps_ineliminable_heures": "1.6",
+        "temps_net_heures": "9.5",
+        "temps_transfere_heures": "0.8"
+      },
+      "canaux": [
+        "appels",
+        "documents"
+      ],
+      "changements_douze_mois": 0,
+      "cout": {
+        "abonnement_mensuel": "120",
+        "jours": "8",
+        "taux_maintenance": "0.08",
+        "tjm": "650"
+      },
+      "deconseil_attendu": [],
+      "duree_ecart_minutes": "5",
+      "duree_nb_cas": 236,
+      "duree_statut": "mesuree",
+      "duree_unitaire_minutes": "20",
+      "ecart_procedure": false,
+      "faits": {
+        "api_ou_flux_natif": true,
+        "interface_stable": true,
+        "travail_deterministe": true
+      },
+      "famille_poste": "administratif",
+      "id": "P-23",
+      "motifs": [
+        "COORD-04",
+        "REPO-05"
+      ],
+      "nom": "Comptes rendus de reunions et diffusion",
+      "nom_en": "Meeting minutes and distribution",
+      "occurrences": {
+        "ecart_type": "2.86",
+        "maximum": "44",
+        "mediane": "39.5",
+        "minimum": "36",
+        "nb_mois": 6,
+        "serie": [
+          "36",
+          "38",
+          "40",
+          "42",
+          "44",
+          "39"
+        ]
+      },
+      "occurrences_generees": {
+        "mois_01": 36,
+        "mois_02": 38,
+        "mois_03": 40,
+        "mois_04": 42,
+        "mois_05": 44,
+        "mois_06": 39,
+        "total": 239
+      },
+      "part_atypique": "0.12",
+      "part_atypique_nb_cas": 236,
+      "part_pratique_divergente": "0",
+      "part_volume_traitee": "1",
+      "piege": null,
+      "procedure_ref": "PROC-07",
+      "repartition": "regroupee",
+      "risque_attendu": "faible",
+      "service": "support",
+      "suppression_etape": false,
+      "transfert": [
+        {
+          "duree_minutes": "1.0",
+          "forfait_heures": null,
+          "nom": "revue",
+          "taux": "0.15"
+        },
+        {
+          "duree_minutes": "6",
+          "forfait_heures": null,
+          "nom": "rejets",
+          "taux": "0.05"
+        },
+        {
+          "duree_minutes": null,
+          "forfait_heures": "0.5",
+          "nom": "supervision",
+          "taux": null
+        }
+      ],
+      "type_arbre_attendu": "B",
+      "type_final_attendu": "B",
+      "vague_attendue": "vague_2",
+      "variante_b": null,
+      "visibilite_dirigeant": false
+    }
+  ],
+  "version": "1.0",
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

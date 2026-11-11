@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "6946.74",
+    "numero": "12872",
+    "texte_libre": "Procedure interne - prolongation de l'arret maladie",
+    "tiers": "DEMO-FR-14"
+  },
+  "confiance": 0.88,
+  "document_id": "D-000120",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-059",
+          20,
+          "564.34"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

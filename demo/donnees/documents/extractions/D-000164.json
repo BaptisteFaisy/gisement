@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "171.21",
+    "numero": "46068",
+    "texte_libre": "Note de frais - traitement medical en cours",
+    "tiers": "DEMO-FR-07"
+  },
+  "confiance": 0.98,
+  "document_id": "D-000164",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-024",
+          33,
+          "555.29"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "635.27",
+    "numero": "84600",
+    "texte_libre": "Facture fournisseur - adhesion syndicale renouvelee",
+    "tiers": "DEMO-FR-02"
+  },
+  "confiance": 0.94,
+  "document_id": "D-000152",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-010",
+          8,
+          "496.20"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

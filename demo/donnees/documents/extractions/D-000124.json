@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "5679.52",
+    "numero": "48977",
+    "texte_libre": "Note de frais - cotisation syndicale prelevee",
+    "tiers": "DEMO-FR-11"
+  },
+  "confiance": 0.86,
+  "document_id": "D-000124",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-032",
+          12,
+          "456.80"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

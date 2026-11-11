@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "3149.57",
+    "numero": "26904",
+    "texte_libre": "Note de frais - militant d'un parti politique",
+    "tiers": "DEMO-FR-12"
+  },
+  "confiance": 0.86,
+  "document_id": "D-000194",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-004",
+          7,
+          "302.30"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

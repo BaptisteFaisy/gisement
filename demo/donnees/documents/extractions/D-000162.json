@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "6651.55",
+    "numero": "83533",
+    "texte_libre": "Facture fournisseur - reunion de section syndicale",
+    "tiers": "DEMO-FR-15"
+  },
+  "confiance": 0.98,
+  "document_id": "D-000162",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-037",
+          26,
+          "880.72"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

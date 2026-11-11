@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "5201.92",
+    "numero": "92857",
+    "texte_libre": "Facture fournisseur - engagement politique du salarie",
+    "tiers": "DEMO-FR-03"
+  },
+  "confiance": 0.96,
+  "document_id": "D-000102",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-020",
+          40,
+          "786.26"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

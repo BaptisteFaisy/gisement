@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "3405.56",
+    "numero": "21358",
+    "texte_libre": "Releve de temperature - campagne electorale interne",
+    "tiers": "DEMO-FR-06"
+  },
+  "confiance": 0.99,
+  "document_id": "D-000168",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-008",
+          37,
+          "303.54"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

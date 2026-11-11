@@ -19,6 +19,7 @@ from gisement.assainissement.detecteurs import (
 from gisement.assainissement.pseudonymisation import (
     PREFIXE_PSEUDONYME,
     OccurrencePii,
+    construire_motif_noms,
     est_pseudonymise,
     groupe_pseudonyme,
     pseudonyme,
@@ -82,6 +83,7 @@ __all__ = [
     "RapportAssainissement",
     "assainir",
     "assainir_lot",
+    "construire_motif_noms",
     "detecter_categories",
     "est_pseudonymise",
     "filtrer",
@@ -102,6 +104,7 @@ def assainir(
     cle: str | bytes,
     sel: str = "",
     noms: tuple[str, ...] = (),
+    motif_noms: object | None = None,
 ) -> tuple[dict | None, tuple[OccurrencePii, ...], tuple[str, ...]]:
     """Sanitise one record.
 
@@ -117,11 +120,11 @@ def assainir(
     propre = dict(enregistrement)
     for champ in CHAMPS_IDENTITE:
         if champ in propre:
-            propre[champ], trouvees = _pseudonymiser_valeur(propre.pop(champ), cle, sel, noms)
+            propre[champ], trouvees = _pseudonymiser_valeur(propre.pop(champ), cle, sel, noms, motif_noms)
             occurrences.extend(trouvees)
     for champ in CHAMPS_TEXTE:
         if isinstance(propre.get(champ), str):
-            propre[champ], trouvees = pseudonymiser_texte(propre[champ], cle, sel, noms)
+            propre[champ], trouvees = pseudonymiser_texte(propre[champ], cle, sel, noms, motif_noms)
             occurrences.extend(trouvees)
     propre["groupe_pseudonyme"] = _groupe(propre)
     propre["canal"] = canal.value
@@ -137,6 +140,7 @@ def assainir_lot(
     sel: str = "",
     graine: int = 0,
     noms: tuple[str, ...] = (),
+    motif_noms: object | None = None,
 ) -> tuple[list[dict], RapportAssainissement]:
     """Sanitise a whole channel and produce its report (EF-16, ENF-05)."""
     propres: list[dict] = []
@@ -144,7 +148,9 @@ def assainir_lot(
     categories: set[str] = set()
     pseudonymes = 0
     for enregistrement in enregistrements:
-        resultat, occurrences, trouvees = assainir(enregistrement, canal, cle=cle, sel=sel, noms=noms)
+        resultat, occurrences, trouvees = assainir(
+            enregistrement, canal, cle=cle, sel=sel, noms=noms, motif_noms=motif_noms
+        )
         if resultat is None:
             for categorie in trouvees:
                 motifs[categorie] = motifs.get(categorie, 0) + 1
@@ -171,10 +177,14 @@ def _texte_a_inspecter(enregistrement: dict) -> str:
 
 
 def _pseudonymiser_valeur(
-    valeur: object, cle: str | bytes, sel: str, noms: tuple[str, ...]
+    valeur: object,
+    cle: str | bytes,
+    sel: str,
+    noms: tuple[str, ...],
+    motif_noms: object | None = None,
 ) -> tuple[object, tuple[OccurrencePii, ...]]:
     if isinstance(valeur, str):
-        texte, occurrences = pseudonymiser_texte(valeur, cle, sel, noms)
+        texte, occurrences = pseudonymiser_texte(valeur, cle, sel, noms, motif_noms)
         if not occurrences:
             return pseudonyme(valeur, cle, sel), (
                 OccurrencePii("personne", pseudonyme(valeur, cle, sel), 0, len(valeur)),

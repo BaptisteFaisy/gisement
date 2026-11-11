@@ -116,8 +116,17 @@ def normaliser(texte: str) -> str:
 
 
 def mots_pertinents(texte: str) -> list[str]:
-    """Tokens of the normalised text, without the noise words."""
-    return [m for m in normaliser(texte).split() if m not in MOTS_VIDES and len(m) > 2]
+    """Tokens of the normalised text, without noise words and without numbers.
+
+    A reference number or an amount is an instance detail, not part of the
+    gesture: keeping it out of the signature is what lets two occurrences of
+    the same gesture share a fingerprint (21.2).
+    """
+    return [
+        m
+        for m in normaliser(texte).split()
+        if m not in MOTS_VIDES and len(m) > 2 and any(c.isalpha() for c in m)
+    ]
 
 
 def verbe(texte: str) -> str:

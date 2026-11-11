@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "1952.61",
+    "numero": "95476",
+    "texte_libre": "Releve de temperature - traitement medical en cours",
+    "tiers": "DEMO-FR-16"
+  },
+  "confiance": 0.89,
+  "document_id": "D-000128",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-019",
+          25,
+          "224.24"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

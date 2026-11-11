@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "7969.97",
+    "numero": "80133",
+    "texte_libre": "Facture fournisseur - demande d'absence pour fete religieuse",
+    "tiers": "DEMO-FR-08"
+  },
+  "confiance": 0.95,
+  "document_id": "D-000042",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-056",
+          22,
+          "436.92"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

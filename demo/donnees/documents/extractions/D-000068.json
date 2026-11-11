@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "5245.55",
+    "numero": "90876",
+    "texte_libre": "Releve de temperature - pratique religieuse du salarie",
+    "tiers": "DEMO-FR-17"
+  },
+  "confiance": 0.99,
+  "document_id": "D-000068",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-038",
+          10,
+          "229.99"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

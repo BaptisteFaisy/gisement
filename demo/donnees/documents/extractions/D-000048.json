@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "5897.65",
+    "numero": "86023",
+    "texte_libre": "Releve de temperature - origine ethnique indiquee",
+    "tiers": "DEMO-FR-01"
+  },
+  "confiance": 0.98,
+  "document_id": "D-000048",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-045",
+          1,
+          "890.48"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

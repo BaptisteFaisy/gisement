@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "2565.48",
+    "numero": "13620",
+    "texte_libre": "Devis client - suivi medical en cours",
+    "tiers": "DEMO-FR-11"
+  },
+  "confiance": 0.89,
+  "document_id": "D-000096",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-012",
+          40,
+          "352.95"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

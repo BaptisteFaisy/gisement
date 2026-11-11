@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "8418.06",
+    "numero": "73653",
+    "texte_libre": "Devis client - cotisation syndicale prelevee",
+    "tiers": "DEMO-FR-06"
+  },
+  "confiance": 0.84,
+  "document_id": "D-000066",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-046",
+          8,
+          "653.06"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

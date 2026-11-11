@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "9140.96",
+    "numero": "88824",
+    "texte_libre": "Devis client - adhesion syndicale renouvelee",
+    "tiers": "DEMO-FR-15"
+  },
+  "confiance": 0.93,
+  "document_id": "D-000126",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-006",
+          14,
+          "299.35"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

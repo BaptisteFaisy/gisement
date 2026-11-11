@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "3383.32",
+    "numero": "81120",
+    "texte_libre": "Devis client - traitement medical en cours",
+    "tiers": "DEMO-FR-08"
+  },
+  "confiance": 0.92,
+  "document_id": "D-000036",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-040",
+          21,
+          "891.79"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

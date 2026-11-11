@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "6062.99",
+    "numero": "69791",
+    "texte_libre": "Releve de temperature - absence pour le careme",
+    "tiers": "DEMO-FR-05"
+  },
+  "confiance": 0.96,
+  "document_id": "D-000148",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-054",
+          23,
+          "477.90"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

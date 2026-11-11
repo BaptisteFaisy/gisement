@@ -1,0 +1,167 @@
+{
+  "activites_par_canal": {
+    "appels": 600,
+    "courriels": 1916,
+    "documents": 200,
+    "journaux": 12316,
+    "tickets": 4800
+  },
+  "bruit_par_canal": {
+    "appels": 0,
+    "courriels": 84,
+    "documents": 0,
+    "journaux": 84,
+    "tickets": 0
+  },
+  "client": {
+    "effectif": 120,
+    "effectif_par_service": {
+      "adv": 34,
+      "approvisionnements": 22,
+      "comptabilite": 18,
+      "support": 46
+    },
+    "fenetre": {
+      "debut": "2026-05-01",
+      "fin": "2026-11-01",
+      "nb_mois": 6
+    },
+    "id": "T-DEMO",
+    "nom": "Demo Distribution SAS",
+    "nom_en": "Demo Distribution SAS",
+    "nom_generique": "Demo Distribution SAS",
+    "secteur": "distribution specialisee B2B",
+    "services": [
+      "approvisionnements",
+      "adv",
+      "comptabilite",
+      "support"
+    ],
+    "sites": [
+      "lyon",
+      "villeurbanne"
+    ],
+    "taux_horaires": {
+      "devise": "EUR",
+      "fournis": true,
+      "par_famille": {
+        "administratif": "42"
+      }
+    }
+  },
+  "couverture": {
+    "non_couvert": [
+      "travail de terrain (entrepot, livraisons)",
+      "reunions non enregistrees",
+      "echanges oraux informels",
+      "messagerie instantanee hors perimetre"
+    ],
+    "volume_travail_estime_heures": "26000"
+  },
+  "fenetre": {
+    "debut": "2026-05-01",
+    "fin": "2026-11-01",
+    "nb_mois": 6
+  },
+  "graine": 20261111,
+  "listes": {
+    "noms": [
+      "Dupont",
+      "Marchand",
+      "Benali",
+      "Roux",
+      "Faure",
+      "Lambert",
+      "Nguyen",
+      "Perrot",
+      "Da Silva",
+      "Chevalier",
+      "Meyer",
+      "Barbier",
+      "Lemoine",
+      "Fontaine",
+      "Renaud",
+      "Girard",
+      "Lopez",
+      "Perrin",
+      "Moreau",
+      "Blanchard",
+      "Gauthier",
+      "Roche",
+      "Colin",
+      "Vidal",
+      "Lemaire",
+      "Noel",
+      "Riviere",
+      "Aubert",
+      "Poirier",
+      "Leclerc"
+    ],
+    "prenoms": [
+      "Marie",
+      "Julien",
+      "Sofia",
+      "Thomas",
+      "Nadia",
+      "Pierre",
+      "Camille",
+      "Karim",
+      "Elodie",
+      "Laurent",
+      "Aicha",
+      "Nicolas",
+      "Sarah",
+      "Bruno",
+      "Leila",
+      "Antoine",
+      "Ines",
+      "Marc",
+      "Chloe",
+      "Yanis",
+      "Helene",
+      "Paul",
+      "Fatou",
+      "Gregoire",
+      "Sandrine",
+      "Ali",
+      "Manon",
+      "Vincent",
+      "Nathalie",
+      "Olivier"
+    ]
+  },
+  "mois": [
+    "2026-05",
+    "2026-06",
+    "2026-07",
+    "2026-08",
+    "2026-09",
+    "2026-10"
+  ],
+  "note": "Jeu entierement synthetique. Aucun donnee personnelle reelle (ENF-11). Les transcriptions d'appels et les extractions de documents sont figees dans ce depot : aucun appel a Amazon Transcribe ni a Bedrock Data Automation pendant le developpement (regle 1 du paragraphe 26.4).",
+  "taux_horaires": {
+    "devise": "EUR",
+    "fournis": true,
+    "par_famille": {
+      "administratif": "42"
+    }
+  },
+  "version": "1.0",
+  "volumes": {
+    "appels": 7,
+    "courriels": 2000,
+    "documents": 200,
+    "journaux": 12400,
+    "minutes_transcrites": 360.0,
+    "pages_extraites": 200,
+    "tickets": 4800
+  },
+  "volumes_nominaux": {
+    "appels": 600,
+    "courriels": 2000,
+    "documents": 200,
+    "journaux": 12400,
+    "tickets": 4800
+  },
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

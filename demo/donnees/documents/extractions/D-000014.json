@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "7850.63",
+    "numero": "53977",
+    "texte_libre": "Note de frais - demande d'amenagement pour raison de sante",
+    "tiers": "DEMO-FR-07"
+  },
+  "confiance": 0.86,
+  "document_id": "D-000014",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-049",
+          26,
+          "431.95"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

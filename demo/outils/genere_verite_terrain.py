@@ -34,13 +34,14 @@ OVERRIDES = {
     "P-02": dict(transfert="standard", repartition="semi_regroupee"),
     "P-03": dict(transfert_override=[("revue", "0.20", "1.5", None), ("rejets", "0.05", "12", None),
                                      ("supervision", None, None, "0.8")]),
-    "P-05": dict(transfert="minime", jours="8", abo="120"),
+    "P-05": dict(transfert="minime", jours="8", abo="120", divergence="0.35"),
     "P-06": dict(transfert="leger"),
-    "P-07": dict(part_volume="0.78125"),
+    "P-07": dict(part_volume="0.78125", divergence="0.78"),
     "P-09": dict(transfert="aucun"),
     "P-10": dict(serie=[110, 115, 118, 120, 122, 128]),
     "P-11": dict(duree="8"),
-    "P-14": dict(repartition="semi_regroupee", serie=[170, 175, 178, 180, 182, 185], transfert="aucun"),
+    "P-14": dict(repartition="semi_regroupee", serie=[170, 175, 178, 180, 182, 185], transfert="aucun",
+                 divergence="0.65"),
     "P-15": dict(serie=[82, 86, 90, 93, 96, 88], repartition="semi_regroupee", atyp="0.25",
                  jours="12", abo="250", transfert="leger"),
     "P-16": dict(duree="25", jours="5", abo="0"),
@@ -190,7 +191,17 @@ P = [
       faits=dict(api_ou_flux_natif=True, travail_deterministe=True, interface_stable=True)),
 ]
 
-DEFAUT = dict(statut="mesuree", ecart="1.0", transfert="standard", tjm="650", maintenance="0.08",
+
+# spec F.2: eight written procedures, deliberately out of step with practice.
+PROCEDURES = {
+    "PROC-01": ["P-01"], "PROC-02": ["P-02", "P-11"],
+    "PROC-03": ["P-03", "P-04", "P-08", "P-09"], "PROC-04": ["P-07", "P-16", "P-06", "P-20"],
+    "PROC-05": ["P-05"], "PROC-06": ["P-10", "P-12", "P-13", "P-17", "P-21"],
+    "PROC-07": ["P-19", "P-22", "P-23"], "PROC-08": ["P-14", "P-15", "P-18"],
+}
+PROCEDURE_DE = {pid: ref for ref, pids in PROCEDURES.items() for pid in pids}
+
+DEFAUT = dict(divergence="0", statut="mesuree", ecart="1.0", transfert="standard", tjm="650", maintenance="0.08",
               risque="moyen", changements=0, visibilite=False, part_volume="1", suppression=False,
               piege=None, ecart_proc=False, abo="0", jours="8")
 
@@ -299,7 +310,8 @@ for brut in P:
         repartition=p["repartition"], part_atypique=p["atyp"], part_atypique_nb_cas=p["nb_atyp"],
         cout=dict(jours=p["jours"], tjm=p["tjm"], abonnement_mensuel=p["abo"], taux_maintenance=p["maintenance"]),
         faits=p["faits"], part_volume_traitee=p["part_volume"], suppression_etape=p["suppression"],
-        procedure_ref=p["procedure"], ecart_procedure=p["ecart_proc"],
+        procedure_ref=PROCEDURE_DE[p["id"]], ecart_procedure=p["ecart_proc"],
+        part_pratique_divergente=p.get("divergence", "0"),
         changements_douze_mois=p["changements"], visibilite_dirigeant=p["visibilite"],
         piege=p["piege"], risque_attendu=p["risque"], type_arbre_attendu=arbre, type_final_attendu=final,
         vague_attendue=p["vague"],
@@ -319,6 +331,7 @@ doc = dict(
                 fenetre=dict(debut="2026-05-01", fin="2026-11-01", nb_mois=6),
                 filigrane="SYNTHETIQUE - DEMONSTRATION"),
     graine=20261111,
+    procedures={ref: pids for ref, pids in PROCEDURES.items()},
     couverture=dict(volume_travail_estime_heures="26000", non_couvert=[
         "travail de terrain (entrepot, livraisons)", "reunions non enregistrees",
         "echanges oraux informels", "messagerie instantanee hors perimetre"]),

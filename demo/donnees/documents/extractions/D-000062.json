@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "1626.26",
+    "numero": "93949",
+    "texte_libre": "Facture fournisseur - conviction religieuse mentionnee",
+    "tiers": "DEMO-FR-01"
+  },
+  "confiance": 0.88,
+  "document_id": "D-000062",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-047",
+          40,
+          "307.61"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

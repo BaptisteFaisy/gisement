@@ -51,7 +51,7 @@ python3 -m pytest -q                      # full suite, must stay green
 | 0 | `src/gisement/types/`, `serialisation.py`, `empreinte.py`, `cli.py`, `commands/__init__.py`, `modeles/`, `config/`, `docs/CONTRACTS.md`, `.github/`, `scripts/`, `pyproject.toml`, `Makefile`, `.mergify.yml`, `tests/conftest.py` | — |
 | 1 | `src/gisement/calcul/`, `tests/unit/calcul/` | 0 |
 | 2 | `catalogue/`, `src/gisement/motifs/` (package allowed), `tests/unit/motifs/` | 0 |
-| 3 | `demo/genere.mjs`, `demo/donnees/**`, `demo/lisez-moi.md`, `src/gisement/commands/generer.py`, `tests/unit/demo/` | 0 |
+| 3 | `demo/` (genere.py, moteur.py, canaux_gen.py, listes.py, procedures.py, lisez-moi.md), `demo/donnees/**`, `src/gisement/commands/generer.py`, `tests/unit/demo/` | 0 |
 | 4 | `src/gisement/canaux/tickets/`, `tests/unit/canaux/test_tickets*.py` | 0, 3 |
 | 5 | `src/gisement/canaux/courriels/` | 0, 3 |
 | 6 | `src/gisement/canaux/documents/` | 0, 3 |
@@ -339,10 +339,10 @@ strings parseable by `decimal()`.
 
 ---
 
-## 5. Demo dataset — lot 3 (`demo/genere.mjs`, `demo/donnees/`)
+## 5. Demo dataset — lot 3 (`demo/genere.py`, `demo/donnees/`)
 
-Node 22, **no dependency**, fixed seed, reproducible byte for byte
-(`node demo/genere.mjs --verifier` compares the regenerated files with the
+Python 3, **no dependency**, fixed seed, reproducible byte for byte
+(`python3 demo/genere.py --verifier` compares the regenerated files with the
 committed ones and exits non-zero on drift).
 
 The **ground truth of the 23 processes is `demo/spec-processus.json`, owned by
@@ -352,11 +352,12 @@ generator produces raw channel records whose measured aggregates match that
 table; it never invents a process. `demo/donnees/attendus/processus.json` is a
 copy of it enriched with what the generator actually produced.
 
-`demo/genere.mjs --sortie demo/donnees` writes the tree below. Every file
+`python3 demo/genere.py --sortie demo/donnees` writes the tree below (D-19).
+The calls channel carries at most 600 exchanges (D-20). Every file
 carries the watermark `SYNTHETIQUE — DEMONSTRATION` (in `manifeste.json` and in
 a header comment field of each record set). **No real personal data** (ENF-11):
 all names, companies and products are generated from the fixed lists in
-`demo/genere.mjs`.
+`demo/genere.py`.
 
 ```
 demo/donnees/

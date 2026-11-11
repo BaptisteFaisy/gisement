@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "3986.84",
+    "numero": "83963",
+    "texte_libre": "Procedure interne - engagement politique du salarie",
+    "tiers": "DEMO-FR-12"
+  },
+  "confiance": 0.89,
+  "document_id": "D-000190",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-045",
+          17,
+          "603.33"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

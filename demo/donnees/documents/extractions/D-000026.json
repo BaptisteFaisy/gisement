@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "2324.35",
+    "numero": "68396",
+    "texte_libre": "Devis client - suite a mon arret de travail",
+    "tiers": "DEMO-FR-18"
+  },
+  "confiance": 0.87,
+  "document_id": "D-000026",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-055",
+          33,
+          "671.56"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

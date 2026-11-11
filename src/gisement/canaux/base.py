@@ -35,6 +35,9 @@ class ParametresCollecte:
     noms: tuple[str, ...] = ()
     """Explicit list of person names to catch (published by the demo manifest)."""
 
+    motif_noms: object | None = None
+    """Precompiled "Firstname Lastname" pattern, built from the manifest lists."""
+
 
 @runtime_checkable
 class Source(Protocol):
@@ -151,12 +154,18 @@ def construire_activites(
     source: Source,
     parametres: ParametresCollecte,
     *,
-    champs_texte: tuple[str, ...],
+    champs_signature: tuple[str, ...],
+    champs_texte: tuple[str, ...] = (),
     champ_duree: str | None = None,
     statut_duree: StatutDuree = StatutDuree.INFERREE,
     facteur_duree: Decimal = Decimal(1),
 ) -> tuple[tuple[Activite, ...], dict[str, Any]]:
     """Sanitise a source and turn it into activities.
+
+    `champs_signature` are the canonical fields the fingerprint is built on:
+    the gesture, without its instance details. `champs_texte` is the free text
+    kept on the activity for display - it is pseudonymised, but it never feeds
+    the signature, or two occurrences of the same gesture would not group.
 
     Returns the activities and the sanitisation report as a dict, so the
     collector can publish both (EF-11, EF-16).
@@ -169,15 +178,29 @@ def construire_activites(
         sel=parametres.sel,
         graine=parametres.graine,
         noms=parametres.noms,
+        motif_noms=parametres.motif_noms,
     )
     activites = tuple(
         _activite(
-            index, record, source.canal, parametres, champs_texte, champ_duree, statut_duree, facteur_duree
+            index,
+            record,
+            source.canal,
+            parametres,
+            champs_signature,
+            champs_texte or champs_signature,
+            champ_duree,
+            statut_duree,
+            facteur_duree,
         )
         for index, record in enumerate(propres)
     )
-    return activites, {
-        "canal": source.canal.value,
+    return activites, rapport_dict(source.canal, rapport)
+
+
+def rapport_dict(canal: Canal, rapport: object) -> dict[str, Any]:
+    """The sanitisation report as a publishable dict (EF-16, ENF-05)."""
+    return {
+        "canal": canal.value,
         "volume_entree": rapport.volume_entree,
         "volume_sortie": rapport.volume_sortie,
         "exclus": rapport.exclus,
@@ -191,11 +214,13 @@ def _activite(
     record: dict[str, Any],
     canal: Canal,
     parametres: ParametresCollecte,
+    champs_signature: tuple[str, ...],
     champs_texte: tuple[str, ...],
     champ_duree: str | None,
     statut_duree: StatutDuree,
     facteur_duree: Decimal,
 ) -> Activite:
+    geste = " ".join(str(record[c]) for c in champs_signature if record.get(c))
     texte = " ".join(str(record[c]) for c in champs_texte if record.get(c))
     identifiant = str(record.get("id", f"{canal.value}-{index:06d}"))
     duree = duree_minutes(record.get(champ_duree)) if champ_duree else None
@@ -205,7 +230,7 @@ def _activite(
         id=f"{canal.value}:{identifiant}",
         corpus_id=parametres.corpus_id or f"corpus-{parametres.campagne_id}-{canal.value}",
         canal=canal,
-        signature=signature(texte, systemes_de(record)),
+        signature=signature(geste, systemes_de(record)),
         horodatage=horodatage(record.get("horodatage")),
         texte=texte,
         duree_mesuree_minutes=duree,

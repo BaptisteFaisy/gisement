@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "6960.88",
+    "numero": "63663",
+    "texte_libre": "Releve de temperature - predisposition genetique",
+    "tiers": "DEMO-FR-03"
+  },
+  "confiance": 0.83,
+  "document_id": "D-000198",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-052",
+          29,
+          "596.17"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

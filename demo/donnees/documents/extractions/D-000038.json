@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "864.23",
+    "numero": "36299",
+    "texte_libre": "Releve de temperature - militant d'un parti politique",
+    "tiers": "DEMO-FR-07"
+  },
+  "confiance": 0.88,
+  "document_id": "D-000038",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-025",
+          23,
+          "828.73"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

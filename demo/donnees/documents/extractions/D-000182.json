@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "5302.24",
+    "numero": "18547",
+    "texte_libre": "Facture fournisseur - orientation sexuelle mentionnee",
+    "tiers": "DEMO-FR-02"
+  },
+  "confiance": 0.89,
+  "document_id": "D-000182",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-006",
+          31,
+          "397.91"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

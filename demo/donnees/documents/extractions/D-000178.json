@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "7357.17",
+    "numero": "33362",
+    "texte_libre": "Releve de temperature - suite a mon arret de travail",
+    "tiers": "DEMO-FR-02"
+  },
+  "confiance": 0.88,
+  "document_id": "D-000178",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-030",
+          13,
+          "861.55"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

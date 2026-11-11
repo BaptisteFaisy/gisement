@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "5136.68",
+    "numero": "82793",
+    "texte_libre": "Procedure interne - orientation sexuelle mentionnee",
+    "tiers": "DEMO-FR-06"
+  },
+  "confiance": 0.97,
+  "document_id": "D-000030",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-040",
+          37,
+          "348.89"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}

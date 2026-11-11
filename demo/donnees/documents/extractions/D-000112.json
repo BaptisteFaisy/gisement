@@ -1,0 +1,29 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "montant_ht": "6274.33",
+    "numero": "80456",
+    "texte_libre": "Facture fournisseur - predisposition genetique",
+    "tiers": "DEMO-FR-18"
+  },
+  "confiance": 0.99,
+  "document_id": "D-000112",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ref",
+        "qte",
+        "pu"
+      ],
+      "lignes": [
+        [
+          "R-050",
+          12,
+          "314.34"
+        ]
+      ],
+      "nom": "lignes"
+    }
+  ],
+  "watermark": "SYNTHETIQUE - DEMONSTRATION"
+}
