@@ -464,6 +464,56 @@ def non_couvert(couverture: Couverture) -> tuple[str, ...]
 
 ---
 
+### 6.1 Sanitisation — lot 9 (`src/gisement/assainissement/`)
+
+Frozen here because lots 4 to 8 call it. Modules: `__init__.py`,
+`pseudonymisation.py`, `sensibles.py`, `detecteurs.py`, `rapport.py`.
+
+```python
+CATEGORIES_SENSIBLES: tuple[str, ...]   # sante, opinion_syndicale, opinion_politique,
+                                        # religion, vie_sexuelle, origine_ethnie, genetique
+
+@dataclass(frozen=True)
+class OccurrencePii:
+    categorie: str        # "personne", "email", "telephone", "adresse", "numero_securite_sociale", ...
+    valeur_pseudonymisee: str
+    debut: int
+    fin: int
+
+@dataclass(frozen=True)
+class RapportAssainissement:
+    canal: Canal
+    volume_entree: int
+    volume_sortie: int
+    pseudonymes_appliques: int
+    categories_sensibles: tuple[str, ...]
+    exclus: int            # records dropped because a sensitive category was detected
+    graine: int
+
+def pseudonyme(identifiant: str, cle: str | bytes, sel: str = "") -> str
+    # HMAC-SHA256, not reversible without the key, returned as "PSD-" + 16 hex chars
+def pseudonymiser_texte(texte: str, cle: str | bytes, sel: str = "") -> tuple[str, tuple[OccurrencePii, ...]]
+def groupe_pseudonyme(service: str, site: str = "", equipe: str = "") -> str
+    # e.g. "ADV-JOUR": a group label, never a person
+def detecter_categories(texte: str) -> tuple[str, ...]
+def filtrer(texte: str) -> tuple[str, tuple[str, ...]]      # redacted text + categories found
+def assainir(enregistrement: dict, canal: Canal, *, cle: str | bytes, sel: str = "",
+             graine: int = 0) -> tuple[dict | None, tuple[OccurrencePii, ...], tuple[str, ...]]
+    # None when the record must be dropped (a sensitive category was detected, EF-12)
+
+class DetecteurPii(Protocol):
+    def detecter(self, texte: str) -> tuple[OccurrencePii, ...]: ...
+class DetecteurLexical: ...      # offline default: regexes + the demo name lists
+class ComprehendDetecteur: ...   # the real Amazon Comprehend adapter, never used in a test
+```
+
+Rules: pseudonymisation happens **before** any other processing (R3, ENF-02); a
+record carrying a sensitive category is **dropped**, not redacted-and-kept
+(EF-12, R8); the mapping table (pseudonym -> real identity) is kept apart,
+encrypted, and destroyed at the end of the campaign (R3, ENF-06). The lexical
+detector is the offline reference implementation: `ComprehendDetecteur` must
+produce the same shape, and its unit test uses a fake.
+
 ## 7. Non-attribution policy — lot 12 (`src/gisement/politique/`)
 
 Modules: `regles.py`, `passerelle.py`, `journal.py`, `agentcore.py`, `quotas.py`.
