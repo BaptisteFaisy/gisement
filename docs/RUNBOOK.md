@@ -1,0 +1,59 @@
+# Runbook — Gisement
+
+## Local (offline, no AWS)
+
+```bash
+python3 -m pip install --user -e ".[dev]"
+make all      # lint + size guard + 432 offline tests
+make smoke    # the whole pipeline on the frozen demo corpus
+python3 -m gisement.cli rapport --langue fr --sortie /tmp/rapports
+PYTHONPATH=src python3 eval/non_attribution.py    # R7, blocking
+```
+
+No credential, no network, no Transcribe, no Bedrock Data Automation. The demo
+corpus is committed and reproducible (`python3 demo/genere.py --verifier`).
+
+## Deployed (AWS, `eu-west-3`)
+
+> Status at S0: the IaC (lot 21, CDK) and the deployed portal/API (lot 18) are
+> the remaining lots. The application code, the economic engine, the policy and
+> the reports are delivered and tested offline. Deployment is the next step
+> before the 11 December submission; the solution must then stay online, free,
+> until 22 January 2027 (ENF-17).
+
+Target topology (see `docs/ARCHITECTURE.md`):
+
+- **Portal**: static SPA on S3 behind CloudFront, Cognito for the five roles
+  (sponsor, service manager, DPO/staff rep, MSP consultant, account manager).
+- **API**: Lambda behind API Gateway; the tenant is derived from the Cognito
+  token, never from a parameter (EF-71); every measure route passes through
+  `gisement.politique.evaluer` before running (R5).
+- **Orchestration**: Step Functions drives a campaign (ingest → sanitise →
+  classify → aggregate → price → sequence → report).
+- **State**: DynamoDB (campaigns, motifs, processes, projects, follow-up);
+  the compliance register is append-only and hash-chained.
+- **Corpora & reports**: S3, encrypted, bounded retention, proven purge (ENF-06).
+- **AI services**: Transcribe (diarisation + native PII redaction), Bedrock Data
+  Automation (documents), Comprehend (sensitive filter), Bedrock + Knowledge
+  Bases (classification), AgentCore (Runtime, Gateway, Identity, Policy, Memory,
+  Observability), Amazon Quick (portfolio).
+
+## Budget guard (chapter 26)
+
+- Development and CI: **no** Transcribe, no Data Automation - the frozen
+  transcripts and extractions stand in for them (rule 1 of 26.4).
+- One full mapping ≈ 20 $; the 200 $ of credits cover ~6 full mappings plus the
+  serverless infrastructure. Audio is capped at 6 h, documents at 200 pages, the
+  token budget per campaign is capped with a clean stop (ENF-09).
+- The measured cost is exposed from the first run (`gisement.observabilite`).
+
+## Operating
+
+- **Suspension** (ENF-12): the DPO or a staff representative can suspend a
+  campaign; the suspension is immediate, imposed by Policy, keeps the state for
+  resumption, and is logged in the compliance register.
+- **Purge** (ENF-06): at the end of a campaign the sanitised corpora are
+  destroyed, the aggregates needed for the longitudinal follow-up are kept, and
+  the purge is proven (`JournalAcces.purger` returns a `PreuvePurge`).
+- **Quarterly follow-up** (EF-63): `gisement.suivi.comparer` records realised
+  against predicted; the cumulative accuracy (KPI-6) is published.
