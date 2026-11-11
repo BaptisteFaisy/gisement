@@ -248,22 +248,31 @@ def calculer(p):
     )
 
 def deconseil(p, calc):
+    """The six reasons of 16.1, in the order annex E headlines them."""
     a = calc["attendu"]
-    gain_annuel = D(a["gain_annuel"]); delai = a["delai_retour_mois"]
+    gain_annuel = D(a["gain_annuel"])
+    delai = a["delai_retour_mois"]
     motifs = []
     if p["faits"].get("obligation_legale_humaine"):
-        motifs.append(("obligation_legale", "obligation legale de traitement humain (signature)", "reexamen si le texte change"))
-    if D(p["atyp"]) > D("0.40"):
-        motifs.append(("jugement_non_formalisable", f"part atypique {D(p['atyp'])*100:.0f} % > 40 %", "reexamen si la part atypique passe sous 30 %"))
+        motifs.append(("obligation_legale", "obligation legale de traitement humain (signature)",
+                       "reexamen si le texte change"))
     if p["changements"] >= 3:
-        motifs.append(("instabilite", f"{p['changements']} changements en 12 mois", "reexamen apres 6 mois de stabilite"))
+        motifs.append(("instabilite", f"{p['changements']} changements en 12 mois",
+                       "reexamen apres 6 mois de stabilite"))
     if p["faits"].get("dependance_externe_non_contractuelle"):
-        motifs.append(("dependance_externe", "portail tiers sans API ni engagement de stabilite", "reexamen si une API contractuelle est disponible"))
+        motifs.append(("dependance_externe", "portail tiers sans API ni engagement de stabilite",
+                       "reexamen si une API contractuelle est disponible"))
     if gain_annuel < D(3000):
-        motifs.append(("volume_insuffisant", f"gain annuel net {gain_annuel} EUR < 3 000 EUR", "reexamen si le volume depasse 15 occurrences/mois"))
+        motifs.append(("volume_insuffisant", f"gain annuel net {gain_annuel} EUR < 3 000 EUR",
+                       "reexamen si le volume depasse 15 occurrences/mois"))
+    if D(p["atyp"]) > D("0.40"):
+        motifs.append(("jugement_non_formalisable", f"part atypique {D(p['atyp'])*100:.0f} % > 40 %",
+                       "reexamen si la part atypique passe sous 30 %"))
     if delai is not None and D(delai) > D(36):
-        motifs.append(("retour_trop_long", f"delai de retour {delai} mois > 36 mois", "reexamen si le cout baisse sous 12 mois de gain"))
+        motifs.append(("retour_trop_long", f"delai de retour {delai} mois > 36 mois",
+                       "reexamen si le cout baisse sous 12 mois de gain"))
     return motifs
+
 
 def type_final(p, decons):
     f = p["faits"]

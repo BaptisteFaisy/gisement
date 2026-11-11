@@ -195,14 +195,14 @@
       "vague_attendue": "aucune",
       "deconseil_attendu": [
         {
-          "motif": "jugement_non_formalisable",
-          "seuil": "part atypique 55 % > 40 %",
-          "condition": "reexamen si la part atypique passe sous 30 %"
-        },
-        {
           "motif": "volume_insuffisant",
           "seuil": "gain annuel net 735.00 EUR < 3 000 EUR",
           "condition": "reexamen si le volume depasse 15 occurrences/mois"
+        },
+        {
+          "motif": "jugement_non_formalisable",
+          "seuil": "part atypique 55 % > 40 %",
+          "condition": "reexamen si la part atypique passe sous 30 %"
         },
         {
           "motif": "retour_trop_long",
@@ -1834,14 +1834,14 @@
           "condition": "reexamen si le texte change"
         },
         {
-          "motif": "jugement_non_formalisable",
-          "seuil": "part atypique 45 % > 40 %",
-          "condition": "reexamen si la part atypique passe sous 30 %"
-        },
-        {
           "motif": "volume_insuffisant",
           "seuil": "gain annuel net 617.40 EUR < 3 000 EUR",
           "condition": "reexamen si le volume depasse 15 occurrences/mois"
+        },
+        {
+          "motif": "jugement_non_formalisable",
+          "seuil": "part atypique 45 % > 40 %",
+          "condition": "reexamen si la part atypique passe sous 30 %"
         },
         {
           "motif": "retour_trop_long",
@@ -2251,14 +2251,14 @@
       "vague_attendue": "aucune",
       "deconseil_attendu": [
         {
-          "motif": "jugement_non_formalisable",
-          "seuil": "part atypique 50 % > 40 %",
-          "condition": "reexamen si la part atypique passe sous 30 %"
-        },
-        {
           "motif": "volume_insuffisant",
           "seuil": "gain annuel net 1064.45 EUR < 3 000 EUR",
           "condition": "reexamen si le volume depasse 15 occurrences/mois"
+        },
+        {
+          "motif": "jugement_non_formalisable",
+          "seuil": "part atypique 50 % > 40 %",
+          "condition": "reexamen si la part atypique passe sous 30 %"
         },
         {
           "motif": "retour_trop_long",

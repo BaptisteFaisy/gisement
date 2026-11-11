@@ -26,7 +26,7 @@ where = ["src"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q --strict-markers"
-pythonpath = ["src"]
+pythonpath = ["src", "."]
 markers = [
     "integration: end to end on the generated demo data (still offline)",
     "slow: kept out of the default PR run",
