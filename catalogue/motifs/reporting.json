@@ -1,0 +1,196 @@
+[
+  {
+    "ref": "REPO-01",
+    "famille": "reporting",
+    "nom": "Extraction periodique",
+    "nom_en": "Periodic extraction",
+    "description": "Extraire les donnees d'une periode depuis les systemes.",
+    "canaux": [
+      "journaux"
+    ],
+    "indices": {
+      "verbes": [
+        "extraire",
+        "rediger",
+        "envoyer"
+      ],
+      "objets": [
+        "extraction",
+        "donnees",
+        "periode"
+      ],
+      "systemes": [
+        "erp",
+        "bi"
+      ]
+    },
+    "modele_texte": "Extraire les donnees periodiques",
+    "duree_unitaire_typique_minutes": "25",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.10",
+    "types_envisageables": [
+      "B"
+    ],
+    "cout_jours_min": "3",
+    "cout_jours_max": "8",
+    "abonnement_mensuel": "0"
+  },
+  {
+    "ref": "REPO-02",
+    "famille": "reporting",
+    "nom": "Mise en forme de tableau de bord",
+    "nom_en": "Dashboard formatting",
+    "description": "Mettre en forme le tableau de bord du mois.",
+    "canaux": [
+      "documents"
+    ],
+    "indices": {
+      "verbes": [
+        "extraire",
+        "rediger",
+        "envoyer"
+      ],
+      "objets": [
+        "tableau",
+        "bord",
+        "forme"
+      ],
+      "systemes": [
+        "excel",
+        "bi"
+      ]
+    },
+    "modele_texte": "Mettre en forme le tableau de bord",
+    "duree_unitaire_typique_minutes": "40",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.15",
+    "types_envisageables": [
+      "B"
+    ],
+    "cout_jours_min": "4",
+    "cout_jours_max": "12",
+    "abonnement_mensuel": "300"
+  },
+  {
+    "ref": "REPO-03",
+    "famille": "reporting",
+    "nom": "Consolidation multi-sources",
+    "nom_en": "Multi-source consolidation",
+    "description": "Consolider des donnees venant de plusieurs sources.",
+    "canaux": [
+      "journaux",
+      "documents"
+    ],
+    "indices": {
+      "verbes": [
+        "extraire",
+        "rediger",
+        "envoyer"
+      ],
+      "objets": [
+        "consolider",
+        "sources"
+      ],
+      "systemes": [
+        "excel",
+        "erp"
+      ]
+    },
+    "modele_texte": "Consolider les donnees multi-sources",
+    "duree_unitaire_typique_minutes": "90",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.10",
+    "types_envisageables": [
+      "B",
+      "D"
+    ],
+    "cout_jours_min": "8",
+    "cout_jours_max": "20",
+    "abonnement_mensuel": "300"
+  },
+  {
+    "ref": "REPO-04",
+    "famille": "reporting",
+    "nom": "Redaction du commentaire",
+    "nom_en": "Writing the commentary",
+    "description": "Rediger le commentaire de gestion du reporting.",
+    "canaux": [
+      "documents"
+    ],
+    "indices": {
+      "verbes": [
+        "extraire",
+        "rediger",
+        "envoyer"
+      ],
+      "objets": [
+        "commentaire",
+        "redaction",
+        "synthese"
+      ],
+      "systemes": [
+        "word"
+      ]
+    },
+    "modele_texte": "Rediger le commentaire de gestion",
+    "duree_unitaire_typique_minutes": "30",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.15",
+    "types_envisageables": [
+      "D"
+    ],
+    "cout_jours_min": "8",
+    "cout_jours_max": "20",
+    "abonnement_mensuel": "200"
+  },
+  {
+    "ref": "REPO-05",
+    "famille": "reporting",
+    "nom": "Diffusion",
+    "nom_en": "Distribution",
+    "description": "Envoyer le reporting aux destinataires.",
+    "canaux": [
+      "courriels"
+    ],
+    "indices": {
+      "verbes": [
+        "extraire",
+        "rediger",
+        "envoyer"
+      ],
+      "objets": [
+        "diffusion",
+        "envoi",
+        "destinataire"
+      ],
+      "systemes": [
+        "messagerie"
+      ]
+    },
+    "modele_texte": "Envoyer le reporting aux destinataires",
+    "duree_unitaire_typique_minutes": "5",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.15",
+    "types_envisageables": [
+      "B"
+    ],
+    "cout_jours_min": "2",
+    "cout_jours_max": "5",
+    "abonnement_mensuel": "0"
+  }
+]

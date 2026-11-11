@@ -1,0 +1,162 @@
+[
+  {
+    "ref": "COORD-01",
+    "famille": "coordination",
+    "nom": "Prise de rendez-vous",
+    "nom_en": "Appointment booking",
+    "description": "Planifier le rendez-vous d'un technicien.",
+    "canaux": [
+      "appels",
+      "tickets"
+    ],
+    "indices": {
+      "verbes": [
+        "planifier",
+        "envoyer",
+        "rediger"
+      ],
+      "objets": [
+        "rendez",
+        "agenda",
+        "technicien"
+      ],
+      "systemes": [
+        "agenda",
+        "itsm"
+      ]
+    },
+    "modele_texte": "Planifier le rendez-vous du technicien",
+    "duree_unitaire_typique_minutes": "6",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "interruptive",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.09",
+    "types_envisageables": [
+      "B"
+    ],
+    "cout_jours_min": "4",
+    "cout_jours_max": "12",
+    "abonnement_mensuel": "110"
+  },
+  {
+    "ref": "COORD-02",
+    "famille": "coordination",
+    "nom": "Transmission d'information entre services",
+    "nom_en": "Passing information between departments",
+    "description": "Transmettre une information d'un service a un autre.",
+    "canaux": [
+      "courriels",
+      "tickets",
+      "appels"
+    ],
+    "indices": {
+      "verbes": [
+        "planifier",
+        "envoyer",
+        "rediger"
+      ],
+      "objets": [
+        "transmission",
+        "service",
+        "information"
+      ],
+      "systemes": [
+        "messagerie"
+      ]
+    },
+    "modele_texte": "Transmettre l'information au service",
+    "duree_unitaire_typique_minutes": "3",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "interruptive",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.06",
+    "types_envisageables": [
+      "A",
+      "B"
+    ],
+    "cout_jours_min": "1",
+    "cout_jours_max": "5",
+    "abonnement_mensuel": "0"
+  },
+  {
+    "ref": "COORD-03",
+    "famille": "coordination",
+    "nom": "Affectation d'une demande",
+    "nom_en": "Assigning a request",
+    "description": "Affecter une demande a la bonne equipe.",
+    "canaux": [
+      "tickets",
+      "journaux"
+    ],
+    "indices": {
+      "verbes": [
+        "planifier",
+        "envoyer",
+        "rediger"
+      ],
+      "objets": [
+        "affectation",
+        "demande",
+        "equipe"
+      ],
+      "systemes": [
+        "itsm"
+      ]
+    },
+    "modele_texte": "Affecter la demande a l'equipe",
+    "duree_unitaire_typique_minutes": "3",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "interruptive",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.11",
+    "types_envisageables": [
+      "B"
+    ],
+    "cout_jours_min": "3",
+    "cout_jours_max": "8",
+    "abonnement_mensuel": "90"
+  },
+  {
+    "ref": "COORD-04",
+    "famille": "coordination",
+    "nom": "Compte rendu de reunion",
+    "nom_en": "Meeting minutes",
+    "description": "Rediger et diffuser le compte rendu d'une reunion.",
+    "canaux": [
+      "appels",
+      "documents"
+    ],
+    "indices": {
+      "verbes": [
+        "planifier",
+        "envoyer",
+        "rediger"
+      ],
+      "objets": [
+        "reunion",
+        "compte",
+        "rendu"
+      ],
+      "systemes": [
+        "messagerie"
+      ]
+    },
+    "modele_texte": "Rediger le compte rendu de reunion",
+    "duree_unitaire_typique_minutes": "20",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.12",
+    "types_envisageables": [
+      "B",
+      "D"
+    ],
+    "cout_jours_min": "4",
+    "cout_jours_max": "15",
+    "abonnement_mensuel": "120"
+  }
+]

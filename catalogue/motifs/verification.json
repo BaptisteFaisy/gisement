@@ -1,0 +1,237 @@
+[
+  {
+    "ref": "VERI-01",
+    "famille": "verification",
+    "nom": "Conformite d'un document",
+    "nom_en": "Document compliance",
+    "description": "Verifier la conformite d'un document aux regles.",
+    "canaux": [
+      "documents",
+      "journaux"
+    ],
+    "indices": {
+      "verbes": [
+        "verifier",
+        "consulter"
+      ],
+      "objets": [
+        "document",
+        "conformite",
+        "regle"
+      ],
+      "systemes": [
+        "ged"
+      ]
+    },
+    "modele_texte": "Verifier la conformite du document",
+    "duree_unitaire_typique_minutes": "12",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.18",
+    "types_envisageables": [
+      "B",
+      "D"
+    ],
+    "cout_jours_min": "8",
+    "cout_jours_max": "20",
+    "abonnement_mensuel": "150"
+  },
+  {
+    "ref": "VERI-02",
+    "famille": "verification",
+    "nom": "Exhaustivite d'un dossier",
+    "nom_en": "File completeness",
+    "description": "Verifier qu'un dossier contient toutes les pieces.",
+    "canaux": [
+      "tickets",
+      "documents"
+    ],
+    "indices": {
+      "verbes": [
+        "verifier",
+        "consulter"
+      ],
+      "objets": [
+        "dossier",
+        "exhaustivite",
+        "piece"
+      ],
+      "systemes": [
+        "ged",
+        "crm"
+      ]
+    },
+    "modele_texte": "Verifier l'exhaustivite du dossier",
+    "duree_unitaire_typique_minutes": "10",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.15",
+    "types_envisageables": [
+      "B",
+      "D"
+    ],
+    "cout_jours_min": "4",
+    "cout_jours_max": "18",
+    "abonnement_mensuel": "0"
+  },
+  {
+    "ref": "VERI-03",
+    "famille": "verification",
+    "nom": "Coherence de montants",
+    "nom_en": "Amount consistency",
+    "description": "Verifier la coherence des montants saisis.",
+    "canaux": [
+      "journaux",
+      "documents",
+      "tickets"
+    ],
+    "indices": {
+      "verbes": [
+        "verifier",
+        "consulter"
+      ],
+      "objets": [
+        "montant",
+        "coherence",
+        "total"
+      ],
+      "systemes": [
+        "erp",
+        "compta"
+      ]
+    },
+    "modele_texte": "Verifier la coherence des montants",
+    "duree_unitaire_typique_minutes": "4",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.15",
+    "types_envisageables": [
+      "B"
+    ],
+    "cout_jours_min": "4",
+    "cout_jours_max": "10",
+    "abonnement_mensuel": "0"
+  },
+  {
+    "ref": "VERI-04",
+    "famille": "verification",
+    "nom": "Validite d'un tiers",
+    "nom_en": "Third party validity",
+    "description": "Verifier la validite d'un tiers avant traitement.",
+    "canaux": [
+      "tickets",
+      "courriels"
+    ],
+    "indices": {
+      "verbes": [
+        "verifier",
+        "consulter"
+      ],
+      "objets": [
+        "tiers",
+        "fournisseur",
+        "validite"
+      ],
+      "systemes": [
+        "erp",
+        "annuaire"
+      ]
+    },
+    "modele_texte": "Verifier la validite du tiers",
+    "duree_unitaire_typique_minutes": "6",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.15",
+    "types_envisageables": [
+      "B"
+    ],
+    "cout_jours_min": "4",
+    "cout_jours_max": "12",
+    "abonnement_mensuel": "60"
+  },
+  {
+    "ref": "VERI-05",
+    "famille": "verification",
+    "nom": "Application d'une grille tarifaire",
+    "nom_en": "Pricing grid application",
+    "description": "Verifier l'application de la grille tarifaire et des remises.",
+    "canaux": [
+      "tickets",
+      "courriels"
+    ],
+    "indices": {
+      "verbes": [
+        "verifier",
+        "consulter"
+      ],
+      "objets": [
+        "grille",
+        "tarif",
+        "remise"
+      ],
+      "systemes": [
+        "crm",
+        "erp"
+      ]
+    },
+    "modele_texte": "Verifier l'application de la grille tarifaire",
+    "duree_unitaire_typique_minutes": "12",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.45",
+    "types_envisageables": [
+      "D",
+      "E"
+    ],
+    "cout_jours_min": "10",
+    "cout_jours_max": "25",
+    "abonnement_mensuel": "0"
+  },
+  {
+    "ref": "VERI-06",
+    "famille": "verification",
+    "nom": "Respect d'un seuil ou d'une regle",
+    "nom_en": "Threshold or rule compliance",
+    "description": "Verifier le respect d'un seuil ou d'une regle metier.",
+    "canaux": [
+      "journaux"
+    ],
+    "indices": {
+      "verbes": [
+        "verifier",
+        "consulter"
+      ],
+      "objets": [
+        "seuil",
+        "regle",
+        "limite"
+      ],
+      "systemes": [
+        "erp"
+      ]
+    },
+    "modele_texte": "Verifier le respect du seuil",
+    "duree_unitaire_typique_minutes": "3",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.14",
+    "types_envisageables": [
+      "B"
+    ],
+    "cout_jours_min": "3",
+    "cout_jours_max": "8",
+    "abonnement_mensuel": "0"
+  }
+]

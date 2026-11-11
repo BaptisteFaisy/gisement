@@ -27,11 +27,11 @@ VERBES: dict[str, tuple[str, ...]] = {
     "verifier": ("verifier", "verification", "controle", "controler", "control"),
     "rapprocher": ("rapprocher", "rapprochement", "confronter"),
     "relancer": ("relancer", "relance", "relances"),
-    "classer": ("classer", "classement", "indexer", "indexation", "ranger"),
+    "classer": ("classer", "classement", "indexer", "indexation", "ranger", "archiver", "archivage"),
     "rechercher": ("rechercher", "recherche", "chercher", "consulter"),
     "rediger": ("rediger", "redaction", "preparer", "preparation", "synthetiser"),
     "envoyer": ("envoyer", "transmettre", "diffuser", "transmission", "diffusion"),
-    "extraire": ("extraire", "extraction", "exporter"),
+    "extraire": ("extraire", "extraction", "exporter", "consolider", "consolidation"),
     "planifier": ("planifier", "planification", "organiser", "affecter"),
     "signer": ("signer", "signature", "valider", "validation", "approuver"),
     "consulter": ("consulter", "consultation", "lire", "lecture"),
@@ -130,7 +130,7 @@ def verbe(texte: str) -> str:
     return MOT_VIDE
 
 
-def objets(texte: str, maximum: int = 3) -> tuple[str, ...]:
+def objets(texte: str, maximum: int = 6) -> tuple[str, ...]:
     """The most specific words of the activity, used as the object part."""
     candidats = [m for m in mots_pertinents(texte) if m not in VERBES]
     return tuple(sorted(candidats)[:maximum])

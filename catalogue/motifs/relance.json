@@ -1,0 +1,193 @@
+[
+  {
+    "ref": "RELAN-01",
+    "famille": "relance",
+    "nom": "Devis sans reponse",
+    "nom_en": "Unanswered quotation",
+    "description": "Relancer un client dont le devis est sans reponse.",
+    "canaux": [
+      "tickets",
+      "journaux",
+      "courriels"
+    ],
+    "indices": {
+      "verbes": [
+        "relancer",
+        "envoyer"
+      ],
+      "objets": [
+        "devis",
+        "relance",
+        "reponse"
+      ],
+      "systemes": [
+        "crm"
+      ]
+    },
+    "modele_texte": "Relancer le devis sans reponse",
+    "duree_unitaire_typique_minutes": "8",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.07",
+    "types_envisageables": [
+      "B"
+    ],
+    "cout_jours_min": "4",
+    "cout_jours_max": "12",
+    "abonnement_mensuel": "70"
+  },
+  {
+    "ref": "RELAN-02",
+    "famille": "relance",
+    "nom": "Facture echue",
+    "nom_en": "Overdue invoice",
+    "description": "Relancer une facture echue non reglee.",
+    "canaux": [
+      "journaux",
+      "courriels"
+    ],
+    "indices": {
+      "verbes": [
+        "relancer",
+        "envoyer"
+      ],
+      "objets": [
+        "facture",
+        "echue",
+        "paiement"
+      ],
+      "systemes": [
+        "compta"
+      ]
+    },
+    "modele_texte": "Relancer la facture echue",
+    "duree_unitaire_typique_minutes": "5",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.10",
+    "types_envisageables": [
+      "B"
+    ],
+    "cout_jours_min": "4",
+    "cout_jours_max": "12",
+    "abonnement_mensuel": "80"
+  },
+  {
+    "ref": "RELAN-03",
+    "famille": "relance",
+    "nom": "Dossier incomplet",
+    "nom_en": "Incomplete file",
+    "description": "Relancer pour obtenir les pieces manquantes d'un dossier.",
+    "canaux": [
+      "tickets",
+      "courriels"
+    ],
+    "indices": {
+      "verbes": [
+        "relancer",
+        "envoyer"
+      ],
+      "objets": [
+        "dossier",
+        "incomplet",
+        "piece"
+      ],
+      "systemes": [
+        "ged"
+      ]
+    },
+    "modele_texte": "Relancer le dossier incomplet",
+    "duree_unitaire_typique_minutes": "6",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.15",
+    "types_envisageables": [
+      "B"
+    ],
+    "cout_jours_min": "4",
+    "cout_jours_max": "12",
+    "abonnement_mensuel": "0"
+  },
+  {
+    "ref": "RELAN-04",
+    "famille": "relance",
+    "nom": "Tache en attente",
+    "nom_en": "Pending task",
+    "description": "Relancer une tache en attente chez un tiers.",
+    "canaux": [
+      "tickets"
+    ],
+    "indices": {
+      "verbes": [
+        "relancer",
+        "envoyer"
+      ],
+      "objets": [
+        "tache",
+        "attente",
+        "suivi"
+      ],
+      "systemes": [
+        "itsm"
+      ]
+    },
+    "modele_texte": "Relancer la tache en attente",
+    "duree_unitaire_typique_minutes": "3",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.15",
+    "types_envisageables": [
+      "B"
+    ],
+    "cout_jours_min": "3",
+    "cout_jours_max": "8",
+    "abonnement_mensuel": "0"
+  },
+  {
+    "ref": "RELAN-05",
+    "famille": "relance",
+    "nom": "Engagement non tenu",
+    "nom_en": "Unmet commitment",
+    "description": "Relancer un prestataire sur un engagement non tenu.",
+    "canaux": [
+      "tickets",
+      "appels"
+    ],
+    "indices": {
+      "verbes": [
+        "relancer",
+        "envoyer"
+      ],
+      "objets": [
+        "engagement",
+        "retard",
+        "prestataire"
+      ],
+      "systemes": [
+        "crm"
+      ]
+    },
+    "modele_texte": "Relancer l'engagement non tenu",
+    "duree_unitaire_typique_minutes": "9",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.15",
+    "types_envisageables": [
+      "B",
+      "D"
+    ],
+    "cout_jours_min": "4",
+    "cout_jours_max": "12",
+    "abonnement_mensuel": "0"
+  }
+]

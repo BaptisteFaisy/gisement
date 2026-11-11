@@ -1,0 +1,152 @@
+[
+  {
+    "ref": "CLASS-01",
+    "famille": "classement",
+    "nom": "Nommage de fichiers",
+    "nom_en": "File naming",
+    "description": "Renommer un fichier selon la convention.",
+    "canaux": [
+      "documents"
+    ],
+    "indices": {
+      "verbes": [
+        "classer",
+        "envoyer"
+      ],
+      "objets": [
+        "fichier",
+        "nommage",
+        "titre"
+      ],
+      "systemes": [
+        "ged"
+      ]
+    },
+    "modele_texte": "Classer et renommer le fichier",
+    "duree_unitaire_typique_minutes": "2",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "diffuse",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.05",
+    "types_envisageables": [
+      "B"
+    ],
+    "cout_jours_min": "2",
+    "cout_jours_max": "6",
+    "abonnement_mensuel": "0"
+  },
+  {
+    "ref": "CLASS-02",
+    "famille": "classement",
+    "nom": "Rangement par dossier",
+    "nom_en": "Filing into folders",
+    "description": "Ranger un document dans le bon dossier.",
+    "canaux": [
+      "documents"
+    ],
+    "indices": {
+      "verbes": [
+        "classer",
+        "envoyer"
+      ],
+      "objets": [
+        "dossier",
+        "rangement",
+        "classement"
+      ],
+      "systemes": [
+        "ged"
+      ]
+    },
+    "modele_texte": "Ranger le document dans le dossier",
+    "duree_unitaire_typique_minutes": "2",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "diffuse",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.05",
+    "types_envisageables": [
+      "B"
+    ],
+    "cout_jours_min": "2",
+    "cout_jours_max": "6",
+    "abonnement_mensuel": "0"
+  },
+  {
+    "ref": "CLASS-03",
+    "famille": "classement",
+    "nom": "Indexation",
+    "nom_en": "Indexing",
+    "description": "Indexer un document avec ses metadonnees.",
+    "canaux": [
+      "documents",
+      "journaux",
+      "tickets"
+    ],
+    "indices": {
+      "verbes": [
+        "classer",
+        "envoyer"
+      ],
+      "objets": [
+        "indexation",
+        "document",
+        "metadonnee"
+      ],
+      "systemes": [
+        "ged"
+      ]
+    },
+    "modele_texte": "Classer et indexer le document",
+    "duree_unitaire_typique_minutes": "3",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "diffuse",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.05",
+    "types_envisageables": [
+      "B"
+    ],
+    "cout_jours_min": "5",
+    "cout_jours_max": "12",
+    "abonnement_mensuel": "150"
+  },
+  {
+    "ref": "CLASS-04",
+    "famille": "classement",
+    "nom": "Archivage selon la retention",
+    "nom_en": "Archiving per retention",
+    "description": "Archiver un document selon la duree de retention.",
+    "canaux": [
+      "documents"
+    ],
+    "indices": {
+      "verbes": [
+        "classer",
+        "envoyer"
+      ],
+      "objets": [
+        "archiver",
+        "retention",
+        "document"
+      ],
+      "systemes": [
+        "ged"
+      ]
+    },
+    "modele_texte": "Archiver le document selon la retention",
+    "duree_unitaire_typique_minutes": "4",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.15",
+    "types_envisageables": [
+      "B"
+    ],
+    "cout_jours_min": "4",
+    "cout_jours_max": "10",
+    "abonnement_mensuel": "0"
+  }
+]

@@ -1,0 +1,233 @@
+[
+  {
+    "ref": "RAPPR-01",
+    "famille": "rapprochement",
+    "nom": "Facture et bon de livraison",
+    "nom_en": "Invoice against delivery note",
+    "description": "Rapprocher une facture du bon de livraison correspondant.",
+    "canaux": [
+      "documents",
+      "journaux",
+      "tickets"
+    ],
+    "indices": {
+      "verbes": [
+        "rapprocher",
+        "verifier"
+      ],
+      "objets": [
+        "facture",
+        "livraison",
+        "bon"
+      ],
+      "systemes": [
+        "erp",
+        "ged"
+      ]
+    },
+    "modele_texte": "Rapprocher la facture du bon de livraison",
+    "duree_unitaire_typique_minutes": "7",
+    "duree_statut_defaut": "mesuree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.15",
+    "types_envisageables": [
+      "B"
+    ],
+    "cout_jours_min": "6",
+    "cout_jours_max": "15",
+    "abonnement_mensuel": "0"
+  },
+  {
+    "ref": "RAPPR-02",
+    "famille": "rapprochement",
+    "nom": "Releve bancaire et facture",
+    "nom_en": "Bank statement against invoice",
+    "description": "Rapprocher un releve bancaire des factures emises.",
+    "canaux": [
+      "documents",
+      "journaux"
+    ],
+    "indices": {
+      "verbes": [
+        "rapprocher",
+        "verifier"
+      ],
+      "objets": [
+        "releve",
+        "bancaire",
+        "facture"
+      ],
+      "systemes": [
+        "banque",
+        "erp"
+      ]
+    },
+    "modele_texte": "Rapprocher le releve bancaire de la facture",
+    "duree_unitaire_typique_minutes": "6",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.08",
+    "types_envisageables": [
+      "B"
+    ],
+    "cout_jours_min": "4",
+    "cout_jours_max": "12",
+    "abonnement_mensuel": "90"
+  },
+  {
+    "ref": "RAPPR-03",
+    "famille": "rapprochement",
+    "nom": "Commande et reception",
+    "nom_en": "Order against receipt",
+    "description": "Rapprocher une commande de sa reception.",
+    "canaux": [
+      "journaux"
+    ],
+    "indices": {
+      "verbes": [
+        "rapprocher",
+        "verifier"
+      ],
+      "objets": [
+        "commande",
+        "reception",
+        "ecart"
+      ],
+      "systemes": [
+        "erp"
+      ]
+    },
+    "modele_texte": "Rapprocher la commande de la reception",
+    "duree_unitaire_typique_minutes": "8",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.15",
+    "types_envisageables": [
+      "B"
+    ],
+    "cout_jours_min": "4",
+    "cout_jours_max": "14",
+    "abonnement_mensuel": "0"
+  },
+  {
+    "ref": "RAPPR-04",
+    "famille": "rapprochement",
+    "nom": "Devis et facture",
+    "nom_en": "Quotation against invoice",
+    "description": "Rapprocher un devis accepte de la facture emise.",
+    "canaux": [
+      "journaux",
+      "documents"
+    ],
+    "indices": {
+      "verbes": [
+        "rapprocher",
+        "verifier"
+      ],
+      "objets": [
+        "devis",
+        "facture",
+        "conformite"
+      ],
+      "systemes": [
+        "crm",
+        "erp"
+      ]
+    },
+    "modele_texte": "Rapprocher le devis de la facture",
+    "duree_unitaire_typique_minutes": "5",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.15",
+    "types_envisageables": [
+      "B"
+    ],
+    "cout_jours_min": "4",
+    "cout_jours_max": "10",
+    "abonnement_mensuel": "0"
+  },
+  {
+    "ref": "RAPPR-05",
+    "famille": "rapprochement",
+    "nom": "Planning et pointage",
+    "nom_en": "Schedule against timesheet",
+    "description": "Rapprocher le planning prevu du pointage reel.",
+    "canaux": [
+      "journaux"
+    ],
+    "indices": {
+      "verbes": [
+        "rapprocher",
+        "verifier"
+      ],
+      "objets": [
+        "planning",
+        "pointage",
+        "heure"
+      ],
+      "systemes": [
+        "rh",
+        "planning"
+      ]
+    },
+    "modele_texte": "Rapprocher le planning du pointage",
+    "duree_unitaire_typique_minutes": "10",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.15",
+    "types_envisageables": [
+      "B"
+    ],
+    "cout_jours_min": "4",
+    "cout_jours_max": "15",
+    "abonnement_mensuel": "0"
+  },
+  {
+    "ref": "RAPPR-06",
+    "famille": "rapprochement",
+    "nom": "References croisees entre deux fichiers",
+    "nom_en": "Cross references between two files",
+    "description": "Comparer les references croisees de deux fichiers.",
+    "canaux": [
+      "documents"
+    ],
+    "indices": {
+      "verbes": [
+        "rapprocher",
+        "verifier"
+      ],
+      "objets": [
+        "reference",
+        "fichier",
+        "croisees"
+      ],
+      "systemes": [
+        "excel",
+        "erp"
+      ]
+    },
+    "modele_texte": "Verifier les references croisees entre deux fichiers",
+    "duree_unitaire_typique_minutes": "4",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.15",
+    "types_envisageables": [
+      "B"
+    ],
+    "cout_jours_min": "4",
+    "cout_jours_max": "12",
+    "abonnement_mensuel": "0"
+  }
+]

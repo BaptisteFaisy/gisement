@@ -1,0 +1,119 @@
+[
+  {
+    "ref": "RECH-01",
+    "famille": "recherche",
+    "nom": "Recherche d'une reference",
+    "nom_en": "Looking up a reference",
+    "description": "Rechercher la reference d'un produit ou d'un contrat.",
+    "canaux": [
+      "tickets",
+      "appels"
+    ],
+    "indices": {
+      "verbes": [
+        "rechercher",
+        "consulter"
+      ],
+      "objets": [
+        "reference",
+        "produit",
+        "recherche"
+      ],
+      "systemes": [
+        "erp"
+      ]
+    },
+    "modele_texte": "Rechercher la reference produit",
+    "duree_unitaire_typique_minutes": "4",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "diffuse",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.15",
+    "types_envisageables": [
+      "B",
+      "D"
+    ],
+    "cout_jours_min": "4",
+    "cout_jours_max": "12",
+    "abonnement_mensuel": "100"
+  },
+  {
+    "ref": "RECH-02",
+    "famille": "recherche",
+    "nom": "Recherche d'un precedent",
+    "nom_en": "Looking up a precedent",
+    "description": "Rechercher un precedent dans l'historique des dossiers.",
+    "canaux": [
+      "tickets",
+      "appels",
+      "documents"
+    ],
+    "indices": {
+      "verbes": [
+        "rechercher",
+        "consulter"
+      ],
+      "objets": [
+        "precedent",
+        "dossier",
+        "historique"
+      ],
+      "systemes": [
+        "ged",
+        "crm"
+      ]
+    },
+    "modele_texte": "Rechercher un precedent dans l'historique",
+    "duree_unitaire_typique_minutes": "15",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "diffuse",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.25",
+    "types_envisageables": [
+      "D"
+    ],
+    "cout_jours_min": "10",
+    "cout_jours_max": "25",
+    "abonnement_mensuel": "350"
+  },
+  {
+    "ref": "RECH-03",
+    "famille": "recherche",
+    "nom": "Recherche d'une procedure applicable",
+    "nom_en": "Looking up the applicable procedure",
+    "description": "Rechercher la procedure applicable a un cas.",
+    "canaux": [
+      "tickets",
+      "documents"
+    ],
+    "indices": {
+      "verbes": [
+        "rechercher",
+        "consulter"
+      ],
+      "objets": [
+        "procedure",
+        "regle",
+        "applicable"
+      ],
+      "systemes": [
+        "ged"
+      ]
+    },
+    "modele_texte": "Rechercher la procedure applicable",
+    "duree_unitaire_typique_minutes": "10",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "diffuse",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.30",
+    "types_envisageables": [
+      "D"
+    ],
+    "cout_jours_min": "8",
+    "cout_jours_max": "20",
+    "abonnement_mensuel": "200"
+  }
+]

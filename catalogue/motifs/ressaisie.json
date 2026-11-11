@@ -1,0 +1,284 @@
+[
+  {
+    "ref": "RESS-01",
+    "famille": "ressaisie",
+    "nom": "Courriel vers ERP",
+    "nom_en": "Email into the ERP",
+    "description": "Recopier dans l'ERP une commande recue par courriel.",
+    "canaux": [
+      "courriels",
+      "journaux"
+    ],
+    "indices": {
+      "verbes": [
+        "recopier",
+        "saisir",
+        "transcrire"
+      ],
+      "objets": [
+        "commande",
+        "courriel",
+        "fournisseur"
+      ],
+      "systemes": [
+        "messagerie",
+        "erp"
+      ]
+    },
+    "modele_texte": "Recopier la commande fournisseur du courriel dans l'ERP",
+    "duree_unitaire_typique_minutes": "9",
+    "duree_statut_defaut": "mesuree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.15",
+    "types_envisageables": [
+      "A",
+      "B"
+    ],
+    "cout_jours_min": "3",
+    "cout_jours_max": "15",
+    "abonnement_mensuel": "180"
+  },
+  {
+    "ref": "RESS-02",
+    "famille": "ressaisie",
+    "nom": "PDF vers tableur",
+    "nom_en": "PDF into a spreadsheet",
+    "description": "Recopier dans un tableur les donnees d'un PDF recu.",
+    "canaux": [
+      "documents",
+      "courriels"
+    ],
+    "indices": {
+      "verbes": [
+        "recopier",
+        "saisir",
+        "transcrire"
+      ],
+      "objets": [
+        "pdf",
+        "tableur",
+        "facture"
+      ],
+      "systemes": [
+        "pdf",
+        "excel"
+      ]
+    },
+    "modele_texte": "Recopier les montants du PDF dans le tableur de suivi",
+    "duree_unitaire_typique_minutes": "7",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.15",
+    "types_envisageables": [
+      "B",
+      "D"
+    ],
+    "cout_jours_min": "5",
+    "cout_jours_max": "12",
+    "abonnement_mensuel": "120"
+  },
+  {
+    "ref": "RESS-03",
+    "famille": "ressaisie",
+    "nom": "Tableur vers application",
+    "nom_en": "Spreadsheet into an application",
+    "description": "Saisir dans une application les lignes d'un tableur local.",
+    "canaux": [
+      "journaux",
+      "documents"
+    ],
+    "indices": {
+      "verbes": [
+        "recopier",
+        "saisir",
+        "transcrire"
+      ],
+      "objets": [
+        "tableur",
+        "application",
+        "ligne"
+      ],
+      "systemes": [
+        "excel",
+        "erp"
+      ]
+    },
+    "modele_texte": "Saisir les lignes du tableur dans l'application",
+    "duree_unitaire_typique_minutes": "5",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.15",
+    "types_envisageables": [
+      "B",
+      "C"
+    ],
+    "cout_jours_min": "4",
+    "cout_jours_max": "12",
+    "abonnement_mensuel": "0"
+  },
+  {
+    "ref": "RESS-04",
+    "famille": "ressaisie",
+    "nom": "Application vers application",
+    "nom_en": "Application to application",
+    "description": "Recopier d'une application metier vers une autre.",
+    "canaux": [
+      "journaux"
+    ],
+    "indices": {
+      "verbes": [
+        "recopier",
+        "saisir",
+        "transcrire"
+      ],
+      "objets": [
+        "application",
+        "ecran",
+        "donnees"
+      ],
+      "systemes": [
+        "erp",
+        "crm"
+      ]
+    },
+    "modele_texte": "Recopier les donnees d'une application vers l'autre",
+    "duree_unitaire_typique_minutes": "6",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.15",
+    "types_envisageables": [
+      "B",
+      "C"
+    ],
+    "cout_jours_min": "4",
+    "cout_jours_max": "18",
+    "abonnement_mensuel": "0"
+  },
+  {
+    "ref": "RESS-05",
+    "famille": "ressaisie",
+    "nom": "Papier vers numerique",
+    "nom_en": "Paper into digital",
+    "description": "Saisir un document papier recu par courrier.",
+    "canaux": [
+      "documents"
+    ],
+    "indices": {
+      "verbes": [
+        "recopier",
+        "saisir",
+        "transcrire"
+      ],
+      "objets": [
+        "papier",
+        "formulaire",
+        "saisie"
+      ],
+      "systemes": [
+        "scanner",
+        "ged"
+      ]
+    },
+    "modele_texte": "Saisir le formulaire papier recu par courrier",
+    "duree_unitaire_typique_minutes": "12",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.15",
+    "types_envisageables": [
+      "B",
+      "D"
+    ],
+    "cout_jours_min": "8",
+    "cout_jours_max": "20",
+    "abonnement_mensuel": "200"
+  },
+  {
+    "ref": "RESS-06",
+    "famille": "ressaisie",
+    "nom": "Formulaire vers systeme",
+    "nom_en": "Form into the system",
+    "description": "Saisir dans le systeme un formulaire deja rempli.",
+    "canaux": [
+      "documents",
+      "tickets"
+    ],
+    "indices": {
+      "verbes": [
+        "recopier",
+        "saisir",
+        "transcrire"
+      ],
+      "objets": [
+        "formulaire",
+        "note",
+        "frais"
+      ],
+      "systemes": [
+        "formulaire",
+        "erp"
+      ]
+    },
+    "modele_texte": "Saisir le formulaire de note de frais dans le systeme",
+    "duree_unitaire_typique_minutes": "4",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.15",
+    "types_envisageables": [
+      "A",
+      "B"
+    ],
+    "cout_jours_min": "0",
+    "cout_jours_max": "8",
+    "abonnement_mensuel": "0"
+  },
+  {
+    "ref": "RESS-07",
+    "famille": "ressaisie",
+    "nom": "Copie de donnees entre onglets",
+    "nom_en": "Copying data between tabs",
+    "description": "Copier des donnees d'un onglet de tableur a un autre.",
+    "canaux": [
+      "documents"
+    ],
+    "indices": {
+      "verbes": [
+        "recopier",
+        "saisir",
+        "transcrire"
+      ],
+      "objets": [
+        "onglet",
+        "copie",
+        "tableur"
+      ],
+      "systemes": [
+        "excel"
+      ]
+    },
+    "modele_texte": "Copier les donnees entre les onglets du tableur",
+    "duree_unitaire_typique_minutes": "3",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "diffuse",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "1.5",
+    "part_atypique_defaut": "0.15",
+    "types_envisageables": [
+      "B"
+    ],
+    "cout_jours_min": "2",
+    "cout_jours_max": "6",
+    "abonnement_mensuel": "0"
+  }
+]
