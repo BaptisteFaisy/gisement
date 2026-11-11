@@ -47,6 +47,10 @@ ignore = ["ARG002", "ARG004", "RUF012", "SIM108", "B008"]
 "tests/**" = ["S101", "ARG001", "ARG002", "ARG004", "ARG005", "SLF001", "PLC0415"]
 "eval/**" = ["S101", "ARG001"]
 "src/gisement/lambdas/**" = ["ARG001"]
+# A rule predicate always takes (request, context), even when one of the two is
+# not used by that particular rule: the uniform signature is what lets the
+# registry be iterated and exported as an AgentCore Policy artefact.
+"src/gisement/politique/regles.py" = ["ARG001", "ARG005"]
 "demo/**" = ["RUF001"]
 
 [tool.coverage.run]
