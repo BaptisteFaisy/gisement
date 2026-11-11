@@ -93,7 +93,7 @@ Constants (`types/communs.py`) — changing one is a decision, not a tweak:
 | `TAUX_REVUE_DEFAUT` | 0.20 | §13.1 |
 | `DUREE_INFEREE_MARGE` | 0.40 | §17.2 |
 | `INCERTITUDE_FRAGMENTATION` | 0.05 | §17.2 |
-| `INCERTITUDE_TAUX_REVUE` | 0.05 | §17.2 |
+| `INCERTITUDE_TAUX_RELATIVE` | 0.25 | §17.2 |
 | `TIRAGES_MONTE_CARLO` | 10 000 | §17.2 |
 | `NIVEAU_CONFIANCE` / `QUANTILES_90` | 0.90 / (0.05, 0.95) | §17.2 |
 | `GAIN_ANNUEL_MINIMAL` | 3 000 | §16.1 |
@@ -276,7 +276,7 @@ parameter, from measurement quality — not from a guess:
 | durée unitaire, `INFERREE` | `UNIFORME` | `duree_unitaire_minutes` | `duree * DUREE_INFEREE_MARGE` |
 | coefficient de fragmentation | `UNIFORME` | coefficient of the `repartition` | `INCERTITUDE_FRAGMENTATION` |
 | part atypique | `NORMALE` | `part_atypique` | `0.02` if `part_atypique_nb_cas >= 100` else `0.05` |
-| each transfer rate | `UNIFORME` | `composante.taux` | `INCERTITUDE_TAUX_REVUE` |
+| each transfer rate | `UNIFORME` | `composante.taux` | `composante.taux * INCERTITUDE_TAUX_RELATIVE` |
 
 `simuler()` draws `tirages` samples with `random.Random(entree.graine)`, applies
 the formulas above to each draw (clamping `temps_net` at 0), sorts, and returns

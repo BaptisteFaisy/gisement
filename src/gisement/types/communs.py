@@ -11,7 +11,7 @@ words stay in French because the deliverables are bilingual (EF-65).
 
 from __future__ import annotations
 
-from decimal import ROUND_HALF_UP, Decimal
+from decimal import ROUND_HALF_EVEN, ROUND_HALF_UP, Decimal
 from enum import StrEnum
 
 # ---------------------------------------------------------------------------
@@ -31,8 +31,14 @@ DUREE_INFEREE_MARGE = Decimal("0.40")
 INCERTITUDE_FRAGMENTATION = Decimal("0.05")
 """17.2 - half width of the uniform band around a fragmentation coefficient."""
 
-INCERTITUDE_TAUX_REVUE = Decimal("0.05")
-"""17.2 - half width of the uniform band around a review rate."""
+INCERTITUDE_TAUX_RELATIVE = Decimal("0.25")
+"""17.2 - relative half width of the uniform band around a transfer rate.
+
+Annex A.6 draws a 20 % review rate in [15 %, 25 %], i.e. +/-25 % of the rate.
+An absolute band would be dishonest on a small rate: +/-5 points on a 5 %
+reject rate means "between zero and double", which widens the published
+interval far beyond what the measurement supports.
+"""
 
 TIRAGES_MONTE_CARLO = 10_000
 """17.2 - Monte-Carlo draws per gisement. Deterministic at a fixed seed."""
@@ -248,8 +254,13 @@ def heures(valeur: Decimal) -> Decimal:
 
 
 def mois(valeur: Decimal) -> Decimal:
-    """Payback delay in months, one decimal."""
-    return arrondi(valeur, 1)
+    """Payback delay in months, one decimal, banker's rounding (decision D-17).
+
+    Annex A.2 publishes 10 584 / 2 016 = 5.2 months: the exact quotient is
+    5.25, so the spec rounds half to even. Half-up would print 5.3 and break
+    the reference table that the executive report prints for every process.
+    """
+    return valeur.quantize(Decimal("0.1"), rounding=ROUND_HALF_EVEN)
 
 
 def facteur(valeur: Decimal) -> Decimal:

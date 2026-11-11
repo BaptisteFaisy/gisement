@@ -219,8 +219,9 @@ def calculer(p):
         transf = sum((occ * D(c["taux"]) * D(c["duree_minutes"]) / 60 if c["taux"] else D(c["forfait_heures"]) for c in comps), D(0))
         inel = brut * D(p["atyp"])
     net = max(D(0), frag - transf - inel)
-    gain_m = net * TAUX_HORAIRE
-    naif_m = brut * TAUX_HORAIRE
+    gain_m = r2(net * TAUX_HORAIRE)          # annex A.4: the monthly gain is rounded first
+    gain_a = r2(gain_m * 12)
+    naif_m = r2(brut * TAUX_HORAire) if False else r2(brut * TAUX_HORAIRE)
     jours, tjm = D(p["jours"]), D(p["tjm"])
     dev = jours * tjm
     outil = D(p["abo"]) * 12
@@ -236,14 +237,14 @@ def calculer(p):
             temps_brut_heures=str(r1(brut)), coefficient_fragmentation=str(coef),
             temps_fragmente_heures=str(r1(frag)), temps_transfere_heures=str(r1(transf)),
             temps_ineliminable_heures=str(r1(inel)), temps_net_heures=str(r1(net)),
-            gain_mensuel=str(r2(gain_m)), gain_annuel=str(r2(gain_m * 12)),
-            gain_naif_mensuel=str(r2(naif_m)),
+            gain_mensuel=str(gain_m), gain_annuel=str(gain_a),
+            gain_naif_mensuel=str(naif_m),
             ecart_naif=str(r2(naif_m / gain_m)) if gain_m > 0 else None,
             cout=dict(developpement=str(r2(dev)), outil_annuel=str(r2(outil)),
                       maintenance_annuelle=str(r2(maint)), annee_1=str(r2(annee1)),
                       recurrent=str(r2(recurrent))),
             delai_retour_mois=str(r1(delai)) if delai is not None else None,
-            gain_trois_ans=str(r2(gain_m * 36 - (annee1 + recurrent * 2))),
+            gain_trois_ans=str(r2(gain_a * 3 - (annee1 + recurrent * 2))),
         ),
     )
 
