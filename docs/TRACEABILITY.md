@@ -1,5 +1,35 @@
 # TRACEABILITY — requirement → lot → proof
 
+## Delivery status (S0-S2, offline)
+
+Delivered and green (452 offline tests, CI budget respected):
+
+| Lot | Deliverable | State |
+|---|---|---|
+| 0 | frozen contracts, CI socle, shared vocabulary, ground truth | done |
+| 1 | economic engine (Decimal, four corrections, Monte-Carlo) | done - annex A to the cent |
+| 2 | the 40-motif catalogue, as data | done |
+| 3 | the synthetic client (5 channels, 23 processes, 3 traps) | done - reproducible byte for byte |
+| 4-8 | the five collectors + the published coverage | done - 62 % coverage |
+| 9 | pseudonymisation + the sensitive filter | done - R8, R9 |
+| 10-11 | the classifier (fingerprint then model) + process aggregation | done - 19 900 activities -> 42 groups |
+| 12 | the non-attribution policy enforced by the gateway | done - R5, R6, R7 (50/50) |
+| 13-15 | feasibility tree, sequencer, category E | done - R13, R16, R17 |
+| 16-17 | reports (FR/EN), quarterly follow-up | done - R19, R22, R23 |
+| 18 | the portal API + the static portal | done - the demo runs end to end |
+| 19 | the Amazon Quick asset bundle | done |
+| 20 | the measured cost | done - R24 (2.5 % gap) |
+| 21 | the CDK stack + runbook | written, compiles; deploy is the step before submission |
+| 22 | the evaluation harness | done - 100 % on the four chapter-27 targets |
+| 23 | the English submission docs | done |
+| 24 | the video | script done (docs/VIDEO.md); filming needs a screen |
+
+Remaining before the 11 December submission: deploy the stack to eu-west-3,
+pre-load the judge tenant, record the 3-minute video from the portal, and
+activate the Mergify Merge Queue product (one dashboard click, decision D-03).
+
+---
+
 Each lot updates its own rows when it delivers. A row without a test file is a
 row that is not delivered. Blocking rows (R5 to R9) stop the submission: one
 failure on the 50 non-attribution requests forbids it (§27).

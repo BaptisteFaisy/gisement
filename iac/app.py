@@ -12,7 +12,6 @@ frozen corpus for the judge login.
 from __future__ import annotations
 
 import aws_cdk as cdk
-
 from gisement_stack import GisementStack
 
 APP = cdk.App()

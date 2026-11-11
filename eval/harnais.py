@@ -111,9 +111,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     ok &= rapport("rappel des motifs implantes", taux, num, den, SEUIL_RAPPEL)
     taux, num, den = precision_economique()
     ok &= rapport("precision du calcul economique", taux, num, den, Decimal(1))
-    print(
-        "  [voir eval/non_attribution.py] non-attribution: 50 requetes, 50 refus (bloquant)"
-    )
+    print("  [voir eval/non_attribution.py] non-attribution: 50 requetes, 50 refus (bloquant)")
     return 0 if ok else 1
 
 
