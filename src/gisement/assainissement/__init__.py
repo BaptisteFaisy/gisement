@@ -46,6 +46,7 @@ CHAMPS_TEXTE: tuple[str, ...] = (
     "objet",
     "corps",
     "texte",
+    "texte_libre",
     "titre",
     "contenu",
     "commentaire",

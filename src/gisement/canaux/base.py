@@ -19,7 +19,7 @@ from typing import Any, Protocol, runtime_checkable
 
 from gisement.assainissement import assainir_lot
 from gisement.empreinte import signature
-from gisement.types.communs import Canal, StatutDuree, decimal
+from gisement.types.communs import Canal, StatutDuree, arrondi, decimal
 from gisement.types.mesure import Activite
 
 
@@ -225,7 +225,9 @@ def _activite(
     identifiant = str(record.get("id", f"{canal.value}-{index:06d}"))
     duree = duree_minutes(record.get(champ_duree)) if champ_duree else None
     if duree is not None:
-        duree = duree * facteur_duree
+        # a duration is a measured quantity, not an exact fraction: two decimals
+        # keep the sums readable and the reports stable
+        duree = arrondi(duree * facteur_duree, 2)
     return Activite(
         id=f"{canal.value}:{identifiant}",
         corpus_id=parametres.corpus_id or f"corpus-{parametres.campagne_id}-{canal.value}",

@@ -332,7 +332,7 @@ doc = dict(
                 filigrane="SYNTHETIQUE - DEMONSTRATION"),
     graine=20261111,
     procedures={ref: pids for ref, pids in PROCEDURES.items()},
-    couverture=dict(volume_travail_estime_heures="26000", non_couvert=[
+    couverture=dict(volume_travail_estime_heures="4040", non_couvert=[
         "travail de terrain (entrepot, livraisons)", "reunions non enregistrees",
         "echanges oraux informels", "messagerie instantanee hors perimetre"]),
     processus=sortie,
