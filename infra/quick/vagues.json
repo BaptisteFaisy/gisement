@@ -1,0 +1,34 @@
+[
+  {
+    "vague": "vague_1",
+    "nb_projets": 2,
+    "cout_total": "1950.00",
+    "gain_annuel_total": "16318.68",
+    "processus": [
+      "P-07",
+      "P-14"
+    ]
+  },
+  {
+    "vague": "vague_2",
+    "nb_projets": 4,
+    "cout_total": "34662.00",
+    "gain_annuel_total": "33645.84",
+    "processus": [
+      "P-19",
+      "P-01",
+      "P-16",
+      "P-11"
+    ]
+  },
+  {
+    "vague": "vague_3",
+    "nb_projets": 2,
+    "cout_total": "33774.00",
+    "gain_annuel_total": "14337.72",
+    "processus": [
+      "P-21",
+      "P-15"
+    ]
+  }
+]

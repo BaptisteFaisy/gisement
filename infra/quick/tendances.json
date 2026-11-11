@@ -1,0 +1,393 @@
+[
+  {
+    "processus_id": "P-01",
+    "service": "adv",
+    "occurrences_par_mois": [
+      "230",
+      "245",
+      "260",
+      "265",
+      "280",
+      "250"
+    ],
+    "mediane": "255",
+    "amplitude": [
+      "230",
+      "280"
+    ]
+  },
+  {
+    "processus_id": "P-02",
+    "service": "adv",
+    "occurrences_par_mois": [
+      "55",
+      "58",
+      "60",
+      "62",
+      "64",
+      "57"
+    ],
+    "mediane": "59",
+    "amplitude": [
+      "55",
+      "64"
+    ]
+  },
+  {
+    "processus_id": "P-03",
+    "service": "comptabilite",
+    "occurrences_par_mois": [
+      "195",
+      "205",
+      "210",
+      "215",
+      "225",
+      "200"
+    ],
+    "mediane": "207.5",
+    "amplitude": [
+      "195",
+      "225"
+    ]
+  },
+  {
+    "processus_id": "P-04",
+    "service": "comptabilite",
+    "occurrences_par_mois": [
+      "85",
+      "88",
+      "90",
+      "92",
+      "95",
+      "86"
+    ],
+    "mediane": "89",
+    "amplitude": [
+      "85",
+      "95"
+    ]
+  },
+  {
+    "processus_id": "P-05",
+    "service": "adv",
+    "occurrences_par_mois": [
+      "390",
+      "405",
+      "420",
+      "430",
+      "450",
+      "400"
+    ],
+    "mediane": "412.5",
+    "amplitude": [
+      "390",
+      "450"
+    ]
+  },
+  {
+    "processus_id": "P-06",
+    "service": "approvisionnements",
+    "occurrences_par_mois": [
+      "30",
+      "32",
+      "35",
+      "36",
+      "38",
+      "33"
+    ],
+    "mediane": "34",
+    "amplitude": [
+      "30",
+      "38"
+    ]
+  },
+  {
+    "processus_id": "P-07",
+    "service": "approvisionnements",
+    "occurrences_par_mois": [
+      "270",
+      "295",
+      "310",
+      "330",
+      "355",
+      "380"
+    ],
+    "mediane": "320",
+    "amplitude": [
+      "270",
+      "380"
+    ]
+  },
+  {
+    "processus_id": "P-08",
+    "service": "comptabilite",
+    "occurrences_par_mois": [
+      "120",
+      "125",
+      "130",
+      "135",
+      "140",
+      "128"
+    ],
+    "mediane": "129",
+    "amplitude": [
+      "120",
+      "140"
+    ]
+  },
+  {
+    "processus_id": "P-09",
+    "service": "comptabilite",
+    "occurrences_par_mois": [
+      "3",
+      "4",
+      "4",
+      "5",
+      "4",
+      "4"
+    ],
+    "mediane": "4",
+    "amplitude": [
+      "3",
+      "5"
+    ]
+  },
+  {
+    "processus_id": "P-10",
+    "service": "adv",
+    "occurrences_par_mois": [
+      "110",
+      "115",
+      "118",
+      "120",
+      "122",
+      "128"
+    ],
+    "mediane": "119",
+    "amplitude": [
+      "110",
+      "128"
+    ]
+  },
+  {
+    "processus_id": "P-11",
+    "service": "adv",
+    "occurrences_par_mois": [
+      "88",
+      "92",
+      "95",
+      "98",
+      "102",
+      "93"
+    ],
+    "mediane": "94",
+    "amplitude": [
+      "88",
+      "102"
+    ]
+  },
+  {
+    "processus_id": "P-12",
+    "service": "support",
+    "occurrences_par_mois": [
+      "140",
+      "145",
+      "150",
+      "155",
+      "160",
+      "148"
+    ],
+    "mediane": "149",
+    "amplitude": [
+      "140",
+      "160"
+    ]
+  },
+  {
+    "processus_id": "P-13",
+    "service": "support",
+    "occurrences_par_mois": [
+      "350",
+      "365",
+      "380",
+      "390",
+      "400",
+      "370"
+    ],
+    "mediane": "375",
+    "amplitude": [
+      "350",
+      "400"
+    ]
+  },
+  {
+    "processus_id": "P-14",
+    "service": "comptabilite",
+    "occurrences_par_mois": [
+      "170",
+      "175",
+      "178",
+      "180",
+      "182",
+      "185"
+    ],
+    "mediane": "179",
+    "amplitude": [
+      "170",
+      "185"
+    ]
+  },
+  {
+    "processus_id": "P-15",
+    "service": "support",
+    "occurrences_par_mois": [
+      "82",
+      "86",
+      "90",
+      "93",
+      "96",
+      "88"
+    ],
+    "mediane": "89",
+    "amplitude": [
+      "82",
+      "96"
+    ]
+  },
+  {
+    "processus_id": "P-16",
+    "service": "approvisionnements",
+    "occurrences_par_mois": [
+      "35",
+      "38",
+      "40",
+      "42",
+      "310",
+      "45"
+    ],
+    "mediane": "41",
+    "amplitude": [
+      "35",
+      "310"
+    ]
+  },
+  {
+    "processus_id": "P-17",
+    "service": "support",
+    "occurrences_par_mois": [
+      "300",
+      "310",
+      "320",
+      "325",
+      "335",
+      "315"
+    ],
+    "mediane": "317.5",
+    "amplitude": [
+      "300",
+      "335"
+    ]
+  },
+  {
+    "processus_id": "P-18",
+    "service": "adv",
+    "occurrences_par_mois": [
+      "22",
+      "24",
+      "25",
+      "26",
+      "28",
+      "23"
+    ],
+    "mediane": "24.5",
+    "amplitude": [
+      "22",
+      "28"
+    ]
+  },
+  {
+    "processus_id": "P-19",
+    "service": "comptabilite",
+    "occurrences_par_mois": [
+      "12",
+      "12",
+      "12",
+      "12",
+      "12",
+      "12"
+    ],
+    "mediane": "12",
+    "amplitude": [
+      "12",
+      "12"
+    ]
+  },
+  {
+    "processus_id": "P-20",
+    "service": "approvisionnements",
+    "occurrences_par_mois": [
+      "58",
+      "60",
+      "62",
+      "64",
+      "66",
+      "61"
+    ],
+    "mediane": "61.5",
+    "amplitude": [
+      "58",
+      "66"
+    ]
+  },
+  {
+    "processus_id": "P-21",
+    "service": "support",
+    "occurrences_par_mois": [
+      "225",
+      "232",
+      "240",
+      "248",
+      "255",
+      "235"
+    ],
+    "mediane": "237.5",
+    "amplitude": [
+      "225",
+      "255"
+    ]
+  },
+  {
+    "processus_id": "P-22",
+    "service": "comptabilite",
+    "occurrences_par_mois": [
+      "0.33",
+      "0.33",
+      "0.34",
+      "0.33",
+      "0.33",
+      "0.34"
+    ],
+    "mediane": "0.33",
+    "amplitude": [
+      "0.33",
+      "0.34"
+    ]
+  },
+  {
+    "processus_id": "P-23",
+    "service": "support",
+    "occurrences_par_mois": [
+      "36",
+      "38",
+      "40",
+      "42",
+      "44",
+      "39"
+    ],
+    "mediane": "39.5",
+    "amplitude": [
+      "36",
+      "44"
+    ]
+  }
+]

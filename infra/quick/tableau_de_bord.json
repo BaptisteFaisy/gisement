@@ -1,0 +1,68 @@
+{
+  "nom": "Gisement - portefeuille",
+  "datasets": [
+    "portefeuille",
+    "vagues",
+    "tendances"
+  ],
+  "visuels": [
+    {
+      "id": "kpi-gisement",
+      "type": "kpi",
+      "dataset": "portefeuille",
+      "mesure": "gain_annuel",
+      "agregation": "sum",
+      "titre": "Gisement net annuel (EUR)"
+    },
+    {
+      "id": "kpi-cout",
+      "type": "kpi",
+      "dataset": "portefeuille",
+      "mesure": "cout_annee_1",
+      "agregation": "sum",
+      "titre": "Cout total annee 1 (EUR)"
+    },
+    {
+      "id": "vagues",
+      "type": "bar",
+      "dataset": "vagues",
+      "dimension": "vague",
+      "mesure": "gain_annuel_total",
+      "titre": "Gain annuel par vague"
+    },
+    {
+      "id": "sequence",
+      "type": "table",
+      "dataset": "portefeuille",
+      "colonnes": [
+        "vague",
+        "rang",
+        "processus_id",
+        "type",
+        "gain_mensuel",
+        "delai_retour_mois",
+        "risque"
+      ],
+      "titre": "La sequence : quoi faire en premier"
+    },
+    {
+      "id": "deconseilles",
+      "type": "table",
+      "dataset": "portefeuille",
+      "filtre": "deconseille != ''",
+      "colonnes": [
+        "processus_id",
+        "deconseille"
+      ],
+      "titre": "A ne pas automatiser"
+    },
+    {
+      "id": "saisonnalite",
+      "type": "line",
+      "dataset": "tendances",
+      "dimension": "occurrences_par_mois",
+      "serie": "processus_id",
+      "titre": "Saisonnalite : la mediane, pas la moyenne"
+    }
+  ]
+}
