@@ -5,7 +5,7 @@ against it, it does not redesign it. If a contract is wrong, open an issue in
 `docs/DECISIONS.md` with a new decision number, change the contract, and tell
 the orchestrator — never silently diverge.
 
-Source of truth for behaviour: `docs/spec/cahier-des-charges.fr.md` (chapters and annexes are
+Source of truth for behaviour: `docs/fr/CAHIER-DES-CHARGES.md` (chapters and annexes are
 quoted below as `§13.2`, `annex A`).
 
 ---
