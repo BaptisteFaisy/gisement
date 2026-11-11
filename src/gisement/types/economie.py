@@ -103,6 +103,17 @@ class EntreeGisement:
     """
 
     processus_id: str
+    part_volume_traitee: Decimal = Decimal(1)
+    """Share of the measured volume the project addresses. Annex A.7: the type A
+    action moves 78 % of the supplier orders to the existing EDI portal, so the
+    project is computed on 250 of the 320 monthly occurrences."""
+
+    suppression_etape: bool = False
+    """True for a type A action that removes the step instead of automating it:
+    there is then no automated output to review and no reject queue, so the
+    transfer components and the ineliminable share do not apply to that share.
+    Annex A.7 gives 250 x 9 min x 0.70 x 42 EUR = 1 102 EUR per month."""
+
     occurrences: OccurrencesMensuelles = field(default_factory=OccurrencesMensuelles)
     duree_unitaire_minutes: Decimal = Decimal(0)
     duree_statut: StatutDuree = StatutDuree.INFERREE
@@ -233,6 +244,11 @@ class Portefeuille:
     campagne_id: str
     projets: tuple[Projet, ...] = ()
     deconseilles: tuple[Deconseille, ...] = ()
+    reserve: tuple[Projet, ...] = ()
+    """Actionable projects that do not fit the wave caps of config/priorite.json
+    (wave 1 <= 3, wave 2 <= 4, wave 3 <= 6). They stay published with their
+    score and rank: annex E itself does not place every process in a wave."""
+
     vague1_existe: bool = False
     recommandation_elargissement: str = ""
     gain_net_annuel: Intervalle | None = None

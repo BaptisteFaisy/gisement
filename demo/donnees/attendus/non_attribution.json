@@ -1,0 +1,2308 @@
+{
+  "version": "1.0",
+  "note": "R7 (blocking): the 50 requests below must ALL be refused by gisement.politique.evaluer, with at least the expected rules. 18 of them try to isolate an individual by combining filters (spec 18.4). This file is owned by lot 0 so that lot 12 and lot 22 share one reference; regenerating it is a decision, not a fix.",
+  "seuil_agregation": 5,
+  "nb_requetes": 50,
+  "nb_par_combinaison_de_filtres": 18,
+  "requetes": [
+    {
+      "id": "NA-01",
+      "nom": "groupement interdit individu",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {},
+        "groupements": [
+          "service",
+          "individu"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 34,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_individu"
+      ],
+      "commentaire": "R1 - le groupement 'individu' attribue le travail a une personne",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-02",
+      "nom": "groupement interdit personne",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {},
+        "groupements": [
+          "service",
+          "personne"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 34,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_individu"
+      ],
+      "commentaire": "R1 - le groupement 'personne' attribue le travail a une personne",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-03",
+      "nom": "groupement interdit salarie",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {},
+        "groupements": [
+          "service",
+          "salarie"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 34,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_individu"
+      ],
+      "commentaire": "R1 - le groupement 'salarie' attribue le travail a une personne",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-04",
+      "nom": "groupement interdit employe",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {},
+        "groupements": [
+          "service",
+          "employe"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 34,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_individu"
+      ],
+      "commentaire": "R1 - le groupement 'employe' attribue le travail a une personne",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-05",
+      "nom": "groupement interdit pseudonyme",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {},
+        "groupements": [
+          "service",
+          "pseudonyme"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 34,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_individu"
+      ],
+      "commentaire": "R1 - le groupement 'pseudonyme' attribue le travail a une personne",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-06",
+      "nom": "groupement interdit matricule",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {},
+        "groupements": [
+          "service",
+          "matricule"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 34,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_individu"
+      ],
+      "commentaire": "R1 - le groupement 'matricule' attribue le travail a une personne",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-07",
+      "nom": "groupement interdit nom",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {},
+        "groupements": [
+          "service",
+          "nom"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 34,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_individu"
+      ],
+      "commentaire": "R1 - le groupement 'nom' attribue le travail a une personne",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-08",
+      "nom": "groupement interdit email",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {},
+        "groupements": [
+          "service",
+          "email"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 34,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_individu"
+      ],
+      "commentaire": "R1 - le groupement 'email' attribue le travail a une personne",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-09",
+      "nom": "filtre personne individu",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {
+          "service": "adv",
+          "individu": "I-4471"
+        },
+        "groupements": [],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 1,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_filtre_personne",
+        "regle_k5"
+      ],
+      "commentaire": "R1 - aucun identifiant de personne n'est accepté en filtre",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-10",
+      "nom": "filtre personne salarie",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {
+          "service": "adv",
+          "salarie": "Marie Dupont"
+        },
+        "groupements": [],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 1,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_filtre_personne",
+        "regle_k5"
+      ],
+      "commentaire": "R1 - aucun identifiant de personne n'est accepté en filtre",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-11",
+      "nom": "filtre personne pseudonyme",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {
+          "service": "adv",
+          "pseudonyme": "PSD-9f3c"
+        },
+        "groupements": [],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 1,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_filtre_personne",
+        "regle_k5"
+      ],
+      "commentaire": "R1 - aucun identifiant de personne n'est accepté en filtre",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-12",
+      "nom": "filtre personne matricule",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {
+          "service": "adv",
+          "matricule": "M-2291"
+        },
+        "groupements": [],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 1,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_filtre_personne",
+        "regle_k5"
+      ],
+      "commentaire": "R1 - aucun identifiant de personne n'est accepté en filtre",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-13",
+      "nom": "filtre personne nom",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {
+          "service": "adv",
+          "nom": "Dupont"
+        },
+        "groupements": [],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 1,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_filtre_personne",
+        "regle_k5"
+      ],
+      "commentaire": "R1 - aucun identifiant de personne n'est accepté en filtre",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-14",
+      "nom": "filtre personne prenom",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {
+          "service": "adv",
+          "prenom": "Marie"
+        },
+        "groupements": [],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 1,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_filtre_personne",
+        "regle_k5"
+      ],
+      "commentaire": "R1 - aucun identifiant de personne n'est accepté en filtre",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-15",
+      "nom": "filtre personne email",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {
+          "service": "adv",
+          "email": "marie.dupont@demo.example"
+        },
+        "groupements": [],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 1,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_filtre_personne",
+        "regle_k5"
+      ],
+      "commentaire": "R1 - aucun identifiant de personne n'est accepté en filtre",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-16",
+      "nom": "filtre personne telephone",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {
+          "service": "adv",
+          "telephone": "+33600000000"
+        },
+        "groupements": [],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 1,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_filtre_personne",
+        "regle_k5"
+      ],
+      "commentaire": "R1 - aucun identifiant de personne n'est accepté en filtre",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-17",
+      "nom": "combinaison de filtres",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {
+          "service": "comptabilite",
+          "site": "lyon",
+          "motif": "RESS-01"
+        },
+        "groupements": [
+          "service",
+          "motif"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 3,
+        "taille_resultat_apres_filtres": 3,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_combinaison",
+        "regle_k5"
+      ],
+      "commentaire": "18.4 - la combinaison de filtres isole moins de cinq individus",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-18",
+      "nom": "combinaison de filtres",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {
+          "service": "comptabilite",
+          "site": "villeurbanne",
+          "motif": "RAPPR-02"
+        },
+        "groupements": [
+          "service",
+          "motif"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 2,
+        "taille_resultat_apres_filtres": 2,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_combinaison",
+        "regle_k5"
+      ],
+      "commentaire": "18.4 - la combinaison de filtres isole moins de cinq individus",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-19",
+      "nom": "combinaison de filtres",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {
+          "service": "adv",
+          "site": "lyon",
+          "motif": "VERI-05",
+          "anciennete": "5-10"
+        },
+        "groupements": [
+          "service",
+          "motif"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 1,
+        "taille_resultat_apres_filtres": 1,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_combinaison",
+        "regle_k5"
+      ],
+      "commentaire": "18.4 - la combinaison de filtres isole moins de cinq individus",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-20",
+      "nom": "combinaison de filtres",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {
+          "service": "support",
+          "site": "lyon",
+          "motif": "COORD-01"
+        },
+        "groupements": [
+          "service",
+          "motif"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 4,
+        "taille_resultat_apres_filtres": 4,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_combinaison",
+        "regle_k5"
+      ],
+      "commentaire": "18.4 - la combinaison de filtres isole moins de cinq individus",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-21",
+      "nom": "combinaison de filtres",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {
+          "service": "approvisionnements",
+          "site": "lyon",
+          "motif": "RESS-04"
+        },
+        "groupements": [
+          "service",
+          "motif"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 2,
+        "taille_resultat_apres_filtres": 2,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_combinaison",
+        "regle_k5"
+      ],
+      "commentaire": "18.4 - la combinaison de filtres isole moins de cinq individus",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-22",
+      "nom": "combinaison de filtres",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {
+          "service": "comptabilite",
+          "site": "lyon",
+          "motif": "REPO-03",
+          "trimestre": "T4"
+        },
+        "groupements": [
+          "service",
+          "motif"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 1,
+        "taille_resultat_apres_filtres": 1,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_combinaison",
+        "regle_k5"
+      ],
+      "commentaire": "18.4 - la combinaison de filtres isole moins de cinq individus",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-23",
+      "nom": "combinaison de filtres",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {
+          "service": "adv",
+          "site": "villeurbanne",
+          "motif": "RELAN-01"
+        },
+        "groupements": [
+          "service",
+          "motif"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 3,
+        "taille_resultat_apres_filtres": 3,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_combinaison",
+        "regle_k5"
+      ],
+      "commentaire": "18.4 - la combinaison de filtres isole moins de cinq individus",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-24",
+      "nom": "combinaison de filtres",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {
+          "service": "support",
+          "site": "villeurbanne",
+          "motif": "COORD-04"
+        },
+        "groupements": [
+          "service",
+          "motif"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 2,
+        "taille_resultat_apres_filtres": 2,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_combinaison",
+        "regle_k5"
+      ],
+      "commentaire": "18.4 - la combinaison de filtres isole moins de cinq individus",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-25",
+      "nom": "combinaison de filtres",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {
+          "service": "comptabilite",
+          "site": "lyon",
+          "motif": "VERI-03",
+          "regime": "forfait_jours"
+        },
+        "groupements": [
+          "service",
+          "motif"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 1,
+        "taille_resultat_apres_filtres": 1,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_combinaison",
+        "regle_k5"
+      ],
+      "commentaire": "18.4 - la combinaison de filtres isole moins de cinq individus",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-26",
+      "nom": "combinaison de filtres",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {
+          "service": "approvisionnements",
+          "site": "villeurbanne",
+          "motif": "VERI-04"
+        },
+        "groupements": [
+          "service",
+          "motif"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 4,
+        "taille_resultat_apres_filtres": 4,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_combinaison",
+        "regle_k5"
+      ],
+      "commentaire": "18.4 - la combinaison de filtres isole moins de cinq individus",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-27",
+      "nom": "combinaison de filtres",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {
+          "service": "adv",
+          "site": "lyon",
+          "motif": "CLASS-03",
+          "type_contrat": "cdi"
+        },
+        "groupements": [
+          "service",
+          "motif"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 2,
+        "taille_resultat_apres_filtres": 2,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_combinaison",
+        "regle_k5"
+      ],
+      "commentaire": "18.4 - la combinaison de filtres isole moins de cinq individus",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-28",
+      "nom": "combinaison de filtres",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {
+          "service": "support",
+          "site": "lyon",
+          "motif": "RECH-01",
+          "equipe": "nuit"
+        },
+        "groupements": [
+          "service",
+          "motif"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 1,
+        "taille_resultat_apres_filtres": 1,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_combinaison",
+        "regle_k5"
+      ],
+      "commentaire": "18.4 - la combinaison de filtres isole moins de cinq individus",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-29",
+      "nom": "combinaison de filtres",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {
+          "service": "comptabilite",
+          "site": "villeurbanne",
+          "motif": "RAPPR-01"
+        },
+        "groupements": [
+          "service",
+          "motif"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 3,
+        "taille_resultat_apres_filtres": 3,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_combinaison",
+        "regle_k5"
+      ],
+      "commentaire": "18.4 - la combinaison de filtres isole moins de cinq individus",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-30",
+      "nom": "combinaison de filtres",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {
+          "service": "adv",
+          "site": "lyon",
+          "motif": "RESS-06"
+        },
+        "groupements": [
+          "service",
+          "motif"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 2,
+        "taille_resultat_apres_filtres": 2,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_combinaison",
+        "regle_k5"
+      ],
+      "commentaire": "18.4 - la combinaison de filtres isole moins de cinq individus",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-31",
+      "nom": "combinaison de filtres",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {
+          "service": "support",
+          "site": "villeurbanne",
+          "motif": "COORD-02",
+          "langue": "espagnol"
+        },
+        "groupements": [
+          "service",
+          "motif"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 1,
+        "taille_resultat_apres_filtres": 1,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_combinaison",
+        "regle_k5"
+      ],
+      "commentaire": "18.4 - la combinaison de filtres isole moins de cinq individus",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-32",
+      "nom": "combinaison de filtres",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {
+          "service": "approvisionnements",
+          "site": "lyon",
+          "motif": "VERI-06"
+        },
+        "groupements": [
+          "service",
+          "motif"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 4,
+        "taille_resultat_apres_filtres": 4,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_combinaison",
+        "regle_k5"
+      ],
+      "commentaire": "18.4 - la combinaison de filtres isole moins de cinq individus",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-33",
+      "nom": "combinaison de filtres",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {
+          "service": "comptabilite",
+          "site": "lyon",
+          "motif": "REPO-01"
+        },
+        "groupements": [
+          "service",
+          "motif"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 3,
+        "taille_resultat_apres_filtres": 3,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_combinaison",
+        "regle_k5"
+      ],
+      "commentaire": "18.4 - la combinaison de filtres isole moins de cinq individus",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-34",
+      "nom": "combinaison de filtres",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {
+          "service": "adv",
+          "site": "villeurbanne",
+          "motif": "VERI-01",
+          "poste": "assistant"
+        },
+        "groupements": [
+          "service",
+          "motif"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 2,
+        "taille_resultat_apres_filtres": 2,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_combinaison",
+        "regle_k5"
+      ],
+      "commentaire": "18.4 - la combinaison de filtres isole moins de cinq individus",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-35",
+      "nom": "attribut quasi-identifiant langue_parlee",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {
+          "service": "support",
+          "langue_parlee": "oui"
+        },
+        "groupements": [],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 1,
+        "taille_resultat_apres_filtres": 1,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_attribut_rare",
+        "regle_combinaison",
+        "regle_k5"
+      ],
+      "commentaire": "18.4 - l'attribut est retiré de la liste des filtres disponibles",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-36",
+      "nom": "attribut quasi-identifiant temps_partiel",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {
+          "service": "support",
+          "temps_partiel": "oui"
+        },
+        "groupements": [],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 1,
+        "taille_resultat_apres_filtres": 1,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_attribut_rare",
+        "regle_combinaison",
+        "regle_k5"
+      ],
+      "commentaire": "18.4 - l'attribut est retiré de la liste des filtres disponibles",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-37",
+      "nom": "sortie interdite classement_individuel",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {},
+        "groupements": [
+          "service"
+        ],
+        "sortie": [
+          "classement_individuel"
+        ],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 34,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_individu"
+      ],
+      "commentaire": "R1 - aucune sortie ne contient de mesure individuelle",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-38",
+      "nom": "sortie interdite score_individuel",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {},
+        "groupements": [
+          "service"
+        ],
+        "sortie": [
+          "score_individuel"
+        ],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 34,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_individu"
+      ],
+      "commentaire": "R1 - aucune sortie ne contient de mesure individuelle",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-39",
+      "nom": "sortie interdite temps_travail_individuel",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {},
+        "groupements": [
+          "service"
+        ],
+        "sortie": [
+          "temps_travail_individuel"
+        ],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 34,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_individu"
+      ],
+      "commentaire": "R1 - aucune sortie ne contient de mesure individuelle",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-40",
+      "nom": "sortie interdite citation_non_agregee",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {},
+        "groupements": [
+          "service"
+        ],
+        "sortie": [
+          "citation_non_agregee"
+        ],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 34,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_citation"
+      ],
+      "commentaire": "R1 - aucune sortie ne contient de mesure individuelle",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-41",
+      "nom": "export avec citation non aggregée",
+      "requete": {
+        "outil": "Export__produire",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {},
+        "groupements": [],
+        "sortie": [
+          "citation_non_agregee"
+        ],
+        "citations": true,
+        "corpus_id": null,
+        "taille_groupe": 34,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_export",
+        "regle_citation"
+      ],
+      "commentaire": "annex C - un export exige des citations agrégées",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-42",
+      "nom": "citation directe dans une mesure",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {},
+        "groupements": [
+          "motif"
+        ],
+        "sortie": [],
+        "citations": true,
+        "corpus_id": null,
+        "taille_groupe": 12,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_citation"
+      ],
+      "commentaire": "R1 - la citation brute peut révéler qui a travaillé",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-43",
+      "nom": "lecture du tenant voisin",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-AUTRE",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {},
+        "groupements": [
+          "service"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 40,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_tenant"
+      ],
+      "commentaire": "EF-71 - le tenant vient du jeton, jamais de la requête",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-44",
+      "nom": "corpus brut non assaini",
+      "requete": {
+        "outil": "Corpus__lire",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {},
+        "groupements": [],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": "CORP-BRUT-01",
+        "taille_groupe": 40,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_corpus_brut"
+      ],
+      "commentaire": "annex C - aucune lecture du corpus brut",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-45",
+      "nom": "campagne sans validation DPO",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {},
+        "groupements": [
+          "service"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 40,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_conformite"
+      ],
+      "commentaire": "EF-04 - aucune ingestion ni mesure sans validation enregistrée",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": false,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-46",
+      "nom": "campagne suspendue",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {},
+        "groupements": [
+          "service"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 40,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_suspension"
+      ],
+      "commentaire": "11.4 - la suspension est immédiate",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": true,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-47",
+      "nom": "budget épuisé",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {},
+        "groupements": [
+          "service"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 40,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_budget"
+      ],
+      "commentaire": "ENF-09 - arrêt propre quand le plafond est atteint",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "0.00",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-48",
+      "nom": "quota de requetes depasse",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {},
+        "groupements": [
+          "service"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 40,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 201
+      },
+      "regles_attendues": [
+        "regle_quota_requetes"
+      ],
+      "commentaire": "18.4 - le nombre de requetes par utilisateur est borné",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 201,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-49",
+      "nom": "canal hors perimetre",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "appels",
+        "filtres": {},
+        "groupements": [
+          "service"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 40,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_canal_non_autorise"
+      ],
+      "commentaire": "EF-01 - seuls les canaux déclarés sont mesurables",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    },
+    {
+      "id": "NA-50",
+      "nom": "groupe de quatre individus",
+      "requete": {
+        "outil": "Mesure__agregat",
+        "tenant_id": "T-DEMO",
+        "utilisateur": "u-consultant-01",
+        "role": "consultant_msp",
+        "campagne_id": "CMP-0031",
+        "canal": "tickets",
+        "filtres": {},
+        "groupements": [
+          "service"
+        ],
+        "sortie": [],
+        "citations": false,
+        "corpus_id": null,
+        "taille_groupe": 4,
+        "taille_resultat_apres_filtres": null,
+        "requetes_precedentes": 3
+      },
+      "regles_attendues": [
+        "regle_k5"
+      ],
+      "commentaire": "R2 - en dessous de cinq la mesure est supprimée, pas arrondie",
+      "contexte": {
+        "tenant_id": "T-DEMO",
+        "campagne_id": "CMP-0031",
+        "conforme": true,
+        "suspendue": false,
+        "seuil": 5,
+        "canaux_autorises": [
+          "tickets",
+          "courriels",
+          "documents",
+          "appels",
+          "journaux"
+        ],
+        "budget_restant": "12.50",
+        "requetes_utilisateur": 3,
+        "quota_requetes": 200
+      }
+    }
+  ]
+}

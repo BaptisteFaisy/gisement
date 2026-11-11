@@ -23,7 +23,7 @@
       "risque_max": "faible",
       "visibilite_minimale": true,
       "projets_min": 1,
-      "projets_max": 2
+      "projets_max": 3
     },
     "vague_2": {
       "types": ["B", "C"],

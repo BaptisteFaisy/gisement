@@ -35,7 +35,7 @@ markers = [
 
 [tool.ruff]
 line-length = 110
-extend-exclude = ["infra/cdk/cdk.out", "infra/cdk/.build", ".build", "demo/donnees"]
+extend-exclude = ["infra/cdk/cdk.out", "infra/cdk/.build", ".build", "demo/donnees", "demo/outils"]
 target-version = "py312"
 src = ["src", "tests", "eval", "infra", "scripts"]
 

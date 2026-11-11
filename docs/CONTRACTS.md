@@ -5,7 +5,7 @@ against it, it does not redesign it. If a contract is wrong, open an issue in
 `docs/DECISIONS.md` with a new decision number, change the contract, and tell
 the orchestrator — never silently diverge.
 
-Source of truth for behaviour: `docs/SPEC.fr.md` (chapters and annexes are
+Source of truth for behaviour: `docs/spec/cahier-des-charges.fr.md` (chapters and annexes are
 quoted below as `§13.2`, `annex A`).
 
 ---
@@ -50,7 +50,7 @@ python3 -m pytest -q                      # full suite, must stay green
 |---|---|---|
 | 0 | `src/gisement/types/`, `serialisation.py`, `empreinte.py`, `cli.py`, `commands/__init__.py`, `modeles/`, `config/`, `docs/CONTRACTS.md`, `.github/`, `scripts/`, `pyproject.toml`, `Makefile`, `.mergify.yml`, `tests/conftest.py` | — |
 | 1 | `src/gisement/calcul/`, `tests/unit/calcul/` | 0 |
-| 2 | `catalogue/`, `src/gisement/motifs.py`, `tests/unit/motifs/` | 0 |
+| 2 | `catalogue/`, `src/gisement/motifs/` (package allowed), `tests/unit/motifs/` | 0 |
 | 3 | `demo/genere.mjs`, `demo/donnees/**`, `demo/lisez-moi.md`, `src/gisement/commands/generer.py`, `tests/unit/demo/` | 0 |
 | 4 | `src/gisement/canaux/tickets/`, `tests/unit/canaux/test_tickets*.py` | 0, 3 |
 | 5 | `src/gisement/canaux/courriels/` | 0, 3 |
@@ -209,13 +209,19 @@ def incertitudes(entree: EntreeGisement) -> dict[str, Incertitude]
 def simuler(entree: EntreeGisement, tirages: int = TIRAGES_MONTE_CARLO) -> tuple[Intervalle, Intervalle | None]
 ```
 
+`EntreeGisement` also carries `part_volume_traitee` (share of the volume the
+project addresses) and `suppression_etape` (a type A action removes the step:
+no transfer, no ineliminable share on that part). `occurrences_effectives =
+occurrences.mediane * part_volume_traitee`.
+
 **Formulas (§13.2 + annex A, authoritative order):**
 
 ```
-temps_brut         = occurrences.mediane * duree_unitaire_minutes / 60
+occurrences_eff    = occurrences.mediane * part_volume_traitee
+temps_brut         = occurrences_eff * duree_unitaire_minutes / 60
 temps_fragmente    = temps_brut * COEFFICIENTS_FRAGMENTATION[repartition]
-temps_transfere    = sum(c.heures(occurrences.mediane) for c in transfert)
-temps_ineliminable = temps_brut * part_atypique          # decision D-01
+temps_transfere    = 0 if suppression_etape else sum(c.heures(occurrences_eff) for c in transfert)
+temps_ineliminable = 0 if suppression_etape else temps_brut * part_atypique   # decision D-01
 temps_net          = max(0, temps_fragmente - temps_transfere - temps_ineliminable)
 
 gain_mensuel       = temps_net * taux_horaire            # None if taux_horaire is None
@@ -254,6 +260,12 @@ gain_trois_ans         = gain_annuel * 3 - (cout.annee_1 + cout.recurrent * 2)
 | `delai_retour_naif_mois` | `5.2` |
 | `gain_trois_ans` | `11668.80` |
 
+**Second golden test (annex A.7 - the type A action on P-07):** the same entry
+with `part_volume_traitee = 0.78`, `suppression_etape = True`,
+`cout = CoutAutomatisation(jours=3, tjm=650, abonnement_mensuel=0,
+taux_maintenance=0)` must give `temps_net_heures = 26.3`, `gain_mensuel =
+1102.50`, `cout.annee_1 = 1950.00`, `delai_retour_mois = 1.8`.
+
 **Monte-Carlo (§17.2, R4).** `incertitudes()` derives one `Incertitude` per
 parameter, from measurement quality — not from a guess:
 
@@ -278,7 +290,7 @@ No `numpy`, no `statistics.gaussian`: use `random.Random.gauss` and
 
 ---
 
-## 4. Motif catalogue — lot 2 (`catalogue/`, `src/gisement/motifs.py`)
+## 4. Motif catalogue — lot 2 (`catalogue/`, `src/gisement/motifs/` (package allowed))
 
 `catalogue/motifs/<famille>.json`, one file per family of annex B (8 families,
 40 motifs). A motif is data, adding one needs no code (R25):
@@ -332,6 +344,13 @@ strings parseable by `decimal()`.
 Node 22, **no dependency**, fixed seed, reproducible byte for byte
 (`node demo/genere.mjs --verifier` compares the regenerated files with the
 committed ones and exits non-zero on drift).
+
+The **ground truth of the 23 processes is `demo/spec-processus.json`, owned by
+lot 0** (already committed): volumes, durations, spreads, transfer components,
+costs, feasibility facts, expected type, expected wave and the three traps. The
+generator produces raw channel records whose measured aggregates match that
+table; it never invents a process. `demo/donnees/attendus/processus.json` is a
+copy of it enriched with what the generator actually produced.
 
 `demo/genere.mjs --sortie demo/donnees` writes the tree below. Every file
 carries the watermark `SYNTHETIQUE — DEMONSTRATION` (in `manifeste.json` and in

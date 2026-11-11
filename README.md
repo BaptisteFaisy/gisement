@@ -86,7 +86,7 @@ exercised with fakes.
 | `docs/TEST-INSTRUCTIONS.md` | How a judge reproduces the demo |
 | `docs/RUNBOOK.md` | Deploy and operate |
 | `docs/SUBMISSION.md` | Devpost description |
-| `docs/SPEC.fr.md` | The full French specification this code implements |
+| `docs/spec/cahier-des-charges.fr.md` | The full French specification this code implements |
 
 ## Rules of the codebase
 

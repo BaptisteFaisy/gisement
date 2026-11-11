@@ -70,9 +70,19 @@ class OccurrencesMensuelles:
     """13.1 correction 4 - the monthly series, median and seasonal amplitude."""
 
     serie: tuple[Decimal, ...] = ()
+    """The monthly counts of the window."""
+
     mediane: Decimal = Decimal(0)
+    """13.1 correction 4 - the median, never the mean: a peak month is not a
+    monthly volume."""
+
     minimum: Decimal = Decimal(0)
     maximum: Decimal = Decimal(0)
+    """Published seasonal amplitude (annex D). They may be derived from the
+    weekly extremes x 4.33 when the monthly counts are smoother than the weeks
+    (decision D-14): annex A.1 publishes both a 210-465 amplitude and a 42
+    standard deviation, which only coexist at that reading."""
+
     ecart_type: Decimal = Decimal(0)
     nb_mois: int = 0
 
