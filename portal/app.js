@@ -245,13 +245,17 @@ async function basculerCorpus(corpus) {
 }
 
 async function demarrer() {
+  const demande = new URLSearchParams(location.search).get("corpus");
+  const selecteur = element("corpus");
+  if (selecteur && (demande === "reel" || demande === "demo")) selecteur.value = demande;
   try {
     const sonde = await fetch("/api/health");
     if (!sonde.ok) throw new Error("api indisponible");
     await sonde.json();
   } catch (erreur) {
-    await chargerStatique(element("corpus") ? element("corpus").value : "demo");
+    await chargerStatique(selecteur ? selecteur.value : "demo");
   }
+  if (selecteur) selecteur.value = CONFIG.corpus;
   element("mode").textContent = STATIQUE === null
     ? "mode live : API JSON" : `mode statique : figures pre-calculees - ${CONFIG.titre}`;
   const { corps } = await api("/api/campagne");
