@@ -20,7 +20,17 @@ RACINE = Path(__file__).resolve().parents[3]
 # portal directory is the source it is built from
 PORTAIL = RACINE / "site" if (RACINE / "site").is_dir() else RACINE / "portal"
 
+#: The state the server measures: the synthetic demo, or the real corpus when
+#: the server is started with `--corpus reel`. Same handlers either way.
 ETAT = handlers.Etat.demo()
+
+
+def choisir_corpus(nom: str) -> handlers.Etat:
+    """The state of the requested corpus: "demo" or "reel"."""
+    if nom == "reel":
+        return handlers.Etat.reel()
+    return handlers.Etat.demo()
+
 
 CONTENU_JSON = "application/json; charset=utf-8"
 CONTENU_HTML = "text/html; charset=utf-8"
@@ -152,8 +162,10 @@ class Gestionnaire(BaseHTTPRequestHandler):
         self._repondre(200, fichier.read_bytes(), type_contenu)
 
 
-def servir(hote: str = "127.0.0.1", port: int = 8080) -> None:
-    """Run the demo server (blocking)."""
+def servir(hote: str = "127.0.0.1", port: int = 8080, corpus: str = "demo") -> None:
+    """Run the portal server (blocking), on the demo or on the real corpus."""
+    global ETAT
+    ETAT = choisir_corpus(corpus)
     serveur = ThreadingHTTPServer((hote, port), Gestionnaire)
     print(f"Gisement - portail sur http://{hote}:{port}/ (jeton: jeton-demo-msp)")
     try:

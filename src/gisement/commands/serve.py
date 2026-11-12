@@ -18,6 +18,9 @@ def main(argv: list[str] | None = None) -> int:
     parseur = argparse.ArgumentParser(description=__doc__)
     parseur.add_argument("--hote", default="127.0.0.1")
     parseur.add_argument("--port", type=int, default=8080)
+    parseur.add_argument(
+        "--corpus", choices=["demo", "reel"], default="demo", help="corpus mesure par le serveur"
+    )
     args = parseur.parse_args(argv)
-    servir(args.hote, args.port)
+    servir(args.hote, args.port, args.corpus)
     return 0
