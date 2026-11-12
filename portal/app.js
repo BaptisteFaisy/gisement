@@ -249,7 +249,9 @@ async function demarrer() {
   const selecteur = element("corpus");
   if (selecteur && (demande === "reel" || demande === "demo")) selecteur.value = demande;
   try {
-    const sonde = await fetch("/api/health");
+    const sonde = await fetch("/api/health", {
+      headers: { Authorization: `Bearer ${JETON()}` },
+    });
     if (!sonde.ok) throw new Error("api indisponible");
     await sonde.json();
   } catch (erreur) {
