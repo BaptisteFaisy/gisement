@@ -52,6 +52,13 @@ jobs:
       - name: Size guard (< 500 lines per file, < 50 per function)
         run: python3 scripts/check_limits.py
 
+      - name: Portal syntax (the static site must parse)
+        run: |
+          # Un guillemet Python glisse dans le JavaScript du portail rend la
+          # page blanche : le runner a node, on s'en sert.
+          node --check portal/app.js
+          node --check portal/vues.js
+
       - name: Tests (offline)
         run: python3 -m pytest -m "not slow" --maxfail=20
 

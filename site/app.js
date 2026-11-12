@@ -71,8 +71,8 @@ function santeLocale() {
 /* ------------------------------------------------------------------ demo flow */
 
 async function majNav() {
-  """The section titles follow the corpus on screen: the demo has 23 processes,
-  the real corpus has the number it really measured."""
+  // The section titles follow the corpus on screen: the demo has 23
+  // processes, the real corpus the number it really measured.
   const { corps } = await api("/api/processus");
   const bouton = element("nav-processus");
   if (!bouton || !corps.ok) return;
