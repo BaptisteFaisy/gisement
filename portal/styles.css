@@ -12,45 +12,97 @@ body {
   margin: 0; background: var(--papier); color: var(--encre);
   font: 15px/1.55 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
+
+/* ------------------------------------------------------------------ bandeau */
 .bandeau {
-  display: flex; justify-content: space-between; align-items: center; gap: 24px;
-  padding: 20px 32px; background: var(--encre); color: #fff;
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 24px;
+  padding: 18px 28px; background: var(--encre); color: #fff;
 }
 .bandeau h1 { margin: 0; font-size: 24px; letter-spacing: .5px; }
-.sous-titre { margin: 4px 0 0; color: #b9c4d0; font-size: 14px; }
-.session { text-align: right; font-size: 13px; }
-.session select { display: block; margin-top: 4px; padding: 6px 8px; border-radius: 6px; border: 0; }
-main { max-width: 1040px; margin: 24px auto; padding: 0 20px; }
+.sous-titre { margin: 4px 0 0; color: #b9c4d0; font-size: 14px; max-width: 60ch; }
+.client { margin: 6px 0 0; color: #8fa0b0; font-size: 12px; font-family: ui-monospace, monospace; }
+.session { text-align: right; font-size: 13px; min-width: 260px; }
+.session select { display: block; margin-top: 4px; padding: 6px 8px; border-radius: 6px; border: 0; width: 100%; }
+.session .note { color: #8fa0b0; margin: 6px 0 0; font-size: 12px; }
+
+/* ------------------------------------------------------------------- layout */
+.layout { display: flex; gap: 20px; max-width: 1500px; margin: 20px auto; padding: 0 20px; align-items: flex-start; }
+.nav {
+  flex: 0 0 290px; position: sticky; top: 16px; background: var(--carte);
+  border: 1px solid var(--bordure); border-radius: 10px; padding: 12px;
+  max-height: calc(100vh - 40px); overflow: auto;
+}
+.nav h3 {
+  margin: 14px 6px 6px; font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--gris);
+}
+.nav h3:first-child { margin-top: 2px; }
+.nav button {
+  display: block; width: 100%; text-align: left; margin: 2px 0; padding: 7px 10px;
+  border: 0; border-radius: 6px; background: transparent; color: var(--encre);
+  font: inherit; font-size: 13.5px; cursor: pointer;
+}
+.nav button:hover { background: #eef2f5; }
+.nav button.actif { background: var(--accent); color: #fff; font-weight: 600; }
+main { flex: 1 1 auto; min-width: 0; }
+
+/* -------------------------------------------------------------------- carte */
 .carte {
   background: var(--carte); border: 1px solid var(--bordure); border-radius: 10px;
-  padding: 18px 22px; margin-bottom: 18px;
+  padding: 20px 24px;
 }
-.carte h2 { margin: 0 0 12px; font-size: 16px; color: var(--accent); text-transform: uppercase;
-  letter-spacing: .8px; }
-.actions { display: flex; gap: 10px; flex-wrap: wrap; margin: 10px 0; }
+.carte h2 { margin: 0 0 6px; font-size: 19px; color: var(--accent); }
+.carte h3 {
+  margin: 22px 0 8px; font-size: 12px; letter-spacing: .8px; text-transform: uppercase;
+  color: var(--gris); border-bottom: 1px solid var(--bordure); padding-bottom: 4px;
+}
+.note { color: var(--gris); font-size: 13px; }
+.etat { margin: 8px 0; }
+
+/* ------------------------------------------------------------------ actions */
+.actions { display: flex; gap: 10px; flex-wrap: wrap; margin: 14px 0; }
 button {
   padding: 9px 14px; border-radius: 7px; border: 1px solid var(--accent);
-  background: var(--accent); color: #fff; font-weight: 600; cursor: pointer;
+  background: var(--accent); color: #fff; font-weight: 600; cursor: pointer; font-size: 14px;
 }
 button:disabled { background: #cfd6dd; border-color: #cfd6dd; color: #8b959f; cursor: not-allowed; }
 button.secondary { background: #fff; color: var(--accent); }
-.etat { margin: 6px 0; }
-.note { color: var(--gris); font-size: 13px; }
+button.danger { background: var(--alerte); border-color: var(--alerte); }
+
+/* -------------------------------------------------------------------- data */
 .grille { display: grid; gap: 8px; }
 .ligne {
-  display: flex; justify-content: space-between; gap: 12px; padding: 8px 10px;
-  border: 1px solid var(--bordure); border-radius: 7px; background: #fbfcfd;
+  display: flex; justify-content: space-between; gap: 16px; padding: 9px 12px;
+  border: 1px solid var(--bordure); border-radius: 7px; background: #fbfcfd; margin: 4px 0;
 }
-.ligne .nom { font-weight: 600; }
-.ligne .detail { color: var(--gris); font-size: 13px; }
-.vague { font-weight: 700; color: var(--accent); margin-top: 8px; }
+.ligne .nom { font-weight: 600; flex: 0 0 auto; max-width: 45%; }
+.ligne .detail { color: var(--gris); font-size: 13px; text-align: right; }
 .verdict {
   background: #0f1a24; color: #d7e3ee; padding: 12px; border-radius: 8px;
-  overflow: auto; max-height: 320px; font-size: 13px; white-space: pre-wrap;
+  overflow: auto; max-height: 460px; font-size: 12.5px; white-space: pre-wrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
 }
-.refus { color: #ff9d9d; }
-.autorise { color: #8ee6b8; }
-table { border-collapse: collapse; width: 100%; font-size: 14px; }
-th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--bordure); }
-th { color: var(--gris); font-weight: 600; font-size: 12px; text-transform: uppercase; }
-footer { max-width: 1040px; margin: 0 auto 40px; padding: 0 20px; color: var(--gris); font-size: 13px; }
+.refus { color: #d9534f; font-weight: 600; }
+.autorise { color: #1f9d63; font-weight: 600; }
+
+table { border-collapse: collapse; width: 100%; font-size: 13px; margin: 8px 0; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--bordure); vertical-align: top; }
+th { color: var(--gris); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .4px; }
+tbody tr:hover { background: #f7fafb; }
+td a.pid { color: var(--accent); font-weight: 600; text-decoration: none; }
+td a.pid:hover { text-decoration: underline; }
+
+details { margin: 10px 0; }
+summary { cursor: pointer; color: var(--accent); font-weight: 600; font-size: 13px; }
+
+footer {
+  max-width: 1500px; margin: 0 auto 40px; padding: 0 20px; color: var(--gris); font-size: 13px;
+}
+footer a { color: var(--accent); }
+
+@media (max-width: 900px) {
+  .layout { flex-direction: column; }
+  .nav { position: static; flex: 1 1 auto; width: 100%; max-height: none; }
+  .bandeau { flex-direction: column; }
+  .session { text-align: left; width: 100%; }
+}

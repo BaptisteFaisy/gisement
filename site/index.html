@@ -11,82 +11,70 @@
   <div>
     <h1>Gisement</h1>
     <p class="sous-titre">Le travail reel, mesure. Un portefeuille de projets d'automatisation, sequence.</p>
+    <p class="client" id="client"></p>
   </div>
   <div class="session">
-    <label for="jeton">Jeton</label>
+    <label for="jeton">Role (jeton)</label>
     <select id="jeton">
       <option value="jeton-demo-msp">Consultant MSP</option>
-      <option value="jeton-demo-dpo">DPO / representants</option>
-      <option value="jeton-demo-commanditaire">Commanditaire</option>
+      <option value="jeton-demo-dpo">DPO / representants du personnel</option>
+      <option value="jeton-demo-commanditaire">Commanditaire (dirigeant)</option>
+      <option value="jeton-demo-responsable">Responsable de service</option>
+      <option value="jeton-demo-compte">Responsable de compte</option>
       <option value="jeton-autre-client">Autre client (tenant different)</option>
     </select>
+    <p class="note" id="mode"></p>
   </div>
 </header>
 
-<main>
-  <section class="carte">
-    <h2>1. Perimetre et conformite</h2>
-    <p id="etat-conformite" class="etat">Validation DPO : <strong>non enregistree</strong></p>
-    <div class="actions">
-      <button id="btn-conformite">Enregistrer la validation DPO</button>
-      <button id="btn-lancer" disabled>Lancer la mesure</button>
-      <button id="btn-suspendre" disabled>Suspendre</button>
-    </div>
-    <p class="note">Sans validation enregistree, le bouton <em>Lancer</em> reste grise et aucune
-      ingestion n'a lieu (EF-04, R1).</p>
-  </section>
+<div class="layout">
+  <nav class="nav" id="nav">
+    <h3>La mesure</h3>
+    <button data-section="conformite">1. Perimetre et conformite</button>
+    <button data-section="mesure">2. Ingestion et assainissement</button>
+    <button data-section="couverture">3. Couverture publiee</button>
+    <button data-section="motifs">4. Empreintes et motifs</button>
+    <button data-section="processus">5. Les 23 processus</button>
+    <button data-section="fiche">6. Fiche processus + ecart procedure</button>
 
-  <section class="carte">
-    <h2>2. Mesure</h2>
-    <div id="mesure" class="grille">Lancer la mesure pour voir les resultats.</div>
-  </section>
+    <h3>La decision</h3>
+    <button data-section="reference">7. Le facteur de surestimation</button>
+    <button data-section="backtest">8. Back-test multi-secteurs</button>
+    <button data-section="vagues">9. La sequence en trois vagues</button>
+    <button data-section="plan">10. Le plan sous contrainte de capacite</button>
+    <button data-section="deconseilles">11. A ne pas automatiser</button>
+    <button data-section="suivi">12. Suivi realise contre predit</button>
 
-  <section class="carte">
-    <h2>3. Couverture de la mesure</h2>
-    <p id="couverture" class="etat">La couverture est publiee, jamais implicite (10.3).</p>
-  </section>
+    <h3>Les garanties</h3>
+    <button data-section="nonattribution">13. Non-attribution (k &ge; 5)</button>
+    <button data-section="privacy">14. Privacy : bruit et preuves</button>
+    <button data-section="cedar">15. Politique Cedar / AgentCore</button>
+    <button data-section="qualite">16. Qualite mesuree (chap. 27)</button>
 
-  <section class="carte">
-    <h2>4. Une tentative de mesure individuelle</h2>
-    <p class="note">La regle k &ge; 5 est appliquee par la passerelle, avant l'outil (R5).</p>
-    <div class="actions">
-      <button id="btn-individuel">Demander une mesure par salarie</button>
-      <button id="btn-agregat">Demander une mesure agregee (service)</button>
-    </div>
-    <pre id="verdict" class="verdict"></pre>
-  </section>
+    <h3>Le produit</h3>
+    <button data-section="cout">17. Cout mesure de la cartographie</button>
+    <button data-section="connecteurs">18. Connecteurs reels</button>
+    <button data-section="rapports">19. Rapport, registre, proposition</button>
+    <button data-section="quick">20. Assets Amazon Quick</button>
+  </nav>
 
-  <section class="carte">
-    <h2>5. Cas de reference : saisie des commandes fournisseurs</h2>
-    <div id="reference" class="grille"></div>
-  </section>
-
-  <section class="carte">
-    <h2>6. Sequence : les trois vagues</h2>
-    <div id="vagues" class="grille"></div>
-  </section>
-
-  <section class="carte">
-    <h2>7. A ne pas automatiser</h2>
-    <div id="deconseilles" class="grille"></div>
-  </section>
-
-  <section class="carte">
-    <h2>8. Rapport, registre et cout</h2>
-    <div class="actions">
-      <button id="btn-rapport">Rapport dirigeant (FR)</button>
-      <button id="btn-registre">Registre de conformite</button>
-      <button id="btn-budget">Cout mesure</button>
-    </div>
-    <pre id="document" class="verdict"></pre>
-  </section>
-</main>
+  <main>
+    <section class="carte" id="contenu">
+      <h2>Chargement…</h2>
+      <p class="note">Enregistrez la validation DPO puis lancez la mesure pour rendre
+        toutes les sections actives.</p>
+    </section>
+  </main>
+</div>
 
 <footer>
   <p>Demo Distribution SAS - jeu entierement synthetique (SYNTHETIQUE - DEMONSTRATION).
-     Aucune donnee personnelle reelle. Mesure agregee au-dessus de cinq individus :
-     aucune attribution individuelle n'est techniquement possible.</p>
+     Aucune donnee personnelle reelle. Toute mesure est aggregée au-dessus de cinq individus :
+     aucune attribution individuelle n'est techniquement possible (chapitre 18).</p>
+  <p class="note"> depot <a href="https://github.com/BaptisteFaisy/gisement">BaptisteFaisy/gisement</a>
+     - 100 % hors ligne, aucun appel AWS pendant le developpement.</p>
 </footer>
 <script src="app.js"></script>
+<script src="vues.js"></script>
 </body>
 </html>

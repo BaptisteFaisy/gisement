@@ -39,16 +39,15 @@ def detecter(
     volumes_courants: Mapping[str, Decimal] | None = None,
 ) -> tuple[Alerte, ...]:
     """Every alert of a quarter, most severe first."""
-    alertes = list(_alertes_de_suivi(suivis, gisements or {}))
+    del gisements  # kept in the signature for the caller's context, unused here
+    alertes = list(_alertes_de_suivi(suivis))
     alertes.extend(_alertes_de_volume(volumes_precedents or {}, volumes_courants or {}))
     ordre = {GRAVITE_CRITIQUE: 0, GRAVITE_SURVEILLER: 1, GRAVITE_INFO: 2}
     alertes.sort(key=lambda a: (ordre.get(a.gravite, 3), a.projet_id))
     return tuple(alertes)
 
 
-def _alertes_de_suivi(
-    suivis: Sequence[SuiviTrimestriel], gisements: Mapping[str, Gisement]
-) -> Sequence[Alerte]:
+def _alertes_de_suivi(suivis: Sequence[SuiviTrimestriel]) -> Sequence[Alerte]:
     alertes: list[Alerte] = []
     for suivi in suivis:
         if suivi.ecart < ECART_CONFORME:
@@ -82,7 +81,6 @@ def _alertes_de_suivi(
                 valeur=suivi.ecart,
             )
         )
-        del gisements  # the gisement is only used by the caller for context
     return alertes
 
 

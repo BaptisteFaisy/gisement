@@ -20,14 +20,14 @@ from pathlib import Path
 RACINE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RACINE / "src"))
 
-from gisement.api import handlers  # noqa: E402
+from gisement.api import handlers, vues_mesure, vues_produits  # noqa: E402
 from gisement.api.auth import Identite  # noqa: E402
 from gisement.types.communs import Role  # noqa: E402
 
 MSP = Identite(tenant_id="T-DEMO", role=Role.CONSULTANT_MSP, utilisateur="u-consultant_msp")
 DPO = Identite(tenant_id="T-DEMO", role=Role.DPO, utilisateur="u-dpo")
 
-FICHIERS_STATIQUES = ("index.html", "styles.css", "app.js")
+FICHIERS_STATIQUES = ("index.html", "styles.css", "app.js", "vues.js")
 
 
 def _etat_lance():
@@ -81,8 +81,37 @@ def construire_carte() -> dict:
     carte["GET /api/rapports/CMP-0031?langue=en"] = _reponse(handlers.rapport(etat, "en"))
     carte["GET /api/registre-conformite/CMP-0031?langue=fr"] = _reponse(handlers.registre(etat, "fr"))
     carte["GET /api/budget"] = _reponse(handlers.budget(etat))
+    _ajouter_vues(carte, etat)
     _ajouter_mesures(carte, etat)
     return carte
+
+
+def _ajouter_vues(carte: dict, etat) -> None:
+    """Every feature view of the portal, pre-computed from the same handlers."""
+
+    def ajouter(clef, resultat):
+        carte[clef] = _reponse(resultat)
+
+    ajouter("GET /api/campagne", (200, {"ok": True, "donnees": vues_produits.campagne_courante()}))
+    ajouter("GET /api/processus", vues_mesure.processus_table(etat.resultat))
+    ajouter("GET /api/motifs", vues_mesure.motifs_mesures(etat.resultat))
+    ajouter("GET /api/catalogue", vues_mesure.catalogue_complet())
+    ajouter("GET /api/plan", vues_mesure.plan_projet(etat.resultat))
+    ajouter("GET /api/suivi", vues_produits.suivi_longitudinal(etat.resultat))
+    ajouter("GET /api/backtest", vues_produits.backtest())
+    ajouter("GET /api/evaluation", vues_produits.evaluation())
+    ajouter("GET /api/privacy", vues_produits.privacy(etat.resultat))
+    ajouter("GET /api/cedar", vues_produits.politique_cedar_vue())
+    ajouter("GET /api/connecteurs", vues_produits.connecteurs())
+    ajouter("GET /api/proposition", vues_produits.proposition(etat.resultat))
+    ajouter("GET /api/quick", vues_produits.quick_assets(etat.resultat))
+    ajouter("GET /api/cout", vues_produits.cout_detaille())
+    for mesure in etat.resultat.mesures:
+        identifiant = mesure.declare.id
+        ajouter(
+            f"GET /api/processus/{identifiant}",
+            vues_mesure.processus_fiche(etat.resultat, identifiant),
+        )
 
 
 def main(argv: list[str] | None = None) -> int:

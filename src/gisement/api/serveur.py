@@ -12,7 +12,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
-from gisement.api import handlers
+from gisement.api import handlers, vues_mesure, vues_produits
 from gisement.api.auth import tenant_depuis_jeton
 
 RACINE = Path(__file__).resolve().parents[3]
@@ -26,6 +26,45 @@ CONTENU_JSON = "application/json; charset=utf-8"
 CONTENU_HTML = "text/html; charset=utf-8"
 CONTENU_JS = "application/javascript; charset=utf-8"
 CONTENU_CSS = "text/css; charset=utf-8"
+
+
+def _route_get(chemin: str, langue: str) -> tuple[int, dict]:
+    """Dispatch one GET route. Order matters: exact paths before prefixes."""
+    resultat = ETAT.resultat
+    exactes = {
+        "/api/health": lambda: handlers.health(ETAT),
+        "/api/campagnes/courante": lambda: handlers.campagnes_detail(ETAT),
+        "/api/campagne": lambda: (200, {"ok": True, "donnees": vues_produits.campagne_courante()}),
+        "/api/projets": lambda: handlers.projets(ETAT),
+        "/api/deconseilles": lambda: handlers.deconseilles(ETAT),
+        "/api/budget": lambda: handlers.budget(ETAT),
+        "/api/processus": lambda: vues_mesure.processus_table(resultat),
+        "/api/motifs": lambda: vues_mesure.motifs_mesures(resultat),
+        "/api/catalogue": vues_mesure.catalogue_complet,
+        "/api/plan": lambda: vues_mesure.plan_projet(resultat),
+        "/api/suivi": lambda: vues_produits.suivi_longitudinal(resultat),
+        "/api/backtest": vues_produits.backtest,
+        "/api/evaluation": vues_produits.evaluation,
+        "/api/privacy": lambda: vues_produits.privacy(resultat),
+        "/api/cedar": vues_produits.politique_cedar_vue,
+        "/api/connecteurs": vues_produits.connecteurs,
+        "/api/proposition": lambda: vues_produits.proposition(resultat),
+        "/api/quick": lambda: vues_produits.quick_assets(resultat),
+        "/api/cout": vues_produits.cout_detaille,
+    }
+    if chemin in exactes:
+        return exactes[chemin]()
+    if chemin.startswith("/api/gisements/"):
+        return handlers.gisement_detail(ETAT, chemin.rsplit("/", 1)[-1])
+    if chemin.startswith("/api/processus/"):
+        return vues_mesure.processus_fiche(resultat, chemin.rsplit("/", 1)[-1])
+    if chemin.startswith("/api/rapports/"):
+        return handlers.rapport(ETAT, langue)
+    if chemin.startswith("/api/registre-conformite/"):
+        return handlers.registre(ETAT, langue)
+    if chemin.startswith("/api/projets/") and chemin.endswith("/cas-business"):
+        return handlers.cas_business_route(ETAT, chemin.split("/")[3], langue)
+    return 404, {"ok": False, "erreur": f"route inconnue : {chemin}"}
 
 
 class Gestionnaire(BaseHTTPRequestHandler):
@@ -75,39 +114,12 @@ class Gestionnaire(BaseHTTPRequestHandler):
         self._json(statut, reponse)
 
     def _api_get(self, chemin: str) -> None:
-        if chemin == "/api/health":
-            # a health probe must work without a token: it is how the portal
-            # decides between the live API and the static fallback
-            statut, reponse = handlers.health(ETAT)
-            self._json(statut, reponse)
-            return
         identite = self._identite()
         if identite is None:
             self._json(401, {"ok": False, "erreur": "jeton absent ou inconnu"})
             return
-        requete = parse_qs(urlparse(self.path).query)
-        langue = requete.get("langue", ["fr"])[0]
-        if chemin == "/api/health":
-            statut, reponse = handlers.health(ETAT)
-        elif chemin == "/api/campagnes/courante":
-            statut, reponse = handlers.campagnes_detail(ETAT)
-        elif chemin == "/api/projets":
-            statut, reponse = handlers.projets(ETAT)
-        elif chemin == "/api/deconseilles":
-            statut, reponse = handlers.deconseilles(ETAT)
-        elif chemin.startswith("/api/gisements/"):
-            statut, reponse = handlers.gisement_detail(ETAT, chemin.rsplit("/", 1)[-1])
-        elif chemin.startswith("/api/rapports/"):
-            statut, reponse = handlers.rapport(ETAT, langue)
-        elif chemin.startswith("/api/registre-conformite/"):
-            statut, reponse = handlers.registre(ETAT, langue)
-        elif chemin.startswith("/api/projets/") and chemin.endswith("/cas-business"):
-            processus_id = chemin.split("/")[3]
-            statut, reponse = handlers.cas_business_route(ETAT, processus_id, langue)
-        elif chemin == "/api/budget":
-            statut, reponse = handlers.budget(ETAT)
-        else:
-            statut, reponse = 404, {"ok": False, "erreur": f"route inconnue : {chemin}"}
+        langue = parse_qs(urlparse(self.path).query).get("langue", ["fr"])[0]
+        statut, reponse = _route_get(chemin, langue)
         self._json(statut, reponse)
 
     def _router_post(self, chemin: str, identite, corps: dict) -> tuple[int, dict]:

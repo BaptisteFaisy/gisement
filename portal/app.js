@@ -1,23 +1,27 @@
-/* Gisement - portal.
+/* Gisement - portal core.
  *
- * Two runtimes, one file:
- *  - LIVE   : the JSON API of gisement.api.serveur is reachable (/api/health).
- *             Every call carries the bearer token; the tenant comes from it,
- *             never from a parameter (EF-71); every measure goes through the
- *             gateway policy (R5).
- *  - STATIC : no backend (GitHub Pages). The pre-computed responses of
- *             data/api.json are served instead, and the demo flow (DPO
+ * Two runtimes, one front-end:
+ *  - LIVE   : the JSON API answers (local `gisement serve`, or the deployed
+ *             Lambda behind API Gateway). Every call carries the bearer token;
+ *             the tenant comes from it, never from a parameter (EF-71), and
+ *             every measure goes through the gateway policy (R5).
+ *  - STATIC : GitHub Pages, no backend. The pre-computed responses of
+ *             data/api.json are served instead and the demo flow (DPO
  *             validation -> launch -> suspend) is driven client-side. The
- *             published figures are the real ones, produced by the pipeline.
+ *             figures are the real ones, produced by the pipeline.
+ *
+ * The section renderers live in vues.js.
  */
-let STATIQUE = null;          // null = live; object = the static response map
+let STATIQUE = null;
 let etatLocal = { conforme: false, lance: false, suspendu: false };
+let sectionCourante = "conformite";
 
 const JETON = () => document.getElementById("jeton").value;
 const element = (id) => document.getElementById(id);
 
 function escape(valeur) {
-  return String(valeur ?? "").replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+  return String(valeur ?? "").replace(/[&<>]/g,
+    (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
 }
 
 async function api(chemin, options = {}) {
@@ -44,133 +48,45 @@ function apiStatique(chemin, options) {
     const corps = JSON.parse(options.body || "{}");
     clef += (corps.groupements || []).includes("individu") ? "#individu" : "#agrege";
   }
-  if (chemin === "/api/health") {
-    return { statut: 200, corps: { ok: true, donnees: {
-      statut: "en_ligne", campagne: "CMP-0031",
-      statut_campagne: etatLocal.suspendu ? "suspendue" : etatLocal.lance ? "terminee"
-        : etatLocal.conforme ? "prete" : "brouillon",
-      conformite_validee: etatLocal.conforme && !etatLocal.suspendu,
-      mesure_lancee: etatLocal.lance,
-    } } };
-  }
-  const rep = STATIQUE[clef];
-  return rep ? { statut: rep.statut, corps: rep.corps }
-               : { statut: 404, corps: { ok: false, erreur: `route statique inconnue : ${clef}` } };
+  if (chemin === "/api/health") return { statut: 200, corps: { ok: true, donnees: santeLocale() } };
+  const reponse = STATIQUE[clef];
+  if (reponse) return { statut: reponse.statut, corps: reponse.corps };
+  return { statut: 404, corps: { ok: false, erreur: `route statique inconnue : ${clef}` } };
 }
+
+function santeLocale() {
+  return {
+    statut: "en_ligne", campagne: "CMP-0031",
+    statut_campagne: etatLocal.suspendu ? "suspendue"
+      : etatLocal.lance ? "terminee" : etatLocal.conforme ? "prete" : "brouillon",
+    conformite_validee: etatLocal.conforme && !etatLocal.suspendu,
+    mesure_lancee: etatLocal.lance,
+  };
+}
+
+/* ------------------------------------------------------------------ demo flow */
 
 async function majEtat() {
   const { corps } = await api("/api/health");
   const d = corps.donnees || {};
   const valide = d.conformite_validee && !etatLocal.suspendu;
-  element("etat-conformite").innerHTML =
-    `Validation DPO : <strong>${d.conformite_validee ? "enregistree" : "non enregistree"}</strong>` +
-    ` - campagne : <strong>${escape(d.statut_campagne)}</strong>`;
-  element("btn-lancer").disabled = !valide || d.mesure_lancee;
-  element("btn-suspendre").disabled = !valide;
-}
-
-async function lancer() {
-  if (STATIQUE !== null) etatLocal.lance = true;
-  const { corps } = await api("/api/campagnes/courante/lancer", { method: "POST" });
-  if (!corps.ok) { element("mesure").textContent = corps.erreur; return; }
-  await afficherMesure();
-  await majEtat();
-}
-
-async function afficherMesure() {
-  const { corps } = await api("/api/campagnes/courante");
-  if (!corps.ok) { element("mesure").textContent = corps.erreur; return; }
-  const d = corps.donnees;
-  element("mesure").innerHTML = `
-    <div class="ligne"><span class="nom">${d.activites} activites mesurees</span>
-      <span class="detail">${d.groupes} groupes, ${d.motifs} motifs, ${d.revue_humaine} en revue humaine</span></div>
-    <div class="ligne"><span class="nom">Gisement net annuel</span>
-      <span class="detail">${d.gisement_net_annuel} EUR sur les processus identifies</span></div>
-    <div class="ligne"><span class="nom">Cout mesure de la campagne</span>
-      <span class="detail">${d.cout_mesure_usd} USD (annexe G : ~19.77 USD)</span></div>`;
-  element("couverture").innerHTML =
-    `<strong>${escape(d.couverture)}</strong><br><span class="detail">${(d.couverture_par_canal || []).join(" | ")}</span>`;
-  await afficherVagues();
-  await afficherReference();
-  await afficherDecconseilles();
-}
-
-async function afficherVagues() {
-  const { corps } = await api("/api/projets");
-  if (!corps.ok) return;
-  const d = corps.donnees;
-  const titres = { vague_1: "Vague 1 - amorcage", vague_2: "Vague 2 - structurel",
-    vague_3: "Vague 3 - transformation", aucune: "Reserve (classes, hors vagues)" };
-  let html = "";
-  for (const vague of ["vague_1", "vague_2", "vague_3", "aucune"]) {
-    const projets = d.projets.filter((p) => p.vague === vague);
-    if (!projets.length) continue;
-    html += `<div class="vague">${titres[vague]}</div>`;
-    for (const p of projets) {
-      html += `<div class="ligne"><span class="nom">${p.rang ? p.rang + ". " : ""}${p.processus_id} [${p.type}]</span>
-        <span class="detail">${p.gain_mensuel} EUR/mois - retour ${p.delai_retour_mois} mois - risque ${p.risque}</span></div>`;
-    }
+  const etat = element("etat-campagne");
+  if (etat) {
+    etat.innerHTML =
+      `Validation DPO : <strong>${d.conformite_validee ? "enregistree" : "non enregistree"}</strong>` +
+      ` &middot; campagne : <strong>${escape(d.statut_campagne)}</strong>` +
+      ` &middot; mesure : <strong>${d.mesure_lancee ? "faite" : "non lancee"}</strong>`;
   }
-  if (!d.vague1_existe) html += `<div class="ligne"><span class="nom">Vague 1 impossible</span>
-    <span class="detail">${escape(d.recommandation_elargissement)}</span></div>`;
-  element("vagues").innerHTML = html;
-}
-
-async function afficherReference() {
-  const { corps } = await api("/api/gisements/P-07");
-  if (!corps.ok) return;
-  const d = corps.donnees;
-  element("reference").innerHTML = `
-    <table><tr><th>Calcul naif</th><th>Gisement</th></tr>
-    <tr><td>${d.gain_naif_mensuel} EUR/mois</td><td>${d.gain_mensuel} EUR/mois</td></tr>
-    <tr><td>temps net ${d.temps_net} h/mois [${d.intervalle[0]} - ${d.intervalle[1]}]</td>
-    <td>facteur <strong>${d.ecart_naif}</strong> - retour ${d.delai_retour_mois} mois</td></tr></table>`;
-}
-
-async function afficherDecconseilles() {
-  const { corps } = await api("/api/deconseilles");
-  if (!corps.ok) return;
-  element("deconseilles").innerHTML = corps.donnees.map((d) =>
-    `<div class="ligne"><span class="nom">${d.processus_id}</span>
-      <span class="detail">${escape(d.motif)} - ${escape(d.seuil_atteint)}<br>${escape(d.condition_reexamen)}</span></div>`
-  ).join("");
-}
-
-async function demanderMesure(individuel) {
-  const corps = await api("/api/mesure", {
-    method: "POST",
-    body: JSON.stringify(individuel
-      ? { canal: "tickets", groupements: ["service", "individu"], taille_groupe: 1,
-          taille_resultat_apres_filtres: 1, filtres: { service: "adv" } }
-      : { canal: "tickets", groupements: ["service", "motif"], taille_groupe: 34,
-          taille_resultat_apres_filtres: 34, filtres: { service: "adv" } }),
+  document.querySelectorAll("[data-bouton]").forEach((bouton) => {
+    const role = bouton.dataset.bouton;
+    if (role === "lancer") bouton.disabled = !valide || d.mesure_lancee;
+    if (role === "suspendre") bouton.disabled = !valide;
+    if (role === "reprendre") bouton.disabled = !etatLocal.suspendu;
   });
-  const verdict = element("verdict");
-  if (corps.corps.ok) {
-    verdict.className = "verdict autorise";
-    verdict.textContent = `AUTORISE - ${JSON.stringify(corps.corps.donnees)}`;
-  } else {
-    verdict.className = "verdict refus";
-    verdict.textContent =
-      `REFUSE (${corps.statut}) - regles violees : ${(corps.corps.regles_violees || []).join(", ")}\n` +
-      `${corps.corps.erreur}`;
-  }
 }
 
-async function afficherDocument(chemin) {
-  const { corps } = await api(chemin);
-  const cible = element("document");
-  cible.className = "verdict";
-  cible.textContent = corps.donnees
-    ? (corps.donnees.rapport || corps.donnees.registre || JSON.stringify(corps.donnees, null, 2))
-    : corps.erreur;
-}
-
-/* The DPO (or a staff representative) is the only role that can validate the
-   device and suspend it (chapter 7). The scripted demo switches the token for
-   those two calls and switches back, exactly as a human would in the select. */
 async function avec_role_dpo(action) {
-  const select = document.getElementById("jeton");
+  const select = element("jeton");
   const avant = select.value;
   select.value = "jeton-demo-dpo";
   try {
@@ -183,41 +99,104 @@ async function avec_role_dpo(action) {
 async function enregistrerConformite() {
   if (STATIQUE !== null) { etatLocal.conforme = true; etatLocal.suspendu = false; }
   await avec_role_dpo(() =>
-    api("/api/campagnes/courante/conformite", { method: "POST", body: JSON.stringify({}) })
-  );
+    api("/api/campagnes/courante/conformite", { method: "POST", body: JSON.stringify({}) }));
   await majEtat();
+  await afficher(sectionCourante);
+}
+
+async function lancer() {
+  if (STATIQUE !== null) etatLocal.lance = true;
+  const { corps } = await api("/api/campagnes/courante/lancer", { method: "POST" });
+  await majEtat();
+  if (!corps.ok && STATIQUE === null) {
+    rendre(`<h2>Mesure refusee</h2><p class="refus">${escape(corps.erreur)}</p>`);
+    return;
+  }
+  await afficher("mesure");
 }
 
 async function suspendre() {
   if (STATIQUE !== null) etatLocal.suspendu = true;
   await avec_role_dpo(() => api("/api/campagnes/courante/suspendre", { method: "POST" }));
   await majEtat();
+  await afficher(sectionCourante);
 }
 
-/* Replayable demo: #demo=N puts the portal in the state N of the video script,
- * so every screen can be captured without a human clicking (docs/VIDEO.md).
- *   0 initial (Launch greyed)   1 DPO validation recorded   2 measurement run
- *   3 individual measure refused (the key moment)   4 aggregated measure allowed
- *   5 executive report displayed
- */
+async function reprendre() {
+  if (STATIQUE !== null) etatLocal.suspendu = false;
+  else await avec_role_dpo(() =>
+    api("/api/campagnes/courante/conformite", { method: "POST", body: JSON.stringify({}) }));
+  await majEtat();
+  await afficher(sectionCourante);
+}
+
+async function demanderMesure(individuel) {
+  const { statut, corps } = await api("/api/mesure", {
+    method: "POST",
+    body: JSON.stringify(individuel
+      ? { canal: "tickets", groupements: ["service", "individu"], taille_groupe: 1,
+          taille_resultat_apres_filtres: 1, filtres: { service: "adv" } }
+      : { canal: "tickets", groupements: ["service", "motif"], taille_groupe: 34,
+          taille_resultat_apres_filtres: 34, filtres: { service: "adv" } }),
+  });
+  const cible = element("verdict");
+  if (!cible) return;
+  if (corps.ok) {
+    cible.className = "verdict autorise";
+    cible.textContent = `AUTORISE (${statut}) - ${JSON.stringify(corps.donnees)}`;
+  } else {
+    cible.className = "verdict refus";
+    cible.textContent =
+      `REFUSE (${statut}) - regles violees : ${(corps.regles_violees || []).join(", ")}\n` +
+      `${corps.erreur}`;
+  }
+}
+
+/* ------------------------------------------------------------------ navigation */
+
+function rendre(html) {
+  element("contenu").innerHTML = html;
+}
+
+async function afficher(section) {
+  sectionCourante = section;
+  document.querySelectorAll(".nav button").forEach((b) =>
+    b.classList.toggle("actif", b.dataset.section === section));
+  const rendu = VUES[section];
+  if (!rendu) { rendre(`<h2>Section inconnue</h2>`); return; }
+  rendre("<h2>Chargement…</h2>");
+  try {
+    await rendu();
+  } catch (erreur) {
+    rendre(`<h2>Erreur</h2><pre class="verdict">${escape(String(erreur))}</pre>`);
+  }
+}
+
+/* Replayable demo: #demo=N puts the portal in state N of the video script. */
 async function jouer(etape) {
   if (etape >= 1) await enregistrerConformite();
-  if (etape >= 2) await lancer();
-  if (etape === 3) await demanderMesure(true);
-  if (etape === 4) await demanderMesure(false);
-  if (etape === 5) await afficherDocument("/api/rapports/CMP-0031?langue=fr");
+  if (etape >= 2) { if (STATIQUE !== null) etatLocal.lance = true; else await lancer(); }
+  if (etape === 3) { await afficher("nonattribution"); await demanderMesure(true); }
+  if (etape === 4) { await afficher("nonattribution"); await demanderMesure(false); }
+  if (etape === 5) await afficher("reference");
+  if (etape === 6) await afficher("vagues");
+  if (etape === 7) await afficher("deconseilles");
+  if (etape === 8) await afficher("rapports");
+  if (etape <= 2) await afficher("mesure");
 }
 
 function etape_demandee() {
   const brut = (location.hash || "").replace(/^#/, "");
   if (!brut) return -1;
-  const valeur = new URLSearchParams(brut).get("demo");
-  const numero = valeur === null ? NaN : parseInt(valeur, 10);
-  return Number.isNaN(numero) ? -1 : numero;
+  const params = new URLSearchParams(brut);
+  const demo = params.get("demo");
+  const section = params.get("s");
+  if (demo !== null) return parseInt(demo, 10);
+  if (section) { sectionCourante = section; return -2; }
+  return -1;
 }
 
 async function demarrer() {
-  // GitHub Pages has no backend: fall back to the pre-computed responses.
   try {
     const sonde = await fetch("/api/health");
     if (!sonde.ok) throw new Error("api indisponible");
@@ -229,18 +208,23 @@ async function demarrer() {
       STATIQUE = {};
     }
   }
+  element("mode").textContent = STATIQUE === null
+    ? "mode live : API JSON" : "mode statique : figures pre-calculees";
+  const { corps } = await api("/api/campagne");
+  if (corps.ok) {
+    const d = corps.donnees;
+    element("client").textContent =
+      `${d.id} - ${d.services.join(", ")} - fenetre ${d.fenetre} - graine ${d.graine}`;
+  }
+  document.querySelectorAll(".nav button").forEach((bouton) =>
+    bouton.addEventListener("click", () => afficher(bouton.dataset.section)));
   await majEtat();
   const etape = etape_demandee();
   if (etape >= 0) await jouer(etape);
+  else await afficher(sectionCourante);
 }
 
-document.getElementById("btn-conformite").addEventListener("click", enregistrerConformite);
-document.getElementById("btn-lancer").addEventListener("click", lancer);
-document.getElementById("btn-suspendre").addEventListener("click", suspendre);
-document.getElementById("btn-individuel").addEventListener("click", () => demanderMesure(true));
-document.getElementById("btn-agregat").addEventListener("click", () => demanderMesure(false));
-document.getElementById("btn-rapport").addEventListener("click", () => afficherDocument("/api/rapports/CMP-0031?langue=fr"));
-document.getElementById("btn-registre").addEventListener("click", () => afficherDocument("/api/registre-conformite/CMP-0031?langue=fr"));
-document.getElementById("btn-budget").addEventListener("click", () => afficherDocument("/api/budget"));
-document.getElementById("jeton").addEventListener("change", majEtat);
-demarrer();
+document.addEventListener("DOMContentLoaded", () => {
+  element("jeton").addEventListener("change", () => majEtat().then(() => afficher(sectionCourante)));
+  demarrer();
+});

@@ -71,7 +71,7 @@ def comparer_procedure(
     if not procedure.texte:
         return None
     declare_un_canal = MOTIF_PORTAIL.search(procedure.declare) is not None
-    observe_autre = Canal.COURRIELS in canaux_observes and MOTIF_COURRIEL.search(procedure.reel)
+    observe_autre = bool(Canal.COURRIELS in canaux_observes and MOTIF_COURRIEL.search(procedure.reel))
     part = part_pratique_divergente if part_pratique_divergente is not None else part_autre_canal
     majeur = bool(part is not None and part >= SEUIL_ECART_MAJEUR) or (declare_un_canal and observe_autre)
     if not (majeur or procedure.divergente):
