@@ -49,7 +49,7 @@ def test_un_gisement_qui_apparait_est_signale() -> None:
 def test_les_alertes_sont_triees_par_gravite() -> None:
     alertes = detecter(
         [
-            suivi("P-A", "2027-T1", "1000", "1100"),  # modere
+            suivi("P-A", "2027-T1", "1000", "1250"),  # ecart modere (25 %)
             suivi("P-B", "2027-T1", "1000", "100"),  # critique
         ]
     )
