@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from gisement.api.serveur import choisir_corpus
 from gisement.api import vues_produits
+from gisement.api.serveur import choisir_corpus
 
 
 def test_le_serveur_peut_servir_le_corpus_reel() -> None:
