@@ -30,8 +30,12 @@ def test_une_mesure_agregee_est_certifiee() -> None:
     assert preuve.conforme is True
     assert preuve.seuil == 5
     assert verifier(preuve) is True
-    assert "au moins 5 individus" in preuve.attestation
-    assert "34" not in preuve.attestation, "la taille ne doit pas etre publiee"
+    # the attestation follows a fixed template that never names the headcount:
+    # asserting on the wording is deterministic, asserting on the absence of a
+    # digit is not (the fingerprint prefix is hexadecimal and may contain "34")
+    assert preuve.attestation.startswith(
+        "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee)"
+    )
 
 
 def test_une_mesure_sous_le_seuil_est_certifiee_refusee() -> None:
