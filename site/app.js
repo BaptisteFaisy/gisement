@@ -70,6 +70,16 @@ function santeLocale() {
 
 /* ------------------------------------------------------------------ demo flow */
 
+async function majNav() {
+  """The section titles follow the corpus on screen: the demo has 23 processes,
+  the real corpus has the number it really measured."""
+  const { corps } = await api("/api/processus");
+  const bouton = element("nav-processus");
+  if (!bouton || !corps.ok) return;
+  const nombre = corps.donnees.nb_processus;
+  if (nombre) bouton.textContent = `5. Les ${nombre} processus`;
+}
+
 async function majEtat() {
   const { corps } = await api("/api/health");
   const d = corps.donnees || {};
@@ -105,6 +115,7 @@ async function enregistrerConformite() {
   await avec_role_dpo(() =>
     api("/api/campagnes/courante/conformite", { method: "POST", body: JSON.stringify({}) }));
   await majEtat();
+  await majNav();
   await afficher(sectionCourante);
 }
 
@@ -123,6 +134,7 @@ async function suspendre() {
   if (STATIQUE !== null) etatLocal.suspendu = true;
   await avec_role_dpo(() => api("/api/campagnes/courante/suspendre", { method: "POST" }));
   await majEtat();
+  await majNav();
   await afficher(sectionCourante);
 }
 
@@ -131,6 +143,7 @@ async function reprendre() {
   else await avec_role_dpo(() =>
     api("/api/campagnes/courante/conformite", { method: "POST", body: JSON.stringify({}) }));
   await majEtat();
+  await majNav();
   await afficher(sectionCourante);
 }
 
@@ -227,6 +240,7 @@ async function basculerCorpus(corpus) {
   element("mode").textContent =
     `mode statique : figures pre-calculees - ${CONFIG.titre}`;
   await majEtat();
+  await majNav();
   await afficher(sectionCourante);
 }
 
@@ -249,6 +263,7 @@ async function demarrer() {
   document.querySelectorAll(".nav button").forEach((bouton) =>
     bouton.addEventListener("click", () => afficher(bouton.dataset.section)));
   await majEtat();
+  await majNav();
   const etape = etape_demandee();
   if (etape >= 0) await jouer(etape);
   else await afficher(sectionCourante);
