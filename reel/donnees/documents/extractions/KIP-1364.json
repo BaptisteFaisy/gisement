@@ -1,0 +1,93 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1364",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "in discussion",
+    "texte_libre": "Status\nCurrent state: In Discussion\nDiscussion thread:here\nJIRA:ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-20788\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nThis is a follow-up from implementingKIP-1306. A Kafka consumer client today cannot tell why a rebalance happened without grepping logs.The rebalance trigger can help with triaging:\nmax.poll.interval.msexceeded implies misconfig or delayed poll loop; last-polled-seconds-ago metric can help but only provide a trend, even a single event can trigger the consumer to leave.\nMember fencing points at session timeout, GC pauses, or a duplicategroup.instance.id.\nCoordinator-initiated rebalances are regular occurrences due to join and leave requests, subscription changes, new topics resolved against a regex, assignors changed.\nApplication calls toConsumer.enforceRebalance()are expected and the application owns the context.\nExisting rebalance metrics describe frequency and latency but carry no cause dimension:rebalance-rate-per-hour, rebalance-latency-{avg,max}, rebalance-totallast-rebalance-seconds-ago, last-poll-seconds-ago\nA spike inrebalance-rate-per-hourcannot be narrowed without consumer logs.\nThe classic protocol already captures the reason internally(AbstractCoordinator.rejoinReason,set on everyrequestRejoincall).It is consumed only as the JoinGroup request's reason field and dropped afterward.\nUnder the consumer protocol, the coordinator drivesthe rebalance and knows the cause when it bumps the groupepoch; currently itonly logs it and emits an opaque metric in coordinator-metrics: consumer-group-rebalance-rate/count.\nSimilar requests for this gap in observabilityhavebeen made inKAFKA-12472; the JIRA requests for gauge client-side but after KIP-848 these have been moved broker-side. This KIP addresses the requirement but with broker/client side metrics and a new accessor in RebalanceConsumer, the callback introduced in KIP-1306.\nPublic Interfaces\nRebalanceCausejavaRebalanceCause\nOn the consumer protocol every value can occur exceptUSER_REQUESTED(enforceRebalanceis a no-op there).Onclassic,MEMBER_JOINED/MEMBER_REMOVED/ASSIGNOR_CHANGEDdo not occur(folded intoCOORDINATOR_INITIATED).\nAdditions toRebalanceConsumerjavaRebalanceConsumer\ncauseshares the existing callback-scoped lifecycle:calling it after the enclosing rebalance callback returnsthrowsIllegalStateException,consistent with all other methods onRebalanceConsumer\nAssignmentCauses field on ConsumerGroupHeartbeatResponsejsonAssignmentCauses\nA bitmask of the different assignment states for this group between the groupEpoch and memberEpoch OR'd with each other.\nBits 0-5 correspond to enums MEMBER_JOINED to REGEX_MATCHED_TOPIC in RebalanceCause with COORDINATOR_INITIATED as a generic catch-all state.\n| Bit | RebalanceCause\n| 1<<0 | MEMBER_JOINED\n| 1<<1 | MEMBER_REMOVED\n| 1<<2 | SUBSCRIPTION_CHANGED\n| 1<<3 | TOPIC_METADATA_CHANGED\n| 1<<4 | ASSIGNOR_CHANGED\n| 1<<5 | REGEX_MATCHED_TOPIC\n| 1<<6 | COORDINATOR_INITIATED(generic/unclassified)\nProposed Changes\nIn the consumer protocol, epoch increments and the heartbeat response are async, so the classic approach of request to rebalance cause does not cleanly apply. Many members could send their heartbeat requests any of which can trigger a new assignment causing partition add/revoke on the consumer. A lagging member adopts the latest target assignment and skips the intermediate state changes between epochs from the last heartbeat. Therefore, a single coordinator reason does not fit the real \"cause\" of a rebalance for that particular member. To let the consumer client calculate the intermediate states, we return a bit mask of each state from the last member epoch to the current group epoch. We only include the reasons in a heartbeat response when the member indeed needs a new assignment - which is the real trigger for a rebalance to be triggered on the client anyway.\nCoordinator\nEach protocol "
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1364",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Bit",
+        "RebalanceCause"
+      ],
+      "lignes": [
+        [
+          "1&lt;&lt;0",
+          "MEMBER_JOINED"
+        ],
+        [
+          "1&lt;&lt;1",
+          "MEMBER_REMOVED"
+        ],
+        [
+          "1&lt;&lt;2",
+          "SUBSCRIPTION_CHANGED"
+        ],
+        [
+          "1&lt;&lt;3",
+          "TOPIC_METADATA_CHANGED"
+        ],
+        [
+          "1&lt;&lt;4",
+          "ASSIGNOR_CHANGED"
+        ],
+        [
+          "1&lt;&lt;5",
+          "REGEX_MATCHED_TOPIC"
+        ],
+        [
+          "1&lt;&lt;6",
+          "COORDINATOR_INITIATED (generic/unclassified)"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Metric",
+        "Tag",
+        "Semantics"
+      ],
+      "lignes": [
+        [
+          "rebalance-cause-total",
+          "cause",
+          "Incidence count per cause"
+        ],
+        [
+          "rebalance-cause-rate-per-hour",
+          "cause",
+          "Incidence rate per cause"
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Metric",
+        "Added tag",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "consumer-group-rebalance-rate/count",
+          "cause",
+          "Existing metric, now also published per cause"
+        ]
+      ],
+      "nom": "tableau_3"
+    }
+  ]
+}

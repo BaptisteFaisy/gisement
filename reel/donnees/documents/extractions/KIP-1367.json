@@ -1,0 +1,20 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1367",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state: Under discussion\nDiscussion thread:here\nJIRA:here\nReleased:<Kafka Version>\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nMessage types in Kafka are keyed by a uniqueapiKeyto uniquely identify them. These include all RPC types used by the brokers and controllers, metadata records stored in the KRaft metadata log and the data stored by coordinators.\nKafka contributors regularly introduce new message types in order to evolve the Kafka protocol. However, contributors run the risk of adopting anapiKeythat is subsequently claimed by another proposal while they prototype their work. This is a problem shared by other Apache projects as well [0]\nA workaround for this is for contributors to use a large value forapiKeywhich is currently unused and is unlikely to be used in the near future.apiKeyis represented as ashortwith non-negative range from[0, 32767]. This KIP proposes formalising the reservation of the last 1024 values, i.e.[31744, 32767]for private use, ensuring future protocol changes would take the reserved values into account.\nPublic InterfacesjavaMessageGenerator\njavaMessageSpec\ngroovybuild.gradle\nProposed Changes\nThe change involves modifyingMessageGeneratorto accept a boolean flag--allow-customwhich defaults tofalse. In addition, we add a new method,MessageSpec#isCustomwhich returns true if theapiKeyis in the private reserved range.\nMessageGeneratorwould only generate Java types for MessageSpecs withapiKey >= CUSTOM_MIN_API_KEYif--allow-customis set to true and fail with a runtime exception otherwise.\nThe Gradle taskprocessMessagesis also modified to read a propertyallowCustomSpecsand pass--allow-customflag appropriately.\nHaving this opt-in ensures that upstream PRs with a private spec inadvertently will result in the Gradle task failing.\nCompatibility, Deprecation, and Migration Plan\nThe change is completely backwards compatible and incurs no cost to existing users. The range forapiKeysis quite large with about ~100 values being currently used. Reserving the last1024entries for private use should not cause any issues to existing users.\nTest Plan\nMessageGeneratorTestwill be updated to ensure the correctness of--allow-custom\nDocumentation Plan\nThe documentation in Kafka Protocol section will be updated to note that the last 1024 values forapiKeysare reserved.\nThe change will also be mentioned in the release notes.\nRejected Alternatives\nUsing negative values\nWhile this will work, it will make any future work that tries to transform the value into the negative space more involved."
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1367",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": []
+}

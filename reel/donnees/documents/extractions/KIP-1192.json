@@ -1,0 +1,22 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1192",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "accepted",
+    "texte_libre": "Status\nCurrent state: Accepted\nDiscussion thread:here\nVote thread:here\nJIRA:here\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nConsoleConsumer and ConsumerPerformance serve different purposes but share common functionality for message consumption. Currently, there's an inconsistency in their command-line interfaces:\nConsoleConsumer supports an --include argument that allows users to specify a regular expression pattern to filter topics for consumption\nConsumerPerformance lacks this topic filtering capability, requiring users to specify a single topic explicitly via --topic argument\nThis inconsistency creates two problems:\nSimilar tools should provide similar topic selection capabilities for better user experience\nUsers cannot test consumer performance across multiple topics or dynamically matching topic sets, making it difficult to test realistic scenarios\nPublic Interfaces\nThe ConsumerPerformance tool will be enhanced with the following new argument:bash\nWhen the --include argument is provided:\nThe consumer will subscribe to topics using pattern-based subscription instead of explicit topic list\nAll topics matching the regular expression pattern will be consumed from\nProposed Changes\nThe --include argument will be added to the ConsumerPerfOptions class.\nThis class will ensure that --include and --topic are mutually exclusive and one of them is required.\nCompatibility, Deprecation, and Migration Plan\nThis change is fully backwards compatible as it introduces a new optional argument.\nTest Plan\nThe ConsumerPerformanceTest will be integrated with the following tests:\nTest argument parsing for valid and invalid regex patterns\nTest mutual exclusivity of --include and --topic arguments\nTest one of --include and --topic arguments is required\nRejected Alternatives\nNo rejected alternative."
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1192",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": []
+}

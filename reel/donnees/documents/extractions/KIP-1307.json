@@ -1,0 +1,264 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1307",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "voting",
+    "texte_libre": "Status\nCurrent state: Voting\nDiscussion thread:Link\nVoting thread:Link\nJIRA:ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-20386\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nThe Kafka client has good metrics for network I/O,fetch behaviour,and group coordination,but the clientside processing pipeline has blind spots:\nSerialization/deserialization has no timing or per-key/value size metrics.The producer reportsrecord-size-avg/maxfor total record size, but there's no way to see key vs. value size independently or measure how longserialize()/deserialize()takes. When a schema change turns a 200us deserialization into 2ms, the regression is invisible where teams chase broker and network metrics before discovering their own serde is the bottleneck. Custom SerDes calling schema registries or decryption services can dominate processing time with no visibility.\nInterceptors execute in the hot path with no metrics.ProducerInterceptor.onSend()andConsumerInterceptor.onConsume()run on every record, but there are no timing or error metrics. A slow interceptor is indistinguishable from a slow broker. The client already catches and suppresses interceptor exceptions. Adding timing and error counts around those call sites is minimal effort.\nProposed Changes\nAdd client-side metrics using the existingMetrics/Sensorinfrastructure.Timing metrics usemetrics.recording.level=DEBUGto avoidnanoTime()overhead at default levels.Size and error metrics areINFO(always on).\nProducer Serialization Metrics\nGroup:producer-metrics\n| Metric Name | Type | Level | Tags | Description\n| serialization-time-ns-avg | Avg | DEBUG | serializer,type | Avg nanoseconds forSerializer.serialize()\n| serialization-time-ns-max | Max | DEBUG | serializer,type | Max nanoseconds forSerializer.serialize()\n| serialized-size-bytes-avg | Avg | INFO | serializer,type | Avg size ofbyte[]returned byserialize()\n| serialized-size-bytes-max | Max | INFO | serializer,type | Max size ofbyte[]returned byserialize()\n| serialization-error-rate | Rate | INFO | serializer,type | Rate ofSerializationException\n| serialization-error-total | CumulativeCount | INFO | serializer,type | TotalSerializationExceptioncount\nTags:serializer=simple class name(e.g.StringSerializer),type=keyorvalue.All serde and interceptor metrics also carry the standardclient-idtag already present on all client metrics,which distinguishes producers/consumers using the same serializer class against different backends.\nDiffers from existingrecord-size-avg:that metric measures total record size(headers+key+value).The new metric measures key or value bytes independently.\nTag cardinality:Bounded by the number of distinct serializer class names configured on the client(typically 1-2)and is static for the producer's lifetime.Two producers usingKafkaAvroSerializerwith different schema registries report under the sameserializertag but are distinguished byclient-id.\nNull values (tombstones):Whenserialize()returns null(tombstone),no size is recorded for that call.This avoids skewing the average with zero-byte entries that don't represent real serialization work.\nScope:These metrics cover key and value serialization only.Header serialization/deserialization is out of scope for this KIP.\nConsumer Deserialization Metrics\nGroup:consumer-metrics\n| Metric Name | Type | Level | Tags | Description\n| deserialization-time-ns-avg | Avg | DEBUG | deserializer,type | Avg nanoseconds forDeserializer.deserialize()\n| deserialization-time-ns-max | Max | DEBUG | deserializer,type | Max nanoseconds forDeserializer.deserialize()\n| deserialized-size-bytes-avg | Avg | INFO | deserializer,type | Avg size of inputbyte[]todeserialize()\n| deserialized-size-bytes-max | Max | INFO | deserializer,type | Max size of inputbyte[]todeserialize()\n| deserialization-error-rate | Rate | INFO | deserializer,type | Rate of deserialization errors\n| deserialization-error-total | CumulativeCount"
+  },
+  "confiance": 0.8,
+  "document_id": "KIP-1307",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Metric Name",
+        "Type",
+        "Level",
+        "Tags",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "serialization-time-ns-avg",
+          "Avg",
+          "DEBUG",
+          "serializer, type",
+          "Avg nanoseconds for Serializer.serialize()"
+        ],
+        [
+          "serialization-time-ns-max",
+          "Max",
+          "DEBUG",
+          "serializer, type",
+          "Max nanoseconds for Serializer.serialize()"
+        ],
+        [
+          "serialized-size-bytes-avg",
+          "Avg",
+          "INFO",
+          "serializer, type",
+          "Avg size of byte[] returned by serialize()"
+        ],
+        [
+          "serialized-size-bytes-max",
+          "Max",
+          "INFO",
+          "serializer, type",
+          "Max size of byte[] returned by serialize()"
+        ],
+        [
+          "serialization-error-rate",
+          "Rate",
+          "INFO",
+          "serializer, type",
+          "Rate of SerializationException"
+        ],
+        [
+          "serialization-error-total",
+          "CumulativeCount",
+          "INFO",
+          "serializer, type",
+          "Total SerializationException count"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Metric Name",
+        "Type",
+        "Level",
+        "Tags",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "deserialization-time-ns-avg",
+          "Avg",
+          "DEBUG",
+          "deserializer, type",
+          "Avg nanoseconds for Deserializer.deserialize()"
+        ],
+        [
+          "deserialization-time-ns-max",
+          "Max",
+          "DEBUG",
+          "deserializer, type",
+          "Max nanoseconds for Deserializer.deserialize()"
+        ],
+        [
+          "deserialized-size-bytes-avg",
+          "Avg",
+          "INFO",
+          "deserializer, type",
+          "Avg size of input byte[] to deserialize()"
+        ],
+        [
+          "deserialized-size-bytes-max",
+          "Max",
+          "INFO",
+          "deserializer, type",
+          "Max size of input byte[] to deserialize()"
+        ],
+        [
+          "deserialization-error-rate",
+          "Rate",
+          "INFO",
+          "deserializer, type",
+          "Rate of deserialization errors"
+        ],
+        [
+          "deserialization-error-total",
+          "CumulativeCount",
+          "INFO",
+          "deserializer, type",
+          "Total deserialization error count"
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Metric Name",
+        "Type",
+        "Level",
+        "Tags",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "interceptor-onSend-time-ns-avg",
+          "Avg",
+          "DEBUG",
+          "interceptor",
+          "Avg nanoseconds for onSend()"
+        ],
+        [
+          "interceptor-onSend-time-ns-max",
+          "Max",
+          "DEBUG",
+          "interceptor",
+          "Max nanoseconds for onSend()"
+        ],
+        [
+          "interceptor-onSend-error-rate",
+          "Rate",
+          "INFO",
+          "interceptor",
+          "Rate of exceptions in onSend()"
+        ],
+        [
+          "interceptor-onSend-error-total",
+          "CumulativeCount",
+          "INFO",
+          "interceptor",
+          "Total exceptions in onSend()"
+        ],
+        [
+          "interceptor-onAcknowledgement-time-ns-avg",
+          "Avg",
+          "DEBUG",
+          "interceptor",
+          "Avg nanoseconds for onAcknowledgement()"
+        ],
+        [
+          "interceptor-onAcknowledgement-time-ns-max",
+          "Max",
+          "DEBUG",
+          "interceptor",
+          "Max nanoseconds for onAcknowledgement()"
+        ],
+        [
+          "interceptor-onAcknowledgement-error-rate",
+          "Rate",
+          "INFO",
+          "interceptor",
+          "Rate of exceptions in onAcknowledgement()"
+        ],
+        [
+          "interceptor-onAcknowledgement-error-total",
+          "CumulativeCount",
+          "INFO",
+          "interceptor",
+          "Total exceptions in onAcknowledgement()"
+        ]
+      ],
+      "nom": "tableau_3"
+    },
+    {
+      "colonnes": [
+        "Metric Name",
+        "Type",
+        "Level",
+        "Tags",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "interceptor-onConsume-time-ns-avg",
+          "Avg",
+          "DEBUG",
+          "interceptor",
+          "Avg nanoseconds for onConsume()"
+        ],
+        [
+          "interceptor-onConsume-time-ns-max",
+          "Max",
+          "DEBUG",
+          "interceptor",
+          "Max nanoseconds for onConsume()"
+        ],
+        [
+          "interceptor-onConsume-error-rate",
+          "Rate",
+          "INFO",
+          "interceptor",
+          "Rate of exceptions in onConsume()"
+        ],
+        [
+          "interceptor-onConsume-error-total",
+          "CumulativeCount",
+          "INFO",
+          "interceptor",
+          "Total exceptions in onConsume()"
+        ],
+        [
+          "interceptor-onCommit-time-ns-avg",
+          "Avg",
+          "DEBUG",
+          "interceptor",
+          "Avg nanoseconds for onCommit()"
+        ],
+        [
+          "interceptor-onCommit-time-ns-max",
+          "Max",
+          "DEBUG",
+          "interceptor",
+          "Max nanoseconds for onCommit()"
+        ],
+        [
+          "interceptor-onCommit-error-rate",
+          "Rate",
+          "INFO",
+          "interceptor",
+          "Rate of exceptions in onCommit()"
+        ],
+        [
+          "interceptor-onCommit-error-total",
+          "CumulativeCount",
+          "INFO",
+          "interceptor",
+          "Total exceptions in onCommit()"
+        ]
+      ],
+      "nom": "tableau_4"
+    }
+  ]
+}

@@ -1,0 +1,153 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1233",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state: Under discussion\nDiscussion thread:here\nJIRA:here[Change the link from KAFKA-1 to your own ticket]\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nApache Kafka has many kinds of resources with names or identifiers, such as topics and consumer groups. However, unlike many systems, it is quite lax about specifying or enforcing maximum lengths for these identifiers. There are many ways in which accidentally or maliciously huge identifiers could cause problems, such as inflating the size of the data structures used by the group coordinator for managing group membership, or making command output unreadable. This KIP proposes setting maximum lengths for all resource names and identifiers present in the requests of the Kafka protocol.\nThe practical limit today for most identifiers is the serialization limit of a string in the Kafka protocol. For example, if you try to create a topic with a massively long name, a runtime exception is thrown in the admin client like this:\nAlthough a topic name limit is applied by the broker, it is still possible to get an ugly client-side exception even in the case of topic names. For other identifiers such as group IDs, it is only the serialization limit which prevents excessively long identifiers because there is no broker-side limit defined. This KIP introduces broker-side limits for all identifiers.\nProposed Changes\nThis KIP proposes enforcing maximum lengths for all resource names and identifiers, starting in Apache Kafka 5.0. The suggested maximum values are chosen to be sufficiently high that they are very unlikely to impact any existing users, while providing stronger enforcement of limits in the Kafka protocol.\nIt is proposed that all resource names for which configuration properties and ACLs can be defined take the same maximum length as currently enforced for topic names, which is 249 characters. This is still a generous limit for other identifiers such as client IDs, so the KIP proposes the same limit for almost all resource names and identifiers.\nThe following table summarises the proposal:\n|\nResource name or identifier |\nCurrent limit |\nProposed broker limit |\nProposed error code when broker limit breached |\nNotes\n|\nTopic name |\n249 characters |\n249 characters -no change |\nINVALID_TOPIC_EXCEPTION(17) - no change |\n|\nGroup ID |\nSerialization limit of a string |\n249 characters |\nINVALID_GROUP_ID(24) |\n|\nGroup member ID |\nSerialization limit of a string |\n36 characters |\nINVALID_REQUEST(42) |\nThe group member ID is not specified by the user. In KIPs 848, 932 and 1071, the client library is intended to generate a UUID to be used as the member ID. As a result, the maximum should be the length of a serialized UUID, such as8D8AC610-566D-4EF0-9C22-186B2A5ED792.\n|\nGroup instance ID |\nSerialization limit of a string |\n249 characters |\nRESOURCE_IDENTIFIER_TOO_LARGE(new) |\n|\nClient ID |\nSerialization limit of a string |\n249 characters |\nRESOURCE_IDENTIFIER_TOO_LARGE(new) |\n|\nTransactional ID |\nSerialization limit of a string |\n249 characters |\nRESOURCE_IDENTIFIER_TOO_LARGE(new) |\n|\nOffset commit metadata |\n4096 bytes |\n4096 bytes - no change |\nOFFSET_METADATA_TOO_LARGE(12) - no change |\nControlled by theoffset.metadata.max.bytesconfiguration property.\n|\nRack ID |\nSerialization limit of a string |\n249 characters |\nRESOURCE_IDENTIFIER_TOO_LARGE(new) |\n|\nResource name for configs and ACLs |\nSerialization limit of a string |\n249 characters |\nRESOURCE_IDENTIFIER_TOO_LARGE(new) |\n|\nConfig key name |\nSerialization limit of a string |\n249 characters |\nINVALID_CONFIG(40) |\nIn some cases, config key names are created from concatenation. The proposed limit should still be sufficient for this.\n|\nConfig values |\n32767 characters |\n32767 characters - no change |\nINVALID_CONFIG(40) |\nThis limit is applied for config values which are not otherwise limited.\n|\nSCRAM user name |\nSerialization limit of a string |\n249"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1233",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Resource name or identifier",
+        "Current limit",
+        "Proposed broker limit",
+        "Proposed error code when broker limit breached",
+        "Notes"
+      ],
+      "lignes": [
+        [
+          "Topic name",
+          "249 characters",
+          "249 characters -no change",
+          "INVALID_TOPIC_EXCEPTION (17) - no change",
+          ""
+        ],
+        [
+          "Group ID",
+          "Serialization limit of a string",
+          "249 characters",
+          "INVALID_GROUP_ID (24)",
+          ""
+        ],
+        [
+          "Group member ID",
+          "Serialization limit of a string",
+          "36 characters",
+          "INVALID_REQUEST (42)",
+          "The group member ID is not specified by the user. In KIPs 848, 932 and 1071, the client library is intended to generate a UUID to be used as the member ID. As a result, the maximum should be the length of a serialized UUID, such as 8D8AC610-566D-4EF0-9C22-186B2A5ED792 ."
+        ],
+        [
+          "Group instance ID",
+          "Serialization limit of a string",
+          "249 characters",
+          "RESOURCE_IDENTIFIER_TOO_LARGE (new)",
+          ""
+        ],
+        [
+          "Client ID",
+          "Serialization limit of a string",
+          "249 characters",
+          "RESOURCE_IDENTIFIER_TOO_LARGE (new)",
+          ""
+        ],
+        [
+          "Transactional ID",
+          "Serialization limit of a string",
+          "249 characters",
+          "RESOURCE_IDENTIFIER_TOO_LARGE (new)",
+          ""
+        ],
+        [
+          "Offset commit metadata",
+          "4096 bytes",
+          "4096 bytes - no change",
+          "OFFSET_METADATA_TOO_LARGE (12) - no change",
+          "Controlled by the offset.metadata.max.bytes configuration property."
+        ],
+        [
+          "Rack ID",
+          "Serialization limit of a string",
+          "249 characters",
+          "RESOURCE_IDENTIFIER_TOO_LARGE (new)",
+          ""
+        ],
+        [
+          "Resource name for configs and ACLs",
+          "Serialization limit of a string",
+          "249 characters",
+          "RESOURCE_IDENTIFIER_TOO_LARGE (new)",
+          ""
+        ],
+        [
+          "Config key name",
+          "Serialization limit of a string",
+          "249 characters",
+          "INVALID_CONFIG (40)",
+          "In some cases, config key names are created from concatenation. The proposed limit should still be sufficient for this."
+        ],
+        [
+          "Config values",
+          "32767 characters",
+          "32767 characters - no change",
+          "INVALID_CONFIG (40)",
+          "This limit is applied for config values which are not otherwise limited."
+        ],
+        [
+          "SCRAM user name",
+          "Serialization limit of a string",
+          "249 characters",
+          "UNACCEPTABLE_CREDENTIAL (93)",
+          ""
+        ],
+        [
+          "ACL principal",
+          "Serialization limit of a string",
+          "249 characters",
+          "RESOURCE_IDENTIFIER_TOO_LARGE (new)",
+          ""
+        ],
+        [
+          "ACL host",
+          "Serialization limit of a string",
+          "249 characters",
+          "RESOURCE_IDENTIFIER_TOO_LARGE (new)",
+          ""
+        ],
+        [
+          "Log directory name",
+          "Serialization limit of a string",
+          "260 characters",
+          "LOG_DIR_NOT_FOUND (57)",
+          "Although the Kafka protocol limit is the serialization limit of a string, the practical limit is the operating system's limit. In a POSIX system, that is 260 characters."
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Configuration",
+        "Description",
+        "Values"
+      ],
+      "lignes": [
+        [
+          "resource.identifier.limit.enable",
+          "Whether the cluster enforces maximum sizes for resource names and identifiers.",
+          "In Kafka 4.x: default false In Kafka 5.0 and later: default true"
+        ]
+      ],
+      "nom": "tableau_2"
+    }
+  ]
+}

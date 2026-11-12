@@ -1,0 +1,20 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1374",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "",
+    "texte_libre": "Status\nCurrent state: \"Under Discussion\"\nDiscussion thread:here\nJIRA:here\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nStreamsBuilder.globalTable()currently lags behind the functionality ofStreamsBuilder.addGlobalStore()which lets users rekey data from a topic before populating theGlobalStateStore.StreamsBuilder.globalTablecurrently does not let a client remap keys when building aGlobalKTablefrom a topic. It would be useful to let clients remap when reading from a topic to build a global store.\nPublic Interfaces\nChanges to StreamsBuilder\nfour new overrides will be added to StreamsBuilder.globalTable. They will mirror the existing methods but have a KeyValueMapper as an argument and more generic type parameters relevant for mapping.\njava\nProposed Changes\nThis KIP introduces 4 new overloads toglobalTablethat lets clients remap keys when building aGlobalKTable. The current overrides ofglobalTablesource theirGlobalKTablewith an internalKTableSource.KTableSourceprovides no callback to remap keys so we will create the following new internal classes.\njava\nThe behavior of these classes is similar to the existingKTableSourceandKTableSourceProcessorclasses. The difference is that aKeyValueMapperis run at the start ofKTableSourceWithRemappingProcessor.process. The mapper is a data member ofKTableSourceWithRemappingand is injectable via a constructor.\nTo avoid code duplication, the implementation ofKTableSourcewill be changed to compose a dlegateKTableSourceWithRemappingwith an identityKeyValueMapperwhich it will delegate its logic to.KTableSourceProcessorwill be deleted.\nThe table semantics of converting values toChange<V>objects will be now owned byKTableSourceWithRemappingProcessorinstead ofKTableSourceProcessor.\nCompatibility, Deprecation, and Migration Plan\nThis change is fully backwards compatable. Existing users should not be affected. No externally facing classes, methods, or interfaces will be deleted. The internals of the existingglobalTablemethods will be changed but this should not be observable by a Kafka user.\nTest Plan\nWe will add unit tests for the \"WithRemapping\"classes and integration tests for the new overrides ofglobalTable. We will use existing unit and integration tests to confirm there are no regressions in the behaviorKTableSourceand the existingglobalTableoverrides.\nWe may need to add more unit and integration tests for the existing components to cover scenarios that may differ when run through a unit remapper (i.g. null keys).\nRejected Alternatives\nUse a ProcessorSupplier instead of a KeyValueMapper as an argument for globalTable\nThis would let a user supply aProcessorSupplierinstead of aKeyValueMapper,letting them perform arbitrary stateless processing steps from the topic instead of just remapping. The problem is that aGlobalStateStoreis associated with only one state updaterProcessorSupplier.KTableSourceis the currently used as the processor supplier, but letting a user inject their own processor supplier means that the user must have theirProcessorSupplierimplement table semantics. Using aKeyValueMapperabstracts the table semantics change away from the user. ChangingGlobalStateStoreto use more than oneProcessorSupplierto update its state seems like a nontrivial change that may have unforseen consequences."
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1374",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": []
+}

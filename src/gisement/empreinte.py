@@ -19,22 +19,240 @@ import unicodedata
 
 MOT_VIDE = "activite"
 
-#: Verbs of the observation vocabulary, FR and EN. Matched on the word start.
+#: Verbs of the observation vocabulary, FR and EN. Matched on the whole word.
+#:
+#: The English aliases were added for the REAL corpus (`reel/`, a public ASF
+#: project): without them every English activity falls back to the catch-all
+#: `activite` and the fingerprint cannot group anything. Three attachments are
+#: deliberate and contestable, and are said here rather than hidden:
+#:   - `fix` / `resolve` / `handle` -> `verifier`: in a real ticket flow the
+#:     gesture is "check that the case is really closed", not a new entry;
+#:   - `add` / `implement` / `update` -> `saisir`: entering data in a system;
+#:   - `migrate` / `upgrade` / `convert` -> `transcrire`: moving a content from
+#:     one form to another, which is what re-keying is.
 VERBES: dict[str, tuple[str, ...]] = {
-    "saisir": ("saisir", "saisie", "enregistrer", "saisit"),
-    "recopier": ("recopier", "recopie", "copier", "saisir", "reporter"),
-    "transcrire": ("transcrire", "transcription", "ressaisir", "ressaisie"),
-    "verifier": ("verifier", "verification", "controle", "controler", "control"),
-    "rapprocher": ("rapprocher", "rapprochement", "confronter"),
-    "relancer": ("relancer", "relance", "relances"),
-    "classer": ("classer", "classement", "indexer", "indexation", "ranger", "archiver", "archivage"),
-    "rechercher": ("rechercher", "recherche", "chercher", "consulter"),
-    "rediger": ("rediger", "redaction", "preparer", "preparation", "synthetiser"),
-    "envoyer": ("envoyer", "transmettre", "diffuser", "transmission", "diffusion"),
-    "extraire": ("extraire", "extraction", "exporter", "consolider", "consolidation"),
-    "planifier": ("planifier", "planification", "organiser", "affecter"),
-    "signer": ("signer", "signature", "valider", "validation", "approuver"),
-    "consulter": ("consulter", "consultation", "lire", "lecture"),
+    "saisir": (
+        "saisir",
+        "saisie",
+        "enregistrer",
+        "saisit",
+        "enter",
+        "entry",
+        "input",
+        "record",
+        "key",
+        "log",
+        "add",
+        "added",
+        "create",
+        "created",
+        "implement",
+        "introduce",
+        "set",
+        "update",
+        "updated",
+    ),
+    "recopier": (
+        "recopier",
+        "recopie",
+        "copier",
+        "saisir",
+        "reporter",
+        "copy",
+        "copied",
+        "paste",
+        "retype",
+        "duplicate",
+        "mirror",
+        "port",
+        "backport",
+    ),
+    "transcrire": (
+        "transcrire",
+        "transcription",
+        "ressaisir",
+        "ressaisie",
+        "transcribe",
+        "translate",
+        "convert",
+        "migrate",
+        "migration",
+        "upgrade",
+        "transform",
+    ),
+    "verifier": (
+        "verifier",
+        "verification",
+        "controle",
+        "controler",
+        "control",
+        "verify",
+        "verified",
+        "check",
+        "checked",
+        "checks",
+        "validate",
+        "validated",
+        "validation",
+        "test",
+        "tested",
+        "tests",
+        "assert",
+        "confirm",
+        "fix",
+        "fixed",
+        "fixes",
+        "resolve",
+        "resolved",
+        "handle",
+        "handled",
+        "debug",
+        "flaky",
+    ),
+    "rapprocher": (
+        "rapprocher",
+        "rapprochement",
+        "confronter",
+        "reconcile",
+        "match",
+        "cross-check",
+        "compare",
+        "align",
+        "merge",
+    ),
+    "relancer": (
+        "relancer",
+        "relance",
+        "relances",
+        "remind",
+        "reminder",
+        "follow-up",
+        "followup",
+        "escalate",
+        "nudge",
+        "ping",
+        "reopen",
+    ),
+    "classer": (
+        "classer",
+        "classement",
+        "indexer",
+        "indexation",
+        "ranger",
+        "archiver",
+        "archivage",
+        "file",
+        "filing",
+        "sort",
+        "organize",
+        "archive",
+        "label",
+        "tag",
+        "categorize",
+        "triage",
+        "rename",
+        "cleanup",
+        "clean",
+    ),
+    "rechercher": (
+        "rechercher",
+        "recherche",
+        "chercher",
+        "consulter",
+        "search",
+        "find",
+        "lookup",
+        "investigate",
+        "investigation",
+        "trace",
+        "discover",
+        "detect",
+    ),
+    "rediger": (
+        "rediger",
+        "redaction",
+        "preparer",
+        "preparation",
+        "synthetiser",
+        "write",
+        "writing",
+        "draft",
+        "document",
+        "documentation",
+        "describe",
+        "summarize",
+        "report",
+        "propose",
+        "proposal",
+    ),
+    "envoyer": (
+        "envoyer",
+        "transmettre",
+        "diffuser",
+        "transmission",
+        "diffusion",
+        "send",
+        "sent",
+        "notify",
+        "notification",
+        "post",
+        "publish",
+        "release",
+        "dispatch",
+        "email",
+        "announce",
+    ),
+    "extraire": (
+        "extraire",
+        "extraction",
+        "exporter",
+        "consolider",
+        "consolidation",
+        "extract",
+        "export",
+        "parse",
+        "dump",
+        "collect",
+        "harvest",
+        "generate",
+        "build",
+        "compile",
+    ),
+    "planifier": (
+        "planifier",
+        "planification",
+        "organiser",
+        "affecter",
+        "plan",
+        "schedule",
+        "assign",
+        "prioritize",
+        "milestone",
+    ),
+    "signer": (
+        "signer",
+        "signature",
+        "valider",
+        "validation",
+        "approuver",
+        "sign",
+        "approve",
+        "approval",
+        "review",
+        "reviewed",
+        "vote",
+    ),
+    "consulter": (
+        "consulter",
+        "consultation",
+        "lire",
+        "lecture",
+        "read",
+        "view",
+        "consult",
+        "inspect",
+        "watch",
+    ),
 }
 
 #: Words that carry no signal for the fingerprint.
@@ -139,6 +357,10 @@ def verbe(texte: str) -> str:
     return MOT_VIDE
 
 
+#: Every alias of the vocabulary, FR and EN (used by the real-corpus tooling).
+ALIAS_VERBES = frozenset(alias for alias_verbe in VERBES.values() for alias in alias_verbe)
+
+
 def objets(texte: str, maximum: int = 6) -> tuple[str, ...]:
     """The most specific words of the activity, used as the object part."""
     candidats = [m for m in mots_pertinents(texte) if m not in VERBES]
@@ -150,9 +372,19 @@ def systemes(activite_systemes: tuple[str, ...] | list[str]) -> tuple[str, ...]:
     return tuple(sorted(normaliser(s) for s in activite_systemes if s))
 
 
-def signature(texte: str, activite_systemes: tuple[str, ...] = ()) -> str:
-    """The deterministic signature: verb | objects | systems."""
-    parties = [verbe(texte), "|".join(objets(texte)), "|".join(systemes(activite_systemes))]
+def signature(texte: str, activite_systemes: tuple[str, ...] = (), maximum: int = 6) -> str:
+    """The deterministic signature: verb | objects | systems.
+
+    `maximum` is the number of object words kept. Six suits a templated corpus;
+    a real free-text corpus needs fewer, or every activity gets its own
+    fingerprint and the model budget is gone before the first call (the real
+    corpus calibrates it, and publishes the calibration).
+    """
+    parties = [
+        verbe(texte),
+        "|".join(objets(texte, maximum)),
+        "|".join(systemes(activite_systemes)),
+    ]
     return "::".join(parties)
 
 

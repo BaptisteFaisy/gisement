@@ -1,0 +1,23 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-20430"
+    ],
+    "kip": "KIP-1209",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "accepted",
+    "texte_libre": "Status\nCurrent state:Accepted\nDiscussion thread:here\nVoting thread:here\nVote result:Accepted with 3 binding +1 votes (Chris Egerton,Yash Mayya,Andrew Schofield), 4 non-binding +1 votes (Hector Geraldino, Andrei D, Andrei Rudkouski,Mario Fiore Vitale)\nJIRA:KAFKA-20430\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nKafka Connect requires several internal topics (config,offsets, andstatus, and optionally connector-specific offset topics configured via`offsets.storage.topic`in source connector configurations) for storing connector metadata and state. By default, these topics are automatically created by the worker if they are missing.\nHowever, in some scenarios this behavior can be problematic:\ninternal topics may already contain information about a large number of connectors.\nif one or more of the original topics are accidentally removed or renamed, Kafka Connect will create them silently.\nthis can lead to unexpected states — e.g., if theconfigtopic exists but theoffsetstopic was removed, all connectors may start from scratch.\nWe are going to introduce safer mode where Kafka Connectfails fastinstead of silently creating new topics, allowing to troubleshoot misconfigurations and prevent accidental data loss or resets.\nProposed changes\nA new worker configuration will be introduced:text\ntrue (default):(current behavior) — Kafka Connect automatically creates internal topics if missing.\nfalse:Kafka Connectdoes notcreate internal topics. If one or more required topics are missing, the worker startup fails with an explicit error message.\nThe changes:\nAdd a new worker-level configuration`internal.topics.automatic.creation.enable`.\nModify internal topic management logic in`KafkaBasedConfigBackingStore`,`KafkaOffsetBackingStore`, and`KafkaStatusBackingStore`to respect the configuration. This also covers connector-specific offset topics configured via the`offsets.storage.topic`property in source connector configurations, as those topics are created using the same internal topic creation path in`KafkaOffsetBackingStore`.\nWhen the config is set tofalseand a required topic is missing:\nThe worker should log an error message specifying the missing topic(s).\nThe worker should fail to start, instead of creating new topics.\nExample exception message:text\nImplementation:https://github.com/apache/kafka/pull/20384\nInternal Topics Management Script\nA new script,bin/connect-internal-topics.sh, will be developed to manage the creation of internal topics for Kafka Connect. This script can be used before bringing up any workers in the cluster. After that, all workers in the cluster can be configured with automatic internal topic creation disabled.\nArguments\nPositional argumentsub-commandmust take exactly one of the following values:\ncreate-creates the internal topics for the Kafka Connect cluster. If the topics already exist, a log message will indicate that they are already present.\n--worker-config <worker-properties-file>\nThe script will read this worker properties file and use the configs related to internal topics:\noffset.storage.topic,offset.storage.partitions,offset.storage.replication.factor\nconfig.storage.topic,config.storage.replication.factor\nstatus.storage.topic,status.storage.partitions,status.storage.replication.factor\nadditionally, overrides for internal topic properties will be read (e.g.,config.storage.<topic-specific-property>,offset.storage.<topic-specific-property>,status.storage.<topic-specific-property>)\ntop-level properties from the config file will be used for the admin client when connecting to the broker (such as SSL/SASL settings, retries, bootstrap servers, etc.)\nDefault values for internal topic settings will match those used when running Kafka Connect in distributed mode.\nTopics will be created regardless of the value ofinternal.topics.automatic.creation.enable.\nCompatibility, Deprecation, and Migration Plan\nThere are no backward compatibility c"
+  },
+  "confiance": 0.8,
+  "document_id": "KIP-1209",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": []
+}

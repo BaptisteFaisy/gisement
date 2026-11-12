@@ -1,0 +1,257 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1266",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "",
+    "texte_libre": "Status\nCurrent state:[\"Under Discussion\"]\nDiscussion thread:here\nJIRA:ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-20033\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nBackground: What is __remote_log_metadata and how is it used?\nTiered storage: When local segments close, brokers upload them to remote storage (S3/Azure/GCS).\nremote_log_metadata: An internal topic used by TopicBasedRemoteLogMetadataManager to record remote-segment lifecycle events per topic-partition (COPY* and DELETE*), including start/end offsets, leader epoch and timestamps.\nWhy it matters: Brokers maintain an in-memory RemoteLogMetadataCache to answer “which segment contains offset X?” and “what is the highest remote offset?” This cache drives remote fetches and cleanup.\nHow state is built today: On startup/leadership changes, brokers consume the relevant metadata partitions from earliest available offset, replay all events, and rebuild the cache (apply STARTED → FINISHED → optional DELETE states; index by endOffset and leaderEpoch). Because the topic is append-only, full replay is required to compute current state.\nOperational challenges\nProblem 1: Unbounded Growth\ncleanup.policy=delete with infinite retention (-1)\nAll lifecycle events retained forever\n~1.2M metadata records/year at 1 TB/day upload, topic can grow out of bounds, stressing I/O and page cache\nProblem 2: No Cleanup Mechanism\nMetadata persists after remote segments expire\nNo removal for segments already deleted in remote storage\nOrphaned records from failed/retried uploads accumulate indefinitely\nProblem 3: Slow Bootstrap\nFull replay from offset 0 to rebuild cache\nBootstrap time grows with topic size; restarts and leadership changes take increasingly long time\nThis KIP aims to solve this issue through making the current topic__remote_log_metadatacompacted.\nGoals\nEnable bounded metadata storage to support faster bootstrap for the broker restart/leadership changes: the number of messages in the remote metadata topic is proportional to active remote segments, not the total history.\nSupport metadata cleanup: remove metadata when segments expire from remote storage.\nNon-Goals\nWire-level backward compatibility for keys in the compacted projection (breaking change there is acceptable).\nOnline migration with zero operational steps: clusters that have the tiered storage enabled before must go through an automated migration to adopt the compacted projection change, clusters that don’t have the tiered storage enabled can adopt the change directly without any migration.\nSupport for other RLMM implementations is not considered: focus is on TopicBasedRemoteLogMetadataManager.\nProposed Changes\nTopics and Configurations\nThis KIP updates the behavior and usage of the existing internal topic__remote_log_metadata, the current default configuration for this topic is:\ncleanup.policy=delete\nretention.ms=-1\nWith this change, the topic's configuration can be updated to be compacted:\ncleanup.policy=compact\nmin.cleanable.dirty.ratio=0.1\ndelete.retention.ms=86400000 // 1 day\nsegment.ms=3600000 // 1 hour\nOnce the topic becomes compacted, it will only has bounded number of messages for cache bootstrap and steady-state reads; supports tombstones\nKeyed Metadata Records in __remote_log_metadata\nAll metadata records in __remote_log_metadata becomekeyed. Thevaluecarries the detailed metadata; thekeydefines the uniqueness and compaction behavior.\nKey Format:TopicIdPartition:TopicName:Partition:EndOffset:BrokerLeaderEpoch\nExample:\nT8fJ9Kz3RyWxP2mQ4nL7vB:topicA:0:1999:5\nKey Components\n-TopicIdPartition: Unique UUID identifying the topic and partition\n-TopicName: Human-readable topic name\n-Partition: Partition number\n-EndOffset: Last offset in the segment (deterministic since tiered storage only uploads closed segments)\n-BrokerLeaderEpoch: Leader epoch of the broker that owned the topic-partition during upload, disambiguating concurrent/retry "
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1266",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Value",
+        "State",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "0",
+          "COPY_SEGMENT_STARTED",
+          "Upload in progress"
+        ],
+        [
+          "1",
+          "COPY_SEGMENT_FINISHED",
+          "Upload completed successfully"
+        ],
+        [
+          "2",
+          "DELETE_SEGMENT_STARTED",
+          "Deletion in progress"
+        ],
+        [
+          "3",
+          "DELETE_SEGMENT_FINISHED",
+          "Deletion completed"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Time",
+        "Event",
+        "Message Key in the Compacted Topic",
+        "Value"
+      ],
+      "lignes": [
+        [
+          "T1",
+          "Start upload",
+          "abc123:topicA:0:1000:3",
+          "apiKey=0, uuid=UUID-A, state=0 (STARTED)"
+        ],
+        [
+          "T2",
+          "Upload completes",
+          "abc123:topicA:0:1000:3:UPDATE",
+          "apiKey=1, uuid=UUID-A, state=1 (FINISHED)"
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Time",
+        "Event",
+        "Key",
+        "Value"
+      ],
+      "lignes": [
+        [
+          "T1",
+          "Broker 101 starts",
+          "abc123:topicA:0:2000:3",
+          "apiKey=0, uuid=UUID-A, state=0, epoch=3"
+        ],
+        [
+          "T2",
+          "Leadership → 102",
+          "-",
+          "-"
+        ],
+        [
+          "T3",
+          "Broker 102 starts",
+          "abc123:topicA:0:2000:4",
+          "apiKey=0, uuid=UUID-B, state=0, epoch=4 ← Different key!"
+        ],
+        [
+          "T4",
+          "Broker 101 finishes",
+          "abc123:topicA:0:2000:3:UPDATE",
+          "apiKey=1, uuid=UUID-A, state=1, epoch=3"
+        ],
+        [
+          "T5",
+          "Broker 102 finishes",
+          "abc123:topicA:0:2000:4:UPDATE",
+          "apiKey=1, uuid=UUID-B, state=1, epoch=4"
+        ]
+      ],
+      "nom": "tableau_3"
+    },
+    {
+      "colonnes": [
+        "Time",
+        "Event",
+        "Key",
+        "Value"
+      ],
+      "lignes": [
+        [
+          "T1",
+          "First attempt",
+          "abc123:topicA:0:3000:5",
+          "apiKey=0, uuid=UUID-A, state=0"
+        ],
+        [
+          "T2",
+          "Network timeout",
+          "-",
+          "(no message)"
+        ],
+        [
+          "T3",
+          "Retry",
+          "abc123:topicA:0:3000:5",
+          "apiKey=0, uuid=UUID-B, state=0 ← Same key, different UUID!"
+        ],
+        [
+          "T4",
+          "Success",
+          "abc123:topicA:0:3000:5:UPDATE",
+          "apiKey=1, uuid=UUID-B, state=1"
+        ]
+      ],
+      "nom": "tableau_4"
+    },
+    {
+      "colonnes": [
+        "Time",
+        "Event",
+        "Key",
+        "Value"
+      ],
+      "lignes": [
+        [
+          "T1",
+          "Retention triggers",
+          "-",
+          "(identify segment)"
+        ],
+        [
+          "T2",
+          "Delete from S3",
+          "-",
+          "(physical deletion)"
+        ],
+        [
+          "T3",
+          "Mark deletion",
+          "abc123:topicA:0:1000:6:UPDATE",
+          "apiKey=1, state=2 (DELETE_STARTED)"
+        ],
+        [
+          "T4",
+          "Deletion finished",
+          "abc123:topicA:0:1000:6:UPDATE",
+          "apiKey=1, state=3 (DELETE_FINISHED)"
+        ],
+        [
+          "T5",
+          "Tombstone epoch 3",
+          "abc123:topicA:0:1000:3:UPDATE",
+          "null"
+        ],
+        [
+          "T5.5",
+          "",
+          "abc123:topicA:0:1000:3",
+          "null"
+        ],
+        [
+          "T6",
+          "Tombstone epoch 4",
+          "abc123:topicA:0:1000:4:UPDATE",
+          "null"
+        ],
+        [
+          "T6.5",
+          "",
+          "abc123:topicA:0:1000:4",
+          "null"
+        ],
+        [
+          "T7",
+          "Tombstone epoch 5",
+          "abc123:topicA:0:1000:5:UPDATE",
+          "null"
+        ],
+        [
+          "T7.5",
+          "",
+          "abc123:topicA:0:1000:5",
+          "null"
+        ],
+        [
+          "T8",
+          "Tombstone epoch 6",
+          "abc123:topicA:0:1000:6:UPDATE",
+          "null"
+        ],
+        [
+          "T8.5",
+          "",
+          "abc123:topicA:0:1000:6",
+          "null"
+        ],
+        [
+          "T5+24Hour",
+          "Message that has key as abc123:0:1000:3 and abc123:0:1000:3:UPDATE deleted",
+          "-",
+          "-"
+        ],
+        [
+          "T6+24Hour",
+          "Message that has key asabc123:0:1000:4 and abc123:0:1000:4:UPDATE deleted",
+          "-",
+          "-"
+        ],
+        [
+          "T7+24Hour",
+          "Message that has key asabc123:0:1000:5 and abc123:0:1000:5:UPDATE deleted",
+          "-",
+          "-"
+        ],
+        [
+          "T8+24Hour",
+          "Message that has key asabc123:0:1000:6 and abc123:0:1000:6:UPDATE deleted",
+          "-",
+          "-"
+        ]
+      ],
+      "nom": "tableau_5"
+    }
+  ]
+}

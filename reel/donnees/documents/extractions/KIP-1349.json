@@ -1,0 +1,22 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1349",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "batch sizes",
+    "texte_libre": "Status\nCurrent state: \"Under Discussion\"\nDiscussion thread:here\nJIRA:here\nVOTE:here\nMotivation\nKafka has share groups. As multiple consumers in the same share group can consume from the same partition concurrently, records get individually acknowledged and broker tracks per record state(delivered, acked, in-flight etc).\nTo handle all that per record state, across broker restarts, Kafka writes to an internal topic called __share_group_state.\nTwo kind of records go there.\n- Update records (small and incremental)\n- Snapshot records (big, complete)\nWe need snapshots, because when a broker restarts, replaying millions of updates would take forever, and snapshots are like save points.\nToday snapshots are controlled only with this one broker level config : share.coordinator.snapshot.update.records.per.snapshot(is for number of small updates which get written before saving it as a full snapshot.)\nIf we set it low, too many snapshots are written, and recovery is fast. If we set it to high, we mostly write tiny updates, and less disk is used but recovery is replaying several tiny udpates, might take long.\nSo it's a trade off. write-cost vs recovery-cost\nIt's range is 0-500 (https://github.com/apache/kafka/blob/ac031bb4e2c95ce00a90c8be6ca3f7c087fe5fbe/share-coordinator/src/main/java/org/apache/kafka/coordinator/share/ShareCoordinatorConfig.java#L103)\nMeasurements on a local 4.3.0 cluster show__share_group_stateupdate records are small (~154 bytes average), so the records-based default of 500 corresponds to only~75 KB between snapshots. A bytes-based 20 MB default (matching KRaft) is a more predictable, workload-independent trigger.\nProblems\nRecords-basedcontrol is workload-dependent. Different share groups have different state-batch sizes. A records-based threshold means \"snapshot every N updates,\" but those N updates can be 5 KB on one workload and 500 KB on another, so disk impact is unpredictable.\nOne config at the broker level cannot fit all share groups. Different groups have different traffic patterns. With mixed workloads sharing the same state topic, one value may fit one group but not others.\nIs 500 too low ? Probably for high traffic share groups it is low and they get benefitted from snapshotting less often. Itis conservative for high-traffic workloads\nWhat if we remove the upper limit ? If there is no cap, a misconfigured group can write millions of updates without ever triggering an update (count-based) snapshot. This will fill up the disk, as broker cannot delete old log files.\nWhat if we have one config at broker level : There would be different kinds of share groups with different traffic patterns and with mixed workloads, and as they share the same state topic, it may fit one, but not others.\nProposal\nSwitch to bytes-based control (similar tometadata.log.max.record.bytes.between.snapshots inMetadataLogConfig.java)\n-Broker-level:share.coordinator.max.record.bytes.between.snapshots, default 20 MB, (matching KRaft's well-tested default.)\n-Per-group:share.max.record.bytes.between.snapshots, configurable per share group. This would allow every share group with different traffic patterns to handle the snapshots/disk sizes etc very well.\nThe existing records-based config (share.coordinator.snapshot.update.records.per.snapshot) is deprecated with a warning at broker startup if set, and removed in a future release.\nBytes-based control gives operators predictable disk impact, independent of workload, and follows the same pattern Kafka already uses for the metadata log. (also in kip 770)\nNote: There is another configshare.coordinator.cold.partition.snapshot.interval.ms(default 5 mins) which forces snapshotting on a timely basis, but only for share partitions with no updates. So the old log recs of the idle groups would be eligible for cleanup.\nPublic Interfaces\nNew broker-level config\nshare.coordinator.max.record.bytes.between.snapshots\nNew per-group dynamic config\nshare.max.record.bytes.between.snapshots\nA new entry on ConfigResou"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1349",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": []
+}

@@ -1,0 +1,22 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-21320"
+    ],
+    "kip": "KIP-1394",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "",
+    "texte_libre": "This page is meant as a template for writing a. To create a KIP choose Tools->Copy on this page and modify with your content and replace the heading with the next KIP number and a description of your issue. Replace anything in italics with your own description.\nStatus\nCurrent state: [One of \"Under Discussion\", \"Accepted\", \"Rejected\"]\nDiscussion thread:here[Change the link from the KIP proposal email archive to your own email thread]\nJIRA:KAFKA-21320\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nUnder the Streams rebalance protocol, members send topology metadata when joining a group. The group coordinator compares this metadata with the topology already registered for the group to verify that the member uses the same topology. Each time a member joins or rejoins, the coordinator repeats structural comparisons of topology metadata that is typically identical across members. For Streams groups with large and complex topologies, these comparisons can impose a substantial workload on the coordinator. This workload can increase further when many members join concurrently, such as during application startup or rolling restarts.\nStructural comparison also requires careful handling of representation differences that do not affect the topology’s meaning.KAFKA-21302demonstrated this problem: different orderings of equivalent copartition constraints could cause a valid member’s request to be rejected as an attempt to change the topology. Although that issue has been addressed, it illustrates the importance of explicit and consistent rules for determining topology equivalence.\nThis KIP proposes comparing standardized, client-computed topology hashes instead of repeatedly comparing complete topology structures on the coordinator. Clients can compute and cache the topology hash, reusing it as long as the topology remains unchanged. This distributes part of the computation required to establish topology equivalence across clients and reduces repeated structural comparison work concentrated on the coordinator. In particular, it can ease coordinator load when many members with large topologies join concurrently, contributing to more stable group management.\nDefining a canonical representation and a deterministic hash algorithm ensures consistent hash computation across supported client implementations and versions. The complete topology will continue to be transmitted, allowing the coordinator to use it for group initialization and other operations that require topology information. The proposal aims to reduce repeated topology-comparison costs and coordinator load while preserving interoperability with clients and brokers that use the existing protocol.\nPublic Interfaces\nBriefly list any new interfaces that will be introduced as part of this proposal or any existing interfaces that will be removed or changed. The purpose of this section is to concisely call out the public contract that will come along with this feature.\nA public interface is any change to the following:\nBinary log format\nThe network protocol and api behavior\nAny class in the public packages under clientsConfiguration, especially client configuration\norg/apache/kafka/common/serialization\norg/apache/kafka/common\norg/apache/kafka/common/errors\norg/apache/kafka/clients/producer\norg/apache/kafka/clients/consumer (eventually, once stable)\nMonitoring\nCommand line tools and arguments\nAnything else that will likely break existing users in some way when they upgrade\nProposed Changes\nDescribe the new thing you want to do in appropriate detail. This may be fairly extensive and have large subsections of its own. Or it may be a few sentences. Use judgement based on the scope of the change.\nCompatibility, Deprecation, and Migration Plan\nWhat impact (if any) will there be on existing users?\nIf we are changing behavior how will we phase out the older behavior?\nIf we need special migration tools, describe them"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1394",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": []
+}

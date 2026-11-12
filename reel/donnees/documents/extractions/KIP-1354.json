@@ -1,0 +1,91 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1354",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state:Under Discussion\nDiscussion thread:here [Change the link from the KIP proposal email archive to your own email thread]\nJIRA:here [Change the link from KAFKA-1 to your own ticket]\nMotivation\nHistorically, Apache Kafka components communicating over mutual TLS (mTLS) have relied on multipurpose TLS certificates—specifically, certificates containing bothserverAuthandclientAuthExtended Key Usages (EKU).\nHowever, public Certificate Authorities (CAs) are actively deprecating and will soon stop providing these multipurpose certificates to comply with stricter security standards.\nThis presents a breaking operational challenge for Kafka environments relying on public CAs. A Kafka broker is simultaneously a TLSserver(it accepts connections on its listeners) and a TLSclient(it dials other brokers and controllers). With a single keystore, thesamecertificate is presented in both roles — which only works if that certificate carriesbothEKUs. Several Kafka components rely on this today:\nInter-broker mTLS:Brokers act as servers to accept connections, and as clients to connect to other brokers, requiring both auth EKUs.\nBroker → controller mTLS:Brokers act as clients when forwarding requests to and sending heartbeats to controllers, while controllers act as servers on the controller listener — requiring both auth EKUs.\nController → controller mTLS:In the KRaft quorum, controllers connect to each other as clients and accept connections as servers, requiring both auth EKUs.\nKafka Connect inter-worker mTLS:Workers communicate with each other requiring both client and server auth EKUs.\nMirrorMaker 2 inter-worker mTLS:Similar to Kafka Connect, internal communication requires both EKUs.\nJSSE enforces EKU per role during the handshake, so aserverAuth-only certificate presented on the client side of a handshake fails with:javax.net.ssl.SSLHandshakeException:\nExtended key usage does not permit use for TLS client authentication\nA broker configured with a single-purposeserverAuthcertificate can therefore accept connections but cannot open its outbound (inter-broker / controller) connections. Such a broker needstwocertificates: aserverAuthone for its listeners and aclientAuthone for its outbound connections.\nThis KIP proposes adding support for single-purpose TLS certificates in Kafka to ensure continued compatibility with public CA issuance policies.\nProposed Changes\nThessl.client.*family and role selection\nThe SSL engine factory continues to understand only the basessl.*keys. When a component builds aclient-modeTLS context, the configuredssl.client.*values are resolved onto the correspondingssl.*keys before the engine factory is instantiated; inservermode the base keys are used unchanged. Role selection is driven by the connection mode of the channel being built (ConnectionMode.CLIENTvsSERVER), not by any new user-facing switch.\nWhere client connections are used\nThe client-role store matters only where a component builds aCLIENT-modechannel — i.e. where it dials a peer rather than accepting a connection.\nOn the broker/controller there are three such outbound paths, and each resolves its config scoped toits own listener:\n| Outbound path | Listener used\n| Inter-broker replication / requests | inter.broker.listener.name\n| Broker → controller (forwarding, heartbeats) | controller.listener.names\n| KRaft raft quorum (controller ↔ controller) | controller.listener.names\nAll three build the channel viaChannelBuilders.clientChannelBuilder(...), which fixesConnectionMode.CLIENT. These are exactly the connections that must present aclientAuthcertificate under single-purpose EKU.\nThe same problem exists for the internal, worker-to-worker mTLS inKafka ConnectandMirrorMaker 2: each worker acts as a server when accepting inter-worker REST requests (its Jetty HTTPS listener) and as a client when forwarding requests to the leader (its inter-worker REST client), so it needs aserverAuthidentity for the former and aclientAuthidentity for the latter. Unli"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1354",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Outbound path",
+        "Listener used"
+      ],
+      "lignes": [
+        [
+          "Inter-broker replication / requests",
+          "inter.broker.listener.name"
+        ],
+        [
+          "Broker → controller (forwarding, heartbeats)",
+          "controller.listener.names"
+        ],
+        [
+          "KRaft raft quorum (controller ↔ controller)",
+          "controller.listener.names"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Existing key (server role)",
+        "New client-role counterpart"
+      ],
+      "lignes": [
+        [
+          "ssl.keystore.location",
+          "ssl.client.keystore.location"
+        ],
+        [
+          "ssl.keystore.password",
+          "ssl.client.keystore.password"
+        ],
+        [
+          "ssl.keystore.type",
+          "ssl.client.keystore.type"
+        ],
+        [
+          "ssl.keystore.key",
+          "ssl.client.keystore.key"
+        ],
+        [
+          "ssl.keystore.certificate.chain",
+          "ssl.client.keystore.certificate.chain"
+        ],
+        [
+          "ssl.key.password",
+          "ssl.client.key.password"
+        ],
+        [
+          "ssl.truststore.location",
+          "ssl.client.truststore.location"
+        ],
+        [
+          "ssl.truststore.password",
+          "ssl.client.truststore.password"
+        ],
+        [
+          "ssl.truststore.type",
+          "ssl.client.truststore.type"
+        ],
+        [
+          "ssl.truststore.certificates",
+          "ssl.client.truststore.certificates"
+        ]
+      ],
+      "nom": "tableau_2"
+    }
+  ]
+}

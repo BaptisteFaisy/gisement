@@ -1,0 +1,475 @@
+[
+  {
+    "ref": "ING-01",
+    "famille": "ingenierie",
+    "nom": "Discussion de conception sur la liste de diffusion",
+    "nom_en": "Design discussion on the mailing list",
+    "description": "Discuter d'une proposition de conception, repondre, proposer une variante, converger vers un consensus.",
+    "canaux": [
+      "courriels"
+    ],
+    "indices": {
+      "verbes": [
+        "rediger",
+        "saisir",
+        "envoyer",
+        "classer"
+      ],
+      "objets": [
+        "discuss",
+        "kip",
+        "api"
+      ],
+      "systemes": [
+        "mail"
+      ]
+    },
+    "modele_texte": "Discuter une proposition de conception (discuss, kip, api) sur la liste de diffusion",
+    "duree_unitaire_typique_minutes": "25",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.30",
+    "duree_revue_minutes": "5",
+    "part_atypique_defaut": "0.20",
+    "types_envisageables": [
+      "C",
+      "D"
+    ],
+    "cout_jours_min": "10",
+    "cout_jours_max": "30",
+    "abonnement_mensuel": "0",
+    "note": "Motif propose par la mesure sur le corpus reel (reel/modele/groupes.json), nomme et indexe a partir des signatures reelles, puis valide par un consultant : c'est la boucle de validation du catalogue (EF-21, R25) jouee sur un vrai client."
+  },
+  {
+    "ref": "ING-02",
+    "famille": "ingenierie",
+    "nom": "Annonce de gouvernance ou de version",
+    "nom_en": "Governance or release announcement",
+    "description": "Annoncer une nomination, une sortie de version, une decision de gouvernance ou une publication.",
+    "canaux": [
+      "courriels"
+    ],
+    "indices": {
+      "verbes": [
+        "envoyer",
+        "rediger"
+      ],
+      "objets": [
+        "announce",
+        "apache",
+        "kafka"
+      ],
+      "systemes": [
+        "mail"
+      ]
+    },
+    "modele_texte": "Annoncer une version ou une nomination du projet (announce, apache, kafka)",
+    "duree_unitaire_typique_minutes": "15",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "diffuse",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "3",
+    "part_atypique_defaut": "0.05",
+    "types_envisageables": [
+      "B",
+      "C"
+    ],
+    "cout_jours_min": "3",
+    "cout_jours_max": "8",
+    "abonnement_mensuel": "0"
+  },
+  {
+    "ref": "ING-03",
+    "famille": "ingenierie",
+    "nom": "Suivi d'incident ou de ticket",
+    "nom_en": "Incident or ticket follow-up",
+    "description": "Creer, relire, mettre a jour ou cloturer un ticket de suivi dans l'outil de suivi du projet.",
+    "canaux": [
+      "tickets",
+      "courriels"
+    ],
+    "indices": {
+      "verbes": [
+        "relancer",
+        "saisir",
+        "verifier"
+      ],
+      "objets": [
+        "created",
+        "jira",
+        "resolved"
+      ],
+      "systemes": [
+        "jira"
+      ]
+    },
+    "modele_texte": "Relancer un ticket jusqu'a sa resolution (created, jira, resolved)",
+    "duree_unitaire_typique_minutes": "20",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.25",
+    "duree_revue_minutes": "4",
+    "part_atypique_defaut": "0.20",
+    "types_envisageables": [
+      "C",
+      "D"
+    ],
+    "cout_jours_min": "8",
+    "cout_jours_max": "25",
+    "abonnement_mensuel": "0"
+  },
+  {
+    "ref": "ING-04",
+    "famille": "ingenierie",
+    "nom": "Revue de modification (pull request)",
+    "nom_en": "Pull request review",
+    "description": "Proposer, relire, commenter ou fusionner une modification de code.",
+    "canaux": [
+      "tickets",
+      "courriels"
+    ],
+    "indices": {
+      "verbes": [
+        "consulter",
+        "saisir",
+        "verifier"
+      ],
+      "objets": [
+        "kafka",
+        "minor",
+        "cleanup"
+      ],
+      "systemes": [
+        "github"
+      ]
+    },
+    "modele_texte": "Consulter les modifications avant fusion (kafka, minor, cleanup)",
+    "duree_unitaire_typique_minutes": "30",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.30",
+    "duree_revue_minutes": "6",
+    "part_atypique_defaut": "0.25",
+    "types_envisageables": [
+      "C",
+      "D"
+    ],
+    "cout_jours_min": "10",
+    "cout_jours_max": "30",
+    "abonnement_mensuel": "0"
+  },
+  {
+    "ref": "ING-05",
+    "famille": "ingenierie",
+    "nom": "Correction de defaut",
+    "nom_en": "Bug fixing",
+    "description": "Reproduire, diagnostiquer et corriger un defaut, puis verifier la correction.",
+    "canaux": [
+      "tickets",
+      "journaux"
+    ],
+    "indices": {
+      "verbes": [
+        "verifier",
+        "transcrire"
+      ],
+      "objets": [
+        "fix",
+        "flaky",
+        "bug"
+      ],
+      "systemes": [
+        "github"
+      ]
+    },
+    "modele_texte": "Verifier et corriger un defaut (fix, flaky, bug)",
+    "duree_unitaire_typique_minutes": "45",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.35",
+    "duree_revue_minutes": "8",
+    "part_atypique_defaut": "0.30",
+    "types_envisageables": [
+      "D",
+      "E"
+    ],
+    "cout_jours_min": "15",
+    "cout_jours_max": "40",
+    "abonnement_mensuel": "0"
+  },
+  {
+    "ref": "ING-06",
+    "famille": "ingenierie",
+    "nom": "Chain de construction et de livraison",
+    "nom_en": "Build and release pipeline",
+    "description": "Compiler, construire les images, declencher ou surveiller la chaine de livraison.",
+    "canaux": [
+      "tickets",
+      "journaux"
+    ],
+    "indices": {
+      "verbes": [
+        "extraire",
+        "verifier"
+      ],
+      "objets": [
+        "build",
+        "daily",
+        "branch"
+      ],
+      "systemes": [
+        "github"
+      ]
+    },
+    "modele_texte": "Construire et livrer une version (build, daily, branch)",
+    "duree_unitaire_typique_minutes": "20",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "diffuse",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "4",
+    "part_atypique_defaut": "0.15",
+    "types_envisageables": [
+      "B",
+      "C"
+    ],
+    "cout_jours_min": "5",
+    "cout_jours_max": "15",
+    "abonnement_mensuel": "0"
+  },
+  {
+    "ref": "ING-07",
+    "famille": "ingenierie",
+    "nom": "Mise a jour de la documentation",
+    "nom_en": "Documentation update",
+    "description": "Mettre a jour, relire ou publier la documentation, les guides et les notes de version.",
+    "canaux": [
+      "tickets",
+      "courriels",
+      "documents"
+    ],
+    "indices": {
+      "verbes": [
+        "rediger",
+        "classer",
+        "saisir"
+      ],
+      "objets": [
+        "docs",
+        "documentation",
+        "guide"
+      ],
+      "systemes": [
+        "github"
+      ]
+    },
+    "modele_texte": "Documenter et mettre a jour un guide (docs, documentation, guide)",
+    "duree_unitaire_typique_minutes": "25",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.30",
+    "duree_revue_minutes": "5",
+    "part_atypique_defaut": "0.15",
+    "types_envisageables": [
+      "C"
+    ],
+    "cout_jours_min": "8",
+    "cout_jours_max": "20",
+    "abonnement_mensuel": "0"
+  },
+  {
+    "ref": "ING-08",
+    "famille": "ingenierie",
+    "nom": "Demande d'acces ou de droit d'edition",
+    "nom_en": "Access or edit rights request",
+    "description": "Demander, traiter ou accorder un acces a un outil, un espace ou un depot.",
+    "canaux": [
+      "tickets",
+      "courriels"
+    ],
+    "indices": {
+      "verbes": [
+        "saisir",
+        "relancer"
+      ],
+      "objets": [
+        "confluence",
+        "access",
+        "edit"
+      ],
+      "systemes": [
+        "mail"
+      ]
+    },
+    "modele_texte": "Relancer une demande d'acces en edition (confluence, access, edit)",
+    "duree_unitaire_typique_minutes": "10",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "diffuse",
+    "taux_revue_defaut": "0.20",
+    "duree_revue_minutes": "2",
+    "part_atypique_defaut": "0.10",
+    "types_envisageables": [
+      "B"
+    ],
+    "cout_jours_min": "2",
+    "cout_jours_max": "6",
+    "abonnement_mensuel": "0"
+  },
+  {
+    "ref": "ING-09",
+    "famille": "ingenierie",
+    "nom": "Parametrage et configuration",
+    "nom_en": "Configuration and settings",
+    "description": "Definir, allower, ajuster ou verifier un parametre de fonctionnement.",
+    "canaux": [
+      "tickets",
+      "courriels",
+      "documents"
+    ],
+    "indices": {
+      "verbes": [
+        "saisir",
+        "verifier"
+      ],
+      "objets": [
+        "config",
+        "configuration",
+        "allow"
+      ],
+      "systemes": [
+        "jira"
+      ]
+    },
+    "modele_texte": "Saisir un parametre de fonctionnement (config, configuration, allow)",
+    "duree_unitaire_typique_minutes": "20",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.25",
+    "duree_revue_minutes": "4",
+    "part_atypique_defaut": "0.15",
+    "types_envisageables": [
+      "C"
+    ],
+    "cout_jours_min": "5",
+    "cout_jours_max": "15",
+    "abonnement_mensuel": "0"
+  },
+  {
+    "ref": "ING-10",
+    "famille": "ingenierie",
+    "nom": "Analyse et investigation de production",
+    "nom_en": "Production analysis and investigation",
+    "description": "Analyser une anomalie de production, mesurer une latence, estimer un cout, instrumenter une metrique.",
+    "canaux": [
+      "tickets",
+      "courriels",
+      "documents"
+    ],
+    "indices": {
+      "verbes": [
+        "rechercher",
+        "extraire"
+      ],
+      "objets": [
+        "costs",
+        "cross",
+        "discover"
+      ],
+      "systemes": [
+        "jira"
+      ]
+    },
+    "modele_texte": "Analyser une anomalie de production (costs, cross, discover)",
+    "duree_unitaire_typique_minutes": "40",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.35",
+    "duree_revue_minutes": "8",
+    "part_atypique_defaut": "0.30",
+    "types_envisageables": [
+      "D",
+      "E"
+    ],
+    "cout_jours_min": "12",
+    "cout_jours_max": "35",
+    "abonnement_mensuel": "0"
+  },
+  {
+    "ref": "ING-11",
+    "famille": "ingenierie",
+    "nom": "Migration et mise a niveau",
+    "nom_en": "Migration and upgrade",
+    "description": "Migrer un systeme, une donnee ou une version, et verifier le resultat de la migration.",
+    "canaux": [
+      "tickets",
+      "courriels",
+      "documents"
+    ],
+    "indices": {
+      "verbes": [
+        "transcrire",
+        "verifier"
+      ],
+      "objets": [
+        "java",
+        "gradle",
+        "bootstrapping"
+      ],
+      "systemes": [
+        "jira"
+      ]
+    },
+    "modele_texte": "Migrer une version et la verifier (java, gradle, bootstrapping)",
+    "duree_unitaire_typique_minutes": "35",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.30",
+    "duree_revue_minutes": "6",
+    "part_atypique_defaut": "0.25",
+    "types_envisageables": [
+      "D",
+      "E"
+    ],
+    "cout_jours_min": "10",
+    "cout_jours_max": "30",
+    "abonnement_mensuel": "0"
+  },
+  {
+    "ref": "ING-12",
+    "famille": "ingenierie",
+    "nom": "Support utilisateur et usage client",
+    "nom_en": "User support and client usage",
+    "description": "Repondre a une question d'usage, diagnostiquer un usage client, expliquer un comportement.",
+    "canaux": [
+      "tickets",
+      "courriels"
+    ],
+    "indices": {
+      "verbes": [
+        "consulter",
+        "rechercher"
+      ],
+      "objets": [
+        "consumer",
+        "api",
+        "avoid"
+      ],
+      "systemes": [
+        "jira"
+      ]
+    },
+    "modele_texte": "Consulter une question d'usage (consumer, api, avoid)",
+    "duree_unitaire_typique_minutes": "15",
+    "duree_statut_defaut": "inferree",
+    "repartition_defaut": "semi_regroupee",
+    "taux_revue_defaut": "0.25",
+    "duree_revue_minutes": "3",
+    "part_atypique_defaut": "0.15",
+    "types_envisageables": [
+      "B",
+      "C"
+    ],
+    "cout_jours_min": "4",
+    "cout_jours_max": "12",
+    "abonnement_mensuel": "0"
+  }
+]

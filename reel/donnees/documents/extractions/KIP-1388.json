@@ -1,0 +1,44 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-21366"
+    ],
+    "kip": "KIP-1388",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state:Under Discussion\nDiscussion thread:here\nJIRA:KAFKA-21366\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nTools that replicate consumer group offsets between clusters typically use two RPCs, with client-side filtering in between:\nAdmin.listGroups(ListGroupsOptions.forConsumerGroups())(theListGroupsRPC, sent to every broker) to enumerate the consumer groups on the source cluster.\nApply a user-supplied group filter (an allow list, deny list or pattern) to the listed group ids.\nAdmin.listConsumerGroupOffsets(...)(theOffsetFetchRPC, batched per group coordinator) for the groups that passed the filter.\nMirrorMaker 2 does exactly this inMirrorCheckpointConnector, and the group offset synchronization in KIP-1279 (Cluster Mirroring) follows the same pattern. Other cross-cluster replication tools built on the Admin API do the same.\nA group exists in the group coordinator while it has at least one member or at least one committed offset; a group with neither is removed by the periodic group cleanup. In some scenarios, a large number of the groups returned byListGroupshave members but no committed offsets at all. Typical examples are:\nconsumers that disable auto-commit and never commit, for example because they store offsets outside Kafka, or because they are short-lived command-line consumers such askafka-console-consumer.sh;\nconsumers that have joined a group but have not committed yet, which is a permanent condition for applications that only read and never commit.\nIn some large deployments, we have seen thousands of such groups. For each of them, the replication tool still fetches offsets, receives nothing and discards the group.OffsetFetchcan carry several groups per request to a coordinator, but every offset-less group still costs coordinator work, response bytes and client-side handling.\nListGroupsalready supports server-side filtering by group state (KIP-518) and by group type (KIP-848). The group coordinator holds both the group metadata and the committed offsets of a group in the same coordinator shard, so it can answer \"does this group have any committed offsets?\" with a local lookup while it builds theListGroupsresponse. This KIP adds that filter.\nThe change is deliberately made to the newerAdmin.listGroupsAPI introduced by KIP-1043 and not toAdmin.listConsumerGroups, which has been deprecated since 4.1.\nPublic Interfaces\nClient API changes\nListGroupsOptions\nA new filter is added toorg.apache.kafka.clients.admin.ListGroupsOptions.java\nThe default value isfalse, which preserves the existing behavior.\nExample: list all consumer groups that have committed offsets.java\nall()is used so that a broker that does not support the filter fails the call instead of silently returning a partial listing (see the compatibility section).\nNo changes are made toAdmin,ListGroupsResultorGroupListing.\nKafka protocol changes\nListGroups API\nTheListGroupsAPI is bumped to version 6. The request gains one field. The response is unchanged, and its version is bumped only to keep request and response versions aligned.Request schemajsonResponse schemajson\nNo new error codes are introduced.\nProposed Changes\nGroup coordinator\nWhen aListGroupsrequest hasRequireCommittedOffsetsset totrue, the group coordinator returns only groups with at least one committed offset. This condition is combined with the existing state and type filters using AND semantics.\nA group matches if the committed state of its group coordinator contains a committed offset for at least one topic partition of that group. The offset predicate and the existing state filter are evaluated consistently against the coordinator’s committed state.\nPending transactional offsets do not count because the transaction may still abort. A group with only pending offsets becomes eligible once the transaction commits and the resulting offsets take effect in the coordinator’s committed state. A group with an"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1388",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Group’s offset state",
+        "Matches"
+      ],
+      "lignes": [
+        [
+          "At least one committed offset, whether or not pending transactional offsets also exist",
+          "Yes"
+        ],
+        [
+          "Only pending transactional offsets",
+          "No"
+        ],
+        [
+          "Neither committed nor pending offsets",
+          "No"
+        ]
+      ],
+      "nom": "tableau_1"
+    }
+  ]
+}

@@ -1,0 +1,172 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-20995",
+      "KAFKA-20253",
+      "KAFKA-20970",
+      "KAFKA-21010",
+      "KAFKA-21031"
+    ],
+    "kip": "KIP-1371",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state: Under Discussion\nDiscussion thread:[DISCUSS] KIP-1371: Explicit Wait Conditions for Consumer Request Managers\nJIRA:KAFKA-20995\nRelease: TBD\nSummary\nThe async consumer has repeatedly entered busy loops when a timer reaches zero while another state blocks the related work. The current numeric wait says when to poll again, but it cannot say whether time can make the work eligible or another event must occur first. Existing fixes replace the zero with another duration, which can make correctness depend on that duration's configuration.\nThis KIP introduces the internalManagerPollConditiontype withready(),after(...), andidle(). Each request-managerpoll()returns its outgoing requests and the condition for the next manager pass. The same manager decision can govern request admission and network scheduling. The network thread combines all manager conditions and applies the existing network-poll bounds. Public APIs, protocols, and thread topology remain unchanged. The internal per-managerRequestManager.maximumTimeToWait(long)method becomesapplicationPollCondition(long); the application-facingApplicationEventHandler.maximumTimeToWait()path remains unchanged.\nMotivation\nThe async consumer has repeatedly entered a busy loop when a timer reaches zero while another state prevents the related work from continuing. The loop polls the same request managers, gets the same zero wait, and immediately starts again.\nToday, each request manager returns outgoing requests and one numeric wait. The network thread uses the minimum:java\n0starts another iteration immediately, a finite value schedules a timed iteration, andLong.MAX_VALUEadds no earlier deadline.\nThe application wait follows the same numeric model. Each manager returns a duration fromRequestManager.maximumTimeToWait(long). The network thread publishes the minimum ascachedMaximumTimeToWait, and the application thread uses it to limit its wait.\nEvidence from existing busy-loop fixes\nThe following issues share the same pattern: work is blocked, but its timer still contributes zero.\n| Evidence | Status as of 2026-09-21 | Affected wait | Work blocked by | Source of zero | Local repair\n| PR #22836 — KAFKA-20253: Heartbeat CPU spin fix for Consumer protocol | Merged | Network scheduling for in-flight coordinator discovery; application wait for heartbeat and auto-commit. | Coordinator discovery or heartbeat progress is waiting on coordinator/request state. | An elapsed retry or heartbeat timer remains urgent while the related operation cannot advance. | Withdraw the in-flight coordinator deadline; use heartbeat or auto-commit intervals on affected application-wait paths.\n| PR #23227 — KAFKA-20970: Another busy loop happens ifauto.commit.interval.msis less thanbootstrap.resolve.timeout.ms | Merged | Application wait | Auto-commit is waiting for coordinator discovery during bootstrap DNS resolution. | The auto-commit timer has expired, so the application wait remains zero. | Use the auto-commit interval while the coordinator is unavailable; apply a similar heartbeat-interval guard to Streams.\n| PR #23348 — KAFKA-21010: Another busy loop happens if the member is inJOININGstate and bootstrap DNS resolution is not finished | Merged | Application wait | Heartbeat is waiting for coordinator discovery. | The initial heartbeat interval is zero while the coordinator remains unknown. | Replace zero-capable heartbeat and auto-commit interval substitutes with the retry backoff and refine terminal-state guards.\n| PR #23357 — KAFKA-21031: Another busy loop happens while a heartbeat is in flight and the heartbeat timer is expired | Open | Network scheduling and application wait | A heartbeat response is still in flight. | The expired heartbeat timer contributes zero even though another heartbeat cannot be sent. | Use the configured retry backoff while the heartbeat request is in flight.\nWhy the current timeout substitutions are incomplete\nThe fixes repair their reported paths by replacing one "
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1371",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Evidence",
+        "Status as of 2026-09-21",
+        "Affected wait",
+        "Work blocked by",
+        "Source of zero",
+        "Local repair"
+      ],
+      "lignes": [
+        [
+          "PR #22836 — KAFKA-20253: Heartbeat CPU spin fix for Consumer protocol",
+          "Merged",
+          "Network scheduling for in-flight coordinator discovery; application wait for heartbeat and auto-commit.",
+          "Coordinator discovery or heartbeat progress is waiting on coordinator/request state.",
+          "An elapsed retry or heartbeat timer remains urgent while the related operation cannot advance.",
+          "Withdraw the in-flight coordinator deadline; use heartbeat or auto-commit intervals on affected application-wait paths."
+        ],
+        [
+          "PR #23227 — KAFKA-20970: Another busy loop happens if auto.commit.interval.ms is less than bootstrap.resolve.timeout.ms",
+          "Merged",
+          "Application wait",
+          "Auto-commit is waiting for coordinator discovery during bootstrap DNS resolution.",
+          "The auto-commit timer has expired, so the application wait remains zero.",
+          "Use the auto-commit interval while the coordinator is unavailable; apply a similar heartbeat-interval guard to Streams."
+        ],
+        [
+          "PR #23348 — KAFKA-21010: Another busy loop happens if the member is in JOINING state and bootstrap DNS resolution is not finished",
+          "Merged",
+          "Application wait",
+          "Heartbeat is waiting for coordinator discovery.",
+          "The initial heartbeat interval is zero while the coordinator remains unknown.",
+          "Replace zero-capable heartbeat and auto-commit interval substitutes with the retry backoff and refine terminal-state guards."
+        ],
+        [
+          "PR #23357 — KAFKA-21031: Another busy loop happens while a heartbeat is in flight and the heartbeat timer is expired",
+          "Open",
+          "Network scheduling and application wait",
+          "A heartbeat response is still in flight.",
+          "The expired heartbeat timer contributes zero even though another heartbeat cannot be sent.",
+          "Use the configured retry backoff while the heartbeat request is in flight."
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Form",
+        "Meaning",
+        "Wait returned by remainingMs(...)"
+      ],
+      "lignes": [
+        [
+          "ready()",
+          "Another pass can perform work immediately.",
+          "Zero"
+        ],
+        [
+          "after(now, delayMs)",
+          "Time can make another pass useful.",
+          "Time remaining to the retained deadline"
+        ],
+        [
+          "idle()",
+          "This work has no local deadline.",
+          "Long.MAX_VALUE"
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Manager state",
+        "Returned condition"
+      ],
+      "lignes": [
+        [
+          "A request is in flight.",
+          "idle() for sending; keep independent operation expiry with either(...)."
+        ],
+        [
+          "Retry backoff remains.",
+          "after(now, remainingBackoffMs)"
+        ],
+        [
+          "Local work can proceed now.",
+          "ready()"
+        ],
+        [
+          "Several requests have different deadlines.",
+          "Combine their conditions with either(...)."
+        ]
+      ],
+      "nom": "tableau_3"
+    },
+    {
+      "colonnes": [
+        "Existing case",
+        "Current repair",
+        "Condition returned for network scheduling",
+        "Effect of the proposed model"
+      ],
+      "lignes": [
+        [
+          "PR #22836 — coordinator discovery is in flight",
+          "Remove the coordinator manager's zero deadline while discovery is pending.",
+          "idle() until the discovery response, disconnect, cancellation, or timeout changes the state.",
+          "The manager states directly that time alone cannot enable another discovery request."
+        ],
+        [
+          "PR #23357 — heartbeat is in flight after its timer expires",
+          "Substitute the configured retry backoff.",
+          "either(idle(), pollExpiryCondition); the send path waits for completion while max.poll.interval.ms remains active.",
+          "Heartbeat sending no longer depends on a configured substitute timer, and the independent poll expiry is preserved."
+        ],
+        [
+          "PR #23227, PR #23348, and the application-wait part of PR #23357",
+          "Substitute auto-commit, heartbeat, or retry durations.",
+          "No change in this KIP.",
+          "These fixes demonstrate the same duration-substitution pattern; changing application waiting requires separate work."
+        ]
+      ],
+      "nom": "tableau_4"
+    },
+    {
+      "colonnes": [
+        "Current problem",
+        "Proposed behavior"
+      ],
+      "lignes": [
+        [
+          "A replacement timer may be configured as zero and restore the busy loop.",
+          "Blocked work returns idle() for every timer configuration."
+        ],
+        [
+          "A positive delay schedules another poll even though the manager needs an event.",
+          "Blocked work returns idle() instead of a deadline. Existing response, disconnect, cancellation, timeout, or discovery processing updates the state and wakes the loop."
+        ],
+        [
+          "A duration alone cannot say whether time can enable the work.",
+          "ready(), after(...), and idle() state whether work is ready, time can enable it, or time provides no deadline. The manager retains the exact prerequisite in its state."
+        ]
+      ],
+      "nom": "tableau_5"
+    }
+  ]
+}

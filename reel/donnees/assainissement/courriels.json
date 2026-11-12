@@ -1,0 +1,28 @@
+{
+  "canal": "courriels",
+  "categories_sensibles": [
+    "opinion_politique",
+    "sante"
+  ],
+  "cle": "HMAC-SHA256 tronque (gisement.assainissement.pseudonyme), irreversible",
+  "dates_illisibles": 0,
+  "exclus": 494,
+  "identites_reelles_retirees": 571,
+  "liste": "dev@kafka.apache.org",
+  "mbox_gz_sha256": "7476f5f296de1e6b7359724c131fb8847a1d21350a1092dcf57a032b3b55fa1f",
+  "mois": [
+    "2025-05",
+    "2025-06",
+    "2025-07",
+    "2025-08",
+    "2025-09",
+    "2025-10"
+  ],
+  "motifs_exclusion": {
+    "opinion_politique": 488,
+    "sante": 8
+  },
+  "pseudonymes_appliques": 11114,
+  "volume_entree": 2700,
+  "volume_sortie": 2206
+}

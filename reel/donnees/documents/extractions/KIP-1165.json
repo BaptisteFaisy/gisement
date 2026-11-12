@@ -1,0 +1,220 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-19161"
+    ],
+    "kip": "KIP-1165",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Authors:Greg Harris, Ivan Yurchenko, Jorge Quilcate, Giuseppe Lillo, Anatolii Popov, Juha Mynttinen, Josep Prat, Filip Yonov, PSD-38d9f081d109c73b-Vass\nStatus\nCurrent state: Under Discussion (Re-Opened)\nDiscussion thread:here[Change the link from the KIP proposal email archive to your own email thread]\nJIRA:KAFKA-19161\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nSummary\nKIP-1150 introduced diskless topics. KIP-1163 defines their produce, fetch, and replica behavior, and KIP-1164 defines the Diskless coordinator. Those KIPs use mixed-partition write-ahead log (WAL) objects as the durable ingest format and leave the transfer to KIP-405 Tiered Storage to a follow-up KIP.\nThis KIP defines that transfer. Every diskless topic is a consolidated diskless topic (CDT) from creation. Producers write through the diskless WAL. Each assigned replica materializes the untiered suffix as ordinary per-partition Kafka log segments. The partition leader copies closed segments through the existing KIP-405 Remote Storage Manager (RSM) and Remote Log Metadata Manager (RLMM) interfaces. After the remote copy becomes durable and discoverable, the Diskless coordinator removes the matching WAL batch coordinates. KIP-405 then provides long-term storage, reads, and physical retention for the consolidated prefix.\nThis KIP also defines the offset frontiers, failure ordering, replica recovery, retention, and coordinator records needed to prune WAL data without losing or hiding records.\nThis KIP changes two earlier sketches:\nKIP-1163 currently points its WAL-object merging section at KIP-1165. This KIP supersedes that reference. WAL-object merging is not part of KIP-1165.\nKIP-1150 lists KIP-1163 and KIP-1164 as the minimum implementation. Because every upstream diskless topic consolidates from creation, KIP-1165 joins that minimum dependency set.\nMotivation\nThe WAL is an ingest format\nA WAL object combines batches from many topic partitions. This lets one object-storage upload cover many Produce requests and keeps the number of uploads independent of the partition count. The format is efficient for ingest, but it is a poor long-term per-partition log:\nA lagging consumer needs coordinator lookups and ranged object reads to reconstruct one partition.\nThe Diskless coordinator retains one coordinate for every live WAL batch.\nA reassigned replica must rebuild from mixed-partition objects.\nPhysical deletion of one partition's expired data waits for every other live batch in the shared object.\nKafka already has a long-term format\nKIP-405 stores ordinary Kafka log segments. Existing RSM and RLMM plugins, remote reads, leader-epoch indexes, transaction indexes, producer snapshots, local retention, and operational tools already use that format.\nMaterializing WAL batches into Kafka segments lets diskless ingest reuse this storage system without teaching KIP-405 plugins about mixed-partition WAL objects.\nProposed changes\nConsolidated Diskless Topic\nThe consolidated diskless topic (CDT) is a topic that has a tiered prefix in the classic Kafka per partition log format, and a WAL tail. The typical, intuitive form of this consolidated log can be found below. On this figure, we can see a topic where consolidation is in progress. The log has a tiered prefix and a diskless tail that overlaps the tiered space. We also have a local log that is used by the log tiering system and for serving reads within that offset interval.\nConsolidation Fetcher\nThe intuition for implementing this is to use something similar to the replica fetchers, except it fetches from the object storage, starting from the earliest WAL objects. This is called the Consolidation Fetcher. It extends the abstract classes in Kafka. It has the following main components:\n| Component | Role\n|\nConsolidationFetcherManager |\nAbstractFetcherManagerfor consolidation threads. Receives partition add/remove fromReplicaManager.\n|\nConsolidationFetcherThread |"
+  },
+  "confiance": 0.8,
+  "document_id": "KIP-1165",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Component",
+        "Role"
+      ],
+      "lignes": [
+        [
+          "ConsolidationFetcherManager",
+          "AbstractFetcherManager for consolidation threads. Receives partition add/remove from ReplicaManager."
+        ],
+        [
+          "ConsolidationFetcherThread",
+          "ReplicaFetcherThread that appends WAL batches to UnifiedLog and updates lag metrics."
+        ],
+        [
+          "DisklessLeaderEndPoint",
+          "Fetches batches and offsets from the diskless coordinator and object storage. Signals OFFSET_MOVED_TO_TIERED_STORAGE when the WAL has been pruned under the fetch offset."
+        ],
+        [
+          "ConsolidatedDisklessLogPruner",
+          "Scheduled job. Prunes WAL batches once highestOffsetInRemoteStorage covers them."
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Symbol",
+        "Name",
+        "Meaning"
+      ],
+      "lignes": [
+        [
+          "D",
+          "Diskless log end",
+          "The next offset the coordinator assigns. For a non-transactional topic this is the high watermark."
+        ],
+        [
+          "G",
+          "Global log start",
+          "The first offset a consumer may read. ListOffsets(EARLIEST) returns it."
+        ],
+        [
+          "W",
+          "WAL start",
+          "This is the diskless log start, the first offset that may still have a WAL coordinate."
+        ],
+        [
+          "T",
+          "Tiered log end",
+          "The highest offset, inclusive, with a finished gap-free KIP-405 copy. The exclusive end is T + 1. It starts at -1."
+        ],
+        [
+          "C",
+          "Local log end",
+          "How far this replica has materialized. This is also called the consolidation frontier."
+        ],
+        [
+          "L",
+          "Local start",
+          "Where this replica's local segments begin."
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Configuration",
+        "Behavior on a CDT"
+      ],
+      "lignes": [
+        [
+          "diskless.enable",
+          "Create-time only. true creates a CDT and causes the controller to persist remote.storage.enable=true atomically."
+        ],
+        [
+          "remote.storage.enable",
+          "Must resolve to true. Explicit false and later disablement are rejected."
+        ],
+        [
+          "remote.log.copy.disable",
+          "Must remain false. Operators pause consolidation with the dedicated rate limit."
+        ],
+        [
+          "remote.log.delete.on.disable",
+          "Does not provide a CDT transition because remote storage cannot be disabled."
+        ],
+        [
+          "cleanup.policy",
+          "delete only. compact remains unsupported until the corresponding diskless and tiered-storage work lands."
+        ],
+        [
+          "segment.bytes",
+          "Controls size-based materialization segment rolling."
+        ],
+        [
+          "segment.ms",
+          "Controls the maximum healthy-operation age of a non-empty materialization segment, including an idle segment."
+        ],
+        [
+          "remote.copy.lag.ms, remote.copy.lag.bytes",
+          "Delay eligible closed-segment uploads as in KIP-405 and therefore also delay WAL pruning."
+        ],
+        [
+          "retention.ms, retention.bytes",
+          "Apply to the whole logical log."
+        ],
+        [
+          "local.retention.ms, local.retention.bytes",
+          "Apply only to broker-local materialized segments."
+        ]
+      ],
+      "nom": "tableau_3"
+    },
+    {
+      "colonnes": [
+        "Configuration",
+        "Default",
+        "Update mode",
+        "Meaning"
+      ],
+      "lignes": [
+        [
+          "diskless.remote.storage.consolidation.enable",
+          "false",
+          "Read-only",
+          "Enables the broker components for consolidation. Requires diskless.system.enable=true and remote.log.storage.system.enable=true. CDT creation also requires metadata.version 4.5-IV1 or later."
+        ],
+        [
+          "diskless.consolidation.num.fetchers",
+          "1",
+          "Read-only",
+          "Number of consolidation fetcher threads. Independent of num.replica.fetchers."
+        ],
+        [
+          "diskless.consolidation.fetch.max.bytes",
+          "10485760",
+          "Read-only",
+          "Maximum bytes requested per partition in one consolidation fetch, subject to Kafka's first-batch progress rule."
+        ],
+        [
+          "diskless.consolidation.fetch.response.max.bytes",
+          "67108864",
+          "Read-only",
+          "Maximum aggregate bytes requested in one consolidation fetch response."
+        ],
+        [
+          "diskless.consolidation.fetch.min.bytes",
+          "8388608",
+          "Read-only",
+          "Minimum aggregate bytes before a consolidation fetch completes."
+        ],
+        [
+          "diskless.consolidation.fetch.max.wait.ms",
+          "1000",
+          "Read-only",
+          "Maximum wait for min.bytes at the tail."
+        ],
+        [
+          "diskless.consolidation.fetch.rate.limit.bytes.per.second",
+          "Long.MAX_VALUE",
+          "Cluster-wide dynamic",
+          "Aggregate WAL read bandwidth for consolidation on one broker. 0 pauses materialization."
+        ],
+        [
+          "diskless.consolidation.cleanup.interval.ms",
+          "300000",
+          "Read-only",
+          "Interval for leader-side WAL prune attempts."
+        ]
+      ],
+      "nom": "tableau_4"
+    },
+    {
+      "colonnes": [
+        "Timestamp",
+        "Coordinator result"
+      ],
+      "lignes": [
+        [
+          "EARLIEST (-2)",
+          "Whole-log start G."
+        ],
+        [
+          "LATEST (-1)",
+          "Diskless end D."
+        ],
+        [
+          "Nonnegative timestamp",
+          "The first matching batch still represented in the WAL, bounded by G. The broker combines this result with local and KIP-405 results."
+        ],
+        [
+          "MAX_TIMESTAMP (-3)",
+          "The maximum timestamp represented in the WAL. The broker combines it with local and KIP-405 results."
+        ]
+      ],
+      "nom": "tableau_5"
+    }
+  ]
+}

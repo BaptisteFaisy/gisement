@@ -1,0 +1,138 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-19893"
+    ],
+    "kip": "KIP-1241",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "accept",
+    "texte_libre": "Status\nCurrent state:Accept\nDiscussion thread:hereorhere(sometimes. the mail thread can't show all the mails. so I provided two links here)\nVote thread:here\nJIRA:KAFKA-19893\nPR:https://github.com/apache/kafka/pull/20913\nMotivation\nThis KIP proposesan optional featurethatprovides an opportunity for cost savingson remote storage when the scenario is suitable to use.\nCurrently, Kafka's tiered storage implementation uploads all non-active local log segments to remote storage immediately, even when they are still within the local retention period.\nThis results in redundant storage of the same data in both local and remote tiers.\nWe can see the one real redundancy example in the following picture. (I just highlight only one segment.)\nWhenthere is no requirement for real-time analytics based on remote storage directly. It has the following drawbacks:\n1. Wastes storage capacity and costs: The same data is stored twice during the local retention window\n2. No immediate benefit: During the local retention period, reads prioritize local data, making the remote copy unnecessary\nExample scenario and this KIP's goal:\nConsider a topic with remote storage enable:\n- Local retention: 1 day (24 hours)\n- Remote retention: 3 days (72 hours)\nData is stored in both tiers for the first day, resulting in about 16 hours of redundant storage. This can leads to cost waste.\nSo we can reduce this storage redundancy. In this case, it will save about 25% cost payment for total size of disk.\nWe can take an AWS S3 billing example (last 3 months) to show the cost saving detail:\nAWS S3 has two main cost items for Kafka usage (normally, Kafka deployed machines and the remote storage/S3 bucket are placed in the same region so that we can ignore the network transfer cost).\nThe cost itemTimedStorage-ByteHrsrepresents the storage part which costs are based on the stored object’s lifetime.\nIn above case, each remote segment lives for about 64 hours. thus, with the new optional feature, each will live for about 48 hours, resulting in approximately 25% cost savings.\nIn this billing example, the cost would decrease about 67K per quarter. BTW: if our topic is local:1 day + remote: 7 days . the saving part will be about 10% （27K）\nso it mean that if you set 1 day local + 3-7 days remote. the cost-saving forTimedStorage-ByteHrswill range from 25% to 10%..\nNote: You can also refer toAmazon S3 Costto know more information.\nHowever, this optimization is offered as atopic level optional configurationrather than the default behavior based on followed scenarios:\n(1)Some users/topics rely on remote storage for real-time analytics based on remote storage directly and need the latest data to be available as soon as possible(In fact, it only tries to stay as up-to-date as possible,\nbecause it still can’t include the latest data because the active segment always hasn’t been uploaded yet.).\n(2)Some topics may set a very high ratio for remote-to-local retention time. The cost savings amount will be small, so it is mainly to avoid waste. Users may think it is not worth enabling the feature for the topics\nplainPersonal opinion\n(3) Kafka admin want to reduce the expansion times for local disk when remote storage down for a long time. after all.The already uploaded segments are eligible for deletion from broker when not enable the feature for topic.\nYou can check the follow picture ( Configure: 1 day local + 3 day remote. and set the delay to max value: the local retention time/size) to understand the logic:\n(a) If the remote storage outage for a short time: no matter if you enable the feature. it don't have difference. (So if you don't set the delay to max value. you have more time to avoid expansion)\n(b) If the remote storage outage for a medium-term time\nYou will need one extra expansion: the max size is the your saving cost's part. You can think you should return back the save part/redundancy by expansion.\n(c) If the remote storage outage for a long time (check the 48 hours' outage exampl"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1241",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Type\\Configure",
+        "Case Id",
+        "local retention time",
+        "local retention size",
+        "lag time",
+        "lag size",
+        "Expect result",
+        "Notes"
+      ],
+      "lignes": [
+        [
+          "Special cases which can help to understand the basic rule for code review",
+          "1",
+          "*",
+          "*",
+          "0 (default value)",
+          "*",
+          "No lag",
+          ""
+        ],
+        [
+          "2",
+          "*",
+          "-1",
+          "*",
+          "-1 (default value)",
+          "No delay check on size. check the time configure as final result",
+          "For the case: if 4 configures are -1.The final result is not upload."
+        ],
+        [
+          "3",
+          "-1",
+          "*",
+          "-1",
+          "*",
+          "No delay check on time. check the size configure as final result"
+        ],
+        [
+          "Typical user cases which can test with deployment",
+          "4",
+          "7 days",
+          "-1",
+          "0 (default value)",
+          "-1 (default value)",
+          "No lag",
+          "7days + No size limit isKafka defalut configureIf you want time lag delay. you need to set time lag to real value"
+        ],
+        [
+          "1 day",
+          "-1",
+          "lag: 1 day"
+        ],
+        [
+          "-1",
+          "-1",
+          "lag: 7 days"
+        ],
+        [
+          "5",
+          "-1",
+          "3 GB",
+          "0 (default value)",
+          "-1 (default value)",
+          "No lag",
+          ""
+        ],
+        [
+          "-1",
+          "1 GB",
+          "lag: 1 GB",
+          ""
+        ],
+        [
+          "-1",
+          "-1",
+          "lag: 3 GB",
+          ""
+        ],
+        [
+          "6",
+          "7 days",
+          "3 GB",
+          "0 (default value)",
+          "-1 (default value)",
+          "No lag",
+          ""
+        ],
+        [
+          "1 day",
+          "1 GB",
+          "lag: 1 day or 1 GB",
+          ""
+        ],
+        [
+          "-1",
+          "-1",
+          "lag: 7 days or 3 GB",
+          ""
+        ],
+        [
+          "7",
+          "7 days",
+          "3 GB",
+          "1 day",
+          "0",
+          "No lag",
+          ""
+        ]
+      ],
+      "nom": "tableau_1"
+    }
+  ]
+}

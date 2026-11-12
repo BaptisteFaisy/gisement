@@ -1,0 +1,137 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1301",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "",
+    "texte_libre": "Status\nCurrent state:[Accepted]\nVote thread:here\nDiscussion thread:here\nJIRA:here\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nKafka has been gradually moving coordinator metrics from Yammer Metrics to Kafka Metrics. As part ofKAFKA-14519,`GroupCoordinatorMetrics`was introduced for the new coordinator metrics work.KAFKA-15870then moved the newly added group coordinator metrics from Yammer Metrics to Kafka Metrics.\nHowever, this migration is still incomplete. Several group coordinator metrics are already available through Kafka Metrics, including`group-count`metrics for different group\nprotocols. But some important classic-group metrics are still exposed only through Yammer Metrics.\nThis KIP completes that migration for`GroupCoordinatorMetrics`. It deprecates the remaining Yammer-based metrics and adds equivalent Kafka Metrics coverage. This gives the group coordinator a clearer and more consistent metrics interface while preserving compatibility during the deprecation period.\nPublic Interfaces\n1. Yammer-Based Metrics to be Deprecated\nThe following Yammer metrics will be marked as`@Deprecated`:\n|\nYammer Metric Name | Replacement Kafka Metric | Type | Description\n| kafka.coordinator.group:type=GroupMetadataManager,name=NumGroups | kafka.server:type=group-coordinator-metrics,name=group-count,protocol=classic | Gauge<Long> | The total number of groups using the classic rebalance protocol\n| kafka.coordinator.group:type=GroupMetadataManager,name=NumOffsets | kafka.server:type=group-coordinator-metrics,name=offset-count | Gauge<Long> | The number of offsets currently retained for Classic, Consumer, and Streams Groups\n| kafka.coordinator.group:type=GroupMetadataManager,name=NumGroupsPreparingRebalance | kafka.server:type=group-coordinator-metrics,name=classic-group-count,state=PreparingRebalance | Gauge<Long> | The number of classic groups inPreparingRebalancestate\n| kafka.coordinator.group:type=GroupMetadataManager,name=NumGroupsCompletingRebalance | kafka.server:type=group-coordinator-metrics,name=classic-group-count,state=CompletingRebalance | Gauge<Long> | The number of classic groups inCompletingRebalancestate\n| kafka.coordinator.group:type=GroupMetadataManager,name=NumGroupsStable | kafka.server:type=group-coordinator-metrics,name=classic-group-count,state=Stable | Gauge<Long> | The number of classic groups in Stable state\n| kafka.coordinator.group:type=GroupMetadataManager,name=NumGroupsDead | kafka.server:type=group-coordinator-metrics,name=classic-group-count,state=Dead | Gauge<Long> | The number of classic groups in Dead state\n| kafka.coordinator.group:type=GroupMetadataManager,name=NumGroupsEmpty | kafka.server:type=group-coordinator-metrics,name=classic-group-count,state=Empty | Gauge<Long> | The number of classic groups in Empty state\n2. New Kafka metrics are to be added.The following Kafka metrics will be added to provide equivalent functionality:\n|\nMetric Name | Tags | Attribute | Type | Status\n| kafka.server:type=group-coordinator-metrics,name=group-count,protocol=classic | protocol=classic |\ngroup-count | Gauge<Long> | Existing\n| kafka.server:type=group-coordinator-metrics,name=offset-count | none | offset-count | Gauge<Long> | New\n| kafka.server:type=group-coordinator-metrics,name=classic-group-count,state=PreparingRebalance |\nstate = PreparingRebalance | classic-group-count\n| Gauge<Long>\n| New\n| kafka.server:type=group-coordinator-metrics,name=classic-group-count,state=CompletingRebalance |\nstate = CompletingRebalance | classic-group-count\n| Gauge<Long>\n| New\n| kafka.server:type=group-coordinator-metrics,name=classic-group-count,state=Stable |\nstate = Stable | classic-group-count\n| Gauge<Long>\n| New\n| kafka.server:type=group-coordinator-metrics,name=classic-group-count,state=Dead |\nstate = Dead | classic-group-count\n| Gauge<Long>\n| New\n| kafka.server:type=group-coordinator-metrics,name=classic-group-count,state=Empty |\nstate = Empt"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1301",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Yammer Metric Name",
+        "Replacement Kafka Metric",
+        "Type",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "kafka.coordinator.group:type=GroupMetadataManager,name=NumGroups",
+          "kafka.server:type=group-coordinator-metrics,name=group-count,protocol=classic",
+          "Gauge&lt;Long&gt;",
+          "The total number of groups using the classic rebalance protocol"
+        ],
+        [
+          "kafka.coordinator.group:type=GroupMetadataManager,name=NumOffsets",
+          "kafka.server:type=group-coordinator-metrics,name=offset-count",
+          "Gauge&lt;Long&gt;",
+          "The number of offsets currently retained for Classic, Consumer, and Streams Groups"
+        ],
+        [
+          "kafka.coordinator.group:type=GroupMetadataManager,name=NumGroupsPreparingRebalance",
+          "kafka.server:type=group-coordinator-metrics,name=classic-group-count,state=PreparingRebalance",
+          "Gauge&lt;Long&gt;",
+          "The number of classic groups in PreparingRebalance state"
+        ],
+        [
+          "kafka.coordinator.group:type=GroupMetadataManager,name=NumGroupsCompletingRebalance",
+          "kafka.server:type=group-coordinator-metrics,name=classic-group-count,state=CompletingRebalance",
+          "Gauge&lt;Long&gt;",
+          "The number of classic groups in CompletingRebalance state"
+        ],
+        [
+          "kafka.coordinator.group:type=GroupMetadataManager,name=NumGroupsStable",
+          "kafka.server:type=group-coordinator-metrics,name=classic-group-count,state=Stable",
+          "Gauge&lt;Long&gt;",
+          "The number of classic groups in Stable state"
+        ],
+        [
+          "kafka.coordinator.group:type=GroupMetadataManager,name=NumGroupsDead",
+          "kafka.server:type=group-coordinator-metrics,name=classic-group-count,state=Dead",
+          "Gauge&lt;Long&gt;",
+          "The number of classic groups in Dead state"
+        ],
+        [
+          "kafka.coordinator.group:type=GroupMetadataManager,name=NumGroupsEmpty",
+          "kafka.server:type=group-coordinator-metrics,name=classic-group-count,state=Empty",
+          "Gauge&lt;Long&gt;",
+          "The number of classic groups in Empty state"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Metric Name",
+        "Tags",
+        "Attribute",
+        "Type",
+        "Status"
+      ],
+      "lignes": [
+        [
+          "kafka.server:type=group-coordinator-metrics,name=group-count,protocol=classic",
+          "protocol=classic",
+          "group-count",
+          "Gauge&lt;Long&gt;",
+          "Existing"
+        ],
+        [
+          "kafka.server:type=group-coordinator-metrics,name=offset-count",
+          "none",
+          "offset-count",
+          "Gauge&lt;Long&gt;",
+          "New"
+        ],
+        [
+          "kafka.server:type=group-coordinator-metrics,name=classic-group-count,state=PreparingRebalance",
+          "state = PreparingRebalance",
+          "classic-group-count",
+          "Gauge&lt;Long&gt;",
+          "New"
+        ],
+        [
+          "kafka.server:type=group-coordinator-metrics,name=classic-group-count,state=CompletingRebalance",
+          "state = CompletingRebalance",
+          "classic-group-count",
+          "Gauge&lt;Long&gt;",
+          "New"
+        ],
+        [
+          "kafka.server:type=group-coordinator-metrics,name=classic-group-count,state=Stable",
+          "state = Stable",
+          "classic-group-count",
+          "Gauge&lt;Long&gt;",
+          "New"
+        ],
+        [
+          "kafka.server:type=group-coordinator-metrics,name=classic-group-count,state=Dead",
+          "state = Dead",
+          "classic-group-count",
+          "Gauge&lt;Long&gt;",
+          "New"
+        ],
+        [
+          "kafka.server:type=group-coordinator-metrics,name=classic-group-count,state=Empty",
+          "state = Empty",
+          "classic-group-count",
+          "Gauge&lt;Long&gt;",
+          "New"
+        ]
+      ],
+      "nom": "tableau_2"
+    }
+  ]
+}

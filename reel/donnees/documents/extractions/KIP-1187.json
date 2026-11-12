@@ -1,0 +1,22 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1187",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "voting",
+    "texte_libre": "Status\nCurrent state:Voting\nDiscussion thread:https://lists.apache.org/thread/bd6y65qro8fj548rpdrm3lxqomqo75x8\nVote thread:https://lists.apache.org/thread/prjobqr014y7q1v91o73zn56ks0vb9wr\nJIRA:ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-19368\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nIn KIP-405, it introduced tired storage and supported to store remote log metadata viaRemoteLogMetadataManagerinterface. The remote log metadata contains remote segment start/end offset, size, etc. This information is primarily utilized internally, leaving users without direct access through CLI tools. This limitation can complicate the management of both local and remote logs, as administrators often need to switch between different tools to gather necessary data.\nIntegrating the remote segment size into the kafka-log-dirs.sh script would greatly enhance operational efficiency. By providing a unified view of both local and remote log sizes in a single location, administrators can streamline their monitoring and management processes.\nPublic Interfaces\nDescribeLogDirsRequest\nAdd a new fieldIncludeRemoteInfo. The remote log metadata is returned fromRemoteLogMetadataManagerinterface. For some implementation like built-in TopicBasedRemoteLogMetadataManager, it returns value from local cache without sending further RPCs. However, this is not guaranteed that all implementations retrieve data from local cache. WithIncludeRemoteInfooption, users can choose whether to spend extra cost to get remote log information.jsDescribeLogDirsRequesttrue\nDescribeLogDirsResponse\nAdd new fieldsRemoteLogSizeand LocalOnlyLogSize toDescribeLogDirsPatition. Update PartitionSize description to specify that it refers to the size of local log segments.\nThe RemoteLogManager periodically copies data to remote storage. A log segment may be uploaded to remote storage even though it hasn’t yet reached the local retention threshold. This means a segment can exist in both local and remote storage simultaneously. For example, suppose local.retention.ms is 12 hours and retention.ms is 48 hours. In this case, the remote storage would contain about 47 hours of data, while the local storage would hold about 11 hours. PartitionSize represents the total size of all local data, so it corresponds to roughly 11 hours of data. RemoteLogSize represents the total size of all remote data, which corresponds to roughly 47 hours of data. LocalOnlyLogSize represents data that has not yet been copied to remote storage. It is therefore a subset of PartitionSize but not included in RemoteLogSize.jsDescribeLogDirsResponsetrue\nDescribeLogDirsOptions\nAdd a new fieldincludeRemoteInfo.javaDescribeLogDirsOptionstrue\nReplicaInfo\nAdd new fieldsremoteSizeand localOnlySize.javaReplicaInfotrue\nProposed Changes\nkafka-log-dirs.sh\n--describe --topic-list —include-remote-info\nAdd—include-remote-infooption and showremoteSizeand localOnlySize in result.\nCompatibility, Deprecation, and Migration Plan\nThis KIP adds new fields toDescribeLogDirsRPC which doesn’t break compatibility with old versions.\nTest Plan\nTestkafka-log-dirs.shshows remote and only local size if there is--include-remote-infooption.\nTestkafka-log-dirs.shdoesn’t show remote and only local size if there is no--include-remote-infooption.\nTest DescribeLogDirs RPC returns remote partition size ifIncludeRemoteInfois true.\nTest DescribeLogDirs RPC returns default remote partition size ifIncludeRemoteInfois false.\nRejected Alternatives\nN/A"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1187",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": []
+}

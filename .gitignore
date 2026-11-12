@@ -40,3 +40,11 @@ infra/quicksight-assets/*.generated.json
 !.env.example
 *.pem
 secrets.*
+
+# le brut telecharge du corpus reel : jamais commité, jamais servi
+reel/brut/
+
+# artefacts regenerables du corpus reel (les donnees, elles, sont commitees)
+reel/modele/invites.json
+reel/modele/groupes.json
+reel/resultats/

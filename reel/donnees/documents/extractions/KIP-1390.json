@@ -1,0 +1,22 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-21221"
+    ],
+    "kip": "KIP-1390",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state: Under Discussion\nDiscussion thread:https://lists.apache.org/thread/2nby0dqkq57x03c1yxzzbkklzysl3qty\nJIRA:KAFKA-21221\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nKIP-768addedOAuthBearerValidatorCallbackHandler, so a broker can validate OAuth tokens from an OIDC provider. Some brokers only need this, because they use another security protocol or SASL mechanism for connections to other brokers and controllers. These brokers never need their own token. They only need the public keys from the OIDC provider to validate client tokens. In this KIP I call them validate-only brokers.\nHowever, the broker still runs a JAAS login for OAUTHBEARER at startup.OAuthBearerLoginModuleaccepts a login without a token, but Kafka has no dedicated login callback handler for this case. Whensasl.login.callback.handler.classis not set, the defaultOAuthBearerUnsecuredLoginCallbackHandleris used. It is an internal class for testing. Like the other unsecured OAUTHBEARER classes, it is not production-ready.. It creates an unsecured token when it findsunsecuredLogin*JAAS options, and logs in without a token otherwise. BeforeKAFKA-21143was fixed, it tried to create a token when it found any JAAS option, so thessl.*options for the JWKS endpoint made the broker fail to start. This is fixed now, but tokenless login still depends on how this internal class reads JAAS options.\nThis KIP proposes addingOAuthBearerTokenlessLoginCallbackHandler, so users can explicitly choose tokenless login for validate-only brokers.\nPublic Interfaces\nAdd a new class in theorg.apache.kafka.common.security.oauthbearerpackage:java\nNo new configuration is added.\nProposed Changes\nhandle()leaves theOAuthBearerTokenCallbackempty, with no token and no error, so the login succeeds without a token. Other callbacks getUnsupportedCallbackException. It also logs at INFO level that the login succeeded without a token, so users can notice if the handler is used by mistake where a token is needed.\nconfigure()does the same checks as the existing login callback handlers: the mechanism must be OAUTHBEARER, and there must be exactly one login module insasl.jaas.configor the JAAS file. It ignores all JAAS options, such as thessl.*options for the JWKS endpoint.\nWhenOAuthBearerUnsecuredLoginCallbackHandlerlogs in without a token but finds JAAS options, such asssl.*, it logs at WARN instead of INFO. The message suggests the new handler.\nExample\nFor example, a validate-only broker that uses SSL for inter-broker communication only needs one more line. The validation configs, such as the JWKS endpoint, are the same as before and are not shown here.\nCompatibility, Deprecation, and Migration Plan\nThis is a new class, so there is no impact on existing users.OAuthBearerUnsecuredLoginCallbackHandleronly changes one log level, as described above. Users who rely on the current tokenless login can switch by adding thesasl.login.callback.handler.classline from the example above.\nTest Plan\nUnit tests for the new handler, and extend the existingtestValidSaslOauthBearerMechanismWithoutServerTokensto cover a broker configured with the new handler.\nRejected Alternatives\nSkip the login on listeners that don't need a token\nThe broker could skip the JAAS login for OAUTHBEARER on listeners that are not used for inter-broker connections. However, the SASL channel builder and the server authenticator expect aSubjectfor every enabled mechanism, so more code would need to change, and custom login modules or callback handlers may rely on the login being called. This is a bigger behavior change than adding a new class that only affects users who set it.\nChange the default login callback handler for OAUTHBEARER\nAnother option is to make the new handler the default forsasl.login.callback.handler.class, so validate-only brokers don't need any new config. Today, when this config is not set for OAUTHBEARER, Kafka usesOAuthBearerUn"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1390",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": []
+}

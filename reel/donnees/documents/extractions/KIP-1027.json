@@ -1,0 +1,20 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1027",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "voting",
+    "texte_libre": "Status\nCurrent state:Voting\nDiscussion thread:here\nJIRA:ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-15143\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nWhenKIP-478andKIP-820were implemented and merged, they introduced the new Processor API, replacing the previously weakly-typed Transformer that were used.\nThis change to the Processor API also introduced theMockProcessorContextclass to the Kafka Streams test-utils to enable unit testing for any topologies, however, with the strongly-typed nature of the API,FixedKeyProcessorcannot useProcessorContextandin addition theMockProcessorContext, this KIP adds theMockFixedKeyProcessorContextto enable unit testing forFixedKeyProcessoras well.\nAlong with the introduction of theMockFixedKeyProcessorContext, another interface -TestFixedKeyRecordFactory,is also required to allow for the creation ofFixedKeyRecordsin a testing capacity, since the existingInternalFixedKeyRecordFactoryshould not be used for such a scenario. Internally to theTestFixedKeyRecordFactorytheInternalFixedKeyRecordFactoryis called to abstract any changes away from the public API.\nPublic Interfaces\nThe newMockFixedKeyProcessorContextclass.java\nThe newTestFixedKeyRecordFactoryclassjava\nProposed Changes\nWe add new classes to allow testing custom processor that implement theFixedKeyProcessorclass.\nCompatibility, Deprecation, and Migration Plan\nThis KIP only adds a new class, so there is no compatibility concerns.\nTest Plan\nRegular unit-testing is sufficient.\nDocumentation Plan\nThe section on testing should be updated:https://kafka.apache.org/37/documentation/streams/developer-guide/testing.html\nRejected Alternatives\nn/a"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1027",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": []
+}

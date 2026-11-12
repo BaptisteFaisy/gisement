@@ -1,0 +1,69 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-20407"
+    ],
+    "kip": "KIP-1344",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "This page is meant as a template for writing a. To create a KIP choose Tools->Copy on this page and modify with your content and replace the heading with the next KIP number and a description of your issue. Replace anything in italics with your own description.\nStatus\nCurrent state:Under Discussion.\nDiscussion thread:here\nJIRA:KAFKA-20407\nMotivation\nKafka transactions complete through multiple asynchronous steps coordinated by the transaction coordinator. When a producer sendsEndTxn, the coordinator first appends aPREPARE_COMMITorPREPARE_ABORTtransition to the__transaction_statetopic. After this append succeeds, the coordinator can respond to the client and then continues transaction finalization by sending commit or abort markers to all partitions participating in the transaction. Once those markers complete, the coordinator appends the finalCOMPLETE_COMMITorCOMPLETE_ABORTtransition to__transaction_state.\nWhen this path is slow or repeatedly retried, users may observe increasedEndTxnlatency, slow progress forread_committedconsumers, transactions remaining in prepare states, or delayed cleanup after coordinator failover.\nHowever, today it is difficult for operators to identify which part of the transaction finalization path is responsible.\nExisting request latency metrics can show thatEndTxnis slow, but they do not distinguish coordinator validation, request queueing, metadata locking, and the durable append to__transaction_state. Generic broker storage and replication metrics may show disk or replica pressure, but they do not indicate whether that pressure is affecting the transaction state log specifically. Existing transaction marker queue metrics expose only selected queues, such as markers waiting for an unknown destination broker and retries of final transaction log appends, but they do not expose the number of transactions currently waiting for marker completion.\nThis lack of visibility makes common operational questions difficult to answer:\nIs the transaction coordinator slow because appends to__transaction_stateare slow?\nIsEndTxnlatency caused by the prepare transition, or is finalization delayed after the client has already received a successful response?\nAre transactions waiting because marker fan-out to data partition leaders is failing or retrying?\nAre marker completions done, but the finalCOMPLETE_COMMITorCOMPLETE_ABORTappend to__transaction_stateis failing or slow?\nThis KIP proposes adding transaction coordinator metrics for transaction state log append latency, append errors, marker retry errors, andtransactions waiting for marker completion.\nPublic Interfaces\nNew Metrics\nkafka.server:type=transaction-coordinator-metrics\nThese metrics are exposed through Kafka Metrics.\n| Metric Name | Type | Labels | Description\n| transaction-state-log-append-latency-ms | Histogram | target-state | The time in milliseconds to append a transaction state transition to__transaction_state.\n| transaction-state-log-append-errors-total | Counter | target-state, error | The count of failed__transaction_stateappend attempts.\nThetarget-statelabel is the transaction state being appended to__transaction_state. Theerrorlabel is the Kafka error name.\nkafka.coordinator.transaction:type=TransactionMarkerChannelManager\nThese metrics are exposed through the existing Yammer-basedTransactionMarkerChannelManagermetrics group.\n| Metric Name | Type | Labels | Description\n|\nTransactionsWithPendingMarkersCount | Gauge | none | The current number of transactions waiting for transaction marker completion.\n|\nTransactionMarkerRetriesPerSec | Meter | error |\nThe rate of partition-level retriable transaction marker failures returned inWriteTxnMarkersresponses. The meter count represents the cumulative total.\nThe errortag is the Kafka error name returned for the partition-level marker failure.\nProposed Changes\nTransaction state log append metrics\nThe transaction coordinator will record latency and failures for transaction state transition appends to__transact"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1344",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Metric Name",
+        "Type",
+        "Labels",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "transaction-state-log-append-latency-ms",
+          "Histogram",
+          "target-state",
+          "The time in milliseconds to append a transaction state transition to __transaction_state ."
+        ],
+        [
+          "transaction-state-log-append-errors-total",
+          "Counter",
+          "target-state, error",
+          "The count of failed __transaction_state append attempts."
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Metric Name",
+        "Type",
+        "Labels",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "TransactionsWithPendingMarkersCount",
+          "Gauge",
+          "none",
+          "The current number of transactions waiting for transaction marker completion."
+        ],
+        [
+          "TransactionMarkerRetriesPerSec",
+          "Meter",
+          "error",
+          "The rate of partition-level retriable transaction marker failures returned in WriteTxnMarkers responses. The meter count represents the cumulative total."
+        ]
+      ],
+      "nom": "tableau_2"
+    }
+  ]
+}

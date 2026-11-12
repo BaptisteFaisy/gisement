@@ -1,0 +1,22 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1340",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "accepted",
+    "texte_libre": "Status\nCurrent state: Accepted\nDiscussion thread:here\nVote thread:here\nJIRA:here\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nInKIP-149, we introducedValueJoinerWithKeyinterface for Kafka Streams DSL. Its intent is to give the joiner access to the join key, so users can write joiners whose output depends on the key, not just the values. The underlyingKStreamKTableJoinProcessoris shared by both stream-table and stream-globalTable joins.\nFor stream-table joins, the join key is the stream record's key, so the processor works correctly. For stream-globalTable joins, the join key is computed from the stream record via a user-suppliedKeyValueMapperand is generally different from the stream record's key. However, the currentKStreamKTableJoinProcessor#doJoinimplementation passes the stream record's key intoValueJoinerWithKey.apply(), not the mapped join key.\nThe discrepancy is not surfaced at compile time: the DSL signature pins the joiner's first type parameter to the stream key type K, and the implementation passesrecord.key()(also K), so types align, and no error or warning is raised. The join still matches records correctly because matching is done by theKeyValueMapper, not the joiner. However, KIP-149 specifiedreadOnlyKeywould be the join key, which for stream–globalTable joins is the mapped key, not the stream key. As a result, users who need the mapped join key inside their joiner have no way to access it without recomputing it from record.key() and record.value(), which is something the runtime already does via keySelector.\nPublic Interfaces\nKStream\nA new functional interfaceValueJoinerWithStreamAndMappedKey<StreamKey, TableKey, StreamValue, TableValue, VOut>is added with a single methodVR apply(StreamKey streamKey, TableKey mappedKey, StreamValue value1, TableValue value2), wherereadOnlyKeyis the mapped join key produced by theKeyValueMapper(i.e. theGlobalKTablelookup key) andstreamKeyis the originalKStreamrecord key; both keys are read-only and must not be modified.java\nFour new methods are added to KStream. They mirror the four existing stream-globalTable join overloads that take aValueJoinerWithKey. But instead they take in a newValueJoinerWithMappedAndStreamKeyinterface that contains both the stream key and the mapped key.java\nThe existingKStream.join(GlobalKTable, KeyValueMapper, ValueJoinerWithKey)andKStream.leftJoin(GlobalKTable, KeyValueMapper, ValueJoinerWithKey)overloads are retainedfor backwards compatibility. They continue to pass the stream record's key into thejoiner, but are marked as@Deprecated, are targeted to be removed in a future major release. Furthermore, an additional comment for each deprecated method stressing that thereadOnlyKey is currently the stream key, not the mapped joinkey is added. The same warning applies to all four deprecated overloads.\nProposed Changes\nThis KIP introduces a new ValueJoinerWithStreamAndMappedKey functional interface and four new overloads ofKStream#join/KStream#leftJoin(the GlobalKTable variants) that accept it, and deprecates the four existing overloads that takeValueJoinerWithKey. The new joiner exposes both keys involved in a GlobalKTable join — the mapped join key produced by theKeyValueMapper(i.e. the GlobalKTable lookup key) and the original KStream record key — so that users no longer need to recompute the mapped key inside the joiner.\nWhen a record arrives on the stream:\nThe runtime computesmappedKey = keySelector.apply(record.key(), record.value()).\nThe global table is looked up atmappedKeyto obtain the matched value (ornullfor left-join with no match).\nThe joiner is invoked asjoiner.apply(mappedKey, record.key(), record.value(), tableValue).\nThe output record's key remains the stream record's key.\nThere is no behavioral change to existing code paths. The deprecated ValueJoinerWithKey-based overloads continue to invoke the joiner with the stream record's key as readOnlyKey; inter"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1340",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": []
+}

@@ -1,0 +1,76 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1384",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state: Under Discussion\nDiscussion thread:https://lists.apache.org/thread.html/jqbjdxv1ormzcgbrfn5hk46mls8oh6tk\nJIRA:ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-21261\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nEvery release today ends with a manual upload to an S3 bucket that only Confluent can write to. The system tests then run against copies of the release that nobody verifies.\nThe compatibility and upgrade tests run older releases from/opt/kafka-<version>. Thetests/docker/Dockerfiledownloads them fromhttps://s3-us-west-2.amazonaws.com/kafka-packages. Each release needs one line for its binary tarball and one for itskafka-streams-<version>-test.jar, which the streams upgrade tests load fromlibs/. Thevagrant/base.shkeeps a second copy of the same list.\nAfter a release, theRelease Processasks the release manager to:\nUpdategradle/dependencies.gradle,tests/docker/Dockerfile,tests/kafkatest/version.pyandvagrant/base.sh, as in#22373and#23629.\nUpload both tarballs and the test jar tokafka-packages. Confluent owns the bucket, so a release manager who does not work there has to ask a Confluent committer.\nThis causes three problems:\nUploads get missed.The upload is one of theAfter releasesteps in the Release Process, so a release manager may forget it.\nThe copies are not the released artifacts.Nothing checks a checksum or a signature. The 2.4.1 and 4.2.2 test jars on S3 hold the same classes as Maven Central but were rebuilt later, so their bytes differ.\nThe test setup depends on a vendor's bucket.The project cannot fix a missing or broken file without asking Confluent.\nPublic Interfaces\nThis KIP changes no public interface: no protocol, client API, configuration, metric or command-line tool. Only the system test setup changes:\n|\nItem |\nChange |\nDetails\n|\nghcr.io/apache/kafka/system-test-deps |\nNew container image |\nTagged with the 12-character tree hash oftests/docker/deps, pluslatestfrom trunk. For testing only, not a release artifact\n|\nKAFKA_DEPS_IMAGEbuild arg oftests/docker/Dockerfile |\nNew |\nDefaults toghcr.io/apache/kafka/system-test-deps:latest. Set it to use a local or pinned image\n|\nKAFKA_MIRRORbuild arg oftests/docker/Dockerfile |\nRemoved |\nAPACHE_DIST_URLandMAVEN_REPO_URLtake over\n|\nAPACHE_DIST_URLandMAVEN_REPO_URLbuild args oftests/docker/deps/Dockerfile |\nNew |\nDefault tohttps://archive.apache.org/distandhttps://repo1.maven.org/maven2\n|\nBuild System Test Dependencies Image workflow |\nNew |\nRuns on trunk pushes that touchtests/docker/deps/**, or by hand\nProposed Changes\nOne image,ghcr.io/apache/kafka/system-test-deps, holds every release the system tests need. A workflow builds it from the official artifacts, and the ducker image copies it instead of downloading from S3.\nThe deps image\nA new directory,tests/docker/deps/, holds aDockerfileand afetch-kafka.shscript. The Dockerfile lists one line per release:RUN fetch-kafka 4.2.2 2.13\nRUN fetch-kafka 4.3.1 2.13\nfetch-kafka.sh <version> <scala version>does the following:\nDownloadskafka_<scala>-<version>.tgzfromhttps://archive.apache.org/dist/kafka/<version>/.\nDownloadskafka-streams-<version>-test.jarfrom Maven Central.\nVerifies both detached signatures againsthttps://downloads.apache.org/kafka/KEYS, asdocker/jvm/Dockerfilealready does for the release image.\nInstalls the release into/opt/kafka-<version>and puts the test jar into itslibs/.\nThe publishing workflow\nA new workflow,.github/workflows/system_test_deps_image.yml, builds and pushes the image:\n|\nSetting |\nValue |\nWhy\n|\nTrigger |\nA push totrunkthat touchestests/docker/deps/**, orworkflow_dispatch |\nThe image is published as soon as the release PR merges\n|\nTags |\nThe git tree hash oftests/docker/deps(12 characters), pluslatestfromtrunk |\nThe hash names the content and never moves;latestfollowstrunk\nA release is never removed from the image while an active branch still uses it, solatestworks for every active branch"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1384",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Item",
+        "Change",
+        "Details"
+      ],
+      "lignes": [
+        [
+          "ghcr.io/apache/kafka/system-test-deps",
+          "New container image",
+          "Tagged with the 12-character tree hash of tests/docker/deps, plus latest from trunk. For testing only, not a release artifact"
+        ],
+        [
+          "KAFKA_DEPS_IMAGE build arg of tests/docker/Dockerfile",
+          "New",
+          "Defaults to ghcr.io/apache/kafka/system-test-deps:latest. Set it to use a local or pinned image"
+        ],
+        [
+          "KAFKA_MIRROR build arg of tests/docker/Dockerfile",
+          "Removed",
+          "APACHE_DIST_URL and MAVEN_REPO_URL take over"
+        ],
+        [
+          "APACHE_DIST_URL and MAVEN_REPO_URL build args of tests/docker/deps/Dockerfile",
+          "New",
+          "Default to https://archive.apache.org/dist and https://repo1.maven.org/maven2"
+        ],
+        [
+          "Build System Test Dependencies Image workflow",
+          "New",
+          "Runs on trunk pushes that touch tests/docker/deps/**, or by hand"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Setting",
+        "Value",
+        "Why"
+      ],
+      "lignes": [
+        [
+          "Trigger",
+          "A push to trunk that touches tests/docker/deps/**, or workflow_dispatch",
+          "The image is published as soon as the release PR merges"
+        ],
+        [
+          "Tags",
+          "The git tree hash of tests/docker/deps (12 characters), plus latest from trunk",
+          "The hash names the content and never moves; latest follows trunk"
+        ]
+      ],
+      "nom": "tableau_2"
+    }
+  ]
+}

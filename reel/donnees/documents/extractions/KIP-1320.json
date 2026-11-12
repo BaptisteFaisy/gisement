@@ -1,0 +1,193 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-20411"
+    ],
+    "kip": "KIP-1320",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "discussion",
+    "texte_libre": "Status\nCurrent state:Discussion\nAuthors:PSD-c0d9320dde1ec9d5\nDiscussion thread:https://lists.apache.org/thread/5hf11khclhngftp297hhvwc23j5bcx28\nPrevious vote thread (earlier proposal):https://lists.apache.org/thread/qx1y2nvx27h1v1t0zvp9kqolnd3fhxls\nJIRA:https://issues.apache.org/jira/browse/KAFKA-20411\nPlease keep the discussion on the mailing list rather than commenting on the wiki.\nMotivation\nKafka's published Java archives contain classes that applications can access even though Kafka does not intend to support them as Public APIs. Some are implementation helpers placed outside packages namedinternalorinternals, so external Java and Scala applications can import them directly.\nKIP-1265 defines a class aseffectively PSD-225d3089c8ac9adb either directly or through an enclosing Public class. A PSD-3cd5fb9a42b0f9ff overrides that inherited coverage. Classes without effective Public coverage arePrivate. KIP-1265 also provides a checker for compiled classes that external projects can use to find internal API usage. This gives Kafka a consistent default, but it does not answer every compatibility question.\nIn this KIP, aPublic contractmeans an API or extension point that Kafka intends external applications to depend on and maintainers to support across releases.\nThere are two important cases among classes that are not effectively Public:\nSome are exposed through an existing Public API, implement a Public Kafka type, appear in Public Javadoc, or are used through a documented extension mechanism. These may indicate a missing Public annotation or another API-definition issue.\nOthers are Kafka implementation details that downstream source code imports directly. These remain Private, but immediate removal can have a large compatibility impact when usage is widespread.\nThe KIP-1265 annotation alone cannot distinguish these cases. It also does not produce a Java compiler deprecation warning or define a removal schedule for a heavily used internal class.\nKIP-1320 therefore proposesstaged deprecationonly for classes that Kafka maintainers confirm are internal and whose external usage justifies a warning period. Staged deprecation keeps the old class available with a compiler warning for a stated release period before removal. Each proposed class has migration guidance and a stated removal release. The initial proposed set contains onlyorg.apache.kafka.common.utils.Utils.\nThe class scan and external-usage count support that decision; they do not make it. This KIP does not create a compatibility guarantee for every class classified as Private by KIP-1265. A class receives a warning period only when maintainers approve it in theDeprecation Registry, the table of classes selected for staged deprecation.\nCandidate Identification\nIn this section, acandidateis an externally accessible class that KIP-1265 classifies as Private. Anactive candidateis a candidate that is not already deprecated and is not already under aninternalorinternalspackage. The following flow shows how the scan narrows the classes that maintainers review:text\nThe two checks answer different questions.The first check asks whether Kafka already treats the class as supported, even though its annotation says Private. The GitHub search asks a different question: how much external source code may be affected if maintainers confirm that the class is internal. Neither result determines the outcome by itself.\nHow the results are combined.Each class is identified by its FQCN, for exampleorg.apache.kafka.common.utils.Utils. The scan keeps every active candidate and attaches the Java and Scala usage counts that match that name. Thecombined usage countis the sum of those two matching-source-file counts; it is not a count of unique users, projects, or repositories. A class does not need a positive result from both checks to remain in the data. The 1,000-file threshold prioritizes 75 classes for review; it does not classify them or prevent maintainers from n"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1320",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Outcome",
+        "Meaning",
+        "Current count"
+      ],
+      "lignes": [
+        [
+          "Staged deprecation",
+          "Confirmed internal; keep the old class with a warning until its stated removal release",
+          "1"
+        ],
+        [
+          "Public API follow-up",
+          "The class may already be part of a Public contract; resolve that API question separately",
+          "2"
+        ],
+        [
+          "Intended entry point",
+          "The class is a supported extension or configuration entry point; do not deprecate it here",
+          "1"
+        ],
+        [
+          "Direct internal change",
+          "Confirmed internal; normal Jira and review are enough without a new warning period",
+          "1"
+        ],
+        [
+          "Handled elsewhere or no change",
+          "Another effort covers the class, or the evidence does not justify action",
+          "3"
+        ],
+        [
+          "Pending maintainer review",
+          "The intended contract or transition is still undecided",
+          "67"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Class",
+        "Why Kafka may already support it",
+        "Combined usage",
+        "Maintainer interpretation",
+        "Proposed outcome"
+      ],
+      "lignes": [
+        [
+          "Utils",
+          "No supported-API signal found",
+          "3,588",
+          "Internal utility with enough external impact to justify a warning period",
+          "Staged deprecation"
+        ],
+        [
+          "Schema",
+          "Appears directly in a supported API",
+          "1,372",
+          "Possible Public API definition gap; do not infer internal status from annotation coverage",
+          "Public API follow-up"
+        ],
+        [
+          "JsonConverter",
+          "Implements supported converter types and is named in configuration and service metadata",
+          "1,297",
+          "Legitimate Connect plugin and configuration entry point",
+          "Intended entry point"
+        ],
+        [
+          "RequestContext",
+          "Implements the supported AuthorizableRequestContext type",
+          "1,206",
+          "The supported contract is the interface; the concrete class remains broker plumbing",
+          "Handled elsewhere or no change"
+        ],
+        [
+          "ByteBufferOutputStream",
+          "Reached indirectly from a supported API",
+          "1,043",
+          "A submitted MINOR change moves it to org.apache.kafka.common.utils.internals without a new compatibility guarantee",
+          "Direct internal change"
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Candidate",
+        "Deprecated since",
+        "Migration guidance",
+        "Compatibility approach",
+        "Removal release",
+        "Status and tracking"
+      ],
+      "lignes": [
+        [
+          "org.apache.kafka.common.utils.Utils",
+          "4.5",
+          "Use standard Java functionality, application-owned code, or a supported Kafka Public API; do not import internals.Utils",
+          "Deprecated delegating shim throughout 4.5.x",
+          "5.0",
+          "Author proposal; KAFKA-20411 / PR #22758"
+        ]
+      ],
+      "nom": "tableau_3"
+    },
+    {
+      "colonnes": [
+        "Existing class",
+        "Decision in Kafka 4.5",
+        "Kafka 5.0"
+      ],
+      "lignes": [
+        [
+          "org.apache.kafka.common.utils.Utils",
+          "Deprecated compatibility shim; implementation moves to org.apache.kafka.common.utils.internals.Utils",
+          "Remove the compatibility shim"
+        ]
+      ],
+      "nom": "tableau_4"
+    },
+    {
+      "colonnes": [
+        "Evidence tag",
+        "Meaning"
+      ],
+      "lignes": [
+        [
+          "PUBLIC_ANNOTATED",
+          "The class is directly annotated Public. Such a class is not an active non-Public candidate."
+        ],
+        [
+          "PUBLIC_SIGNATURE_LEAK",
+          "An effectively Public field or method exposes the candidate directly or indirectly."
+        ],
+        [
+          "PUBLIC_SIGNATURE_LEAK_DIRECT",
+          "The candidate appears directly in an effectively Public signature."
+        ],
+        [
+          "PUBLIC_SIGNATURE_LEAK_TRANSITIVE",
+          "The candidate is reached indirectly through another type; the tag name uses “transitive” for this case."
+        ],
+        [
+          "PUBLIC_JAVADOC_GAP",
+          "Public Javadoc and effective audience coverage may be inconsistent."
+        ],
+        [
+          "PUBLIC_SUPERTYPE",
+          "The candidate extends or implements an effectively Public Kafka type."
+        ],
+        [
+          "CONFIG_REFERENCED",
+          "Kafka configuration, service metadata, or documentation references the class name."
+        ],
+        [
+          "UNREACHABLE_INTERNAL",
+          "None of the listed Public-contract signals was observed. This is not proof that the class is internal."
+        ],
+        [
+          "ALREADY_DEPRECATED_OR_MOVED",
+          "The class is already deprecated or is already in an internal package and is excluded from active review."
+        ]
+      ],
+      "nom": "tableau_5"
+    }
+  ]
+}

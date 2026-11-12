@@ -1,0 +1,151 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1383",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state:Under Discussion\nDiscussion thread:here\nJIRA:here[Ticket will be opened once the KIP is approved]\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nFor many releases, Kafka records have been able to include additional information alongside the payload in the form of headers. Compared with other messaging technologies, Kafka has very little standard metadata which describes the records. One obvious kind of metadata which is would be helpful to carry is the “content type” of the records. In a future Kafka with schema support, the schema information would naturally live in the record headers. This KIP proposes using standard headers for carrying this kind of metadata.\nThe presence of this information makes many scenarios easier. For example, a UI for browsing the records on a topic has a much better chance of being able to render the records properly if it can tell what they are. An error topic used to accumulate records which could not be delivered can safely contain many different kinds of records if they have headers enabling them to be deserialized. Finally, people trying to write a \"smart deserializer\" no longer need to guess what the records are.\nProposed Changes\nThis KIP introduces the concept ofstandard record headers. A standard record header is a record header used by Kafka to annotate records with additional metadata. Kafka reserves headers with keys starting with the characters\"__\"(double underscore). KIP-298 introduced headers starting with these characters for dead-letter queues in Kafka Connect, and KIP-1191 did a similar thing for dead-letter queues in share groups, so there is clear precedent.\nThe KIP defines the following standard record headers.\n| Header name | Java constant | String value | Meaning\n| Key content type | Header.CONTENT_TYPE_KEY | \"__ct.k\" | This header describes the content type of the record's key. The value of this header is one of the content types is defined in the table below.\n| Value content type | Header.CONTENT_TYPE_VALUE | \"__ct.v\" | This header describes the content type of the record's value. The value of this header is one of the content types is defined in the table below.\nSchema information would be another obvious candidate for standard record headers.\nContent type\nThe KIP defines two standard record headers for describing the content type of a record.\"__ct.k\"describes the content type of the record's key, while\"__ct.v\"describes the content type of the record's value. These are the equivalent of the HTTPcontent-typeheader giving the consumers knowledge of the content they are about to receive.\nThe following table contains the values used for the content-type headers,\"__ct.k\"and\"__ct.v\":\n| Java constant | Byte value | Meaning | Associated serializer\n| Content.BYTES | 0 | The content is an array of bytes. | ByteArraySerializer, ByteBufferSerializer\n| Content.STRING_UTF8 | 1 | The content is a string in UTF8 encoding. | StringSerializer\n| Content.BOOLEAN | 2 | The content is a boolean. | BooleanSerializer\n| Content.DOUBLE | 3 | The content is a 64-bit floating-point number. | DoubleSerializer\n| Content.FLOAT | 4 | The content is a 32-bit floating-point number. | FloatSerializer\n| Content.INTEGER | 5 | The content is a 32-bit integer. | IntegerSerializer\n| Content.LONG | 6 | The content is a 64-bit integer. | LongSerializer\n| Content.SHORT | 7 | The content is a 16-bit integer. | ShortSerializer\n| Content.UUID | 8 | The content is a UUID expressed as a string in UTF8 format. | UuidSerializer\n| Content.JSON | 9 | The content is in JSON encoding. | JsonSerializer\n| Content.MIME | 255, followed by any MIME type in UTF8 encoding | The content is in the MIME type. |\nAdditionalContentvalues can be added by future KIPs.\nHandling by serializers and deserializers\nThe serializers mentioned in the table above can annotate the records they serialize with the content-type record headers. For compa"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1383",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Header name",
+        "Java constant",
+        "String value",
+        "Meaning"
+      ],
+      "lignes": [
+        [
+          "Key content type",
+          "Header.CONTENT_TYPE_KEY",
+          "&quot;__ct.k&quot;",
+          "This header describes the content type of the record's key. The value of this header is one of the content types is defined in the table below."
+        ],
+        [
+          "Value content type",
+          "Header.CONTENT_TYPE_VALUE",
+          "&quot;__ct.v&quot;",
+          "This header describes the content type of the record's value. The value of this header is one of the content types is defined in the table below."
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Java constant",
+        "Byte value",
+        "Meaning",
+        "Associated serializer"
+      ],
+      "lignes": [
+        [
+          "Content.BYTES",
+          "0",
+          "The content is an array of bytes.",
+          "ByteArraySerializer, ByteBufferSerializer"
+        ],
+        [
+          "Content.STRING_UTF8",
+          "1",
+          "The content is a string in UTF8 encoding.",
+          "StringSerializer"
+        ],
+        [
+          "Content.BOOLEAN",
+          "2",
+          "The content is a boolean.",
+          "BooleanSerializer"
+        ],
+        [
+          "Content.DOUBLE",
+          "3",
+          "The content is a 64-bit floating-point number.",
+          "DoubleSerializer"
+        ],
+        [
+          "Content.FLOAT",
+          "4",
+          "The content is a 32-bit floating-point number.",
+          "FloatSerializer"
+        ],
+        [
+          "Content.INTEGER",
+          "5",
+          "The content is a 32-bit integer.",
+          "IntegerSerializer"
+        ],
+        [
+          "Content.LONG",
+          "6",
+          "The content is a 64-bit integer.",
+          "LongSerializer"
+        ],
+        [
+          "Content.SHORT",
+          "7",
+          "The content is a 16-bit integer.",
+          "ShortSerializer"
+        ],
+        [
+          "Content.UUID",
+          "8",
+          "The content is a UUID expressed as a string in UTF8 format.",
+          "UuidSerializer"
+        ],
+        [
+          "Content.JSON",
+          "9",
+          "The content is in JSON encoding.",
+          "JsonSerializer"
+        ],
+        [
+          "Content.MIME",
+          "255, followed by any MIME type in UTF8 encoding",
+          "The content is in the MIME type.",
+          ""
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Configuration",
+        "Description",
+        "Values"
+      ],
+      "lignes": [
+        [
+          "key.serializer.content.type.enable",
+          "Controls whether the key serializer adds a content-type record header to the record.",
+          "Boolean. Default false in AK 4.x, default true in AK 5.0 and later."
+        ],
+        [
+          "value.serializer.content.type.enable",
+          "Controls whether the value serializer adds a content-type record header to the record.",
+          "Boolean. Default false in AK 4.x, default true in AK 5.0 and later."
+        ],
+        [
+          "key.deserializer.content.type.enable",
+          "Controls whether the key deserializer validates a content-type record header in the record.",
+          "Boolean. Default false in AK 4.x, default true in AK 5.0 and later."
+        ],
+        [
+          "value.deserialier.content.type.enable",
+          "Controls whether the value deserializer validates a content-type record header in the record.",
+          "Boolean. Default false in AK 4.x, default true in AK 5.0 and later."
+        ]
+      ],
+      "nom": "tableau_3"
+    }
+  ]
+}

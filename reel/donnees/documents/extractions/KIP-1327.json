@@ -1,0 +1,333 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1327",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "withdraw",
+    "texte_libre": "Status\nCurrent state:Withdraw\nDiscussion thread:https://lists.apache.org/thread/bp4zk31zr1sdxjsspg7b7bqddmm9t4gn\nVote Thread:https://lists.apache.org/thread/dgs3t9xmmldof5mmhwp21rpl3mfvpfw1\nJIRA:ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-20539\nMotivation\nWhen a Kafka topic is expanded with new partitions, consumers configured withauto.offset.reset=latestwill silently miss every record produced to those new partitions. This data loss occurs during themetadata blindness window,the gap between when the partition is created on the broker and when the consumer discovers it during its next periodic metadata refresh. No exception is thrown, no warning is emitted, and no log entry is generated.\nPartition expansion is a routine operational procedure, not an exceptional event. Topics are typically created with a conservative partition count and scaled up as throughput grows; nearly every long-lived, high-volume topic will undergo expansion at some point in its lifecycle. Under the current behavior, each such expansion is a silent data-loss opportunity forauto.offset.reset=latestconsumers — making data loss an expected outcome of a common operational workflow, not an edge case.\nThe root cause is thatauto.offset.resetis applied uniformly to every partition without a committed offset, regardless of when that partition was created relative to the consumer group. From the user's perspective, however, two cases are fundamentally different:\nPartitions that existed before the consumer group was created.The choice ofauto.offset.resetreflects an informed decision about how to handle the historical backlog that predates the group. Selectinglatestis an explicit acknowledgment that pre-group history will not be consumed.\nPartitions added to the topic after the consumer group was created.Every record on such a partition was produced during the group's active lifetime. Skipping these records withlatestis not an informed choice — it is silent data loss in a window where the user expects continuous, gap-free consumption.\nToday there is no way to express different reset behavior for these two cases. None oflatest,earliest,none, orby_durationallows scoping the policy to one category, and application-level workarounds such as customConsumerRebalanceListener.onPartitionsAssigned()logic lack the temporal metadata needed to distinguish them reliably.\nThis KIP introduces a complementary configuration,auto.offset.reset.new.partitions, that decouples the reset policy for partitions added after group creation from the policy for partitions that predate it. The new configuration accepts the same value space asauto.offset.reset(earliest,latest,by_duration:<duration>), enabling users to express their actual intent. For example, combiningauto.offset.reset=latestwithauto.offset.reset.new.partitions=earliestensures that pre-group history is skipped while no record on a newly expanded partition is silently lost.\nClassification is deterministic and server-side: the broker compares the group's creation timestamp (recorded once and propagated viaConsumerGroupHeartbeatResponse) against the partition's creation time. Partitions created after the group are classified as newly expanded. This eliminates fragile client-side heuristics relying on metadata refresh intervals.\nWhy Existing Alternatives are Insufficient\nCustomConsumerRebalanceListener.onPartitionsAssigned()logic\nClients currently have no way to determine when a partition was created, partition creation time is entirely absent fromMetadataResponse, a protocol gap this KIP closes. Without that timestamp, user code must resort to heuristics such as treating any previously unseen partition ID as newly expanded. These heuristics break under ordinary operational conditions, consumer restarts, group migrations, partition reassignments, and topic re-subscriptions, surfacing pre-existing partitions as \"new\" and triggering exactly the kind of massive historical reprocessing we want to avoid. Preventing silent data loss "
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1327",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Property",
+        "Value"
+      ],
+      "lignes": [
+        [
+          "Type",
+          "String"
+        ],
+        [
+          "Default",
+          "null"
+        ],
+        [
+          "Valid Values",
+          "earliest, latest, by_duration:&lt;duration&gt;"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Base auto.offset.reset",
+        "auto.offset.reset.new.partitions",
+        "Pre-existing partition",
+        "Newly expanded partition",
+        "Target scenario"
+      ],
+      "lignes": [
+        [
+          "latest",
+          "null",
+          "LEO",
+          "LEO",
+          ""
+        ],
+        [
+          "latest",
+          "earliest",
+          "LEO",
+          "offset 0",
+          "1"
+        ],
+        [
+          "latest",
+          "latest",
+          "LEO",
+          "LEO",
+          ""
+        ],
+        [
+          "latest",
+          "by_duration:5s",
+          "LEO",
+          "offset at now() - 5s",
+          "2"
+        ],
+        [
+          "earliest",
+          "null",
+          "offset 0",
+          "offset 0",
+          ""
+        ],
+        [
+          "earliest",
+          "earliest",
+          "offset 0",
+          "offset 0",
+          ""
+        ],
+        [
+          "earliest",
+          "latest",
+          "offset 0",
+          "LEO",
+          "3"
+        ],
+        [
+          "earliest",
+          "by_duration:5s",
+          "offset 0",
+          "offset at now() - 5s",
+          ""
+        ],
+        [
+          "by_duration:1h",
+          "null",
+          "offset at now() - 1h",
+          "offset at now() - 1h",
+          ""
+        ],
+        [
+          "by_duration:1h",
+          "earliest",
+          "offset at now() - 1h",
+          "offset 0",
+          ""
+        ],
+        [
+          "by_duration:1h",
+          "latest",
+          "offset at now() - 1h",
+          "LEO",
+          ""
+        ],
+        [
+          "by_duration:1h",
+          "by_duration:5s",
+          "offset at now() - 1h",
+          "offset at now() - 5s",
+          "4"
+        ],
+        [
+          "none",
+          "any value",
+          "NoOffsetForPartitionException",
+          "auto.offset.reset.new.partitions applied",
+          ""
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Property",
+        "Value"
+      ],
+      "lignes": [
+        [
+          "Type",
+          "String"
+        ],
+        [
+          "Default",
+          "null"
+        ],
+        [
+          "Valid Values",
+          "earliest, latest, by_duration:&lt;duration&gt;"
+        ]
+      ],
+      "nom": "tableau_3"
+    },
+    {
+      "colonnes": [
+        "Type",
+        "RPC pair / Record",
+        "Version added",
+        "New field",
+        "Default",
+        "Notes"
+      ],
+      "lignes": [
+        [
+          "Protocol",
+          "ConsumerGroupHeartbeatRequest",
+          "v2",
+          "-",
+          "-",
+          "Bumped to pair with response"
+        ],
+        [
+          "ConsumerGroupHeartbeatResponse",
+          "v2",
+          "NewPartitions",
+          "[]",
+          ""
+        ],
+        [
+          "StreamsGroupHeartbeatRequest",
+          "v2",
+          "-",
+          "",
+          "Bumped to pair with response"
+        ],
+        [
+          "StreamsGroupHeartbeatResponse",
+          "v2",
+          "NewPartitions",
+          "[]",
+          ""
+        ],
+        [
+          "InitializeShareGroupStateRequest",
+          "tagged tag 0",
+          "IsNewPartition",
+          "false",
+          "Per-partition tagged bool. No RPC version bump required; carries the classification to the partition leader."
+        ],
+        [
+          "ReadShareGroupStateResponse",
+          "tagged tag 0",
+          "IsNewPartition",
+          "false",
+          "Per-partition tagged bool. No RPC version bump required; propagates the classification back to SharePartition for SPSO initialization."
+        ],
+        [
+          "Record",
+          "PartitionRecord",
+          "tagged tag 3",
+          "CreationTimeMs",
+          "-1",
+          "No schema version bump (tagged)"
+        ],
+        [
+          "ConsumerGroupMetadataValue",
+          "tagged tag 1",
+          "CreationTimeMs",
+          "-1",
+          "No schema version bump (tagged)"
+        ],
+        [
+          "StreamsGroupMetadataValue",
+          "tagged tag 4",
+          "CreationTimeMs",
+          "-1",
+          "No schema version bump (tagged)"
+        ],
+        [
+          "ShareGroupMetadataValue",
+          "tagged tag 0",
+          "CreationTimeMs",
+          "-1",
+          "No schema version bump (tagged)"
+        ],
+        [
+          "ShareSnapshotValue",
+          "tagged tag 1",
+          "IsNewPartition",
+          "false",
+          "Persisted alongside the snapshot so the classification survives broker / persister restarts"
+        ],
+        [
+          "MetadataVersion",
+          "IBP_4_4_IV1",
+          "new MV",
+          "-",
+          "",
+          "Gates the controller writing PartitionRecord.CreationTimeMs"
+        ],
+        [
+          "GroupVersion",
+          "GV_2",
+          "new GV",
+          "-",
+          "",
+          "Gates consumer-group coordinator behavior (writing CreationTimeMs, computing NewPartitions)"
+        ],
+        [
+          "StreamsVersion",
+          "SV_2",
+          "new SV",
+          "-",
+          "",
+          "Gates streams-group coordinator behavior (writing CreationTimeMs, computing NewPartitions)"
+        ],
+        [
+          "ShareVersion",
+          "SV_3",
+          "new SV",
+          "-",
+          "",
+          ""
+        ]
+      ],
+      "nom": "tableau_4"
+    },
+    {
+      "colonnes": [
+        "group.creationTime",
+        "partition.creationTime",
+        "In `NewPartitions`?",
+        "Configuration applied (when auto.offset.reset.new.partitions is set)"
+      ],
+      "lignes": [
+        [
+          "known",
+          "known, &gt; group",
+          "yes",
+          "auto.offset.reset.new.partitions"
+        ],
+        [
+          "known",
+          "known, ≤ group",
+          "no",
+          "auto.offset.reset"
+        ],
+        [
+          "known",
+          "-1",
+          "no",
+          "auto.offset.reset"
+        ],
+        [
+          "-1",
+          "known",
+          "yes",
+          "auto.offset.reset.new.partitions"
+        ],
+        [
+          "-1",
+          "-1",
+          "no",
+          "auto.offset.reset"
+        ]
+      ],
+      "nom": "tableau_5"
+    }
+  ]
+}

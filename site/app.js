@@ -15,6 +15,10 @@
 let STATIQUE = null;
 let etatLocal = { conforme: false, lance: false, suspendu: false };
 let sectionCourante = "conformite";
+/* The identifiers of the corpus on screen: the demo (P-07, CMP-0031) or the
+   real one (Apache Kafka). They come from the pre-computed responses, never
+   from a hard-coded route. */
+let CONFIG = { corpus: "demo", campagne: "CMP-0031", processus: "P-07", titre: "Demo synthetique" };
 
 const JETON = () => document.getElementById("jeton").value;
 const element = (id) => document.getElementById(id);
@@ -56,7 +60,7 @@ function apiStatique(chemin, options) {
 
 function santeLocale() {
   return {
-    statut: "en_ligne", campagne: "CMP-0031",
+    statut: "en_ligne", campagne: CONFIG.campagne,
     statut_campagne: etatLocal.suspendu ? "suspendue"
       : etatLocal.lance ? "terminee" : etatLocal.conforme ? "prete" : "brouillon",
     conformite_validee: etatLocal.conforme && !etatLocal.suspendu,
@@ -196,20 +200,46 @@ function etape_demandee() {
   return -1;
 }
 
+async function chargerStatique(corpus) {
+  const nom = corpus === "reel" ? "data/api-reel.json" : "data/api.json";
+  try {
+    STATIQUE = await (await fetch(nom)).json();
+  } catch (erreur) {
+    STATIQUE = {};
+  }
+  const meta = STATIQUE.META || {};
+  CONFIG = {
+    corpus: meta.corpus || corpus,
+    campagne: meta.campagne || CONFIG.campagne,
+    processus: meta.processus || CONFIG.processus,
+    titre: meta.titre || CONFIG.titre,
+  };
+}
+
+async function basculerCorpus(corpus) {
+  if (STATIQUE === null) {
+    element("mode").textContent =
+      "mode live : l'API sert un seul corpus ; le corpus reel est dans le mode statique";
+    return;
+  }
+  await chargerStatique(corpus);
+  etatLocal = { conforme: false, lance: false, suspendu: false };
+  element("mode").textContent =
+    `mode statique : figures pre-calculees - ${CONFIG.titre}`;
+  await majEtat();
+  await afficher(sectionCourante);
+}
+
 async function demarrer() {
   try {
     const sonde = await fetch("/api/health");
     if (!sonde.ok) throw new Error("api indisponible");
     await sonde.json();
   } catch (erreur) {
-    try {
-      STATIQUE = await (await fetch("data/api.json")).json();
-    } catch (e2) {
-      STATIQUE = {};
-    }
+    await chargerStatique(element("corpus") ? element("corpus").value : "demo");
   }
   element("mode").textContent = STATIQUE === null
-    ? "mode live : API JSON" : "mode statique : figures pre-calculees";
+    ? "mode live : API JSON" : `mode statique : figures pre-calculees - ${CONFIG.titre}`;
   const { corps } = await api("/api/campagne");
   if (corps.ok) {
     const d = corps.donnees;
@@ -226,5 +256,9 @@ async function demarrer() {
 
 document.addEventListener("DOMContentLoaded", () => {
   element("jeton").addEventListener("change", () => majEtat().then(() => afficher(sectionCourante)));
+  const selecteur = element("corpus");
+  if (selecteur) {
+    selecteur.addEventListener("change", () => basculerCorpus(selecteur.value));
+  }
   demarrer();
 });

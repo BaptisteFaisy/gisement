@@ -1,0 +1,99 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1361",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state:Under Discussion\nDiscussion thread:https://lists.apache.org/thread/njjznyly38td4scb9bjc8v0gq7kc1yqj\nJIRA:here[Change the link from KAFKA-1 to your own ticket]\nMotivation\nThe long-standing problem: silent data loss on partition expansion\nIncreasing a topic's partition count is a routine operational task, not an exceptional event. Topics are often created with a moderate number of partitions to balance cost and resource utilization, then expanded as workloads grow.\nWhen a topic is expanded, a consumer configured withauto.offset.reset=latestcan silently miss every record produced to the newly added partitions before the consumer becomes aware of them. The sequence is straightforward:\nThe topic is expanded, and the new partitions immediately begin receiving records.\nThe consumer does not learn about the new partitions until its next metadata refresh or assignment update. This creates a short metadata-blindness window.\nWhen the consumer is assigned the new partitions, no committed offsets exist for them. As a result,auto.offset.resetapplies. Underlatest, the consumer seeks to the log end offset and skips all records produced during the blindness window.\nThe loss is completely silent: the consumer never observes the skipped records, and no error, warning, or metric indicates that data was lost. This remains one of the most common surprises associated with thelatestreset policy.\nWhy previous proposals stalled\nTwo earlier KIPs attempted to address this issue by introducing new protocol-level mechanisms. Both ultimately became difficult to move forward because of their semantic and operational complexity.\nKIP-1282proposed a new reset policy,to_start_time, which anchors resets to the consumer group's creation timestamp. While this is an elegant fit for partition expansion, the proposal did not reach consensus on offset-out-of-range behavior. Under that design, a consumer whose committed offset is out of range would reset toearliest, while a consumer whose group metadata had been garbage-collected would reset tolatest. Reviewers considered this behavior difficult to reason about and inconsistent with the principle that backlog should be treated uniformly.\nKIP-1327proposed an auxiliary configuration,auto.offset.reset.new.partitions, together with a group-creation-time-based classifier that distinguishes newly added partitions from existing ones. Implementing this requires persisting group creation timestamps, modifying on-disk record formats such asConsumerGroupMetadataValueandPartitionRecord, adding new metadata-version and group-version gates, and extendingGroupHeartbeatResponsewith aNewPartitionsfield. The proposal also raised follow-on questions around share groups and mirrored clusters.\nTaken together, these changes introduce substantial protocol and operational complexity to address what is usually a very small timing window.\nLate in the KIP-1327 discussion, reviewers converged on a simpler observation: aby_durationvalue in the 5–10 second range already covers the common partition-expansion case, given the defaultheartbeat.interval.msof 3 seconds. The residual reprocessing introduced by such a policy is also of the same order of magnitude as the small backlog thatlatestalready tolerates between fetching the end offset and beginning consumption.\nThis KIP adopts that approach.\nThe key insight: a small replay window is safer than silent data loss\nFor an actively running consumer, the interval between partition creation and consumer discovery is bounded by the heartbeat and assignment cadence of the group protocol. Under default settings, this interval is typically only a few seconds: 5 seconds for the modern consumer group'sgroup.consumer.heartbeat.interval.ms, and 3 seconds for the legacyheartbeat.interval.ms. This is the only period during which silent loss can occur for an actively running consumer.\nKIP-1106already provides a mechanism that naturally covers this window:by_duration. The policy resolves a reset po"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1361",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Configuration",
+        "Owner",
+        "Old default",
+        "New default"
+      ],
+      "lignes": [
+        [
+          "auto.offset.reset",
+          "ConsumerConfig (modern consumer)",
+          "latest",
+          "by_duration:PT5S"
+        ],
+        [
+          "share.auto.offset.reset",
+          "GroupConfig (share group, group-level)",
+          "latest",
+          "by_duration:PT5S"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Scenario",
+        "Old behavior (latest)",
+        "New behavior (by_duration:PT5S)"
+      ],
+      "lignes": [
+        [
+          "Brand-new group consuming an existing partition with substantial backlog",
+          "Seek directly to the log end",
+          "Replay only the most recent approximately 5 seconds"
+        ],
+        [
+          "Partition expansion while the consumer is actively running",
+          "Silently skip records produced during the metadata-blindness window",
+          "Start at the beginning of the new partition because no records are older than 5 seconds"
+        ],
+        [
+          "Offset out of range due to retention or deletion",
+          "Seek directly to the log end",
+          "Resume from approximately 5 seconds before the reset time"
+        ],
+        [
+          "Consumer offline for an extended period, then resumes",
+          "Skip accumulated backlog",
+          "Consume only recent data, approximately the last 5 seconds"
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Protocol",
+        "Default heartbeat interval",
+        "Config"
+      ],
+      "lignes": [
+        [
+          "Modern consumer group (KIP-848)",
+          "5s",
+          "group.consumer.heartbeat.interval.ms"
+        ],
+        [
+          "Classic consumer group",
+          "3s",
+          "heartbeat.interval.ms"
+        ],
+        [
+          "Share group (KIP-932)",
+          "5s",
+          "group.share.heartbeat.interval.ms"
+        ]
+      ],
+      "nom": "tableau_3"
+    }
+  ]
+}

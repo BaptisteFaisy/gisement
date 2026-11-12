@@ -1,0 +1,22 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-20668"
+    ],
+    "kip": "KIP-1363",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state:Under Discussion\nDiscussion thread:here\nJIRA:KAFKA-20668\nMotivation\nThe kafka-metadata-shell tool exposes a option --snapshot to point at the file to read. The flag name is misleading: the metadata snapshot use the .checkpoint suffix, while kafka also has .snapshot files in log directory which are producer snapshots. This leads users to pass the wrong file.\nThis KIP proposesadding a --checkpoint option and deprecating --snapshot (keeping it as an alias for backward compatibility).\nPublic Interfaces\nThis KIP changes the command-line arguments of kafka-metadata-shell.sh.\nA new option will be added: --checkpoint <path>. The existing options will remain supported as deprecated aliases: --snapshot <path>, -s <path>.\nExample: bin/kafka-metadata-shell.sh --checkpoint metadata_log_dir/__cluster_metadata-0/00000000000000007228-0000000001.checkpoint\nProposed Changes\nAdd --checkpoint as the preferred option for selecting the metadata checkpoint file.\nKeep --snapshot and -s as deprecated aliases for compatibility. When either deprecated alias is used, the tool will print a deprecation warning recommending --checkpoint.\nOnly one of --checkpoint, --snapshot, or -s may be specified in a single invocation. The KRaft operations documentation will be updated to use --checkpoint.\nCompatibility, Deprecation, and Migration Plan\nThis change is backward compatible.\nExisting scripts using --snapshot or -s will continue to work, but users should migrate to --checkpoint.\nThis KIP does not remove --snapshot or -s. Any future removal should be handled separately.\nThere are no protocol changes, storage format changes, or broker-side behavior changes.\nTest Plan\nThe change will be covered by metadata shell argument parsing tests and existing metadata shell integration tests.\nThe tests will verify that:\n--checkpoint is accepted.\n--snapshot and -s remain accepted and emit a deprecation warning.\nusing both the new option and a deprecated alias is rejected.\ninvoking the tool without a checkpoint option is rejected.\nexisting shell commands passed after the checkpoint file are preserved.\nRejected Alternatives"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1363",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": []
+}

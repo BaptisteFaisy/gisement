@@ -1,0 +1,107 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1368",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state:Under discussion\nDiscussion thread:here\nJIRA:here\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nThe Apache Kafka clients are often wrapped by frameworks such as Spring. Kafka does this itself in Kafka Streams and Kafka Connect. There is no architected way of identifying clients running within such frameworks which can hinder problem determination.\nWhen diagnosing an issue from the client logs, the application code is not directly calling the Kafka client. This means there's a mismatch between what the application developer wrote and how the Kafka client is being used. Behaviors such as retries or transactions can be implemented in the framework rather than the application. Having the information about whether a framework is being used can illuminate why the application is appearing to behave in a particular way.\nProposed Changes\nThree client configurations are added which can be set by frameworks embedding Kafka clients (producer, consumer and admin). The configurations areclient framework name(the name of the framework),client framework version(the version of the framework) andclient framework ID(additional framework-specific context which may not be relevant to all frameworks). These are flowed to the broker in theApiVersionsrequest alongside the client software name and version providing more comprehensive context information about clients wrapped by frameworks.\nThe values are set using theCommonClientConfigs.CLIENT_FRAMEWORK_NAME_CONFIG,CommonClientConfigs.CLIENT_FRAMEWORK_VERSION_CONFIGandCommonClientConfigs.CLIENT_FRAMEWORK_ID_CONFIGkeys in the usual way. These configs are not intended to be set by regular applications. Kafka Connect and Kafka Streams both disallow setting these configuration properties and treat them as invalid configurations if set. If other frameworks provides a way for the application to set its own Kafka configs, they should also prevent the application from setting values for the client framework name, version and ID.\nThe framework name should begin with the reversed Internet domain name for the framework owner, followed by the framework's name. For a framework such as Spring, the framework name would be chosen by Spring and the framework version would reflect the version of Spring.\nFor Kafka's own frameworks, Kafka Streams and Kafka Connect, Apache Kafka automatically sets the configs as follows:\n|\n| Kafka Streams | Kafka Connect\n| client.framework.name | org.apache.kafka.streams | org.apache.kafka.connect\n| client.framework.version | Kafka client version, such as4.5.0 | Kafka client version, such as4.5.0\n| client.framework.id | Logical identifier used to group connections for the same Kafka Streams instance (process id) | Connect worker ID\nFor example, let’s say that Kafka Streams is using the producer in Apache Kafka 4.5.0. It would set the following configurations:\n\"client.framework.name\"=\"org.apache.kafka.streams\"\n\"client.framework.version\"=\"4.5.0\"\n\"client.framework.id\" = \"F0DDEDA5-C8C6-493A-B026-F38A13C4E4D8\"(the Kafka Streams process id)\nThen, inApiVersionsrequest, the following fields would be set:\nClientSoftwareName:\"apache-kafka-java\"\nClientSoftwareVersion:\"4.5.0\"\nClientFrameworkName:\"org.apache.kafka.streams\"\nClientFrameworkVersion:\"4.5.0\"\nClientFrameworkId:\"F0DDEDA5-C8C6-493A-B026-F38A13C4E4D8\"\nHere's an example of Kafka Connect configurations:\n\"client.framework.name\"=\"org.apache.kafka.connect\"\n\"client.framework.version\"=\"4.5.0\"\n\"client.framework.id\" = \"192.168.86.66:8083\"\nThe framework ID in this case is the Connect worker ID.\nMetrics\nKafka brokers today do collect metrics for client connections (seeo.a.k.common.network.Selector) and connections are counted by each<clientSoftwareName, clientSoftwareVersion>pair, with a limit of 100 keys. The potential cardinality increase if we also key by client framework name and version could be significant, so these metrics are not augmented wi"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1368",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "",
+        "Kafka Streams",
+        "Kafka Connect"
+      ],
+      "lignes": [
+        [
+          "client.framework.name",
+          "org.apache.kafka.streams",
+          "org.apache.kafka.connect"
+        ],
+        [
+          "client.framework.version",
+          "Kafka client version, such as 4.5.0",
+          "Kafka client version, such as 4.5.0"
+        ],
+        [
+          "client.framework.id",
+          "Logical identifier used to group connections for the same Kafka Streams instance (process id)",
+          "Connect worker ID"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Configuration",
+        "Description",
+        "Values"
+      ],
+      "lignes": [
+        [
+          "client.framework.name",
+          "For a client embedded in a framework, the name of the framework. User applications should not set this configuration directly. Importance: LOW",
+          "Type: STRING, default: null. If specified, must match the regular expression ”[a-zA-Z0-9](?:[a-zA-Z0-9\\\\-.]*[a-zA-Z0-9])?&quot;"
+        ],
+        [
+          "client.framework.version",
+          "For a client embedded in a framework, the version of the framework. User applications should not set this configuration directly. Importance: LOW",
+          "Type: STRING, default: null. If specified, must match the regular expression ”[a-zA-Z0-9](?:[a-zA-Z0-9\\\\-.]*[a-zA-Z0-9])?&quot;"
+        ],
+        [
+          "client.framework.id",
+          "For a client embedded in a framework, an optional framework-specific ID. User applications should not set this configuration directly. Importance: LOW",
+          "Type: STRING, default: null. If specified, must match the regular expression ”(?:[A-Za-z0-9\\\\-._~+]|%[0-9A-Fa-f]{2})+&quot;"
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Configuration",
+        "Description",
+        "Value"
+      ],
+      "lignes": [
+        [
+          "match",
+          "The match criteria for selecting which clients the subscription matches. If a client matches all of these criteria, the client matches the subscription.",
+          "A list of key-value pairs.The valid keys are:client_instance_id - client instance ID.client_id - client ID.client_framework_id - client framework ID.client_framework_name - client framework name.client_framework_version - client framework version.client_software_name - client software implementation name.client_software_version - client software implementation version.client_source_address - client connection's source address from the broker's point of view.client_source_port - client connection's source port from the broker's point of view.The values are anchored regular expressions."
+        ]
+      ],
+      "nom": "tableau_3"
+    },
+    {
+      "colonnes": [
+        "Label name",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "client_framework_id",
+          "The client's framework ID as reported in ApiVersionsRequest."
+        ],
+        [
+          "client_framework_name",
+          "The client's framework name as reported in ApiVersionsRequest."
+        ],
+        [
+          "client_framework_version",
+          "The client's framework version as reported in ApiVersionsRequest."
+        ]
+      ],
+      "nom": "tableau_4"
+    }
+  ]
+}

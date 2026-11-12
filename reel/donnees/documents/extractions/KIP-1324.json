@@ -1,0 +1,308 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1324",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state:Under discussion\nDiscussion thread:here\nJIRA:here\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nThe teams that operate a Kafka cluster have no direct way to see how the clients connected to it are configured. In many organizations, the teams developing and deploying client applications are separate and intentionally siloed from the teams that manage the cluster (the most extreme case being management via a hosted service). As a result, an operator investigating a problem has to get the configuration from each application team, which delays the diagnosis and troubleshooting.\nThe gap matters because client configuration is a common source of problems. The large number of available configuration options bewilders teams new to the ecosystem, and even accomplished teams are not immune to the occasional misconfiguration. The gap impact gets more noticeable as Kafka’s usage increases within organizations, so centralized observability of client configuration becomes increasingly critical.\nThis KIP takes the first step in closing this gap by introducing a standard interface by which a cluster asks its clients for built-in configurations. Each client instance pushes the requested keys once, as soon as it discovers a broker advertising the feature, and the cluster hands that configuration to an operator-supplied plugin. The cluster decides what is collected, so an operator can start with a handful of keys and widen the set as confidence grows.\nAt the moment, some client configuration already reaches the brokers, but only inside individual requests: client.id and the client software name and version arrive with every connection, a few producer settings are visible in Produce requests, and a few consumer and group settings in group heartbeats. These are scattered values, consumed within the scope of each request on whichever broker serves it, not recorded or tied to the client instance or framework behind them, so nothing can expose them as one client's configuration. Most configurations that are key in understanding and troubleshooting application behaviour never appear in any request at all. This KIP closes these gaps with one snapshot per client instance, carrying the identifiers needed to group it.\nThis KIP covers both the clients and the frameworks that embed them. Client snapshots alone do not describe an application such as Kafka Streams, which has settings of its own (num.stream.threads, processing.guarantee, num.standby.replicas). So every client (producer, consumer, share consumer, admin) pushes its own snapshot, a framework can push one snapshot of its own configuration through one of its clients (Kafka Streams does it with this KIP), and the framework identifiers from KIP-1368 let a plugin group every snapshot of one application instance.\nThe mechanism is opt-in on the broker and opt-out on the client. Nothing is advertised until an operator configures a plugin. What is collected is a default set of built-in keys, which the operator narrows or widens by name. A change reaches only clients that run their exchange after it, so running clients pick it up at their next restart.\nIt is strongly advised that this KIP is implemented and made the default in all Kafka client libraries, so that an operator gets visibility by configuring the cluster alone, without changes to applications.\nThis KIP delivers a one-time view of each client instance's configuration. A change to a client's configuration means a new client instance, which reports again.It delivers the hooks end to end:clients push what the cluster requests,the plugin acts on each snapshot and can give feedback on it,and the client reacts to that feedback as the cluster instructs.The cluster controls both: what is observed (requested keys),and how a client application reacts when the plugin rejects its snapshot (validation with modes:by default the application logs the cluste"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1324",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Client configs requested by default",
+        "Clients that send it",
+        "Notes"
+      ],
+      "lignes": [
+        [
+          "client.id",
+          "producer, consumer, share consumer, admin, Kafka Streams",
+          ""
+        ],
+        [
+          "group.id",
+          "consumer, share consumer",
+          ""
+        ],
+        [
+          "group.instance.id",
+          "consumer",
+          "Not initially included in the KIP; added to identify static members of a consumer group"
+        ],
+        [
+          "transactional.id",
+          "producer",
+          "Not initially included in the KIP; added to identify transactional producers"
+        ],
+        [
+          "application.id",
+          "Kafka Streams",
+          "Not initially included in the KIP; added to allow grouping the clients of one Kafka Streams application"
+        ],
+        [
+          "acks",
+          "producer",
+          ""
+        ],
+        [
+          "batch.size",
+          "producer",
+          ""
+        ],
+        [
+          "buffer.memory",
+          "producer",
+          ""
+        ],
+        [
+          "buffer.memory.allocation.strategy",
+          "producer",
+          "Not initially included in the KIP; added to track adoption of a client-only producer feature"
+        ],
+        [
+          "compression.type",
+          "producer",
+          ""
+        ],
+        [
+          "delivery.timeout.ms",
+          "producer",
+          ""
+        ],
+        [
+          "enable.idempotence",
+          "producer",
+          ""
+        ],
+        [
+          "linger.ms",
+          "producer",
+          ""
+        ],
+        [
+          "max.in.flight.requests.per.connection",
+          "producer",
+          ""
+        ],
+        [
+          "retries",
+          "producer, admin",
+          ""
+        ],
+        [
+          "request.timeout.ms",
+          "producer, consumer, share consumer, admin, Kafka Streams",
+          ""
+        ],
+        [
+          "client.rack",
+          "producer, consumer, share consumer",
+          ""
+        ],
+        [
+          "auto.offset.reset",
+          "consumer",
+          ""
+        ],
+        [
+          "enable.auto.commit",
+          "consumer",
+          ""
+        ],
+        [
+          "fetch.min.bytes",
+          "consumer, share consumer",
+          ""
+        ],
+        [
+          "fetch.max.wait.ms",
+          "consumer, share consumer",
+          ""
+        ],
+        [
+          "isolation.level",
+          "consumer",
+          ""
+        ],
+        [
+          "max.poll.interval.ms",
+          "consumer, share consumer",
+          ""
+        ],
+        [
+          "max.poll.records",
+          "consumer, share consumer",
+          ""
+        ],
+        [
+          "session.timeout.ms",
+          "consumer (classic group protocol)",
+          ""
+        ],
+        [
+          "share.acknowledgement.mode",
+          "share consumer",
+          ""
+        ],
+        [
+          "share.acquire.mode",
+          "share consumer",
+          ""
+        ],
+        [
+          "num.stream.threads",
+          "Kafka Streams",
+          "Not initially included in the KIP; added for Kafka Streams troubleshooting"
+        ],
+        [
+          "processing.guarantee",
+          "Kafka Streams",
+          "Not initially included in the KIP; added for Kafka Streams troubleshooting"
+        ],
+        [
+          "num.standby.replicas",
+          "Kafka Streams",
+          "Not initially included in the KIP; added for Kafka Streams troubleshooting"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Configuration name",
+        "Description",
+        "Values"
+      ],
+      "lignes": [
+        [
+          "client.configs.plugin.class",
+          "fully qualified name of a ClientConfigsPlugin implementationwhen null the feature is off (RPCs not advertised in ApiVersionsResponse and requests for them are rejected)",
+          "Type: classDefault: nullstatic config (roll needed)"
+        ],
+        [
+          "client.configs.max.bytes",
+          "maximum snapshot size the broker accepts: the serialized size of the Configs field of a PushClientConfigs request (the rest of the request is bounded by the ClientType length limit)included in the error message when a snapshot is rejected for size",
+          "Type: intDefault: 10240 (10 KB)static config (roll needed)"
+        ],
+        [
+          "client.configs.requested.keys",
+          "the configuration keys the cluster requests from every clientexact key names (no wildcard or prefix accepted, fail when config set)a key the client does not define is ignored, and a sensitive key is filtered out by the clientempty means nothing is requested and clients send nothingcluster-wide value; a client uses whatever the broker it asked returns.",
+          "Type: listDefault: see &quot;Default Configuration for Apache Kafka clients&quot;dynamic config (no roll)"
+        ],
+        [
+          "client.configs.validation.mode",
+          "determines how client applications react when the plugin rejects its snapshot (a PolicyViolationException)values are:warn: the client should log the feedback and keep runningreject: the client should fail before its first operation (see Client Behaviour, Validation)cluster-wide value, carried as Mode in both responsesa change reaches only clients that run their exchange after it",
+          "Type: string (warn | reject)Default: warndynamic config (no roll)"
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Configuration name",
+        "Description",
+        "Values"
+      ],
+      "lignes": [
+        [
+          "enable.configs.push",
+          "whether the client takes part in configuration collection: asks the cluster what it requests and pushes itwhen false the client does not send any of the 2 config-related requests",
+          "Type: booleanDefault: true for producer, consumer, share consumer and Kafka Streams; false for the admin client"
+        ],
+        [
+          "configs.push.denied.keys",
+          "Exact key names, or prefixes ending in ., that are never pushed even if requested",
+          "Type: listDefault: empty"
+        ]
+      ],
+      "nom": "tableau_3"
+    },
+    {
+      "colonnes": [
+        "Client",
+        "Keys that can be pushed (approx., excluding sensitive configs filtered out)",
+        "Snapshot size if every key is requested"
+      ],
+      "lignes": [
+        [
+          "AdminClientConfig",
+          "~28",
+          "&lt; 1 KB"
+        ],
+        [
+          "ConsumerConfig",
+          "~53",
+          "~ 2 KB"
+        ],
+        [
+          "ProducerConfig",
+          "~53",
+          "~ 2 KB"
+        ],
+        [
+          "StreamsConfig",
+          "~79 (without producer, consumer, admin)",
+          "~3-4 KB"
+        ]
+      ],
+      "nom": "tableau_4"
+    },
+    {
+      "colonnes": [
+        "Name",
+        "Type",
+        "Group",
+        "Tags",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "plugin-invocation-rateplugin-invocation-count",
+          "Meter",
+          "client-configs",
+          "none",
+          "Snapshots handed to the plugin"
+        ],
+        [
+          "plugin-error-countplugin-error-rate",
+          "Meter",
+          "client-configs",
+          "none",
+          "Plugin failures other than PolicyViolationException (exceptions thrown by onClientConfigs), which are not reported to the client"
+        ],
+        [
+          "plugin-process-time-avgplugin-process-time-max",
+          "Avg and Max",
+          "client-configs",
+          "none",
+          "Time spent in onClientConfigs, on the request handler thread, until it returned or threw"
+        ],
+        [
+          "dropped-entry-countdropped-entry-rate",
+          "Meter",
+          "client-configs",
+          "none",
+          "Entries dropped before the plugin because they were not requested or were typed UNKNOWN"
+        ],
+        [
+          "policy-violation-rate, policy-violation-count",
+          "Meter",
+          "client-configs",
+          "none",
+          "PolicyViolationException thrown by plugins on onClientConfigs (POLICY_VIOLATION error sent to clients), in both modes"
+        ]
+      ],
+      "nom": "tableau_5"
+    }
+  ]
+}

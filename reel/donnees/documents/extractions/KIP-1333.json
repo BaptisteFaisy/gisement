@@ -1,0 +1,289 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1333",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state:Under Discussion\nDiscussion thread:here,here\nJIRA:here\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nThelog.segment.bytesbroker config (and its topic-level synonymsegment.bytes) is currently defined asConfigDef.Type.INT, capping the maximum segment size atInteger.MAX_VALUE(2,147,483,647 bytes, approximately 2 GB). Additionally, the.indexfile format stores physical file positions as 4-byte signed integers, which also cannot address beyond approximately 2 GB.\nWith modern storage hardware (multi-TB NVMe drives) and high-throughput workloads, the 2 GB cap is increasingly a problem:\nExcessive file handle usage: Each segment needs 4 files (.log,.index,.timeindex,.txnindex). A 10 TB partition with 2 GB segments means approximately 20,000 open files.\nFrequent segment rolls: A topic ingesting 500 MB/s rolls a new segment every approximately 4 seconds, amplifying index build, flush, and cleaner overhead.\nMore log cleaning and compaction work: More segments means more compaction cycles with more small groups.\nRemote storage overhead: Each segment is an individual unit for tiered storage copy/delete operations.\nAllowing segments of 4 GB, 8 GB, or larger would significantly reduce these overheads for high-throughput, large-retention workloads.\nPublic Interfaces\nConfiguration changes\n| Config | Current type | New type | Current range | New range\n| log.segment.bytes(broker) | INT | LONG | [1 MB, 2,147,483,647] | [1 MB, Long.MAX_VALUE] (after MetadataVersion finalization)\n| segment.bytes(topic) | INT | LONG | [1 MB, 2,147,483,647] | [1 MB, Long.MAX_VALUE] (after MetadataVersion finalization)\nThe expanded range (values greater thanInteger.MAX_VALUE) is gated byMetadataVersion. Before finalization, the effective range remains [1 MB, Integer.MAX_VALUE]. AfterIBP_4_4_IV1is finalized, the range becomes [1 MB, Long.MAX_VALUE].\nIndex size guidance: With 12-byte entries,log.index.size.max.bytes(default 10 MB) holds approximately 873K entries. For an 8 GB segment with the defaultlog.index.interval.bytesof 4096 bytes, approximately 2M index entries would be needed, requiring approximately 24 MB of index space. Operators using segments larger than 2 GB should increaselog.index.size.max.bytesproportionally.\nOn-disk format changes\nOffset index (.index) file format-- new 12-byte entry format (gated by MetadataVersion):\n| Field | Legacy format (8 bytes per entry) | Large format (12 bytes per entry)\n| Relative offset | 4-byte signed int | 4-byte signed int\n| Physical position | 4-byte signed int (max approximately 2 GB) | 8-byte signed long (effectively unlimited)\nThe large format is only written afterMetadataVersion IBP_4_4_IV1is finalized. Before finalization, all index files use the legacy 8-byte format.\nFormat detection for existing files: When opening an existing index file, the OffsetIndex auto-detects the format by analyzing the file size and validating entry content:\nIf file size is divisible by 12 but not 8: large format (unambiguous)\nIf file size is divisible by 8 but not 12: legacy format (unambiguous)\nIf file size is divisible by both 8 and 12 (ambiguous): validates the first few entries with each format, checking that relative offsets and positions are non-negative and monotonically non-decreasing. The format that produces valid entries is selected. If both validate (rare), theuseLargeFormathint from MetadataVersion is used as the tiebreaker and a warning is logged for operator visibility.\nIf file size is divisible by neither: file is corrupt and will be rebuilt viasanityCheck()andrecover().\nThis auto-detection enables:\nUpgrade safety: After MetadataVersion finalization, old 8-byte index files on disk are correctly detected and read. When they are rebuilt (viaLogSegment.recover()), they are written in the new 12-byte format.\nRemoteIndexCache compatibility: Remote indexes fetched from tiered storage may be in either format (depending on when "
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1333",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Config",
+        "Current type",
+        "New type",
+        "Current range",
+        "New range"
+      ],
+      "lignes": [
+        [
+          "log.segment.bytes (broker)",
+          "INT",
+          "LONG",
+          "[1 MB, 2,147,483,647]",
+          "[1 MB, Long.MAX_VALUE] (after MetadataVersion finalization)"
+        ],
+        [
+          "segment.bytes (topic)",
+          "INT",
+          "LONG",
+          "[1 MB, 2,147,483,647]",
+          "[1 MB, Long.MAX_VALUE] (after MetadataVersion finalization)"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Field",
+        "Legacy format (8 bytes per entry)",
+        "Large format (12 bytes per entry)"
+      ],
+      "lignes": [
+        [
+          "Relative offset",
+          "4-byte signed int",
+          "4-byte signed int"
+        ],
+        [
+          "Physical position",
+          "4-byte signed int (max approximately 2 GB)",
+          "8-byte signed long (effectively unlimited)"
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Class",
+        "Member",
+        "Before",
+        "After"
+      ],
+      "lignes": [
+        [
+          "LogConfig",
+          "DEFAULT_SEGMENT_BYTES",
+          "int",
+          "long"
+        ],
+        [
+          "LogConfig",
+          "segmentSize()",
+          "returns int",
+          "returns long"
+        ],
+        [
+          "LogConfig",
+          "initFileSize()",
+          "returns int",
+          "returns long"
+        ],
+        [
+          "LogConfig",
+          "useLargeIndexFormat",
+          "N/A (new)",
+          "boolean, default false"
+        ],
+        [
+          "AbstractKafkaConfig",
+          "logSegmentBytes()",
+          "returns Integer via getInt()",
+          "returns Long via getLong()"
+        ],
+        [
+          "RollParams",
+          "maxSegmentBytes",
+          "int",
+          "long"
+        ],
+        [
+          "OffsetIndex",
+          "append(long offset, ...)",
+          "int position",
+          "long position"
+        ],
+        [
+          "OffsetIndex",
+          "detectEntrySize(File, int)",
+          "N/A (new)",
+          "static method, auto-detects format for existing files"
+        ],
+        [
+          "OffsetPosition",
+          "position field",
+          "int",
+          "long"
+        ],
+        [
+          "FileRecords",
+          "internal size field",
+          "AtomicInteger",
+          "AtomicLong"
+        ],
+        [
+          "LazyIndex",
+          "forOffset(...)",
+          "no format param",
+          "new overload with useLargeFormat parameter"
+        ],
+        [
+          "LogSegment",
+          "new sizeInBytesLong()",
+          "N/A",
+          "returns long"
+        ],
+        [
+          "LogSegment",
+          "recover()",
+          "returns int",
+          "returns long"
+        ],
+        [
+          "LogSegment",
+          "truncateTo()",
+          "returns int",
+          "returns long"
+        ],
+        [
+          "LogOffsetMetadata",
+          "relativePositionInSegment",
+          "int",
+          "long"
+        ],
+        [
+          "SegmentPosition (raft)",
+          "relativePosition",
+          "int",
+          "long"
+        ],
+        [
+          "RemoteStorageManager",
+          "fetchLogSegment(metadata, int)",
+          "only overload",
+          "@Deprecated; new default method with long added"
+        ],
+        [
+          "RemoteStorageManager",
+          "fetchLogSegment(metadata, int, int)",
+          "only overload",
+          "@Deprecated; new default method with long, long added"
+        ]
+      ],
+      "nom": "tableau_3"
+    },
+    {
+      "colonnes": [
+        "Call site",
+        "Before",
+        "After"
+      ],
+      "lignes": [
+        [
+          "LogSegment.append() physicalPosition",
+          "int log.sizeInBytes()",
+          "long log.sizeInBytesLong()"
+        ],
+        [
+          "LogSegment.shouldRoll()",
+          "int size = size()",
+          "long size = sizeInBytesLong()"
+        ],
+        [
+          "LogSegment.read() startPosition",
+          "int",
+          "long"
+        ],
+        [
+          "LogSegment.read() fetchSize",
+          "(int)(maxPosition - startPosition)",
+          "(int) Math.min(maxPosition - startPosition, (long) adjustedMaxSize)"
+        ],
+        [
+          "LogSegment.recover() validBytes",
+          "int",
+          "long"
+        ],
+        [
+          "LogSegment.truncateTo() return",
+          "int",
+          "long"
+        ],
+        [
+          "LogSegment.toString()",
+          "size()",
+          "sizeInBytesLong()"
+        ],
+        [
+          "UnifiedLog retention",
+          "segment.size()",
+          "segment.sizeInBytesLong()"
+        ],
+        [
+          "LocalLog.updateLogEndOffset()",
+          "segment.size()",
+          "segment.sizeInBytesLong()"
+        ],
+        [
+          "LocalLog.read() maxPosition",
+          "segment.size()",
+          "segment.sizeInBytesLong()"
+        ],
+        [
+          "LocalLog.splitOverflowedSegment()",
+          "int totalSize",
+          "long totalSize"
+        ],
+        [
+          "Cleaner.groupSegmentsBySize()",
+          "segment.size()",
+          "segment.sizeInBytesLong()"
+        ],
+        [
+          "LogSegments.sizeInBytes()",
+          "LogSegment::size",
+          "LogSegment::sizeInBytesLong"
+        ],
+        [
+          "LogLoader initial metadata",
+          "activeSegment.size()",
+          "activeSegment.sizeInBytesLong()"
+        ]
+      ],
+      "nom": "tableau_4"
+    },
+    {
+      "colonnes": [
+        "Format",
+        "Entry size",
+        "Layout",
+        "When used"
+      ],
+      "lignes": [
+        [
+          "Legacy (default)",
+          "8 bytes",
+          "[4-byte relative offset] [4-byte physical position]",
+          "Before IBP_4_4_IV1 finalization"
+        ],
+        [
+          "Large",
+          "12 bytes",
+          "[4-byte relative offset] [8-byte physical position]",
+          "After IBP_4_4_IV1 finalization"
+        ]
+      ],
+      "nom": "tableau_5"
+    }
+  ]
+}

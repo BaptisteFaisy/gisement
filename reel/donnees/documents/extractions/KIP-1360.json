@@ -1,0 +1,185 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1360",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "draft",
+    "texte_libre": "Authors:PSD-5d7f9991be696fb8, Gaurav Narula,Luke Chen, Federico Valeri\nStatus\nCurrent state:DRAFT\nDiscussion thread:here[#TODO]\nJIRA:ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-20715\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nCluster Synchronous Mirroring follows and simplifies the synchronous-mode design goals ofKIP-986: Cross-Cluster Replicationby Greg Harris, whose high-level proposal provided the foundational vision for this feature.\nAsynchronous mirroring incarries a data-loss risk –as replication lag grows,records acknowledged on the source may not reach the destination before a failure.Today this is the application's problem to solve,typically through caching layers that replay data—adding application complexity and no single solution that fits all use cases.\nStretched clusters are sometimes proposed as an alternative,but they don't protect against software failures or configuration incidents,so they're not a real DR option.Most vendors position stretched clusters as HA rather than DR,and few offer them as a managed service—the operational cost is high and the DR coverage is limited.\nThis KIP introduces a synchronous mode of cluster mirroring that delays acknowledging a producer until the record has been replicated to all ISRs in every registered synchronous mirroring link.The mechanism extends the existing ISR-based ack predicate to also account for ISRs on registered destination clusters\nEnd-to-End operator workflow enabled by Sync mirroring:\nThis section catalogs the end-to-end operator workflows that synchronous mirroring enables.\nDisaster Recovery (zero-RPO)\nSynchronous mirroring's primary use case is disaster recovery with zero recovery-point objective.When a topic is configured for sync mirroring,the source's high watermark advances only after every registered destination's ISR has caught up to the produced offset—every record acknowledged on the source is therefore durable on the destination at acknowledge time.On source failure(planned or unplanned),the destination holds the fullacknowledgerecord appended to log file up to the lastacknowledgeoffset,so operators can redirect producers and consumers to the destination as the new primary without losing any acknowledged record.The async data-loss window described in—where lag-tail records can be permanently lost on failure—is closed for any topic in sync mode.\nNear Zero-Downtime Cluster Migration\nBeyond disaster recovery,synchronous mirroring also enablesanearzero-downtime cluster migrations.Traditional migration workflows require operators to stop all producers,wait for the asynchronous replication lag to drain to zero,and only then redirect producers to the new cluster.This\"stop-drain-switch\"approach introduces unavoidable downtime proportional to the replication lag at the time producers are stopped.With synchronous mirroring,the workflow becomes fundamentally different:operators first enable mirroring in async mode,let it catch up,then promote to sync mode(or enable sync from start which start as asynchronous thenauto-promotion to sync triggers when lag reaches zero).Once sync mode is active,every acknowledged record is guaranteed to exist on the destination cluster.Producers can then be redirected at any time—there is no lag to drain and no window of data loss,eliminating the need for a coordinated shutdown.\nKafka Streams and Kafka Connect DR\nAsynchronous mirroring is not a viable disaster-recovery story for Kafka Streams or Kafka Connect because both rely on internal Kafka topics — Streams changelog topics for state stores, Connect offset and config topics — whose contents are not derivable from any other source. In async mirroring any record acknowledged on the source but not yet replicated when a failure occurs is permanently lost on the destination, and a single missing record in a state-changelog or config topic corrupts the application's persisted state. There is no ap"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1360",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "RecoveryPromotion",
+        "Released=True",
+        "Result",
+        "Reason"
+      ],
+      "lignes": [
+        [
+          "RecoveryPromotion=false",
+          "present",
+          "Reject with MIRROR_SYNC_RELEASED_REQUIRES_FRESH_PROMOTION.",
+          "This defends against stale in-flight Registers, which always carry RecoveryPromotion=false because the destination only sets pendingRecoveryPromotion after observing a rejection (see )"
+        ],
+        [
+          "RecoveryPromotion=true",
+          "present",
+          "Admit and clear the Released=true marke",
+          "Legitimate recovery — destination's auto-promoter saw the release, set the hint, and is now retrying with the recovery flag (see )."
+        ],
+        [
+          "RecoveryPromotion=false",
+          "absent",
+          "Admit",
+          "Normal non-recovery promotion path (initial registration, or any post---alter --async re-promotion)"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Signal",
+        "Scope",
+        "Action"
+      ],
+      "lignes": [
+        [
+          "Fetch-time INVALID_SYNC_REGISTRATION or MIRROR_REGISTRATION_PROPAGATING (one partition's Fetch response)",
+          "Per-partition",
+          "Log + SyncPartitionFetchFailures counter increment + fetcher retries that partition in SYNC mode. Topic effective mirrorType stays SYNC."
+        ],
+        [
+          "Same Fetch-time errors persisting on every partition of the topic for mirror.sync.topic.demote.timeout.ms",
+          "Topic-wide",
+          "Demote topic to ASYNC, set pendingRecoveryPromotion hint."
+        ],
+        [
+          "Register-time MIRROR_SYNC_RELEASED_REQUIRES_FRESH_PROMOTION",
+          "Topic-wide",
+          "Demote topic to ASYNC, set pendingRecoveryPromotion hint."
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "State",
+        "Effective",
+        "Desired",
+        "RecoveryPending"
+      ],
+      "lignes": [
+        [
+          "Normal Async",
+          "ASYNC",
+          "ASYNC",
+          "—"
+        ],
+        [
+          "Pending Promotion",
+          "ASYNC",
+          "SYNC",
+          "—"
+        ],
+        [
+          "Normal Sync",
+          "SYNC",
+          "SYNC",
+          "—"
+        ],
+        [
+          "Sync Recovering",
+          "ASYNC",
+          "SYNC",
+          "true"
+        ]
+      ],
+      "nom": "tableau_3"
+    },
+    {
+      "colonnes": [
+        "Category",
+        "From state",
+        "Trigger",
+        "To state"
+      ],
+      "lignes": [
+        [
+          "Promotion",
+          "Normal Async",
+          "--alter --sync",
+          "Pending Promotion"
+        ],
+        [
+          "Promotion",
+          "Pending Promotion",
+          "lag reaches 0",
+          "Normal Sync"
+        ],
+        [
+          "Demotion",
+          "Pending Promotion",
+          "--alter --async",
+          "Normal Async"
+        ],
+        [
+          "Demotion",
+          "Normal Sync",
+          "--alter --async",
+          "Normal Async"
+        ],
+        [
+          "Release",
+          "Normal Sync",
+          "--release-sync (on source)",
+          "Sync Recovering"
+        ],
+        [
+          "Release",
+          "Sync Recovering",
+          "lag = 0 and RecoveryPromotion=true accepted",
+          "Normal Sync"
+        ],
+        [
+          "Release",
+          "Sync Recovering",
+          "--alter --async (on destination)",
+          "Normal Async"
+        ]
+      ],
+      "nom": "tableau_4"
+    },
+    {
+      "colonnes": [
+        "Destination post-failover visibility rule",
+        "Case A (ack reached producer)",
+        "Case B (ack lost)"
+      ],
+      "lignes": [
+        [
+          "Local-ISR-driven HW (= X+2)",
+          "zero-RPO honored ✓",
+          "producer retry → duplicate"
+        ],
+        [
+          "Tracked source HW (= X-1)",
+          "zero-RPO VIOLATED ✗",
+          "no duplicate"
+        ]
+      ],
+      "nom": "tableau_5"
+    }
+  ]
+}

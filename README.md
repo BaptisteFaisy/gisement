@@ -67,6 +67,27 @@ iac/              CDK deployment
 docs/             CONTRACTS, HLD, ARCHITECTURE, RUNBOOK, SUBMISSION, SPEC.fr
 ```
 
+## Two corpora: the synthetic demo, and a real client
+
+The demo corpus is synthetic and frozen. The second corpus is **real**: the
+Apache Kafka project of the ASF, read over HTTPS by real connectors - the ASF's
+own Jira, the real GitHub tracker of the project, the public mailing-list
+archives, the public Confluence where the design documents live.
+
+| | Demo | Corpus réel |
+|---|---|---|
+| Records | 19 900 (synthetic) | 3 707 (real, public, pseudonymised) |
+| Window | 6 months | 6 real months (2025-05 → 2025-10) |
+| Perimeter | 23 processes (ground truth) | 12 processes (real components, real model) |
+| Motifs | 40 back-office | 40 back-office + 12 added by the measure on the real corpus |
+| Durations | measured (templated) | **inferred** from the catalogue: no tool time-stamps the work |
+
+The portal has a **Corpus** switch: the same handlers produce both cards, so the
+site cannot show a figure the API would not produce. `docs/REEL.md` has the
+sources, the licences, the privacy measurements, and the **nine things the
+real corpus taught the product** (including one real aggregation bug it
+exposed).
+
 ## Run it
 
 ```bash
@@ -92,6 +113,7 @@ exercised with fakes.
 | `docs/TRACEABILITY.md` | Requirement → lot → test |
 | `docs/TEST-INSTRUCTIONS.md` | How a judge reproduces the demo |
 | `docs/RUNBOOK.md` | Deploy and operate |
+| `docs/REEL.md` | The real corpus: sources, licences, privacy, and what it measured |
 | `docs/SUBMISSION.md` | Devpost description |
 | `docs/fr/CAHIER-DES-CHARGES.md` | The full French specification this code implements |
 
@@ -104,4 +126,7 @@ computes a figure**.
 ## Licence
 
 MIT. The demo dataset is entirely synthetic and watermarked
-`SYNTHETIQUE — DEMONSTRATION`; it contains no real personal data.
+`SYNTHETIQUE — DEMONSTRATION`; it contains no real personal data. The real
+corpus holds **public** data of the Apache Software Foundation (Apache License
+2.0), pseudonymised at ingestion: no name, no address and no account of a real
+person is committed, and the raw downloads are never committed either.

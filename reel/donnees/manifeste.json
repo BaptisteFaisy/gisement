@@ -1,0 +1,251 @@
+{
+  "absents": [
+    {
+      "canal": "appels",
+      "raison": "aucun enregistrement audio public pour ce client ; Amazon Transcribe exige des identifiants AWS. Le canal est declare absent, pas simule."
+    },
+    {
+      "canal": "journaux",
+      "raison": "le client reel n'expose pas de journal d'exploitation du travail manuel dans le perimetre lu : ses journaux publics sont des journaux de compilation (CI), qui decrivent la machine et non le geste. Canal declare absent, pas simule."
+    }
+  ],
+  "activites_par_canal": {
+    "appels": 0,
+    "courriels": 2206,
+    "documents": 117,
+    "journaux": 0,
+    "tickets": 1384
+  },
+  "brut": {
+    "composants_jira.json": {
+      "octets": 603,
+      "sha256": "cb40745d03fbff6029cda6c5a4b58137d0e625de4ef9a59913a730af000ee5f4"
+    },
+    "composants_par_cle.json": {
+      "octets": 1509,
+      "sha256": "7962f37cc3d3f556f4b38602e98568315e4f6a8eb9381eed3be554bbda00b933"
+    },
+    "courriels": {
+      "brut_gz_sha256": "7476f5f296de1e6b7359724c131fb8847a1d21350a1092dcf57a032b3b55fa1f",
+      "enregistrements_bruts": 2700,
+      "enregistrements_publies": 2206,
+      "systeme": "archives publiques dev@kafka.apache.org",
+      "telecharge_le": "2026-11-12T15:39:36",
+      "url": "https://lists.apache.org/api/mbox.lua"
+    },
+    "courriels.jsonl.gz": {
+      "octets": 852762,
+      "sha256": "50fd4e3806b0ccdc7f9405e0d8d6c7a0f21d1599613f20ac34f05f9f3239a8c5"
+    },
+    "courriels_mbox.gz": {
+      "octets": 8866576,
+      "sha256": "7476f5f296de1e6b7359724c131fb8847a1d21350a1092dcf57a032b3b55fa1f"
+    },
+    "documents": {
+      "brut_gz_sha256": "b2ed51e87d1131987afc19527158ced1f968af524b739d5cf14feb8fee5f9543",
+      "enregistrements_bruts": 120,
+      "enregistrements_publies": 117,
+      "systeme": "Confluence public ASF (espace KAFKA)",
+      "telecharge_le": "2026-11-12T14:44:03",
+      "url": "https://cwiki.apache.org/confluence/rest/api/content/search?cql=space=KAFKA AND type=page AND title~\"KIP\" ORDER BY lastmodified DESC"
+    },
+    "documents.jsonl.gz": {
+      "octets": 870486,
+      "sha256": "b2ed51e87d1131987afc19527158ced1f968af524b739d5cf14feb8fee5f9543"
+    },
+    "provenance.json": {
+      "octets": 1868,
+      "sha256": "fdf8bcb0e198f336ef4d5ff60920508c7a70d4c5af5bae10a9eb0bc37f5c3466"
+    },
+    "tickets": {
+      "brut_gz_sha256": "1dcf8749f8d2a2fb850a21176480e7b251e749e5bf9ed8bea9c5a5b120917310",
+      "enregistrements_bruts": 1614,
+      "enregistrements_publies": 1591,
+      "systeme": "Apache Jira (KAFKA)",
+      "telecharge_le": "2026-11-12T14:08:24",
+      "url": "https://issues.apache.org/jira/rest/api/2/search?jql=project = KAFKA AND component is not EMPTY AND resolution != Unresolved AND created >= \"2023-11-01\" ORDER BY created ASC"
+    },
+    "tickets.jsonl.gz": {
+      "octets": 803216,
+      "sha256": "7a077613db573ddf59da7fec825a769072633bb58ef359481719b0daa84d2ad3"
+    },
+    "tickets/github": {
+      "brut_gz_sha256": "7a077613db573ddf59da7fec825a769072633bb58ef359481719b0daa84d2ad3",
+      "enregistrements_bruts": 1196,
+      "enregistrements_publies": 1190,
+      "systeme": "GitHub Issues (apache/kafka)",
+      "telecharge_le": "2026-11-12T14:40:50",
+      "url": "https://github.com/apache/kafka/issues"
+    },
+    "tickets/jira": {
+      "brut_gz_sha256": "7a077613db573ddf59da7fec825a769072633bb58ef359481719b0daa84d2ad3",
+      "enregistrements_bruts": 194,
+      "enregistrements_publies": 194,
+      "systeme": "Apache Jira",
+      "telecharge_le": "2026-11-12T14:40:50",
+      "url": "https://issues.apache.org/jira/rest/api/2"
+    }
+  },
+  "campagne": {
+    "graine": 20261112,
+    "id": "CMP-REEL-0001"
+  },
+  "client": {
+    "fenetre": {
+      "debut": "2025-05-01",
+      "fin": "2025-10-31",
+      "mois": [
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10"
+      ],
+      "nb_mois": 6
+    },
+    "id": "T-KAFKA",
+    "nom": "Apache Kafka (Apache Software Foundation)",
+    "nom_en": "Apache Kafka (Apache Software Foundation)",
+    "nom_generique": "un projet logiciel open source",
+    "secteur": "edition logicielle open source / traitement de flux",
+    "services": [
+      "admin",
+      "build",
+      "clients",
+      "config",
+      "connect",
+      "consumer",
+      "controller",
+      "core",
+      "docker",
+      "docs",
+      "documentation",
+      "generator",
+      "group_coordinator",
+      "kip",
+      "kraft",
+      "logging",
+      "producer",
+      "release",
+      "sans_composant",
+      "security",
+      "streams",
+      "streams_test_utils",
+      "tiered_storage",
+      "tools"
+    ],
+    "sites": [
+      "apache"
+    ],
+    "taux_horaires": {}
+  },
+  "corpus": "reel",
+  "couverture": {
+    "detail_heures": {
+      "enregistres_estimes": 3707,
+      "heures_mesurees": "0.0",
+      "minutes_par_enregistrement": "7.5",
+      "total_heures": "463.4"
+    },
+    "non_couvert": [
+      "appels : aucun enregistrement audio public pour ce client ; Amazon Transcribe exige des identifiants AWS. Le canal est declare absent, pas simule.",
+      "journaux : le client reel n'expose pas de journal d'exploitation du travail manuel dans le perimetre lu : ses journaux publics sont des journaux de compilation (CI), qui decrivent la machine et non le geste. Canal declare absent, pas simule.",
+      "composants sous le seuil de 25 activites observees : admin, config, controller, docker, documentation, generator, kip, logging, producer, release, security, streams_test_utils, tiered_storage"
+    ],
+    "regle": "Aucun des outils reels de ce client ne horodate le travail manuel : le denominateur de couverture applique a chaque enregistrement reel la duree unitaire mediane du catalogue versionne (7,5 min), et le dit. Une duree mesuree, quand elle existe, remplace la regle.",
+    "volume_travail_estime_heures": "463.4"
+  },
+  "fenetre": {
+    "debut": "2025-05-01",
+    "fin": "2025-10-31",
+    "mois": [
+      "2025-05",
+      "2025-06",
+      "2025-07",
+      "2025-08",
+      "2025-09",
+      "2025-10"
+    ],
+    "nb_mois": 6
+  },
+  "filigrane": "CORPUS REEL - DONNEES PUBLIQUES ASF, PSEUDONYMISEES A L'INGESTION",
+  "graine": 20261112,
+  "listes": {
+    "noms": [],
+    "prenoms": []
+  },
+  "mois": [
+    "2025-05",
+    "2025-06",
+    "2025-07",
+    "2025-08",
+    "2025-09",
+    "2025-10"
+  ],
+  "note": "Manifeste lu sur des artefacts reels telecharges ; voir `provenance`.",
+  "procedures_ecrites": 120,
+  "pseudonymisation": {
+    "irreversible": true,
+    "regle": "sha256(sel + identite) tronque a 6 hexadecimaux, applique dans le collecteur : aucun nom, aucune adresse, aucun pseudo reel n'entre dans reel/donnees/. Le brut telecharge (reel/brut/*.gz) est garde pour la provenance et n'est pas publie par le portail.",
+    "sel": "reel-kafka"
+  },
+  "services": [
+    "admin",
+    "build",
+    "clients",
+    "config",
+    "connect",
+    "consumer",
+    "controller",
+    "core",
+    "docker",
+    "docs",
+    "documentation",
+    "generator",
+    "group_coordinator",
+    "kip",
+    "kraft",
+    "logging",
+    "producer",
+    "release",
+    "sans_composant",
+    "security",
+    "streams",
+    "streams_test_utils",
+    "tiered_storage",
+    "tools"
+  ],
+  "sources": [
+    {
+      "canal": "tickets",
+      "collecteur": "reel/collecteurs/tickets.py",
+      "licence": "Apache License 2.0 - projet public ASF, donnees publiques",
+      "systeme": "Apache Jira (issues.apache.org)",
+      "url": "https://issues.apache.org/jira/rest/api/2/search?jql=project=KAFKA"
+    },
+    {
+      "canal": "courriels",
+      "collecteur": "reel/collecteurs/courriels.py",
+      "licence": "archives publiques ASF",
+      "systeme": "archives publiques Pony Mail (lists.apache.org)",
+      "url": "https://lists.apache.org/api/mbox.lua?list=dev&domain=kafka.apache.org"
+    },
+    {
+      "canal": "journaux",
+      "collecteur": "reel/collecteurs/journaux.py",
+      "licence": "Apache License 2.0",
+      "systeme": "GitHub Actions (miroir apache/kafka)",
+      "url": "https://api.github.com/repos/apache/kafka/actions/runs"
+    },
+    {
+      "canal": "documents",
+      "collecteur": "reel/collecteurs/documents.py",
+      "licence": "Apache License 2.0",
+      "systeme": "Confluence public ASF (cwiki.apache.org, espace KAFKA)",
+      "url": "https://cwiki.apache.org/confluence/rest/api/content?space=KAFKA"
+    }
+  ],
+  "taux_horaire": "55",
+  "version": "1.0"
+}

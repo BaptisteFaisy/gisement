@@ -1,0 +1,42 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-995",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "merged",
+    "texte_libre": "Status\nCurrent state:Merged\nDiscussion thread:here,voting thread\nJIRA:here\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nDuring the discussion forKIP-980, which proposed the creation of connectors in STOPPED state, there was a suggestion to also allow setting the initial offset for a connector in the connector creation API. Theproposal was deemed valid(point no.4) but was deferred to a future KIP. This KIP proposes to implement that change.\nThis feature will be helpful to users who want to create a connector and start from a specific offset.\nTo do this today, user will have to\nfirst create a connector in STOPPED state and check the response for errors\nalter the offsets for said connector and check the response for errors\nfinally set the connector state to RUNNING.\nPublic Interfaces\n\"POST /connectors\" REST API endpoint\nA new optional field \"initial_offsets\" will be added to the request body format for the POST /connectors endpoint. The value for this field has to adhere to format specified inKIP-875else a400 Bad Requestresponse will be returned.\nIf the field is omitted in the request body, the current behaviour of creating connectors will be preserved. An example request body would look like:\nCreateConnectorRequest\n|\n{\n\"name\": \"file-src-1\",\n\"config\": {\n\"connector.class\": \"org.apache.kafka.connect.file.FileStreamSourceConnector\",\n\"file\": \"test.txt\",\n\"topic\": \"test-topic\",\n\"tasks.max\": \"1\"\n},\n\"initial_offsets\": [\n{\n\"partition\": {\n// source partition\n},\n\"offset\": {\n// Desired initial offset\n}\n}\n]\n}\nAs mentioned in, the response message (`offsets_status`) for successfully setting the initial_offsets will depend on whether the connector has implementedalterOffsets()method. Ifinitial_offsetsis missing from request,offsets_statuswillnotbe present in the response.\nIf the connector has implementedalterOffsetsand everything has succeeded, the HTTP status will be 201 and the create-connector response body will be:\nresponse (definite success)\n|\n{\n\"name\": \"ConnectorOne\",\n\"config\": {...},\n\"offsets_status\":\"The offsets for this connector have been set successfully\"\n}\nIf the connector has not implementedalterOffsetsbut everything else has succeeded, the HTTP status will be 201 and the create-connector response body will be:\nresponse (possible success)\n|\n{\n\"name\": \"ConnectorOne\",\n\"config\": {...},\n\"offsets_status\":\"The framework-managed offsets for this connector have been set successfully. However, if this connector manages offsets externally, they will need to be manually set in the system that the connector uses.\"\n}\nThis method will be supported in both the distributed mode as well as the standalone mode.\nKIP-980 hadintroducedan option to pass JSON config to bin/connect-standalone.sh. This new field will be supported there as well.\nProposed Changes\nWhen Connect runtime receives a request with initial_offsets to create a connector via POST /connectors, it will perform the following steps\nValidate connector configs\nValidate the offset using the same checks performed while altering connector offsets (PATCH /$connector/offsets) as specified in KIP-875 (We will skip validations which check if the connector exists or is in STOPPED state)\nWipe all existing offsets for the connector (i.e we do not want to merge existing offsets and \"initial_offsets\")\nSet the offset of the connector to the value of “initial_offsets”\nWrite connector config (with whatever initial state is specified in the request, or the default if none is specified)\nIf Connect runtime encounters an error in any of these steps, it will cleanup (if required) and return an error response mentioning the step at which the failure was encountered.\nIf step no. 4 fails, the existing offsets of the connector would've already been wiped in step no. 3.\nIf step no. 5 fails, the initial_offset set in step 4 will be wiped as part of cleanup.\nIn either failure case, the offset of the connector, set prior to invoking "
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-995",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "{ &quot;name&quot;: &quot;file-src-1&quot;, &quot;config&quot;: { &quot;connector.class&quot;: &quot;org.apache.kafka.connect.file.FileStreamSourceConnector&quot;, &quot;file&quot;: &quot;test.txt&quot;, &quot;topic&quot;: &quot;test-topic&quot;, &quot;tasks.max&quot;: &quot;1&quot; }, &quot;initial_offsets&quot;: [ { &quot;partition&quot;: { // source partition }, &quot;offset&quot;: { // Desired initial offset } } ]}"
+      ],
+      "lignes": [],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "{ &quot;name&quot;: &quot;ConnectorOne&quot;, &quot;config&quot;: {...}, &quot;offsets_status&quot;: &quot;The offsets for this connector have been set successfully&quot;}"
+      ],
+      "lignes": [],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "{ &quot;name&quot;: &quot;ConnectorOne&quot;, &quot;config&quot;: {...}, &quot;offsets_status&quot;: &quot;The framework-managed offsets for this connector have been set successfully. However, if this connector manages offsets externally, they will need to be manually set in the system that the connector uses.&quot;}"
+      ],
+      "lignes": [],
+      "nom": "tableau_3"
+    }
+  ]
+}

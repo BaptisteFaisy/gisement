@@ -1,0 +1,56 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-21178"
+    ],
+    "kip": "KIP-1381",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Allow Brokers to Disable Compression Types for Client Writes\nStatus\nCurrent state:Under Discussion\nDiscussion thread:link\nJIRA:KAFKA-21178\nReleased:TBD\nPlease keep the discussion on the mailing list rather than commenting on the wiki.\nMotivation\nKafka supports gzip, Snappy, LZ4, and Zstandard compression for record batches. Brokers must retain support for decompressing every codec that may be present in existing log segments. Removing a codec implementation from Kafka would therefore prevent brokers from reading historical records that use that codec.\nAt the same time, operators may need to prevent new records from being written with a particular compression type. Reasons include a vulnerability in a compression library, a codec implementation becoming unmaintained, native-library compatibility problems, or an operational policy that prohibits a codec.\nThe existingcompression.typebroker and topic configuration does not provide this protection. When it is set to a specific codec, Kafka recompresses incoming records using that codec. However, Kafka must first decompress a producer-supplied batch. Consequently, forcing a different final compression type does not prevent a client from sending records encoded with an undesired codec.\nThis KIP proposes a broker-controlled denylist for compression types used by new client writes. The broker will reject a write before decompressing its records when either:\nThe producer supplied a disabled compression type; or\nThe broker would recompress the records using a disabled compression type.\nThe restriction will not apply when reading or replicating existing records. This preserves compatibility with historical log data and allows replicas to remain synchronized.\nPublic Interfaces\nNew broker configuration\nA new broker configuration will be introduced:\n| Property | Value\n| Name | compression.disabled.types\n| Type | List\n| Default | Empty list\n| Valid values | gzip,snappy,lz4,zstd\n| Dynamic update mode | Cluster-wide\n| Importance | High\nExample:compression.disabled.types=snappy,lz4\nThe configuration contains a comma-separated list of compression types that brokers must reject for new client writes.\nAn empty list preserves the existing behavior and permits every compression type supported by Kafka.\nnoneis not a valid entry because uncompressed records do not invoke an external compression implementation.\nThis is a broker-only configuration. It will not have a corresponding topic-level configuration and therefore cannot be overridden by a topic configuration.\nProduce API behavior\nNo request or response schema changes are proposed.\nWhen a client produce request uses a disabled compression type, the affected partition will return the existingUNSUPPORTED_COMPRESSION_TYPEerror.\nThe same error will be returned when the effective topic configuration would cause the broker to recompress the records using a disabled type.\nFor example, given:compression.disabled.types=snappy\nthe broker will reject both of the following cases:\nA producer sends a Snappy-compressed record batch, regardless of the effectivecompression.type.\nThe effective topic configuration hascompression.type=snappy, even when the producer sends an uncompressed batch or uses another compression type.\nOther partitions in the same produce request will continue to be processed according to the existing produce-request behavior.\nDynamic configuration\ncompression.disabled.typeswill support cluster-wide dynamic updates through the existing broker configuration API.\nFor example:bin/kafka-configs.sh\\--bootstrap-serverlocalhost:9092\\--entity-typebrokers\\--entity-default\\--alter\\--add-configcompression.disabled.types=snappy,lz4\nA dynamic update will be propagated to existing logs without requiring a broker restart.\nAs with other dynamic broker configurations, propagation is asynchronous. During propagation, brokers may temporarily observe different values. Enforcement for a partition is determined by the current configuration of its leader.\nProposed Ch"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1381",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Property",
+        "Value"
+      ],
+      "lignes": [
+        [
+          "Name",
+          "compression.disabled.types"
+        ],
+        [
+          "Type",
+          "List"
+        ],
+        [
+          "Default",
+          "Empty list"
+        ],
+        [
+          "Valid values",
+          "gzip, snappy, lz4, zstd"
+        ],
+        [
+          "Dynamic update mode",
+          "Cluster-wide"
+        ],
+        [
+          "Importance",
+          "High"
+        ]
+      ],
+      "nom": "tableau_1"
+    }
+  ]
+}

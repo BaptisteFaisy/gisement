@@ -1,0 +1,197 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1310",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state:Under discussion\nDiscussion thread:thread-1thread-2,\nVoting thread:\nJIRA:RelatedASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-20381\nSummary:Extract transaction identity and lifecycle management from `KafkaProducer` into a first-class\n`TransactionSession` client abstraction, enabling any Kafka client (producer, share consumer, external coordinator, or any other entity)\nto participate in transactions without producer coupling or reflection hacks.\n1. Motivation\n1.1 The Problem: Multi-Participant Transactions Need a Shared Identity Abstraction\nKafka's transaction coordinator is a general-purpose distributed transaction manager. Its metadata (TransactionMetadata) stores:```\ntransactionalId -- session identity\nproducerId -- session token\nproducerEpoch -- fencing token\nstate -- lifecycle state (ONGOING, PREPARE_COMMIT, ...)\ntopicPartitions -- participating partitions\ntxnTimeoutMs -- correctness bound\n```\nNone of these fields are producer-specific. The naming is historical --producerIdandproducerEpochcould equally be calledsessionIdandsessionEpoch. The wire protocol RPCs (InitProducerId,AddPartitionsToTxn,EndTxn,TxnHeartbeat) carry only these identity fields. They do not carry a \"client type\" discriminator.\nWhat KIP-939 Solved\nKIP-939 enabled Kafka to act as a formal participant inTwo-Phase Commit (2PC)transactions by:\nAdding Recovery APIs:IntroducedprepareTransaction()andcompleteTransaction(), allowing external systems to coordinate Kafka's commit/abort status.\nResilient Resumption:Allowed new producers to resume a \"prepared\" transaction after a crash without automatically aborting it.\nRemoving Timeouts:Provided anenable2Pcmode that sets transaction timeouts to infinity, preventing premature aborts during external coordination.\nThe Unsolved Problem\nWhile KIP-939 added the righttools, it put them in thewrong place:\nWrong Abstraction:Transaction methods (like preparing and completing) are forced into theKafkaProducerclass, even though they don't involve producing records.\nHeavyweight Bloat:To simply commit a transaction, you are forced to instantiate a fullKafkaProducerwith its entire infrastructure (buffer pools, sender threads, serializers).\nInaccessible Logic:The core \"brain\" of transactions—the state machine and coordinator logic—is buried in internal producer packages, making it impossible for other clients (like consumers or custom coordinators) to use transactions independently.\n1.2 Entities Already Need Transaction Participation\nThe Kafka ecosystem already has six distinct entity types that interact with the transaction coordinator, each working around the producer-centric API:\n| Entity | Role | Current Workaround | Core Pain Point\n| KafkaProducer | Owner | Native API | Transaction logic is monolithic and coupled to the produce path.\n| Kafka Streams | EOS Processor | Wraps Producer | Lifecycle is forced to match record batching.\n| Connect Source | EOS Ingest | Wraps Producer | Boundary management is coupled to producer lifecycle.\n| Connect Sink | KIP-1302 | N/A | No way to share transaction identity between consumer and producer.\n| Flink / 2PC | External Committer | Reflection | Fragile; manually forces state intoTransactionManagerinternals.\n| Share Consumer | KIP-1289 | N/A | Must \"borrow\" Producer IDs without a proper client abstraction.\nWith this KIP every transactional use case in Kafka becomes the same three-step pattern —construct a TransactionSession, bind clients to it, drive begin/prepare/commit/abort/resume on the session—\nwith theonly differences being which clients you bind (KafkaProducer, KafkaConsumer, KafkaShareConsumer)and which lifecycle methods you use (commit for simple cases, prepare+complete for 2PC, resume for crash recovery.\n2. Public Interfaces\n2.1 New Class:TransactionSession\nPackage:org.apache.kafka.clients.transaction\nTransactionSession is a lightweight, thread-safe client focused strictly on transaction coordinator interaction.\nIt decouples lifecycle management from record pr"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1310",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Entity",
+        "Role",
+        "Current Workaround",
+        "Core Pain Point"
+      ],
+      "lignes": [
+        [
+          "KafkaProducer",
+          "Owner",
+          "Native API",
+          "Transaction logic is monolithic and coupled to the produce path."
+        ],
+        [
+          "Kafka Streams",
+          "EOS Processor",
+          "Wraps Producer",
+          "Lifecycle is forced to match record batching."
+        ],
+        [
+          "Connect Source",
+          "EOS Ingest",
+          "Wraps Producer",
+          "Boundary management is coupled to producer lifecycle."
+        ],
+        [
+          "Connect Sink",
+          "KIP-1302",
+          "N/A",
+          "No way to share transaction identity between consumer and producer."
+        ],
+        [
+          "Flink / 2PC",
+          "External Committer",
+          "Reflection",
+          "Fragile; manually forces state into TransactionManager internals."
+        ],
+        [
+          "Share Consumer",
+          "KIP-1289",
+          "N/A",
+          "Must &quot;borrow&quot; Producer IDs without a proper client abstraction."
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Config",
+        "Source",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "transactional.id",
+          "Existing producer config",
+          "The transactional ID for this session. Required."
+        ],
+        [
+          "transaction.timeout.ms",
+          "Existing producer config",
+          "Correctness timeout for the transaction."
+        ],
+        [
+          "transaction.session.timeout.ms",
+          "ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-20381 (new)",
+          "Session heartbeat timeout. -1 to disable."
+        ],
+        [
+          "bootstrap.servers",
+          "Existing",
+          "Broker addresses for coordinator discovery."
+        ],
+        [
+          "security.*",
+          "Existing",
+          "Authentication/encryption settings."
+        ],
+        [
+          "client.id",
+          "Existing",
+          "Client identifier for metrics and logging."
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "API",
+        "Status",
+        "Replacement"
+      ],
+      "lignes": [
+        [
+          "KafkaProducer.initTransactions()",
+          "Not deprecated (convenience wrapper)",
+          "TransactionSession.initialize() for advanced use"
+        ],
+        [
+          "KafkaProducer.beginTransaction()",
+          "Not deprecated (convenience wrapper)",
+          "TransactionSession.beginTransaction() for advanced use"
+        ],
+        [
+          "KafkaProducer.commitTransaction()",
+          "Not deprecated (convenience wrapper)",
+          "TransactionSession.commitTransaction() for advanced use"
+        ],
+        [
+          "KafkaProducer.abortTransaction()",
+          "Not deprecated (convenience wrapper)",
+          "TransactionSession.abortTransaction() for advanced use"
+        ],
+        [
+          "KafkaProducer.sendOffsetsToTransaction()",
+          "Not deprecated (convenience wrapper)",
+          "TransactionSession.sendOffsetsToTransaction() for advanced use"
+        ]
+      ],
+      "nom": "tableau_3"
+    },
+    {
+      "colonnes": [
+        "RPC",
+        "Resource Type",
+        "Operation"
+      ],
+      "lignes": [
+        [
+          "InitProducerId",
+          "TRANSACTIONAL_ID",
+          "WRITE"
+        ],
+        [
+          "AddPartitionsToTxn",
+          "TRANSACTIONAL_ID",
+          "WRITE; TOPIC"
+        ],
+        [
+          "EndTxn",
+          "TRANSACTIONAL_ID",
+          "WRITE"
+        ]
+      ],
+      "nom": "tableau_4"
+    },
+    {
+      "colonnes": [
+        "Test",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "Session Lifecycle",
+          "Verify transitions: UNINITIALIZED → INITIALIZING → READY → IN_TRANSACTION → COMMITTING → READY."
+        ],
+        [
+          "Session Resume",
+          "Verify resume() starts in IN_TRANSACTION and can execute commitTransaction()."
+        ],
+        [
+          "Heartbeat Logic",
+          "Verify heartbeat thread lifecycle based on transaction.session.timeout.ms."
+        ],
+        [
+          "Backward Compatibility",
+          "Verify standard KafkaProducer transaction methods work via internal session delegation."
+        ],
+        [
+          "Epoch Fencing",
+          "Verify that a new session with the same transactional.id correctly fences the older session."
+        ]
+      ],
+      "nom": "tableau_5"
+    }
+  ]
+}

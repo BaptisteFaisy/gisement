@@ -1,0 +1,98 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1370",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state: Under Discussion\nDiscussion thread:here\nJIRA:ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-20888,ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-20883\nMotivation\nKIP-1071 (https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=393677857) introduced Streams groups, theStreamsGroupDescribeAPI, and thekafka-streams-groups.shcommand-line tool.\nTheStreamsGroupDescriberesponse and the corresponding Admin API representation already expose the optional instance ID and rackID of each Streams group member. However,kafka-streams-groups.sh --describe --membersdoes not currently display either field.\nThe instance ID identifies a static group member and remains stable when the member restarts. Displaying it is useful for mappingdynamically generated member IDs to application instances and for diagnosing static membership issues.The rack ID is primarily useful when investigating rack-aware task placement. Since it is optional and is generally needed only fordetailed diagnostics, it should be included only in verbose member output.\nThis KIP proposes the following behavior:\nThe GROUP-INSTANCE-ID column will be displayed when --members is specified only if at least one group member has instance ID.\nThe rack ID is displayed only when--membersand--verboseare specified together.\nThis also makes verbose member output an additive extension of the regular member output: information available in the regularoutput, including the instance ID, is not omitted when verbose output is requested.\nPublic Interfaces\nThis KIP introduces no new command-line options and does not change any public Java API, network protocol, configuration, metric,or persisted data format.\nIt changes the human-readable output of the existingkafka-streams-groups.sh --describe --memberscommand by adding member instanceand rack information. Although console tool output is not considered a formal public interface under the Kafka KIP process, theoutput changes are documented in this KIP because they are user-visible and may affect scripts that parse the command output.\nProposed Changes\nThe member output ofkafka-streams-groups.shwill expose the instance ID and rack ID already available inStreamsGroupMemberDescription.\n| Command | GROUP-INSTANCE-ID | RACK-ID\n| --describe --members | Included | Not included\n| --describe --members --verbose | Included | Included\nColumn visibility is determined independently for each group. GROUP-INSTANCE-ID is included only if at least one member has a non-empty instance ID.\nRACK-ID is included only in verbose member output and only if at least one member has a non-empty rack ID. These values need not belong to the same member.\nThe column order will change as follows:\n| Command | From | To\n|\n--describe --members\n(At least one member has a non-emptyinstance ID) |\nGROUP→MEMBER→PROCESS→CLIENT-ID→ASSIGNMENTS |\nGROUP→MEMBER→GROUP-INSTANCE-ID→PROCESS→CLIENT-ID→ASSIGNMENTS\n|\n--describe --members\n(No member has a non-emptyinstance ID) |\nGROUP→MEMBER→PROCESS→CLIENT-ID →ASSIGNMENTS\n|\n--describe --members --verbose\n(At least one member has a non-emptyinstance ID, and at least one member has a non-emptyrack ID) |\nGROUP→TARGET-ASSIGNMENT-EPOCH→TOPOLOGY-EPOCH→\nMEMBER→MEMBER-PROTOCOL→MEMBER-EPOCH→PROCESS→\nCLIENT-ID→ASSIGNMENTS\n|\nGROUP→TARGET-ASSIGNMENT-EPOCH→TOPOLOGY-EPOCH→\nMEMBER→GROUP-INSTANCE-ID→MEMBER-PROTOCOL→MEMBER-EPOCH\n→PROCESS→CLIENT-ID→RACK-ID→ASSIGNMENTS\n|\n--describe --members --verbose\n(At least one member has a non-emptyinstance ID, and no member has a non-emptyrack ID) |\nGROUP→TARGET-ASSIGNMENT-EPOCH→TOPOLOGY-EPOCH→\nMEMBER→GROUP-INSTANCE-ID→MEMBER-PROTOCOL→MEMBER-EPOCH\n→PROCESS→CLIENT-ID→ASSIGNMENTS\n|\n--describe --members --verbose\n(At least one member has a non-emptyrack ID, and no member has a non-emptyinstance ID) |\nGROUP→TARGET-ASSIGNMENT-EPOCH→TOPOLOGY-EPOCH→\nMEMBER→MEMBER-PROTOCOL→MEMBER-EPOCH\n→PROCESS→CLIENT-ID→RACK-ID→ASSIGNMENTS\n|\n--describe --members --verbose\n(No member has a non-emptyinstance ID, and no member"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1370",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Command",
+        "GROUP-INSTANCE-ID",
+        "RACK-ID"
+      ],
+      "lignes": [
+        [
+          "--describe --members",
+          "Included",
+          "Not included"
+        ],
+        [
+          "--describe --members --verbose",
+          "Included",
+          "Included"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Command",
+        "From",
+        "To"
+      ],
+      "lignes": [
+        [
+          "--describe --members(At least one member has a non-empty instance ID)",
+          "GROUP → MEMBER → PROCESS → CLIENT-ID → ASSIGNMENTS",
+          "GROUP → MEMBER → GROUP-INSTANCE-ID → PROCESS → CLIENT-ID → ASSIGNMENTS"
+        ],
+        [
+          "--describe --members(No member has a non-empty instance ID)",
+          "GROUP → MEMBER → PROCESS → CLIENT-ID → ASSIGNMENTS"
+        ],
+        [
+          "--describe --members --verbose(At least one member has a non-empty instance ID, and at least one member has a non-empty rack ID)",
+          "GROUP → TARGET-ASSIGNMENT-EPOCH → TOPOLOGY-EPOCH → MEMBER → MEMBER-PROTOCOL → MEMBER-EPOCH → PROCESS →CLIENT-ID → ASSIGNMENTS",
+          "GROUP → TARGET-ASSIGNMENT-EPOCH → TOPOLOGY-EPOCH → MEMBER → GROUP-INSTANCE-ID → MEMBER-PROTOCOL → MEMBER-EPOCH → PROCESS → CLIENT-ID → RACK-ID → ASSIGNMENTS"
+        ],
+        [
+          "--describe --members --verbose(At least one member has a non-empty instance ID, and no member has a non-empty rack ID)",
+          "GROUP → TARGET-ASSIGNMENT-EPOCH → TOPOLOGY-EPOCH → MEMBER → GROUP-INSTANCE-ID → MEMBER-PROTOCOL → MEMBER-EPOCH → PROCESS → CLIENT-ID → ASSIGNMENTS"
+        ],
+        [
+          "--describe --members --verbose(At least one member has a non-empty rack ID, and no member has a non-empty instance ID)",
+          "GROUP → TARGET-ASSIGNMENT-EPOCH → TOPOLOGY-EPOCH → MEMBER → MEMBER-PROTOCOL → MEMBER-EPOCH → PROCESS → CLIENT-ID → RACK-ID → ASSIGNMENTS"
+        ],
+        [
+          "--describe --members --verbose(No member has a non-empty instance ID, and no member has a non-empty rack ID)",
+          "GROUP → TARGET-ASSIGNMENT-EPOCH → TOPOLOGY-EPOCH → MEMBER → MEMBER-PROTOCOL → MEMBER-EPOCH → PROCESS → CLIENT-ID → ASSIGNMENTS"
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Source Value",
+        "Console output"
+      ],
+      "lignes": [
+        [
+          "null or Optional.empty()",
+          "(Show empty cell)"
+        ],
+        [
+          "Empty String (&quot;&quot;)",
+          "(Show empty cell)"
+        ],
+        [
+          "Non-empty string",
+          "The value as reported"
+        ]
+      ],
+      "nom": "tableau_3"
+    }
+  ]
+}

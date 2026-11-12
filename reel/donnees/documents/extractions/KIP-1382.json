@@ -1,0 +1,70 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-21147"
+    ],
+    "kip": "KIP-1382",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Expose Explicit Configuration Deletions to AlterConfigPolicy\nStatus\nCurrent state: Under Discussion\nDiscussion thread:link\nJIRA:KAFKA-21147\nReleased: TBD\nMotivation\nAlterConfigPolicyimplementations receive anAlterConfigPolicy.RequestMetadatainstance when a configuration change is validated. Itsconfigs()method does not consistently identify explicitDELETEoperations made through the Incremental Alter Configs API.\nFor a topic configuration, deleting an unset override is a no-op and does not generate aConfigRecord. Consequently, the key is absent fromconfigs(). For a broker configuration, Kafka generates a record even when the configuration is unset, so the key is present inconfigs()with anullvalue. A policy therefore cannot reliably determine whether a key was explicitly deleted by inspectingconfigs().\nChangingconfigs()so every explicit deletion appears as a key mapped tonullwould resolve this inconsistency, but it would also change the behavior observed by existing policy implementations. In particular, KIP-1252 introducedalter.config.policy.kraft.compatibility.enablein Kafka 3.9.2 so ZooKeeper-based clusters could opt into the existing KRaft policy behavior before migrating. Changing that KRaft behavior in a later release would undermine the compatibility guarantee for users who enabled the setting.\nThis KIP proposes an additive API that exposes explicit deletions consistently while preserving the existingconfigs()contract and behavior. Existing policies continue to receive the same map, while policies that need operation-level deletion information can opt into the new method.\nPublic Interfaces\nThis KIP adds the following constructor and methods to the publicAlterConfigPolicy.RequestMetadataclass:publicRequestMetadata(ConfigResource resource,Map<String, String>configs,Set<String>deletedConfigs)publicSet<String>deletedConfigs()publicMap<String, String>configsWithoutNullValues()\nThe existing constructor remains unchanged:publicRequestMetadata(ConfigResource resource, Map<String, String>configs)\nInstances created with the existing constructor return an empty set fromdeletedConfigs().\ndeletedConfigs()\ndeletedConfigs()returns the names of configurations explicitly targeted byDELETEoperations in an Incremental Alter Configs request. It includes deletions that do not generate metadata records, such as deleting an unset topic configuration.\nThe returned set is empty for legacy Alter Configs requests. It does not include configurations implicitly removed because they were omitted from a legacy full-replacement request.\nThe returned set is immutable and does not containnull.\nconfigsWithoutNullValues()\nconfigsWithoutNullValues()returns the entries fromconfigs()whose values are non-null. This gives policy implementations a direct way to consume the existing configuration representation without interpretingnullas either a value or an operation.\nCalling this method does not change the meaning ofconfigs()and does not replacedeletedConfigs(): a no-op topic deletion may be absent from both maps but will still be present indeletedConfigs().\nProposed Changes\nWhen processing an Incremental Alter Configs request, the controller will collect the key of every explicitly requestedDELETEoperation and pass those keys toRequestMetadata. Collection is based on the request operations rather than generated metadata records, so it is consistent across resource types and includes no-op deletions.\nThe behavior visible to a policy will be:\n| Request | Existingconfigs() | NewdeletedConfigs() | NewconfigsWithoutNullValues()\n| IncrementalSET | Existing behavior: resulting key/value | Empty | Same non-null entry\n| IncrementalAPPENDorSUBTRACT | Existing behavior: resulting key/value | Empty | Same non-null entry\n| Delete an existing topic override | Existing behavior: key mapped tonull | Deleted key | Entry omitted\n| Delete an unset topic override | Existing behavior: key omitted | Deleted key | Entry omitted\n| Delete a broker configuration | Existing behavior: key "
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1382",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Request",
+        "Existing configs()",
+        "New deletedConfigs()",
+        "New configsWithoutNullValues()"
+      ],
+      "lignes": [
+        [
+          "Incremental SET",
+          "Existing behavior: resulting key/value",
+          "Empty",
+          "Same non-null entry"
+        ],
+        [
+          "Incremental APPEND or SUBTRACT",
+          "Existing behavior: resulting key/value",
+          "Empty",
+          "Same non-null entry"
+        ],
+        [
+          "Delete an existing topic override",
+          "Existing behavior: key mapped to null",
+          "Deleted key",
+          "Entry omitted"
+        ],
+        [
+          "Delete an unset topic override",
+          "Existing behavior: key omitted",
+          "Deleted key",
+          "Entry omitted"
+        ],
+        [
+          "Delete a broker configuration",
+          "Existing behavior: key mapped to null when a record is generated",
+          "Deleted key",
+          "Entry omitted"
+        ],
+        [
+          "Legacy Alter Configs request",
+          "Existing behavior",
+          "Empty",
+          "Non-null entries from configs()"
+        ]
+      ],
+      "nom": "tableau_1"
+    }
+  ]
+}

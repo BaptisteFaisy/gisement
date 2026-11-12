@@ -1,0 +1,22 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1325",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "accepted",
+    "texte_libre": "Status\nCurrent state:Accepted\nDiscussion thread:here\nVote thread:here\nJIRA:here\nMotivation\nKafka Streams allows users to configure many different memory limits, to pro-actively manage memory usage to avoid OutOfMemory errors.\nHowever, on the restore code path, there is no such memory management. The `StoreChangelogReader` fetches a batch of messages, and buffers them inside `ChangelogMetadata`, and there is no limit enforced on this buffer, eventually leading to OutOfMemoryError during backfills. So only in the normal processing path, streams enforce a buffer limit via buffered.records.per.partition (default 1000), but when restore happens, there is no such logic in StoreChangelogReader. A briefdiscussionhere as well.\nThis kip introduces a config in StreamsConfig 'restore.buffered.records.per.partition' to cap the per-partition restore buffer.\nPublic Interfaces\n1. New StreamsConfig configuration\njava\nThere are no other public changes.\nProposed Changes\nRegister the new config\nIn `streams/src/main/java/org/apache/kafka/streams/StreamsConfig.java`, add the constant alongside the existing `BUFFERED_RECORDS_PER_PARTITION_CONFIG` block and register it in the `ConfigDef` :java\nRead the config in `StoreChangelogReader`\nStoreChangelogReaderalready takes a `StreamsConfig` in its constructor. Read the new value once and store it as:java\nand initialized in the constructor from `config.getInt(StreamsConfig.RESTORE_BUFFERED_RECORDS_PER_PARTITION_CONFIG)`.\nEnforce the buffer cap via pause / resume\n`StoreChangelogReader` already pauses and resumes partitions on the restore consumer through `pauseResumePartitions(...)` and `updatePartitionsByType(...)`.\nThe new enforcement reuses the same mechanism with minor enhancement:\nBefore polling - shouldPause() method (`pollRecordsFromRestoreConsumer`): for every currently restoring partition whose `ChangelogMetadata.bufferedRecords.size() >= restoreMaxBufferedRecordsPerPartition`, add it to the pause set. This prevents the restore consumer from fetching more data for partitions whose buffer is already full.\nAfter draining – shouldResume() method (`restoreChangelog`): once records have been applied to the state store and `bufferedRecords.size() < restoreMaxBufferedRecordsPerPartition`, the partition becomes eligible for resume on the next `pauseResumePartitions(...)` call.\nThis is just a filter on top of existing pause-resume functionality and both paths normal and restore (buffered.records.per.partition and restore.buffered.records.per.partition ) go through the same poll/buffer/restore loop.\nintroduce a lower bound to avoid bouncing between pause and resume\nFor example, a paused partition should only be resumed once the buffered records drop below 50% of the max capacity. To decide this. benchmark the frequent switching between pause and resume. It can be a follow up.\nDocumentation\nAdd the new config to the \"Streams Configs\" reference at `docs/streams/developer-guide/config-streams.html`, adjacent to `buffered.records.per.partition`, with a clear note that the two configs target different code paths.\nAdd a short note in the upgrade guide for the target release, calling out the new default cap on restore-path buffering\nUpdate the \"Memory Management\" section of the Streams developer guide to list restore-path buffering alongside cache.\nCompatibility, Deprecation, and Migration Plan\nCompatibility\nFor users who do not set the new config, unbounded buffering to buffering capped at 10000 recs per partition. For better throughput on restore, during large backfills, increase the config.\nDeprecation - na-\nMigration\nNo user action is required. Users concerned about a throughput regression can explicitly set `restore.buffered.records.per.partition` to a larger value (e.g., `100000`) to approximate the previous unbounded behavior for typical deployments.\nTest Plan\nAdds unit and integration test coverage and mainly trigger restoration, asserting restoration is finished successfully.\nRejected Alternatives\nWe can a"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1325",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": []
+}

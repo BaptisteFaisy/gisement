@@ -1,0 +1,45 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1335",
+    "sections": [
+      "motivation",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state:Under discussion\nDiscussion thread:here\nJIRA:here\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nSummary\nToday,kafka-reassign-partitions.sh --executesubmitsallpartition reassignments from the JSON inoneAdminClient#alterPartitionReassignmentscall (unless the user manually splits work). For large clusters this can createlarge burstsof replication traffic and controller work.\nThis KIP proposestool-onlypacing controls:\n--reassignment-batch-size— caps how manytopic partitionsare submitted per step (semantics differ slightly depending on mode; see below).0preserveslegacy behavior(single request for the entire plan).\n--incremental— optional mode usedwith--reassignment-batch-size > 0to keep at mostNpartition reassignmentsin flight for thisexecution, submitting the next partition from adeterministic queuewhen a slot frees up.\n--reassignment-poll-interval-ms— how long the tool sleeps between polls whilewaiting for batch completion(non-incremental, between batches) and whiledriving incrementalsubmissions; default1000ms.\nOrdering for both modes is(topic name, partition index), not the order of entries in the JSON file.\nNo broker protocol, controller, or metadata changes are required; pacing is implementedentirely in the reassignment toolusing existing Admin APIs (alterPartitionReassignments,listPartitionReassignments, metadata reads).\nMotivation\nProblem\nOperational risk:Submitting hundreds or thousands of partition reassignments in one RPC can stress replication links, disk, and the controller in ways that are hard to predict during maintenance windows.\nLimited operator control:Throttling (--throttle) limitsbandwidthbut does not limithow many partitionsare simultaneously moving; operators often wantserialised waves or bounded concurrencywithout hand-splitting JSON files.\nManual workarounds:Teams split reassignment JSON by hand or wrap the tool in scripts that callalterPartitionReassignmentsin chunks — error-prone and inconsistent across deployments.\nGoals\nProvidefirst-class, documentedpacing in the supported reassignment tool.\nPreservefull backward compatibilitywhen defaults are unchanged (--reassignment-batch-size 0, no--incremental).\nKeep behaviordeterministicandexplainable(stable partition ordering).\nNon-goals\nReplacing cluster-wide replication quotas or broker-side limits.\nChanging how the controller executes reassignments (same server-side semantics).\nGlobal coordination acrossmultipleconcurrent tool processes (each execute remains independent).\nPublic interfaces\nCLI (kafka-reassign-partitions.sh)\n|\nOption |\nApplies to |\nSemantics\n|\n--reassignment-batch-size <int> |\n--executeonly |\nDefault 0: legacy — entire plan in one alterPartitionReassignments request; no extra waits in the tool.\n> 0 without --incremental: split the plan into contiguous batches of at most N partitions (sorted by topic, then partition id). After each batch except the last, the tool blocks until every partition in that batch reports complete (current ISR matches target and reassignment not active) before submitting the next batch.\n> 0 with --incremental: N is the maximum number of partition reassignments from this JSON that may be active at once; when one completes, the tool submits the next partition from the sorted queue.\n|\n--incremental |\n--executeonly |\nRequires --reassignment-batch-size > 0. Mutually exclusive interpretation of batch size as in-flight cap (see above).\n|\n--reassignment-poll-interval-ms <long> |\n--execute only |\nMilliseconds to sleep between progress polls when the tool iswaiting on reassignment state. Default 1000.\nValidation and compatibility\n--reassignment-batch-size must be ≥ 0. Negative values are rejected.\n--incremental without --reassignment-batch-size > 0 is rejected at argument validation time.\n--reassignment-batch-size, --incremental and --reassignment-poll-interval-ms are not permitted with --list, --generate, --verify, or --cancel (same patt"
+  },
+  "confiance": 0.8,
+  "document_id": "KIP-1335",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Option",
+        "Applies to",
+        "Semantics"
+      ],
+      "lignes": [
+        [
+          "--reassignment-batch-size &lt;int&gt;",
+          "--execute only",
+          "Default 0: legacy — entire plan in one alterPartitionReassignments request; no extra waits in the tool.&gt; 0 without --incremental: split the plan into contiguous batches of at most N partitions (sorted by topic, then partition id). After each batch except the last, the tool blocks until every partition in that batch reports complete (current ISR matches target and reassignment not active) before submitting the next batch.&gt; 0 with --incremental: N is the maximum number of partition reassignments from this JSON that may be active at once; when one completes, the tool submits the next partition from the sorted queue."
+        ],
+        [
+          "--incremental",
+          "--execute only",
+          "Requires --reassignment-batch-size &gt; 0. Mutually exclusive interpretation of batch size as in-flight cap (see above)."
+        ],
+        [
+          "--reassignment-poll-interval-ms &lt;long&gt;",
+          "--execute only",
+          "Milliseconds to sleep between progress polls when the tool is waiting on reassignment state. Default 1000."
+        ]
+      ],
+      "nom": "tableau_1"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-18005"
+    ],
+    "kip": "KIP-1110",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "",
+    "texte_libre": "Status\nCurrent state:\"Under Discussion\"\nDiscussion thread:here\nJIRA:KAFKA-18005\nMotivation\nCurrently, when describing config for a resource, we'll get `null` if the config is a sensitive config, ex: \"ssl.keystore.certificate.chain\", \"ssl.keystore.password\".\nNote: The value of `listener.name.myssl.ssl.keystore.key` should be a non-nullvalue , but returning null for security consideration.\nIt makes sense to not expose sensitive data to the users, but returning null will let the users/operators hard to identify if the config is up-to-date.\nTake the example inKIP-412:\nConsider the dynamic configurations ssl.keystore.location, ssl.keystore.password and ssl.keystore.type are stored in \"vault\" and their values are resolved using a VaultConfigProvider.\n|\n...\nssl.keystore.location=${vault:/path/to/variables.properties:ssl.keystore.location}\nssl.keystore.password=${vault:/path/to/variables.properties:ssl.keystore.password}\nssl.keystore.type=${vault:/path/to/variables.properties:ssl.keystore.type}\nconfig.providers=vault\nconfig.providers.file.class=org.apache.kafka.connect.configs.VaultConfigProvider\nThe user will update the ssl.keystore.location, ssl.keystore.password, ssl.keystore.type in the vault.\nAfter the updates are complete he will send a adminClient request to the broker to notify that configs are updated.\nOnce the Broker receives a alteredConfig request it will invoke the get function in VaultConfigProvider.\nThe VaultConfigProvider will fetch the actual values for ssl.keystore.location, ssl.keystore.password, ssl.keystore.type from the vault.\nThe broker will validate these configs and apply the changes.\nIn the step (b), the operator needs a way to know what if the current state of these configs before updating it. With current design, the operator will never know it, and blindly run the alter config multiple times, or worse, the operator thought it is already updated and skipped this update, and cause the broker connection failure.\nIn the Kubernetes world, one of the purpose for the operator is:\nKubernetes Operators manage application logic and are part of the Kubernetes control plane. As such,they are controllers that execute loops to check the actual state of the cluster and the desired state, acting to reconcile them when the two states are drifting apart.\nfrom theCNCF blog post.\nWithout the knowledge of the actual state of the resource (kafka pod), the operators cannot reconcile them as expected. It would be great if the broker/controller can return some metadata of these sensitive configs, like \"last modified timestamp\", to allow the operators have a way to get the current state of these configs.\nPublic Interfaces\nThere will be an additional \"internal config\" added for each dynamic confidential configurations. The definition of dynamic confidential configurations is:\nThis config isPASSWORD type.\nThis config is a dynamically changable config (per-broker).\nThe table lists current configs that fit the above 2 criteria:\n| existing confidential changable config | newly added internal configs | default value | update mode\n| sasl.jaas.config | sasl.jaas.config.timestamp | -1 | per-broker\n| ssl.keystore.key | ssl.keystore.key.timestamp | -1 | per-broker\n| ssl.keystore.password | ssl.keystore.password.timestamp | -1 | per-broker\n| ssl.keystore.certificate.chain | ssl.keystore.certificate.chain.timestamp | -1 | per-broker\n| ssl.truststore.certificates | ssl.truststore.certificates.timestamp | -1 | per-broker\n| ssl.truststore.password | ssl.truststore.password.timestamp | -1 | per-broker\n| ssl.key.password | ssl.key.password.timestamp | -1 | per-broker\nFor these configs, there will be an \"timestamp\" config added. Ex: \"ssl.keystore.key\" will add \"ssl.keystore.key.timestamp\" as aninternal configwith default value -1. It has the same update mode (per-broker). The internal config means it is not publicly visible. And users cannot alter values via admin API or broker properties. Besides, there will be a new ConfigDef.Type added:METADATA, t"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1110",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "...ssl.keystore.location=${vault:/path/to/variables.properties:ssl.keystore.location}ssl.keystore.password=${vault:/path/to/variables.properties:ssl.keystore.password}ssl.keystore.type=${vault:/path/to/variables.properties:ssl.keystore.type} config.providers=vaultconfig.providers.file.class=org.apache.kafka.connect.configs.VaultConfigProvider"
+      ],
+      "lignes": [],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "existing confidential changable config",
+        "newly added internal configs",
+        "default value",
+        "update mode"
+      ],
+      "lignes": [
+        [
+          "sasl.jaas.config",
+          "sasl.jaas.config.timestamp",
+          "-1",
+          "per-broker"
+        ],
+        [
+          "ssl.keystore.key",
+          "ssl.keystore.key.timestamp",
+          "-1",
+          "per-broker"
+        ],
+        [
+          "ssl.keystore.password",
+          "ssl.keystore.password.timestamp",
+          "-1",
+          "per-broker"
+        ],
+        [
+          "ssl.keystore.certificate.chain",
+          "ssl.keystore.certificate.chain.timestamp",
+          "-1",
+          "per-broker"
+        ],
+        [
+          "ssl.truststore.certificates",
+          "ssl.truststore.certificates.timestamp",
+          "-1",
+          "per-broker"
+        ],
+        [
+          "ssl.truststore.password",
+          "ssl.truststore.password.timestamp",
+          "-1",
+          "per-broker"
+        ],
+        [
+          "ssl.key.password",
+          "ssl.key.password.timestamp",
+          "-1",
+          "per-broker"
+        ]
+      ],
+      "nom": "tableau_2"
+    }
+  ]
+}

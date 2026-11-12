@@ -9,7 +9,9 @@ from gisement.connecteurs import (
     SourceJira,
     SourceSage,
     SourceServiceNow,
+    normaliser_ticket,
     paginer,
+    paginer_decalage,
 )
 
 ISSUES = [
@@ -39,9 +41,8 @@ ISSUES = [
 
 
 def test_jira_normalise_et_mesure_la_duree() -> None:
-    client = FauxClientHttp(
-        pages={"/rest/api/3/search?jql=project=SUP ORDER BY created&maxResults=100": ISSUES}
-    )
+    modele = SourceJira(FauxClientHttp(pages={}), projet="SUP")
+    client = FauxClientHttp(pages={modele.url(): ISSUES}, cle_page="issues")
     source = SourceJira(client, projet="SUP")
     tickets = list(source.lire())
     assert len(tickets) == 2
@@ -53,6 +54,61 @@ def test_jira_normalise_et_mesure_la_duree() -> None:
     assert premier["duree_traitement_minutes"] == 20.0
     assert tickets[1]["duree_traitement_minutes"] is None
     assert source.volume() == 2
+
+
+class FauxJiraServeur:
+    """A Jira **server** API: pages served by `startAt`, with a `total`."""
+
+    def __init__(self, issues: list[dict], pas: int = 1, total: int | None = None) -> None:
+        self.issues = issues
+        self.pas = pas
+        self.total = len(issues) if total is None else total
+        self.appels: list[str] = []
+
+    def get(self, url: str, params: dict | None = None) -> dict:
+        from urllib.parse import parse_qs, urlsplit
+
+        self.appels.append(url)
+        debut = int(parse_qs(urlsplit(url).query).get("startAt", ["0"])[0])
+        return {
+            "issues": self.issues[debut : debut + self.pas],
+            "startAt": debut,
+            "total": self.total,
+        }
+
+
+def test_un_jira_serveur_pagine_par_decalage() -> None:
+    """A real public Jira (ASF) answers on /rest/api/2 with startAt/total."""
+    base = "https://jira.example.org/jira/rest/api/2"
+    client = FauxJiraServeur(ISSUES, pas=1)
+    source = SourceJira(client, projet="KAFKA", base=base, pas=1)
+    assert source.offset is True
+    tickets = list(source.lire())
+    assert [t["id"] for t in tickets] == ["SUP-12", "SUP-13"]
+    assert len(client.appels) == 2
+
+
+def test_la_pagination_par_decalage_s_arrete_sur_un_total_mensonger() -> None:
+    url = "https://jira.example.org/rest/api/2/search?jql=x"
+    client = FauxJiraServeur(ISSUES, pas=2, total=10_000)
+    lus = list(paginer_decalage(client, url, pas=2, max_pages=3))
+    assert len(lus) == len(ISSUES)
+    assert len(client.appels) <= 3
+
+
+def test_le_service_est_le_composant_reel_et_le_groupe_la_priorite() -> None:
+    brut = {
+        "key": "KAFKA-1",
+        "fields": {
+            "summary": "Fix NPE in the consumer coordinator",
+            "components": [{"name": "coordinator"}],
+            "priority": {"name": "Major"},
+            "project": {"key": "KAFKA"},
+        },
+    }
+    normalise = normaliser_ticket(brut, "jira")
+    assert normalise["service"] == "coordinator"
+    assert normalise["groupe"] == "major"
 
 
 def test_la_pagination_suit_le_curseur_et_s_arrete() -> None:

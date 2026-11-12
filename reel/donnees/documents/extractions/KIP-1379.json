@@ -1,0 +1,77 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-19387"
+    ],
+    "kip": "KIP-1379",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state:Under Discussion\nDiscussion thread:here\nJIRA:here\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nRack-aware assignment is costly and, in the common case, changes nothing. Yet the group coordinator pays for it for every group.\nRack-aware assignment gives each member partitions with a replica in its rack, so that the member can fetch from that replica instead of crossing racks (KIP-392). It changes nothing in two common cases:\nFetch from follower is not used, so the members fetch from the leader. It is off by default for consumers, and share consumers do not support it.\nThe replicas of every partition already cover all racks, as with three availability zones and a replication factor of three.\nNeither the coordinator nor the assignor can tell which case applies without doing the work that would be wasted.\nThe assignor.Rack awareness is planned for the built-in consumer assignors (KAFKA-19387). A rack-aware assignor has to read the racks of the replicas of every subscribed partition on every assignment. Finding out whether the racks matter costs as much as using them. So every consumer group would pay this cost on every assignment, including in the two cases above.\nThe metadata hash.The coordinator already pays for the racks today. SinceKIP-1101, the metadata hash of every group covers the racks of the replicas of every subscribed partition. Computing it looks up the rack of every replica, and it is recomputed after every change to a subscribed topic, including leader and ISR changes. A rack change also bumps the group epoch, even though no built-in assignor uses racks today.\nThe classic protocol makes rack awareness opt-in: a consumer only considers racks whenclient.rackis set (KIP-881). This KIP does the same on the server for consumer groups, with a broker configuration that is off by default. Share and streams groups cannot use the racks today, so they stop paying for them.\nPublic Interfaces\nBroker configuration\n| Name | Type | Default | Importance | Update mode\n| group.consumer.rack.aware.assignment.enable | boolean | false | medium | read-only\nDocumentation:Whether rack-aware assignment is enabled for consumer groups. When enabled, the assignor is given the rack ids of the members and the racks of the partition replicas, and a change of the racks of a subscribed partition triggers a new assignment. It is only useful when both of the following hold: the consumers use fetch-from-follower (replica.selector.classon the brokers andclient.rackon the consumers), and the partitions do not have a replica in every rack (or availability zone). Otherwise, rack-aware assignment changes nothing and only adds cost.\nAssignor interface\nA new default method onorg.apache.kafka.coordinator.group.api.assignor.GroupSpec:javaThe coordinator's implementation returns the value of the configuration for consumer groups and false for share groups. When it returns false,MemberSubscription#rackId()is empty andSubscribedTopicDescriber#racksForPartition(Uuid, int)returns an empty set.\nThere are no RPC or record changes. Describe APIs still return the rack ids of the members.\nProposed Changes\nMetadata hash\nThe topic hash comes in two forms:\nWith racks:the topic hash defined by KIP-1101, unchanged.\nWithout racks:it only covers the topic id, name and number of partitions.0x00 | topic id | topic name | number of partitions\nThis is the KIP-1101 format, with the same magic byte, without the per-partition section. Without racks, that section only listed the partition ids, which added nothing: they are always 0 to the number of partitions minus one. When present, the section has an entry for every partition, so the two forms never produce the same input for different topics.\nThe group hash, computed from the topic hashes, is unchanged. The form a group uses, and the rack information its assignor gets, depend on its type and ongroup.consumer.rack.aware.assignmen"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1379",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Name",
+        "Type",
+        "Default",
+        "Importance",
+        "Update mode"
+      ],
+      "lignes": [
+        [
+          "group.consumer.rack.aware.assignment.enable",
+          "boolean",
+          "false",
+          "medium",
+          "read-only"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Group type",
+        "Configuration",
+        "Topic hash",
+        "Rack information given to the assignor"
+      ],
+      "lignes": [
+        [
+          "Consumer",
+          "disabled (default)",
+          "without racks",
+          "none; GroupSpec#isRackAware() is false"
+        ],
+        [
+          "Consumer",
+          "enabled",
+          "with racks",
+          "member and partition racks; GroupSpec#isRackAware() is true"
+        ],
+        [
+          "Share",
+          "none",
+          "without racks",
+          "none; GroupSpec#isRackAware() is false"
+        ],
+        [
+          "Streams",
+          "none",
+          "without racks",
+          "unchanged"
+        ]
+      ],
+      "nom": "tableau_2"
+    }
+  ]
+}

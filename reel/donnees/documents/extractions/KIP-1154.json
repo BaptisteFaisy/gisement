@@ -1,0 +1,151 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1154",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "",
+    "texte_libre": "Status\nCurrent state:\"Voting in progress\"\nDiscussion thread:here\nVote thread:here\nJIRA:here\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nKafka Connect currently supports a single timestamp logical type (org.apache.kafka.connect.data.Timestamp) backed byjava.util.Date, which is limited to millisecond precision. When source systems produce timestamps with microsecond or nanosecond precision — common in Avro, Parquet, databases like PostgreSQL, and event-driven systems — that precision issilently truncated.\nFor example, a source connector reading an Avrotimestamp-microsfield (e.g.,1617235200123456microseconds) must currently either:\nMap it to theTimestamplogical type, losing the sub-millisecond component (123456 µs→123 ms)\nMap it as a rawINT64, losing the semantic meaning of the field\nKIP-808addedunix.precisionconfiguration toTimestampConverter, but the SMT still documents:\"This SMT will cause precision loss during conversions from, and to, values with sub-millisecond components\", because the intermediate representation isjava.util.Date.\nThis KIP introduces two new logical types —TimestampMicrosandTimestampNanos— that preserve full precision usingjava.time.Instantas the Java representation.\nWhy this matters\nPrecision Loss:Formats likeAvro, Parquet, and Protocol Buffers support microsecond and nanosecond timestamps. Without matching logical types in Kafka Connect, sub-millisecond data is silently corrupted.\nIncreasing Adoption of High-Precision Time:Systems like event streams, financial applications, observability platforms, and databases (PostgreSQL, ClickHouse) increasingly rely on microsecond or nanosecond timestamps throughout the entire data pipeline.\nData Fidelity:Supportingtimestamp-microsandtimestamp-nanosin Kafka Connect ensures the full precision of time data is preserved across the entire source → Kafka → sink pipeline without any loss of information.\nProposed Changes\n1. New Logical Type: TimestampMicros\nA new classorg.apache.kafka.connect.data.TimestampMicrosin theconnect-apimodule.\nLogical name:org.apache.kafka.connect.data.TimestampMicros\nUnderlying schema type:INT64\nEncoded representation:microseconds since Unix epoch\nJava representation:java.time.Instant\n| Method | Signature | Description\n| builder() | static SchemaBuilder builder() | Returns aSchemaBuilderwith nameorg.apache.kafka.connect.data.TimestampMicros, typeINT64, version1\n| SCHEMA | static final Schema SCHEMA | The default schema instance\n| fromLogical(Schema, Instant) | static long fromLogical(Schema schema, Instant value) | ConvertsInstant→ microseconds since epoch\n| toLogical(Schema, long) | static Instant toLogical(Schema schema, long value) | Converts microseconds since epoch →Instant\nConversion semantics.\nThe encoded long is a signed count of microseconds since the Unix epoch; negative values represent instants before 1970. Because Instant stores epochSecond (which may be negative) with nanoOfSecond always in [0, 999_999_999], negative instants round-trip exactly. Decoding uses floor division/modulo; encoding is overflow-checked:\nstatic long fromLogical(Schema schema, Instant value) {\n// schema name check ...\nreturn Math.addExact(\nMath.multiplyExact(value.getEpochSecond(), 1_000_000L),\nvalue.getNano() / 1_000L); // sub-microsecond nanoseconds truncated\n}\nstatic Instant toLogical(Schema schema, long micros) {\n// schema name check ...\nreturn Instant.ofEpochSecond(\nMath.floorDiv(micros, 1_000_000L),\nMath.floorMod(micros, 1_000_000L) * 1_000L);\n}\nExample: 1969-12-31T23:59:59.999999Z (epochSecond = -1, nano = 999_999_000) encodes to -1 and decodes back to the same instant.\n2. New Logical Type: TimestampNanos\nA new classorg.apache.kafka.connect.data.TimestampNanosin theconnect-apimodule.\nLogical name:org.apache.kafka.connect.data.TimestampNanos\nUnderlying schema type:INT64\nEncoded representation:nanoseconds since Unix epoch\nJava representation:java.time.Instant\n| Method |"
+  },
+  "confiance": 0.8,
+  "document_id": "KIP-1154",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Method",
+        "Signature",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "builder()",
+          "static SchemaBuilder builder()",
+          "Returns a SchemaBuilder with name org.apache.kafka.connect.data.TimestampMicros, type INT64, version 1"
+        ],
+        [
+          "SCHEMA",
+          "static final Schema SCHEMA",
+          "The default schema instance"
+        ],
+        [
+          "fromLogical(Schema, Instant)",
+          "static long fromLogical(Schema schema, Instant value)",
+          "Converts Instant → microseconds since epoch"
+        ],
+        [
+          "toLogical(Schema, long)",
+          "static Instant toLogical(Schema schema, long value)",
+          "Converts microseconds since epoch → Instant"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Method",
+        "Signature",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "builder()",
+          "static SchemaBuilder builder()",
+          "Returns a SchemaBuilder with name org.apache.kafka.connect.data.TimestampNanos, type INT64, version 1"
+        ],
+        [
+          "SCHEMA",
+          "static final Schema SCHEMA",
+          "The default schema instance"
+        ],
+        [
+          "fromLogical(Schema, Instant)",
+          "static long fromLogical(Schema schema, Instant value)",
+          "Converts Instant → nanoseconds since epoch"
+        ],
+        [
+          "toLogical(Schema, long)",
+          "static Instant toLogical(Schema schema, long value)",
+          "Converts nanoseconds since epoch → Instant"
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Method",
+        "Signature",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "addTimestampMicros",
+          "Headers addTimestampMicros(String key, Instant value)",
+          "Add a header with TimestampMicros schema"
+        ],
+        [
+          "addTimestampNanos",
+          "Headers addTimestampNanos(String key, Instant value)",
+          "Add a header with TimestampNanos schema"
+        ]
+      ],
+      "nom": "tableau_3"
+    },
+    {
+      "colonnes": [
+        "target.type",
+        "Schema",
+        "Java type",
+        "Encoded as"
+      ],
+      "lignes": [
+        [
+          "Timestamp (existing)",
+          "Timestamp.SCHEMA",
+          "java.util.Date",
+          "milliseconds since epoch"
+        ],
+        [
+          "TimestampMicros (new)",
+          "TimestampMicros.SCHEMA",
+          "java.time.Instant",
+          "microseconds since epoch"
+        ],
+        [
+          "TimestampNanos (new)",
+          "TimestampNanos.SCHEMA",
+          "java.time.Instant",
+          "nanoseconds since epoch"
+        ]
+      ],
+      "nom": "tableau_4"
+    },
+    {
+      "colonnes": [
+        "Logical Name",
+        "toJson",
+        "toConnect"
+      ],
+      "lignes": [
+        [
+          "TimestampMicros.LOGICAL_NAME",
+          "Instant → JSON number (microseconds since epoch)",
+          "JSON number → Instant"
+        ],
+        [
+          "TimestampNanos.LOGICAL_NAME",
+          "Instant → JSON number (nanoseconds since epoch)",
+          "JSON number → Instant"
+        ]
+      ],
+      "nom": "tableau_5"
+    }
+  ]
+}

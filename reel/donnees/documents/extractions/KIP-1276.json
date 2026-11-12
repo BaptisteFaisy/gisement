@@ -1,0 +1,56 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1276",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "accepted",
+    "texte_libre": "Status\nCurrent State:Accepted.\nDiscussion Thread:https://lists.apache.org/thread/4o5lcl2nbzt0sf28rzx90rnyyf50xfx2\nJIRA:ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-20088\nMotivation\nManaging Kafka ACLs in large environments is painful: Kafka only allows specifying exact IP addresses or a wildcard (*) for host-based access control. With 50 clients in a subnet, this means 50 separate ACL entries. Not fun. This becomes especially frustrating when the goal is simply to say \"allow anything from10.0.0.0/8\" like every other system does.\nTwo prior KIPs tried to solve this:\nKIP-252proposed CIDR and IP range support but went stale without addressing metadata version gating.\nKIP-753focused on CLI changes but didn't fully specify IPv6 or version gating.\nThis KIP picks up where they left off with:\nProper metadata version gatingfor safe cluster-wide rollout\nFull IPv4 and IPv6 CIDR supportbecause it is 2026, and we shoul not ignore IPv6\nA practical implementation pathusing Apache Commons Net with IPv6 support\nPublic Interfaces\nWhat Changes for Users\nThe--allow-hostand--deny-hostoptions inkafka-acls.shwill accept CIDR notation alongside the existing formats:\n| Format | Example | What is does\n| Exact IPv4 | 192.168.1.100 | Matches one address (already works)\n| Exact IPv6 | 2001:db8::1 | Matches one address (already works)\n| Wildcard | * | Matches everything (already works)\n| IPv4 CIDR | 192.168.0.0/24 | Matches a subnet (new)\n| IPv6 CIDR | 2001:db8::/32 | Matches a subnet (new)\nAdmin Client API\nNo changes to theAdmininterface orCreateAclsResult. CIDR notation goes in the host field ofAccessControlEntryexactly as an exact IP would.\nMetadata Version Gating\nWe add a new metadata version to gate this feature. This is important because older brokers will not understand CIDR patterns, and we need to prevent users from creating ACLs that would break things during a rolling upgrade.\nAttempting to create a CIDR ACL before the cluster is ready results in a clear error:java\nNote thatdidMetadataChangeis set totrueforIBP_4_4_IV0. This means that downgrading below this version is automatically classified as an unsafe metadata downgrade.\nProposed Changes\n1. Host Matching Logic\nToday,StandardAuthorizerData.javadoes simple string comparison and we would extend this to handle CIDR.\n2. Validation Rules\nWhen creating ACLs, theMetadataVersionis passed intoAclControlManager.createAcls()(following the same pattern asDelegationTokenControlManager) and threaded through tovalidateNewAcl(), which callsvalidateHostPattern():\nThis ensures that:\n(i.) IPv4 prefix length is 0-32 (enforced bySubnetUtils);\n(ii.) IPv6 prefix length is 0-128 (enforced bySubnetUtils6) and\n(iii.) invalid patterns are rejected with clear error message.\nApache Commons Net and itsSubnetUtilsclass handles IPv4 CIDR matching nicely as well as SubnetUtils6 for IPv6. Moreover, we need to add the dependency (i.e.,commons-net) into Kafka.\nQuorumController.createAcls()passesfeatureControl.metadataVersionOrThrow()toAclControlManager.createAcls(), consistent with how other managers such asDelegationTokenControlManagerreceive the metadata version.\nDENY priority for overlapping CIDR ACLs (IPv4 and IPv6)\nThe existing Kafka ACL evaluation semantics (i.e., where DENY always takes precedence over ALLOW), regardless of specificity apply unchanged to CIDR-based host patterns for both IPv4 and IPv6. If a client IP matches both an ALLOW CIDR and a DENY CIDR, the request is denied, regardless of prefix length. For example, an ALLOW on 2001:db8::/32 combined with a DENY on 2001:db8:abcd::/48 will deny any client within the /48 range, even though it also falls within the broader /32 ALLOW. So to be even more concrete:\nClient at 2001:db8:abcd::5 matchesbothALLOW /32 and DENY /48 results inDENIED(i.e., DENY always wins)\nClient at 2001:db8:ffff::1 matchesonlyALLOW /32,notthe DENY /48 results inALLOWED\nThis is consistent with how Kafka already handles overlapping exact-IP ALLOW and DENY entries, and no new priority rules "
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1276",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Format",
+        "Example",
+        "What is does"
+      ],
+      "lignes": [
+        [
+          "Exact IPv4",
+          "192.168.1.100",
+          "Matches one address (already works)"
+        ],
+        [
+          "Exact IPv6",
+          "2001:db8::1",
+          "Matches one address (already works)"
+        ],
+        [
+          "Wildcard",
+          "*",
+          "Matches everything (already works)"
+        ],
+        [
+          "IPv4 CIDR",
+          "192.168.0.0/24",
+          "Matches a subnet (new)"
+        ],
+        [
+          "IPv6 CIDR",
+          "2001:db8::/32",
+          "Matches a subnet (new)"
+        ]
+      ],
+      "nom": "tableau_1"
+    }
+  ]
+}

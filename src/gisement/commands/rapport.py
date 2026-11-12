@@ -50,8 +50,18 @@ def _parseur() -> argparse.ArgumentParser:
 
 def _reference_annexe_a(resultat):
     """The full P-07, not the type-A action the portfolio recommends: it is the
-    table that makes the factor 2.61 of annex A land in the report."""
-    mesure = next(m for m in resultat.mesures if m.declare.id == "P-07")
+    table that makes the factor 2.61 of annex A land in the report.
+
+    A real campaign has no P-07: the biggest measured process of its own
+    perimeter plays the same role, and `None` when nothing was measured.
+    """
+    mesure = next((m for m in resultat.mesures if m.declare.id == "P-07"), None)
+    if mesure is None:
+        # le biggest mesure du corpus reel
+        mesures = [m for m in resultat.mesures if m.est_mesuree] or list(resultat.mesures)
+        if not mesures:
+            return None
+        mesure = max(mesures, key=lambda m: m.entree.occurrences.mediane)
     return calculer(
         replace(
             mesure.entree,

@@ -1,0 +1,23 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-20609",
+      "KAFKA-21158"
+    ],
+    "kip": "KIP-1385",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "",
+    "texte_libre": "Status\nCurrent state:\"Under Discussion\"\nDiscussion thread:here\nJIRA:here\nRelated:KAFKA-20609/PR #22873(the current last-modified fallback; design discussion in that PR's review thread), [KAFKA-21158](documents and warns about raising `message.timestamp.after.max.ms`)\nMotivation\nIn a tiered topic, a local segment is deleted by time, once it has been uploaded to remote storage and condition 'now - largestRecordTimestamp > local.retention.ms' succeeds. The age is measured from record timestamps, which producers set. This causes two problems:\n1. Old timestamps\nFor records produced with timestamps older than local.retention.ms, the local copy is deleted as soon as the segment is uploaded to remote storage. The configured local window is zero for this data, for example during backfills or replays.\nExample: local.retention.ms is 1 hour. At 10:00, a backfill writes records stamped 07:00 the same day. The segment is uploaded at 10:05. At the next retention check, the records are already about 3 hours old, so the local copy is deleted right away. Consumers reading this data in the next hour must fetch it from remote storage.\n2. Future timestamps\nRecords produced with future timestamps would block deletion: such a segment can't be deleted by time until its timestamp plus local.retention.ms has passed, and it blocks deletion of every later segment.\nKAFKA-20609works around this by using the segment file's last-modified time instead. But a disk replacement or a partition move resets that time, so the segment's age restarts from zero and its deletion is delayed again.\nExample:\n`message.timestamp.after.max.ms` has been raised, so a record stamped one year ahead is accepted at 10:00. The segment is uploaded at 10:05.\n- Without the fallback, the local copy stays on disk for a year, and so does every later segment.\n- With the fallback, the local copy is deleted around 11:05. But if the partition is moved to another broker at 10:30, the file gets a new last-modified time, and deletion moves to around 11:30.\nThe change\nThis KIP changes local.retention.ms (and log.local.retention.ms) for tiered topics to mean: keep the local copy of a segment for local.retention.ms after it was uploaded to remote storage.\nNo new data has to be stored for this. When an upload finishes, the broker already records the upload time in the segment's remote log metadata. With the default metadata manager (`TopicBasedRemoteLogMetadataManager`), this is stored in the internal `__remote_log_metadata` topic, which other brokers read.\nPublic Interfaces\nThere are no new configs, except changes to existing configs. The meaning of one existing config changes, and one javadoc rule is added.\n1. The meaning of `local.retention.ms` and `log.local.retention.ms`\nThis applies to tiered topics with remote copy enabled.\n- Currently the local copy is deleted once the newest record timestamp in the segment is older than `local.retention.ms`. For future timestamps, the file's last-modified time is used instead.\n- With this KIP - the local copy is deleted once `local.retention.ms` has passed since the segment was uploaded to remote storage.\nNew doc text for `local.retention.ms` (`TopicConfig.LOCAL_LOG_RETENTION_MS_DOC`):\n> The number of milliseconds to keep a local log segment after it has been copied to remote storage. The time is counted from when the copy finished, not from the record timestamps in the segment. Default value is -2, which means the `retention.ms` value is used. The effective value should always be less than or equal to `retention.ms`.\nUnaffected : Topics without tiered storage and configs - local.retention.bytes and log.local.retention.bytes\n2. A clarified rule for `RemoteLogMetadataManager` plugins\nThe broker calls this method RemoteLogMetadataManager#remoteLogSegmentMetadata(....) , to look up a segment's upload time. This gets a javadoc addition. For a segment in state `COPY_SEGMENT_FINISHED`, the returned `eventTimestampMs()` must be the time the copy to remote storage "
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1385",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": []
+}

@@ -1,0 +1,46 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1323",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "accepted",
+    "texte_libre": "Status\nCurrent state:Accepted\nDiscussion thread:here\nVoting thread:here\nJIRA:here\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nintroduced share groups and included thekafka-share-groups.shtool for initializing and resetting the share-partition start offsets. This was inspired by the equivalentkafka-consumer-groups.shtool for consumer groups, but it did not include all of the options for resetting options which are available for consumer groups.\nWhen users are migrating from a consumer group to a share group, it is natural that they would want to initialize the share group with the committed offsets from the consumer group. Programmatically, this is easy, but there is no way usingkafka-share-groups.shto achieve this. This KIP adds extra options to that tool to make this kind of migration easy.\nProposed Changes\nAdditional options are added tokafka-share-groups.shto give more flexibility for initialization of share group offsets. These options match those which exist inkafka-consumer-groups.sh.\nFirst,--to-offsetlets the user specify a specific offset. For example, the following command will set the SPSO for share group SG1 topic T1 partition 0 to offset 1234.\n$ bin/kafka-share-groups.sh --bootstrap-server localhost:9092 --reset-offsets --group SG1 --topic T1:0 --to-offset 1234 --execute\nIf the specified offset is lower than the earliest offset, it is reset to the earliest offset. If the specified offset is higher than the latest offset, it is reset to the latest offset. This is the same behavior askafka-consumer-groups.sh.\nSecond,--from-filelets the user provide a CSV file containing linestopic,partition,offsetto specify the topic names, partitions and offsets to reset. This makes the following migration from a consumer group to a share group possible.\n$ bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --reset-offsets --group CG1 --all-topics --to-current --export --dry-run > FILENAME\n$ bin/kafka-share-groups.sh --bootstrap-server localhost:9092 --reset-offsets --group SG1 --from-file FILENAME --execute\nIt is possible to export the offset information for multiple consumer groups together withkafka-consumer-groups.sh, and the resulting file contains 4 columns (group ID, topic name, partition, offset). If such a file is used to reset the offsets for a share group, the offset information is filtered by the group ID. Again, this is the same behavior askafka-consumer-groups.sh.\nIt is probably more useful to export the offset information for a single consumer group, and then the resulting file contains 3 columns (topic name, partition, offset). If such a file is used to reset the offsets for a share group, the group ID of the share group could be the same as the consumer group (it will be necessary to delete the consumer group so the group ID can be used by the share group), or the group ID of the share group could be different.\nThekafka-share-groups.shtool is only able to export the offset information for one group at a time. The--reset-offsetsoption only supports one group at a time and this KIP does not change that restriction.\nIn order to facilitate migration in the other direction, or from one share group to another, the--exportoption is provided, along with--to-current. The purpose of--to-currentis to export the current offsets, as opposed to the earliest or latest offsets.\n$ bin/kafka-share-groups.sh --bootstrap-server localhost:9092 --reset-offsets --group SG1 --all-topics --to-current --export --dry-run > FILENAME\n$ bin/kafka-share-groups.sh --bootstrap-server localhost:9092 --reset-offsets --group SG2 --from-file FILENAME --execute\nPublic Interfaces\nCommand-line tools\nkafka-share-groups.sh\nThe following new options are added to this tool.\n| Option | Description\n| --export | Export offset information in CSV format. Supported options: reset-offsets.\n| --from-file <String: path to CSV file> | Reset offsets to values defined in CSV"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1323",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Option",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "--export",
+          "Export offset information in CSV format. Supported options: reset-offsets."
+        ],
+        [
+          "--from-file &lt;String: path to CSV file&gt;",
+          "Reset offsets to values defined in CSV file."
+        ],
+        [
+          "--to-current",
+          "Reset offsets to current offset."
+        ],
+        [
+          "--to-offset &lt;Long: offset&gt;",
+          "Reset offsets to a specific offset."
+        ]
+      ],
+      "nom": "tableau_1"
+    }
+  ]
+}

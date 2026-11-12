@@ -1,0 +1,67 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1357",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "accepted",
+    "texte_libre": "Status\nCurrent state:accepted\nDiscussion thread:here\nVoting thread:here\nJIRA:here\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nKafka Streams supports custom task assignors in the classic client-side assignment model viatask.assignor.class.However,this customization does not carry over to the Streams Rebalance Protocol(KIP-1071),where task assignment is computed on the broker rather than in the client.As a result,users ofgroup.protocol=streamscannot provide a custom assignor implementation,even though a similar capability exists both in classic Streams and in KIP-848 consumer groups(viagroup.consumer.assignors).\nThis KIP closes the feature gap by adding first-class broker-side custom task assignor support for streams groups.Specifically,it:\nExposes the necessary public Java interfaces so that users can implement custom task assignors.\nSupports configuring assignors through a static broker configurationgroup.streams.assignorsthat accepts both built-in assignor short names and fully qualified class names of custom implementations.\nProvides a per-group configuration to select an assignor by short name, with the broker-level default determined by the first entry in thegroup.streams.assignorslist.\nPreserves existing KIP-1071 behavior when no custom assignor is configured.\nPublic Interfaces\nNew Public Java Interfaces\nThe following types are moved from the internalgroup-coordinatormodulepackageorg.apache.kafka.coordinator.group.streams.assignorto the publicgroup-coordinator-apimodule,under the new packageorg.apache.kafka.coordinator.group.api.streams.assignor.A dedicated sub-package is used to avoid name collisions with the existing consumer group assignor types inorg.apache.kafka.coordinator.group.api.assignor.\nThese types exist today as internal classes, and this KIP makes them public API with the signatures below. All newly public types are PSD-0ad5eb51bc69d8a9. Following the KIP-848 convention, the input and output container types are defined as interfaces rather than records, so the API can evolve in future releases. AssignmentConfigs is the one exception to the above: it is a new interface introduced by this KIP rather than a relocated internal type.\nEntry pointjavatrue\nInput types (parameters toassign())\nAssignmentConfigs carries the assignment-relevant group configurations. The group coordinator resolves every value from the broker configuration and the per-group override before invoking the assignor, so an assignor always sees a fully resolved value and never has to handle a missing configuration. The two config currently we have now are numStandbyReplicas() comes from group.streams.num.standby.replicas, overridden per group by streams.num.standby.replicas (0 by default), and rackAwareAssignmentTags() comes from group.streams.rack.aware.assignment.tags, overridden per group by streams.rack.aware.assignment.tags (empty by default).javatruejavatruejavatruejavatruejavatrue\nOutput types (returned fromassign())javatruejavatrue\nSupporting typesjavatrue\nBuilt-in assignors\nThe sticky task assignor is the only assignor shipped with the broker, and it minimizes task movement during rebalances. It is registered under the short namesticky, while its fully qualified class name isorg.apache.kafka.coordinator.group.streams.assignor.StickyTaskAssignor. Both forms are public API and may be used ingroup.streams.assignors, and the class name will not change without a KIP. This follows the existing convention for consumer groups and share groups which established in KIP-848. The class itself stays in the module where it lives today rather than moving to the public API module, which is consistent with the assignors shipped for consumer and share groups. Only the class name is public API, and the class inot intended to be subclassed or referenced from user code.\nNew broker configurations\ngroup.streams.assignors\n|\n|\n| Type | LIST of assignor short"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1357",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "",
+        ""
+      ],
+      "lignes": [
+        [
+          "Type",
+          "LIST of assignor short names"
+        ],
+        [
+          "Default",
+          "[sticky]"
+        ],
+        [
+          "Importance",
+          "Medium"
+        ],
+        [
+          "Update mode",
+          "Static (read-only, requires broker restart)"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "",
+        ""
+      ],
+      "lignes": [
+        [
+          "Type",
+          "STRING (assignor short name)"
+        ],
+        [
+          "Default",
+          "null (use the first entry of group.streams.assignor)"
+        ],
+        [
+          "Update mode",
+          "Dynamic per group, via the IncrementalAlterConfigs admin RPC"
+        ]
+      ],
+      "nom": "tableau_2"
+    }
+  ]
+}

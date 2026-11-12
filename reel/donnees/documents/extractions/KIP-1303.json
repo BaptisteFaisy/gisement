@@ -1,0 +1,73 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1303",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "",
+    "texte_libre": "Authors:PSD-04692580104077a6, Henry Cai\nStatus\nCurrent state: “Under Discussion\"\nDiscussion thread:here\nJIRA:here[Change the link from KAFKA-1 to your own ticket]\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nKIP-1023Follower fetch from tiered offset introduced a significant optimization for tiered storage-enabled topics. When enabled via the `follower.fetch.last.tiered.offset.enable` broker configuration, an empty follower can skip replicating data that has already been uploaded to remote storage and instead begin fetching from the earliest pending upload offset (the next offset after the last tiered offset). This dramatically reduces the time required for a new follower to join the ISR. In practice, the follower only needs to replicate 10-15% of the data compared to before.\nHowever, as acknowledged in KIP-1023, this optimization introduces a risk factor:\n“A drawback of using the last-tiered-offset is that this new follower would possess only a limited number of locally stored segments. Should it ascend to the role of leader, there is a risk of needing to fetch these segments from the remote storage, potentially impacting broker performance.”\nWhen a follower bootstrapped via the tiered offset becomes leader, it has significantly fewer local log segments than a follower that replicated all data from the leader. If consumers request offsets that exist only in remote storage, the new leader must fetch data from remote storage to serve these requests. This can cause:\nIncreased latency: for consumer fetch requests that hit remote storage\nPotential broker performance degradation: under high request volumes\nThis KIP proposes to mitigate this risk by deprioritizing followers with limited local log segments during leader election, ensuring that followers with more local data (earlier local-log-start-offset) are preferred as leaders when available.\nPublic Interfaces\nBroker Configuration Options\nA new broker configuration will be added to control the leader election behavior for tiered storage followers:\nleader.election.eligible.local.log.ms\n|\nProperty |\nValue\n|\nType |\nLong\n|\nDefault |\n-1 (disabled)\n|\nDynamic Update |\ncluster-wide\n|\nDescription |\nThe minimum time span (in milliseconds) that a replica's local log must cover for the replica to be considered eligible for leader election preference. A replica whose local log spans at least this duration (i.e., currentTime - localLogStartTimestamp >= threshold) is considered to have sufficient local data for leadership. Set to -1 to disable time-based eligibility.\nleader.election.eligible.local.log.bytes\n|\nProperty |\nValue\n|\nType |\nLong\n|\nDefault |\n-1 (disabled)\n|\nDynamic Update |\ncluster-wide\n|\nDescription |\nThe minimum size (in bytes) of a replica's local log for the replica to be considered eligible for leader election preference. A replica whose local log size is at least this value is considered to have sufficient local data for leadership. Set to -1 to disable bytes-based eligibility.\nNOTE: Setting either config > 0 enables the feature. When both are set, a replica becomes eligible when EITHER condition is met (whichever occurs first). No separate boolean toggle needed.\nTopic Configuration Overrides\nBoth broker configs above have topic-level overrides, following the standard Kafka pattern (e.g., `retention.ms`, `log.retention.ms`). The topic-level config takes precedence when set; otherwise the broker-level default applies. The topic-level config names are the same as the broker-level names.\nProtocol Changes\nFetch Request (new fields)\nThe existing FetchRequest has aLogStartOffsetfield, but itdoes not include information about the time span or size of a follower's local log. To support the controller's eligibility determination, this KIP adds two new fields so followers can report their local log coverage to the leader:\nAlterPartitionRequest (new fields)\nThe controller needs each replica's local log coverage"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1303",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Property",
+        "Value"
+      ],
+      "lignes": [
+        [
+          "Type",
+          "Long"
+        ],
+        [
+          "Default",
+          "-1 (disabled)"
+        ],
+        [
+          "Dynamic Update",
+          "cluster-wide"
+        ],
+        [
+          "Description",
+          "The minimum time span (in milliseconds) that a replica's local log must cover for the replica to be considered eligible for leader election preference. A replica whose local log spans at least this duration (i.e., currentTime - localLogStartTimestamp &gt;= threshold) is considered to have sufficient local data for leadership. Set to -1 to disable time-based eligibility."
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Property",
+        "Value"
+      ],
+      "lignes": [
+        [
+          "Type",
+          "Long"
+        ],
+        [
+          "Default",
+          "-1 (disabled)"
+        ],
+        [
+          "Dynamic Update",
+          "cluster-wide"
+        ],
+        [
+          "Description",
+          "The minimum size (in bytes) of a replica's local log for the replica to be considered eligible for leader election preference. A replica whose local log size is at least this value is considered to have sufficient local data for leadership. Set to -1 to disable bytes-based eligibility."
+        ]
+      ],
+      "nom": "tableau_2"
+    }
+  ]
+}

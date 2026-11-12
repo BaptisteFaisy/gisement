@@ -1,0 +1,20 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-927",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "accepted",
+    "texte_libre": "Status\nCurrent state: Accepted\nDiscussion thread:here\nJIRA:here\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nWhen running kafka-metadata-quorum script to get the quorum replication status, the LastFetchTimestamp and LastCaughtUpTimestamp output is not human-readable.\nIt would be convenient to add an optional flag to enable a human-readable format showing the operation delay in ms (i.e. 366 ms ago).\nThis delay is computed as (now - timestamp), where they are both represented as Unix time (UTC based).\nPublic Interfaces\nA new optional flag called --human-readable will be added to the kafka-metadata-quorum tool.bash\nProposed Changes\nThe current default --replication output is as follows and will remain unchanged.bash\nInstead, when passing the new flag, we will have the following output (note how argparse4j support abbreviations).bash\nCompatibility, Deprecation, and Migration Plan\nThe default behavior will remain unchanged to avoid breaking any tool relying on the current timestamp output.\nTest Plan\nA new test method will be added to MetadataQuorumCommandTest to verify default and new behaviors with regard to the timestamp output.\nRejected Alternatives\nUsing a date/time formatting (i.e. May 10, 15:54:55 UTC) won't add much information in most cases and you will have to deal with locale."
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-927",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": []
+}

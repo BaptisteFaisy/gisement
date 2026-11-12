@@ -215,17 +215,17 @@ async function voirFiche(pid) {
 }
 
 async function vueFiche() {
-  await voirFiche("P-07");
+  await voirFiche(CONFIG.processus);
 }
 
 /* --------------------------------------------------------------- 7 reference */
 
 async function vueReference() {
-  const { d, erreur } = await donnees("/api/gisements/P-07");
+  const { d, erreur } = await donnees(`/api/gisements/${CONFIG.processus}`);
   if (erreur) return rendre(titre("7. Le facteur de surestimation") + `<p class="refus">${escape(erreur)}</p>`);
   rendre(
     titre("7. Le chiffre qui emporte l'adhesion d'un juge metier",
-      "Saisie des commandes fournisseurs recues par courriel (P-07) : le calcul naif contre " +
+      `Le processus le plus mesure (${CONFIG.processus}) : le calcul naif contre ` +
       "le calcul reel, avec les quatre corrections (annexe A).") +
     tableau(["", "Calcul naif", "Gisement"], [
       ["Gain mensuel", `${d.gain_naif_mensuel} EUR`, `<strong>${d.gain_mensuel} EUR</strong>`],
@@ -596,9 +596,9 @@ const ACTIONS = {
   "mesure-individuelle": () => demanderMesure(true),
   "mesure-agregee": () => demanderMesure(false),
   "mesure-filtres": mesureParFiltres,
-  "rapport-fr": () => afficherDocument("/api/rapports/CMP-0031?langue=fr", "rapport"),
-  "rapport-en": () => afficherDocument("/api/rapports/CMP-0031?langue=en", "rapport"),
-  registre: () => afficherDocument("/api/registre-conformite/CMP-0031?langue=fr", "registre"),
+  "rapport-fr": () => afficherDocument(`/api/rapports/${CONFIG.campagne}?langue=fr`, "rapport"),
+  "rapport-en": () => afficherDocument(`/api/rapports/${CONFIG.campagne}?langue=en`, "rapport"),
+  registre: () => afficherDocument(`/api/registre-conformite/${CONFIG.campagne}?langue=fr`, "registre"),
   proposition: () => afficherDocument("/api/proposition", "texte"),
 };
 

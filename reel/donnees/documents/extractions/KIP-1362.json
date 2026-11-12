@@ -1,0 +1,24 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-20762"
+    ],
+    "kip": "KIP-1362",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state:Under Discussion\nDiscussion thread:here\nVote thread:here\nJIRA:KAFKA-20762\nPull request (reference implementation):PR #22751\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nThe ZooKeeper-to-KRaft migration is designed so that a cluster can linger in thedual-write phaseand roll back to ZooKeeper mode if an operator discovers a problem before the migration is finalized.\nIn production environments, at any point in time, hardware failures may happen, some of which are cause for replacing nodes, such as failing disks. Kafka fully supports node replacements out of the box.\nThese two aspects (node replacements/provisioning and KRaft migration rollback) are documented as orthogonal concepts.\nHowever, it has been observed in production systems that node replacements during a KRaft migration, when following the documented procedures, breaks the ability to roll back. This is not documented, and as both mechanisms are important tooling for operators to keep clusters available, it's preferable to make them work in conjunction. There is no way to eliminate the risk of hardware failures during an ongoing migration, and as such, the sanctioned tooling needs to be adapted to handle them.\nToday, when a broker is lost during the migration and the documented process for provisioning a replacement is followed, the replacement's storage is formatted using thekafka-storage.sh formatprocedure. That command unconditionally writesmeta.propertieswithversion=1. If a rollback is later required, the operator configures the brokers back into migration mode — at which point the newly provisioned broker rejects its own storage and crashes before becoming available:\nThe incompatibility is not documented, and node replacement is a routine operation for managed-fleet operators. The result is a silent loss of the rollback capability that the migration is supposed to preserve, discovered only at the worst possible time: during an attempted rollback.\nThe broker itself already formats empty log directories with a rollback-compatibleversion=0meta.propertieswhen it starts up in migration mode, so the capability exists in the code base. It is simply not reachable through the provisioning tool that operators are instructed to use. This KIP closes that gap.\nPublic Interfaces\nA new optional flag is added to theformatsubcommand of the storage tool (bin/kafka-storage.sh format):\nHelp text:Format the node so that it remains compatible with rolling back an in-progress KRaft migration to ZooKeeper mode.\nThe flag is a boolean switch and takes no argument. When it is passed, theformatcommand performs storage formatting identically to how the broker itself does during a migration sequence, resulting in ameta.propertieswithversion=0. When it is omitted, the command behaves exactly as before and writesversion=1.\nNo existing flags, defaults, output, exit codes, or other behaviors change.\nProposed Changes\nWhen--zk-rollback-compatibleis set, the storage tool selectsMetaPropertiesVersion.V0instead of the defaultMetaPropertiesVersion.V1when building themeta.propertiesfor each formatted log directory. This is the same version the broker writes for itself while it is in migration mode, so a node provisioned this way can participate in a rollback in exactly the way an original migration broker can.\nThis fix will be made on the 3.9 development branch only, as it is the only currently supported version that still supports ZooKeeper, and by extension the only supported version where KRaft migrations are still supported.\nDocumentation is updated in two places in the KRaft operations guide: a new\"Formatting Nodes During a KRaft Migration\"subsection under provisioning explains when and how to use the flag, and the migration-phases section links to it. The documentation makes clear that the flag is only relevant while a migration can still be rolled back, and should no longer be used once the mi"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1362",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": []
+}

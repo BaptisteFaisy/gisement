@@ -1,0 +1,51 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1396",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "",
+    "texte_libre": "Status\nCurrent state:[One of \"Under Discussion\", \"Accepted\", \"Rejected\"]\nDiscussion thread:here[Change the link from the KIP proposal email archive to your own email thread]\nJIRA:here[The JIRA ticket will be created once the KIP is accepted]\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nIn Apache Kafka 3.0,enabled the strongest message delivery guarantee for the producer by default by enabling idempotence and settingsacks=1. Notably, an equivalent change was not made for consumers.\nIsolation level controls how consumers read messages written transactionally. If the consumer is usingread_uncommittedisolation level, the consumer reads messages written transactionally whether they were aborted or written by transactions which are still open. If the consumer is usingread_committedisolation level, the consumer reads messages written transactionally only when they have been committed. Messages which were written outside transactions are read regardless of the isolation level.\nPrior to this KIP, the default isolation level for consumers isread_uncommitted, meaning that consumers which do not explicitly chooseread_committedisolation level may consume messages which were aborted or have not yet been committed. While this may be the correct choice for some consumers making a conscious decision to see uncommitted or aborted records, it is not the correct choice for consumers seeking data integrity. This KIP proposes changing the default isolation level toread_committedin Apache Kafka 5.0.\nPublic Interfaces\nClient configurations\nThe consumer configuration defaults are changed as follows.\n| Configuration name | Previous default | New default in AK 5.0\n| isolation.level | read_uncommitted | read_committed\nGroup configurations\nThe share group configuration defaults are changed as follows.\n| Configuration name | Previous default | New default in AK 5.0\n| share.isolation.level | read_uncommitted | read_committed\nProposed Changes\nDescribe the new thing you want to do in appropriate detail. This may be fairly extensive and have large subsections of its own. Or it may be a few sentences. Use judgement based on the scope of the change.\nCompatibility, Deprecation, and Migration Plan\nWhat impact (if any) will there be on existing users?\nIf we are changing behavior how will we phase out the older behavior?\nIf we need special migration tools, describe them here.\nWhen will we remove the existing behavior?\nTest Plan\nThe KIP will be tested using unit tests, integration tests and system tests. In the main, this will be ensuring that the defaults are changed, tests which rely on the previous default will be updated or reworked to work with the revised default.\nRejected Alternatives\nThis is the way."
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1396",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Configuration name",
+        "Previous default",
+        "New default in AK 5.0"
+      ],
+      "lignes": [
+        [
+          "isolation.level",
+          "read_uncommitted",
+          "read_committed"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Configuration name",
+        "Previous default",
+        "New default in AK 5.0"
+      ],
+      "lignes": [
+        [
+          "share.isolation.level",
+          "read_uncommitted",
+          "read_committed"
+        ]
+      ],
+      "nom": "tableau_2"
+    }
+  ]
+}

@@ -19,6 +19,7 @@ from pathlib import Path
 
 RACINE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RACINE / "src"))
+sys.path.insert(0, str(RACINE))
 
 from gisement.api import handlers, vues_mesure, vues_produits  # noqa: E402
 from gisement.api.auth import Identite  # noqa: E402
@@ -30,9 +31,9 @@ DPO = Identite(tenant_id="T-DEMO", role=Role.DPO, utilisateur="u-dpo")
 FICHIERS_STATIQUES = ("index.html", "styles.css", "app.js", "vues.js")
 
 
-def _etat_lance():
+def _etat_lance(etat=None):
     """A campaign with the DPO validation recorded and the measurement run."""
-    etat = handlers.Etat.demo()
+    etat = etat or handlers.Etat.demo()
     handlers.declarer_conformite(etat, DPO, {})
     handlers.lancer(etat, MSP)
     return etat
@@ -63,27 +64,55 @@ def _reponse(resultat) -> dict:
     return {"statut": statut, "corps": corps}
 
 
-def construire_carte() -> dict:
-    """Run the handlers once and capture every response the portal reads."""
+def construire_carte(corpus: str = "demo") -> dict:
+    """Run the handlers once and capture every response the portal reads.
+
+    `corpus` is "demo" (the synthetic client) or "reel" (the real Apache
+    Kafka corpus of `reel/`). The same handlers run on both: only the corpus
+    changes, so the site cannot show a figure the API would not produce.
+    """
     carte: dict[str, dict] = {}
-    etat_demo = handlers.Etat.demo()
+    etat_demo = handlers.Etat.reel() if corpus == "reel" else handlers.Etat.demo()
     carte["POST /api/campagnes/courante/conformite"] = _reponse(
         handlers.declarer_conformite(etat_demo, DPO, {})
     )
     carte["POST /api/campagnes/courante/lancer"] = _reponse(handlers.lancer(etat_demo, MSP))
     carte["POST /api/campagnes/courante/suspendre"] = _reponse(handlers.suspendre(etat_demo, DPO))
-    etat = _etat_lance()
+    etat = _etat_lance(etat_demo)
+    identifiant = _premier_processus(etat, corpus)
+    campagne = etat.campagne.id
     carte["GET /api/campagnes/courante"] = _reponse(handlers.campagnes_detail(etat))
     carte["GET /api/projets"] = _reponse(handlers.projets(etat))
     carte["GET /api/deconseilles"] = _reponse(handlers.deconseilles(etat))
-    carte["GET /api/gisements/P-07"] = _reponse(handlers.gisement_detail(etat, "P-07"))
-    carte["GET /api/rapports/CMP-0031?langue=fr"] = _reponse(handlers.rapport(etat, "fr"))
-    carte["GET /api/rapports/CMP-0031?langue=en"] = _reponse(handlers.rapport(etat, "en"))
-    carte["GET /api/registre-conformite/CMP-0031?langue=fr"] = _reponse(handlers.registre(etat, "fr"))
+    carte[f"GET /api/gisements/{identifiant}"] = _reponse(handlers.gisement_detail(etat, identifiant))
+    carte[f"GET /api/rapports/{campagne}?langue=fr"] = _reponse(handlers.rapport(etat, "fr"))
+    carte[f"GET /api/rapports/{campagne}?langue=en"] = _reponse(handlers.rapport(etat, "en"))
+    carte[f"GET /api/registre-conformite/{campagne}?langue=fr"] = _reponse(handlers.registre(etat, "fr"))
     carte["GET /api/budget"] = _reponse(handlers.budget(etat))
     _ajouter_vues(carte, etat)
     _ajouter_mesures(carte, etat)
+    carte["META"] = {
+        "corpus": corpus,
+        "campagne": campagne,
+        "processus": identifiant,
+        "client": etat.campagne.tenant_id,
+        "titre": "Corpus reel (Apache Kafka)" if corpus == "reel" else "Demo synthetique",
+    }
     return carte
+
+
+def _premier_processus(etat, corpus: str = "demo") -> str:
+    """The process the portal shows in detail.
+
+    The demo shows P-07, the process the whole product is built around; the
+    real corpus shows its biggest measured process, since it has no P-07.
+    """
+    if corpus == "demo":
+        return "P-07"
+    mesures = [m for m in etat.resultat.mesures if m.est_mesuree] or list(etat.resultat.mesures)
+    if not mesures:
+        return ""
+    return max(mesures, key=lambda m: m.entree.occurrences.mediane).declare.id
 
 
 def _ajouter_vues(carte: dict, etat) -> None:
@@ -92,7 +121,10 @@ def _ajouter_vues(carte: dict, etat) -> None:
     def ajouter(clef, resultat):
         carte[clef] = _reponse(resultat)
 
-    ajouter("GET /api/campagne", (200, {"ok": True, "donnees": vues_produits.campagne_courante()}))
+    ajouter(
+        "GET /api/campagne",
+        (200, {"ok": True, "donnees": vues_produits.campagne_courante(etat.campagne)}),
+    )
     ajouter("GET /api/processus", vues_mesure.processus_table(etat.resultat))
     ajouter("GET /api/motifs", vues_mesure.motifs_mesures(etat.resultat))
     ajouter("GET /api/catalogue", vues_mesure.catalogue_complet())
@@ -126,8 +158,9 @@ def main(argv: list[str] | None = None) -> int:
     for nom in FICHIERS_STATIQUES:
         shutil.copy2(RACINE / "portal" / nom, site / nom)
     (site / "data").mkdir()
-    carte = construire_carte()
-    (site / "data" / "api.json").write_text(json.dumps(carte, ensure_ascii=False, indent=2), encoding="utf-8")
+    for corpus, nom in (("demo", "api.json"), ("reel", "api-reel.json")):
+        carte = construire_carte(corpus)
+        (site / "data" / nom).write_text(json.dumps(carte, ensure_ascii=False, indent=2), encoding="utf-8")
     (site / ".nojekyll").write_text("", encoding="utf-8")
     print(f"site statique genere dans {site} ({len(carte)} reponses pre-calculees)")
     return 0

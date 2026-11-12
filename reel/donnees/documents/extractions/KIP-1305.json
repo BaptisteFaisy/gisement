@@ -1,0 +1,38 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1305",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state:Under Discussion\nDiscussion thread:link\nJIRA:ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-20384\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nThe Kafka consumer's only extension point before records reach application code isConsumerInterceptor.onConsume(),which operates on the entireConsumerRecordsbatch.There is no per-record lifecycle hook.\nThis means the client has no concept of when an individual record's processing starts or ends.It knows when records are fetched and iterated,but iteration and processing are not the same thingi.e.a record may be iterated on the poll thread and dispatched to a worker thread,buffered for out of the loop processing.\nThis gap has forced every major framework and instrumentation library to independently build per-record processing hooks:\nOpenTelemetryandDatadogwrapIterator<ConsumerRecord>to create per-record spans. The span opens onnext()and closes on the followinghasNext(). This treats iteration as processing and when records are dispatched to a thread pool, the span lifetime is microseconds (iteration), not the actual processing time. OTel's own source comments:\"this may potentially create problems if this iterator is used from different threads. But at the moment we cannot do much about this.\"\nSpring KafkabuiltRecordInterceptor<K, V>(since 2.7) with per-recordintercept(),success(),failure(), andafterRecord()hooks, but only available within Spring's container.\nSmallRye Reactive Messagingthe engine behind thequarkus-messaging-kafkaextension and the standard within Quarkus wraps each record inIncomingKafkaRecordwith per-recordack()/nack()and built-in OTel tracing per record, because the client doesn't provide it.\nMicronaut Kafkamanages per-record lifecycle internally viaOffsetStrategy.SYNC_PER_RECORDand per-recordAcknowledgementinjection.\nFive projects with thesame root cause.This KIP provides the client-level hook that can provide some consolidation.\nThe primary beneficiaries are frameworks that control the processing loop -they callnewContext()on behalf of the application,so tracing/MDC processors configured at the client level work across Spring,Quarkus,and Micronaut without framework-specific integration.\nUse Cases\n1. Distributed Tracing\nToday,OTel/DD span lifetime=time betweennext()calls on the poll thread.With this KIP:javadd-records-iteration\n2. Logging Context (MDC)\nToday,every team manually sets/clears MDC fields per record with try/finally boilerplate.With a configuredMDCContextProcessor,record.newContext()handles it.\n3. Multi-Threaded Context Propagation\nToday,teams manually plumb MDC maps and parent spans across thread boundariesor resort to hacks like Datadog'ssubList(i, i+1)workaround to triggerTracingListinstrumentation on worker threads.With this KIP,record.newContext()works on any thread.\nPublic Interfaces\nConsumerRecordContextProcessorjavaConsumerRecordContextProcessor\nInstantiated once during consumer creation viacontext.processorsconfig.Stateless per recordstate belongs on the returned context.\nConsumerRecordContextjavaConsumerRecordContext\nChanges toConsumerRecord\nAdd anewContext()method and a package-private constructor acceptingContextProcessors: (a package-private class in consumer/internals that encapsulates a list of context processors)javaConsumerRecord\nProposed Changes\nOverview\nThe aforementionedConsumerRecordContextProcessor,a per-record complement to the batch-levelConsumerInterceptor.Each processor creates anAutoCloseableConsumerRecordContextfor deterministic setup/teardown via runWith().\nConfiguration\n| Property | Type | Default | Description\n| context.processors | LIST | \"\" | ConsumerRecordContextProcessorclass names, chained in declared order\nChanges toConsumerRecord\nExisting public constructors are unchanged.contextProcessorsdefaults to Optional.empty(),newContext()returns NO_OP.\nTheContextProcessorsreference is threaded fromKafkaConsumerthroughAbstra"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1305",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Property",
+        "Type",
+        "Default",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "context.processors",
+          "LIST",
+          "&quot;&quot;",
+          "ConsumerRecordContextProcessor class names, chained in declared order"
+        ]
+      ],
+      "nom": "tableau_1"
+    }
+  ]
+}

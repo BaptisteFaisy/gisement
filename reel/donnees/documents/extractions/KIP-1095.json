@@ -1,0 +1,131 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1095",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state:Under Discussion\nDiscussion thread:here\nJIRA:ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-20897\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nA bad broker deployment can affect any partition it hosts. For services targeting3-4 9’s SLO, the cost of a regression is dominated by how many partitions were exposed to the new build before it was rolled back.\nToday an operator has no way to bound that set: a new broker build takes whatever partitions the placer happens to assign it.\nThis KIP introduces an optional broker attribute, `pod`, which groups brokers into named subsets, and a replica placer that can confine a chosen fraction of partitions to a single pod.\nDeploying a new build to the canary pod then exposes a bounded, known set of partitions, so the blast radius of a regression is decided in advance rather than discovered afterwards.\nThis cannot be expressed with `broker.rack`. Rack-awareness means \"spread replicas across these groups\"; the requirement here is the inverse, \"confine these partitions to this group\". The two cannot be collapsed without adding a mode flag to an existing config and changing its meaning.\nFuture improvement include extend canary isolation from broker only to producer/consumer/broker canary isolation, thus blast radius of a bad producer/consumer service deployment can be isolated with-in canary pod\nProposed Changes\nBroker pod\nEach broker may declare an optional pod name. The value is supplied at broker registration, stored as part of cluster metadata, and returned to clients alongside the broker's host, port and rack, so that a client can observe which pod a broker belongs to.\nA broker that declares no pod belongs to every pod. This keeps existing clusters working unchanged and allows pods to be introduced one broker at a time.\nIt also means isolation is only complete once every broker declares a pod. While unlabelled brokers remain, they are eligible to host partitions belonging to any pod, including the canary pod. A partially labelled cluster should be treated as an intermediate migration state: operators should label all brokers before enabling canary placement.\nPod isolation\nAn isolation rule associates a pod with a set of partition ids. The placement logic evaluates the configured rules for each partition being created:\nA partition matching exactly one rule has its replicas placed only on brokers in that rule's pod;\nA partition matching no rule has its replicas placed across the brokers of all pods that carry no rule.\nWithin the brokers selected for a partition, replica and leader selection is unchanged, and existing rack-aware behaviour is preserved. Isolation constrains which brokers are eligible; it does not change how replicas are\ndistributed among them.\nPlacement rules are evaluated when partitions are created, both at topic creation and when partitions are added to an existing topic. They are not applied retroactively to partitions that already exist.\nCanary isolation\nCanary isolation is the single rule this KIP configures, through two controller configurations:\n`canary.pod.name` names the pod that canary partitions are placed on.\n`canary.partition.interval` designates every Nth partition of each topic as a canary partition, taking the last partition of each consecutive group of N. A value of 0 disables canary placement entirely, and placement behaves exactly as it does without this feature.\nTaking the last partition of each group rather than the first means a topic with fewer partitions than the interval has no canary partition, so small topics are never drawn into the canary pod.\nBecause rules apply only at partition creation, existing topics are unaffected until their partitions are reassigned.\nThe partition reassignment tool therefore accepts the same canary pod name and interval, which must match the controller configuration. A plan generated without them would place canary "
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1095",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Partitions of a 20-partition topic",
+        "Canary",
+        "Placed on"
+      ],
+      "lignes": [
+        [
+          "0–8, 10–18",
+          "no",
+          "the three brokers of the non-canary pod"
+        ],
+        [
+          "9, 19",
+          "yes",
+          "the three brokers of the canary pod"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Name",
+        "Type",
+        "Default",
+        "Doc"
+      ],
+      "lignes": [
+        [
+          "broker.pod",
+          "string",
+          "null",
+          "The pod this broker belongs to"
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Name",
+        "Type",
+        "Default",
+        "Doc"
+      ],
+      "lignes": [
+        [
+          "canary.pod.name",
+          "string",
+          "canary-broker",
+          "Pod that canary partitions are placed on"
+        ],
+        [
+          "canary.partition.interval",
+          "int",
+          "0",
+          "Every Nth partition is a canary partition"
+        ]
+      ],
+      "nom": "tableau_3"
+    },
+    {
+      "colonnes": [
+        "Message",
+        "Field versions",
+        "Tagged versions",
+        "Tag"
+      ],
+      "lignes": [
+        [
+          "BrokerRegistrationRequest",
+          "0+",
+          "0+",
+          "0"
+        ],
+        [
+          "RegisterBrokerRecord",
+          "0+",
+          "0+",
+          "2"
+        ],
+        [
+          "DescribeClusterResponse",
+          "0+",
+          "0+",
+          "0"
+        ],
+        [
+          "MetadataResponse",
+          "11+",
+          "11+",
+          "0"
+        ]
+      ],
+      "nom": "tableau_4"
+    },
+    {
+      "colonnes": [
+        "Type",
+        "nullableVersions",
+        "default"
+      ],
+      "lignes": [
+        [
+          "string",
+          "matches version",
+          "null"
+        ]
+      ],
+      "nom": "tableau_5"
+    }
+  ]
+}

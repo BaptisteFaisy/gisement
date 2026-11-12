@@ -1,0 +1,22 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-19970"
+    ],
+    "kip": "KIP-1264",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "accepted",
+    "texte_libre": "Status\nCurrent state: Accepted\nDiscussion thread:here\nJIRA:KAFKA-19970\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nApache Kafka's tiered storage feature introduced in KIP-405 enables offloading log segments to remote storage systems (e.g., S3, HDFS, Azure Blob Storage), significantly reducing local disk requirements for large-scale deployments. To efficiently serve fetch requests from remote storage, Kafka brokers maintain a local cache of remote log segment indexes (offset, time, transaction, and producer snapshot indexes) in the RemoteIndexCache.\nThis KIP addresses a critical bug in the remote index cache implementation. The RemoteIndexCache currently holds expired and stale indexes indefinitely, leading to memory waste and suboptimal cache utilization.\nIn Kafka's tiered storage architecture,only the leaderof a partition deletes remote log segments and clears any associated cached index files. This design creates a fundamental problem:\n1. After Leadership Changes: When a broker loses leadership of a partition, it retains all previously cached index files in memory. The new leader may eventually delete old remote log segments, but the previous leader has no mechanism to learn about these deletions and continues holding stale indexes indefinitely.\n2. With Read-From-Replica Enabled: When consumers read from follower replicas using the read-from-replica feature, follower brokers cache index files for the partitions they serve. These follower brokers never receive deletion notifications when the leader removes old segments, causing stale indexes to accumulate on follower replicas.\nWithout time-based eviction, these stale index files remain in the cache until either:\n- The broker restarts (clearing all cache)\n- The cache size limit is reached and size-based eviction removes them (which may never happen if they are small enough)\nThe current size-based eviction (`remote.log.index.file.cache.total.size.bytes`) is insufficient because it only triggers when the cache is full, and doesn't distinguish between active and stale entries. During backfill workloads, this causes \"cache thrashing\" where small stale indexes remain while large active indexes are repeatedly evicted and re-fetched.\nImpact\nThe lack of time-based eviction causes operational problems:\nMemory Waste: Stale indexes accumulate indefinitely, consuming heap memory that cannot be reclaimed. In the leadership change and read-from-replica scenarios described above, brokers retain indexes for partitions they no longer serve, leading to:\n- Heap utilization\n- GC pressure\nReduced Cache Effectiveness: When stale entries occupy cache space, active indexes are evicted prematurely, reducing cache hit rates and increasing remote storage API calls.\nProposed Changes\nTo address the unbounded memory growth outlined above, we propose adding time-based eviction (TTL) alongside the existing size-based eviction. This KIP proposes to exposeremote.log.index.file.cache.ttl.msas a user-configurable broker configuration parameter, enabling operators to tune the index cache time-based eviction behavior to address the stale index bug and optimize cache performance for their deployment requirements. The implementation leverages Caffeine cache's `expireAfterAccess()` mechanism, which evicts cache entries after a specified duration since their last access (read or write). This provides automatic cleanup of stale indexes and complements the existing size-based eviction strategy.\nThe implementation combines two independent eviction mechanisms:\n1. Time-Based Eviction (TTL):\n- Tracks last access time for each entry\n- Background thread periodically scans for expired entries\n- Eviction happens asynchronously without blocking reads\n- Access resets the TTL timer (entries are \"promoted\")\n2. Size-Based Eviction (Existing):\n- Enforcesremote.log.index.file.cache.total.size.byteslimit\n- Uses LRU (Least Recently Used) policy\n- Trig"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1264",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": []
+}

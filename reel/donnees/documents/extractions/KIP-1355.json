@@ -1,0 +1,113 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-20725"
+    ],
+    "kip": "KIP-1355",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state: Under Discussion\nDiscussion thread:here\nJIRA:KAFKA-20725\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nKIPs likeKIP-392: Allow consumers to fetch from closest replica,KIP-1150: Diskless Topics, andKIP-1123: Rack-aware partitioning for Kafka Producer, apart from other goals, aim to reduce inter-rack traffic. This brings potential benefits such as lower latency and costs, especially in cloud environments where inter-rack (i.e. inter-availability zone) traffic is often billed.\nWhile these initiatives succeed in this goal, the aspect of observability could be improved. Knowing how much traffic goes within a rack and how much crosses rack borders would be valuable to operators, for example, to highlight misconfiguration. This KIP proposes to close this gap with additional metrics.\nPublic Interfaces\nNew metrics\nProducer\nIn the MBeankafka.producer:type=producer-topic-metrics,client-id=<id>,topic=<topic>:\n| Metric | Description | Existing counterpart\n| byte-in-rack-rate | The average number of bytes sent in the same rack per second for a topic. | byte-rate\n| byte-in-rack-total |\nThe total number of bytes sent in the same rack for a topic. |\nbyte-total\nConsumer\nIn the MBeankafka.consumer:type=consumer-fetch-manager-metrics,client-id=<id>:\n| Metric | Description | Existing counterpart\n| bytes-consumed-in-rack-rate | The average number of bytes consumed per second from brokers in the same rack as the consumer. | bytes-consumed-rate\n| bytes-consumed-in-rack-total | The total number of bytes consumed from brokers in the same rack as the consumer. | bytes-consumed-total\nIn the MBeankafka.consumer:type=consumer-fetch-manager-metrics,client-id=<id>,topic=<topic>:\n| Metric | Description | Existing counterpart\n| bytes-consumed-in-rack-rate | The average number of bytes consumed per second for a topic from brokers in the same rack as the consumer. | bytes-consumed-rate\n| bytes-consumed-in-rack-total | The total number of bytes consumed for a topic from brokers in the same rack as the consumer. | bytes-consumed-total\nBroker\nIn the MBeankafka.server:type=BrokerTopicMetrics,name=ReplicationBytesOutInRackPerSec:\n| Metric | Description | Existing counterpart\n| ReplicationBytesOutInRackPerSec | Bytes of replication traffic sent by the broker. | ReplicationBytesOutPerSec\nIn the MBeankafka.server:type=BrokerTopicMetrics,name=ReplicationBytesInInRackPerSec:\n| Metric | Description | Existing counterpart\n| ReplicationBytesInInRackPerSec | Bytes of replication traffic received by the broker. | ReplicationBytesInPerSec\nIn the MBeankafka.server:type=BrokerTopicMetrics,name=ReassignmentBytesOutInRackPerSec:\n| Metric | Description | Existing counterpart\n| ReassignmentBytesOutInRackPerSec | Bytes of reassignment traffic sent by the broker. | ReassignmentBytesOutPerSec\nIn the MBeankafka.server:type=BrokerTopicMetrics,name=ReassignmentBytesInInRackPerSec:\n| Metric | Description | Existing counterpart\n| ReassignmentBytesInInRackPerSec | Bytes of reassignment traffic received by the broker. | ReassignmentBytesInPerSec\nProposed Changes\nThe KIP proposes to complement certain existing metrics with in-rack counterparts (see Public Interfaces). The in-rack metric values will be less or equal to the corresponding \"full\" metrics, i.e. the will represent a fraction of traffic that went in-rack.\nCompatibility, Deprecation, and Migration Plan\nNo impact is expected for existing users, as no existing interfaces or behavior is being changed.\nTest Plan\nThe new metrics will be tested the same way as their existing counterparts, preferably by extending the same test classes.\nRejected Alternatives\nNone."
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1355",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Metric",
+        "Description",
+        "Existing counterpart"
+      ],
+      "lignes": [
+        [
+          "byte-in-rack-rate",
+          "The average number of bytes sent in the same rack per second for a topic.",
+          "byte-rate"
+        ],
+        [
+          "byte-in-rack-total",
+          "The total number of bytes sent in the same rack for a topic.",
+          "byte-total"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Metric",
+        "Description",
+        "Existing counterpart"
+      ],
+      "lignes": [
+        [
+          "bytes-consumed-in-rack-rate",
+          "The average number of bytes consumed per second from brokers in the same rack as the consumer.",
+          "bytes-consumed-rate"
+        ],
+        [
+          "bytes-consumed-in-rack-total",
+          "The total number of bytes consumed from brokers in the same rack as the consumer.",
+          "bytes-consumed-total"
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Metric",
+        "Description",
+        "Existing counterpart"
+      ],
+      "lignes": [
+        [
+          "bytes-consumed-in-rack-rate",
+          "The average number of bytes consumed per second for a topic from brokers in the same rack as the consumer.",
+          "bytes-consumed-rate"
+        ],
+        [
+          "bytes-consumed-in-rack-total",
+          "The total number of bytes consumed for a topic from brokers in the same rack as the consumer.",
+          "bytes-consumed-total"
+        ]
+      ],
+      "nom": "tableau_3"
+    },
+    {
+      "colonnes": [
+        "Metric",
+        "Description",
+        "Existing counterpart"
+      ],
+      "lignes": [
+        [
+          "ReplicationBytesOutInRackPerSec",
+          "Bytes of replication traffic sent by the broker.",
+          "ReplicationBytesOutPerSec"
+        ]
+      ],
+      "nom": "tableau_4"
+    },
+    {
+      "colonnes": [
+        "Metric",
+        "Description",
+        "Existing counterpart"
+      ],
+      "lignes": [
+        [
+          "ReplicationBytesInInRackPerSec",
+          "Bytes of replication traffic received by the broker.",
+          "ReplicationBytesInPerSec"
+        ]
+      ],
+      "nom": "tableau_5"
+    }
+  ]
+}

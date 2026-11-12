@@ -1,0 +1,65 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1299",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "accepted",
+    "texte_libre": "Status\nCurrent state:Accepted\nDiscussion thread:https://lists.apache.org/thread/vdp8scrrzdq7ofvl0mm84dhphq8kmzgc\nVote thread:https://lists.apache.org/thread/5280h24g205vn69dxr44lc15dt3ncrvz\nJIRA:ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-967\nMotivation\nIn production, producers commonly send keyed records to leverage semantic partitioning for ordering guarantees, stream joins, and cross-cluster replication. However,kafka-producer-perf-testalways produces records with null keys, making benchmark results systematically optimistic and unable to reflect the performance characteristics of real keyed workloads. Additionally, since log compaction requires non-null keys, the tool currently cannot benchmark compacted topics at all. Adding key support removes this limitation.\nThis proposal adds key distribution support tokafka-producer-perf-test, allowing engineers to benchmark keyed workloads with configurable key ranges and distribution strategies.\nThe three distribution modes cover the most common real-world keyed workload patterns:\nnone — establishes a null-key baseline for topics where ordering and co-partitioning are not required, such as log aggregation pipelines.\nrange — models workloads where a bounded, predictable set of keys cycles repeatedly, such as Kafka Streams joins or MirrorMaker 2 replication, where the same key must consistently land on the same partition to preserve ordering guarantees.\nrandom — models workloads with a bounded but unpredictably distributed key space, where keys arrive in non-deterministic order rather than cycling sequentially. A large range (e.g., 1,000,000) approximates unique-key workloads such as IoT device data without the overhead of UUID generation.\nNote: that both range and random produce a uniform key distribution. Skewed distributions are out of scope for this proposal and may be addressed in a future KIP.\nPublic Interfaces\nThis proposal adds two new command-line arguments to kafka-producer-perf-test:\n--key-distribution <none|range|random> (optional, default: none)\nControls how record keys are assigned:\nnone — null key (current behavior, default)\nrange — keys cycle through integers 0, 1, ..., KEY-RANGE-1 in round-robin order\nrandom — each record gets a randomly selected integer from [0, KEY-RANGE)\n--record-key-range <KEY-RANGE> (optional, required when --key-distribution is range or random)\nDefines the size of the key space. Must be a positive integer.\n--random-seed <seed> (optional, default 0)\nControls the seed for the pseudo-random number generator used by --key-distribution random and random payload generation. The default value of 0 ensures deterministic, reproducible benchmark runs. Set to a different value when non-repeating sequences are required.\nProposed Changes\nNew Enum: KeyDistribution\nGenerate key\nKeys are serialized as their decimal string representation encoded in UTF-8, consistent with the ByteArraySerializer already configured for the producer. This keeps keys human-readable in tools like kafka-console-consumer.\n| Distribution | Key value\n| NONE | null\n| RANGE | Integer.toString(recordIndex % keyRange)\n| RANDOM | Integer.toString(random.nextInt(keyRange))\nPerformance note: The random distribution reuses a single SplittableRandom instance that is already constructed for payload generation. SplittableRandom.nextInt() is a lightweight, non-thread-safe PRNG with no allocation overhead, so key generation adds negligible latency to the hot path.\nValidation\nConfigPostProcessor enforces mutual consistency between the two new arguments:\n| Condition | Error\n| --key-distribution range or random without --record-key-range | --record-key-range is required when --key-distribution is 'range' or 'random'.\n| --record-key-range specified with --key-distribution none | --key-distribution must be 'range' or 'random' when --record-key-range is specified.\n| --record-key-range ≤ 0 | --record-key-range should be greater than zero.\nExample Usage\nNull keys — existing behavior (default)\nRound-ro"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1299",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Distribution",
+        "Key value"
+      ],
+      "lignes": [
+        [
+          "NONE",
+          "null"
+        ],
+        [
+          "RANGE",
+          "Integer.toString(recordIndex % keyRange)"
+        ],
+        [
+          "RANDOM",
+          "Integer.toString(random.nextInt(keyRange))"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Condition",
+        "Error"
+      ],
+      "lignes": [
+        [
+          "--key-distribution range or random without --record-key-range",
+          "--record-key-range is required when --key-distribution is 'range' or 'random'."
+        ],
+        [
+          "--record-key-range specified with --key-distribution none",
+          "--key-distribution must be 'range' or 'random' when --record-key-range is specified."
+        ],
+        [
+          "--record-key-range ≤ 0",
+          "--record-key-range should be greater than zero."
+        ]
+      ],
+      "nom": "tableau_2"
+    }
+  ]
+}

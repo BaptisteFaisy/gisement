@@ -1,0 +1,187 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1391",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "",
+    "texte_libre": "This page is meant as a template for writing a. To create a KIP choose Tools->Copy on this page and modify with your content and replace the heading with the next KIP number and a description of your issue. Replace anything in italics with your own description.\nStatus\nCurrent state:\"Under Discussion\"\nDiscussion thread:here\nJIRAASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-20734\nMotivation\nShare groups distribute records from the same topic partition across multiple consumers. Applications may subsequently need to process a selected subset of those records again without repeating unrelated completed work.\nExamples include correcting a transformation, reprocessing inputs affected by an application defect, or restoring the exact inputs recorded in a durable processing manifest.\nExisting mechanisms do not directly support this requirement:\nRELEASE relinquishes currently acquired records; it does not reopen previously completed records.\nShareConsumer does not provide ordinary consumerassignandseeksemantics.\nShare-group offset reset requires an empty group and initializes partition state rather than preserving an arbitrary sparse selection of completed records.Existing API contract (https://github.com/apache/kafka/blob/bb6c417e57a001fee77c6909fa03230bc7d496b1/clients/src/main/java/org/apache/kafka/clients/admin/Admin.java#L2018).\nConsider records previously processed by two workers:\n| Offsets, inclusive | Previous processing | Required behavior\n| 100–104 | Worker A | Make available again\n| 105–149 | Worker B | Preserve completion\n| 150–154 | Worker A | Make available again\n| 155–199 | Other completed work | Preserve completion\nThe application needs to select100–104and150–154without making B’s records available again.\nThis proposal introducesselective redelivery:\nMake an explicitly selected set of retained records AVAILABLE for delivery again in the same share group, while preserving delivery eligibility and retained processing metadata outside that selection.\nSuccessful completion confirms a durable eligibility change. It does not confirm that the records have already been delivered or processed.\nPublic Interfaces\nShareConsumer API\nIntroduce an asynchronous operation onShareConsumer:ShareRedeliveryResult requestRedelivery(ShareRedeliveryRequest request);\nThe API names are proposed and subject to review.\nThe consumer’s configured group ID scopes the operation. No Admin client is required.\nEach partition selection contains:\nTopic UUID and partition.\nSorted, non-overlapping, half-open offset ranges.\nA caller-generated operation ID that survives application restart.\nAn expected state token identifying the group-state lineage and availability revision.\nFor example,[100, 105)and[150, 155)select the records in the motivation.\nCompanion interfaces provide the current state token and inspect an operation after a client restart or lost response.\nResult contract\nShareRedeliveryResultexposes per-partition futures and an aggregate future.\n| Outcome | Contract\n| APPLIED | The eligibility change and operation result are durable, and stale processing is fenced.\n| ALREADY_AVAILABLE | The selection required no new delivery cycle at the operation’s linearization point.\n| REJECTED / BUSY | The operation definitively made no change for that partition.\n| Timeout or lost response | The outcome is unknown; inspect or retry the same operation ID.\nAtomicity is per share partition. Requests spanning multiple partitions may partially succeed.\nAny eligible member may acquire the selected records. The requester receives no exclusive ownership.\nNetwork protocol and persistence\nIntroduce protocol support for requesting redelivery, obtaining state tokens, and inspecting operation results.\nExtend acquisition and acknowledgement metadata with generation information sufficient to reject delayed operations from an earlier delivery cycle.\nIntroduce versioned share-coordinator records for operation identity, lifecycle, availability revision, preserved exclusion cover"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1391",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Offsets, inclusive",
+        "Previous processing",
+        "Required behavior"
+      ],
+      "lignes": [
+        [
+          "100–104",
+          "Worker A",
+          "Make available again"
+        ],
+        [
+          "105–149",
+          "Worker B",
+          "Preserve completion"
+        ],
+        [
+          "150–154",
+          "Worker A",
+          "Make available again"
+        ],
+        [
+          "155–199",
+          "Other completed work",
+          "Preserve completion"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Outcome",
+        "Contract"
+      ],
+      "lignes": [
+        [
+          "APPLIED",
+          "The eligibility change and operation result are durable, and stale processing is fenced."
+        ],
+        [
+          "ALREADY_AVAILABLE",
+          "The selection required no new delivery cycle at the operation’s linearization point."
+        ],
+        [
+          "REJECTED / BUSY",
+          "The operation definitively made no change for that partition."
+        ],
+        [
+          "Timeout or lost response",
+          "The outcome is unknown; inspect or retry the same operation ID."
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Selected record condition",
+        "Behavior"
+      ],
+      "lignes": [
+        [
+          "ACKNOWLEDGED",
+          "Make AVAILABLE in a new delivery cycle."
+        ],
+        [
+          "ARCHIVED",
+          "Make AVAILABLE in a new delivery cycle."
+        ],
+        [
+          "Historical offset below SPSO",
+          "Allow explicit availability of retained input without assuming its previous disposition."
+        ],
+        [
+          "AVAILABLE",
+          "Leave available and preserve its current delivery count."
+        ],
+        [
+          "ACQUIRED, ARCHIVING, unfinished state transition, or unresolved transaction",
+          "Do not override; return or resolve the conflict before application."
+        ]
+      ],
+      "nom": "tableau_3"
+    },
+    {
+      "colonnes": [
+        "Failure window",
+        "Required recovery"
+      ],
+      "lignes": [
+        [
+          "Caller fails before submission",
+          "Replacement may submit the persisted operation ID and selection."
+        ],
+        [
+          "Failure during preparation",
+          "Recover the durable intent and gate; finish application or a definitive non-applied abort."
+        ],
+        [
+          "Coordinator or source leader changes",
+          "Recover the authoritative operation before resuming acquisition."
+        ],
+        [
+          "Change commits but response is lost",
+          "Return the original committed result on inspection or retry."
+        ],
+        [
+          "Cache activation is delayed",
+          "Keep acquisition gated until the committed revision is safely installed."
+        ],
+        [
+          "Old acknowledgement arrives",
+          "Reject stale-generation work."
+        ],
+        [
+          "Worker fails after reacquisition",
+          "Apply normal share-group recovery for the new delivery cycle."
+        ],
+        [
+          "Group is reset, deleted, or recreated",
+          "Invalidate old lineage tokens and prevent old operations affecting replacement state."
+        ]
+      ],
+      "nom": "tableau_4"
+    },
+    {
+      "colonnes": [
+        "Alternative",
+        "Reason"
+      ],
+      "lignes": [
+        [
+          "Move SPSO backward without preserving sparse state",
+          "Can expose non-selected historical records for acquisition."
+        ],
+        [
+          "Store SPSO and SPEO only in the client",
+          "Cannot change authoritative broker state or coordinate other members."
+        ],
+        [
+          "Use ordinary RELEASE acknowledgements",
+          "Does not reopen completed history."
+        ],
+        [
+          "Reset the entire share partition",
+          "Repeats unrelated work and requires the existing empty-group boundary."
+        ],
+        [
+          "Use a separate group or redelivery lane",
+          "Maintains a separate processing history and scheduling model; unnecessary for the proposed in-place operation."
+        ],
+        [
+          "Republish selected payload to a retry topic",
+          "Copies records and introduces another publication and recovery contract."
+        ],
+        [
+          "Expose generic setRecordState",
+          "Obscures intent and permits transitions requiring different ownership and recovery rules."
+        ],
+        [
+          "Restrict historical selection to known ACKNOWLEDGED records",
+          "Cannot cover discarded historical metadata without additional provenance retention."
+        ]
+      ],
+      "nom": "tableau_5"
+    }
+  ]
+}

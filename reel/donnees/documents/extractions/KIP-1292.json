@@ -1,0 +1,92 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1292",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "",
+    "texte_libre": "This page is meant as a template for writing a. To create a KIP choose Tools->Copy on this page and modify with your content and replace the heading with the next KIP number and a description of your issue. Replace anything in italics with your own description.\nStatus\nCurrent state:\"Under Discussion\"\nDiscussion thread:here\nJIRA:\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nApache Kafka MirrorMaker 2 provides cross-cluster replication for Kafka topics and consumer group offsets. Currently, offset synchronisation is handled by the MirrorCheckpointConnector, which periodically translates and emits consumer group offsets from source to the target cluster. Also, it optionally automatically commits consumer group offsets to the target cluster.\nThe offset translation mechanism relies on two parallel processes: MirrorSourceConnector tasks periodically produce offset-sync records, which MirrorCheckpointConnector tasks then consume to build and maintain an in-memory cache of partition offset mappings.\nHowever, this approach has limitations: offset translation is inherently lossy, especially for lagging consumers. Each partition retains only up to 64 offset-syncs, with the most recent sync always preserved and older syncs spaced exponentially apart. Consequently, recently mirrored records translate accurately, but translation accuracy degrades exponentially as records age increases.\nEach MirrorCheckpointConnector task maintains an offset mapping cache for each of its assigned partitions.Moreover, the offset-syncs topic records mappings at a fixed internal value defined byoffset.lag.maxset to 100 by default. This has several limitations:\nOffset mappings are only recorded every N offsets\nHigh-throughput topics produce offset-sync records at scale\nReducing offset.lag.max increases the topic throughput, network overhead and broker and Connect task load.\nThe configuration value applies to all partitions therefore there is no way to optimise based on individual topic partitions’ throughput or activity patterns.\nThis creates a fundamental tradeoff between precision and scalability.\nFurthermore, when the MirrorCheckpointConnector starts, its tasks consume the whole offset-syncs topic, therefore careful tuning of retention and compaction is needed. This adds to other operational complexity of managing internal topics which require correct ACLs and credentials, low latency access across clusters, monitoring and troubleshooting.\nProposed Changes\nThis proposal introduces a new MirrorMaker Connector calledMirrorGroupOffsetConnectorthat provides more consistent offset translation using timestamps of records without relying on the internal topics and in-memory offset caches. Users would be able to run the new Connector just like the MirrorCheckpointConnector but with simpler configurations.\nThe new Connector provides more consistent offset translation across all consumer positions in the log. While failover may reprocess some records due to multiple records sharing the same timestamp, the amount of reprocessed data remains consistent and predictable, which is a significant improvement over MirrorCheckpointConnector, where reprocessing growsexponentiallyas offset mappings age and become sparse.\nThe key tradeoff here is that MirrorCheckpointConnector achieves perfect translation for log-end offsets and exact offset mappings (though exact matches are rare), whereas the timestamp-based approach may be off by some offsets in all cases. However, this tradeoff becomes favourable when consumers lag behind the log end—even by just tens or hundreds of offsets. At this point, they fall between offset mappings, which have a minimum gap of 100 (the default of offset.lag.max). In these scenarios, the timestamp-based approach delivers equal or better accuracy while maintaining consistency regardless of how far behind the consumer has fallen, eliminating the exponential degradation p"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1292",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Source Offset",
+        "Timestamp",
+        "Actual Target offset",
+        "Translated Target Offset"
+      ],
+      "lignes": [
+        [
+          "1001",
+          "A",
+          "Not mirrored yet",
+          ""
+        ],
+        [
+          "1000",
+          "B",
+          "600",
+          "600"
+        ],
+        [
+          "990",
+          "E",
+          "590",
+          "580"
+        ],
+        [
+          "980",
+          "E",
+          "580",
+          "580"
+        ],
+        [
+          "960",
+          "G",
+          "560",
+          "560"
+        ],
+        [
+          "900",
+          "I",
+          "500",
+          "500"
+        ],
+        [
+          "800",
+          "K",
+          "400",
+          "400"
+        ],
+        [
+          "700",
+          "L",
+          "300",
+          "300"
+        ],
+        [
+          "600",
+          "O",
+          "200",
+          "200"
+        ],
+        [
+          "400",
+          "P",
+          "0",
+          "0"
+        ]
+      ],
+      "nom": "tableau_1"
+    }
+  ]
+}
