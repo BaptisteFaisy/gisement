@@ -1,0 +1,22 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1193",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "accepted",
+    "texte_libre": "Status\nCurrent state: Accepted\nDiscussion thread:here\nVote thread:here\nJIRA:here\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nApache Kafka currently includes support for MX4J, a library that enables exposing JMX beans over HTTP.\nThis feature adds maintenance burden and potential security concerns while providing no apparent value to the Kafka community.\nDisabled by default:requires manual activation via-Dkafka_mx4jenable=true\nCompletely undocumented:there is no official Kafka documentation on how to activate this feature\nPotentially vulnerable:it isnot maintainedand last release was on October 12, 2006 (18 years ago)\nApparently unused: a2016 query on the Kafka users mailing listreceived no responses\nNowadays, the Prometheus JMX Exporter is a popular choice for Kafka monitoring, offering seamless integration with contemporary monitoring stacks such as Prometheus and Grafana.\nA closer alternative to MX4j is Jolokia (RESTful JSON API) paired with Hawtio (web-based management console).\nThese alternatives operates through Java agents and relies solely on JMX exposure without requiring additional Kafka-specific support.\nPublic Interfaces\nThekafka_mx4jenablesystem property handling logic will be first deprecated and then removed.\nProposed Changes\nAdd deprecation annotation and warning log to the Mx4jLoader class. The warning will be logged only when MX4j is enabled.\nCompatibility, Deprecation, and Migration Plan\nPhase 1 (Kafka 4.2): deprecation\nMark MX4j-related code as deprecated\nLog deprecation warning when MX4j is enabled\nAdd release note to inform that it was deprecated\nPhase 2 (Kafka 5.0): removal\nRemove all MX4j-related code\nAdd release note to inform that it was removed\nTest Plan\nNo test is present and none will be added for a deprecated feature.\nRejected Alternatives\nThere is no rejected alternative."
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1193",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": []
+}

@@ -73,6 +73,7 @@ def executer(
     declaration: Path = VERITE,
     modele: Modele | None = None,
     cle: str = "cle-de-campagne",
+    objets_max: int = 6,
 ) -> ResultatCampagne:
     """Run the full pipeline on a corpus (the frozen demo one by default)."""
     declarees = charger_declaration(declaration)
@@ -85,6 +86,7 @@ def executer(
         sel=campagne.id,
         graine=campagne.graine,
         motif_noms=construire_motif_noms(prenoms, noms),
+        objets_max=objets_max,
     )
     mois = _mois(racine)
     activites = _collecter(racine, parametres)
@@ -200,25 +202,48 @@ def _declare_depuis_manifeste(racine: Path) -> Decimal:
     return decimal(couverture.get("volume_travail_estime_heures", DECLARE_DEFAUT))
 
 
-def campagne_demo() -> Campagne:
-    """A campaign object for the demo client, built from the frozen manifest."""
+def campagne_depuis_manifeste(
+    racine: Path,
+    *,
+    campagne_id: str,
+    tenant_id: str,
+    canaux: tuple[Canal, ...] | None = None,
+) -> Campagne:
+    """A campaign built from a corpus manifest - demo or real, same code.
+
+    `canaux` defaults to the channels the manifest really carries records for: a
+    real corpus declares its absent channels instead of pretending to have them.
+    """
     from datetime import date
 
-    manifeste = json.loads((DONNEES / "manifeste.json").read_text(encoding="utf-8"))
-    fenetre = manifeste["fenetre"]
-    declar = _declare_depuis_manifeste(DONNEES)
     from gisement.types.campagne import Perimetre
 
+    manifeste = json.loads((racine / "manifeste.json").read_text(encoding="utf-8"))
+    fenetre = manifeste["fenetre"]
+    client = manifeste.get("client", {})
+    autorises = canaux or tuple(
+        Canal(canal) for canal, nombre in (manifeste.get("activites_par_canal") or {}).items() if nombre
+    )
     return Campagne(
-        id="CMP-0031",
-        tenant_id="T-DEMO",
+        id=campagne_id,
+        tenant_id=tenant_id,
         perimetre=Perimetre(
-            services=tuple(manifeste["client"]["services"]),
-            sites=("lyon", "villeurbanne"),
+            services=tuple(client.get("services", ())),
+            sites=tuple(client.get("sites", ())),
             fenetre_debut=date.fromisoformat(fenetre["debut"]),
             fenetre_fin=date.fromisoformat(fenetre["fin"]),
-            canaux_autorises=(Canal.TICKETS, Canal.COURRIELS, Canal.DOCUMENTS, Canal.APPELS, Canal.JOURNAUX),
-            volume_travail_estime_heures=declar,
+            canaux_autorises=autorises,
+            volume_travail_estime_heures=_declare_depuis_manifeste(racine),
         ),
         graine=int(manifeste["graine"]),
+    )
+
+
+def campagne_demo() -> Campagne:
+    """A campaign object for the demo client, built from the frozen manifest."""
+    return campagne_depuis_manifeste(
+        DONNEES,
+        campagne_id="CMP-0031",
+        tenant_id="T-DEMO",
+        canaux=(Canal.TICKETS, Canal.COURRIELS, Canal.DOCUMENTS, Canal.APPELS, Canal.JOURNAUX),
     )

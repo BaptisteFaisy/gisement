@@ -1,0 +1,196 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-20526"
+    ],
+    "kip": "KIP-1329",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent State: Under Discussion\n|\nItem |\nValue\n|\nDiscussion Thread |\ndev@ thread\n|\nJIRA |\nKAFKA-20526\n|\nRelease |\nRevision History\nRevision 2\nThread safety: the request handler no longer readsSelectorstate. Processor threads publish connection metadata to a sharedClientConnectionRegistry, and the handler reads the registry. The previous claim thatSelector.channels()is safe for cross-thread reads was incorrect and is removed.\nConnectedSinceis populated in version 0. It is no longer deferred.\nResults are attributed to a broker. The response carriesNodeId, and the Admin result exposes per-broker futures so that a broker that does not respond is reported as a failure, not as an empty result.\nMotivation\nKafka brokers authenticate every client connection and store the authenticated principal (KafkaPrincipal) in memory on eachKafkaChannel. However, there isno admin API, CLI command, JMX MBean, or log outputthat allows an operator to answer:\nWhich user principals currently have active connections to this broker?\nThis is a fundamental observability gap. Every comparable system provides this capability:\n|\nSystem |\nCommand / API\n|\nMySQL |\nSHOW PROCESSLIST\n|\nPostgreSQL |\npg_stat_activity\n|\nRabbitMQ |\nManagement API/api/connections\n|\nMongoDB |\ndb.currentOp()\n|\nApache Kafka |\nNothing\nUse Cases\nSecurity incident response: When a SASL credential is compromised, operators cannot determine if the compromised user has active connections without restarting brokers or using indirect workarounds.\nCredential rotation: During planned rotation, there is no way to verify that old credentials are no longer in use on active connections.\nAudit and compliance: Regulatory requirements mandate the ability to report who is connected to a system at any point in time.\nCapacity planning: Per-principal connection counts help with quota tuning and resource allocation.\nDebugging: Correlating connections with authenticated identities during troubleshooting.\nCurrent State of the Data\nThe broker already holds all the data in memory:\nThe data is simply not surfaced through any external interface.\nExisting Workarounds\n|\nWorkaround |\nLimitation\n|\nSetkafka.authorizer.logger\\=DEBUGdynamically |\nOnly logs principals when they make requests that trigger authorization. Truly idle connections are invisible.\n|\nSetkafka.request.logger\\=DEBUGdynamically |\nExtremely verbose. Still misses connections that send zero requests.\n|\nJMX quota metrics (kafka.server:type\\=,user\\=) |\nSensors expire after 600s of inactivity. Requires quotas to be enabled.\n|\nHeap dump (jmap) |\nCauses GC pause. Requires post-processing. Not suitable for real-time use.\nRelated Work\nKIP-511(shipped, Kafka 2.4): Exposes client software name/version via JMX metrics — aggregate connection counts by client type only. No principals, no individual connections.\nKIP-714(shipped, Kafka 3.7): Client-pushed telemetry viaPushTelemetryRPC. Client-side metrics, not server-side connection listing. Requires client opt-in.\nKIP-1000(accepted):ListClientMetricsResourcesAPI — lists telemetry configuration resources, not connections.\nKIP-567(stalled): Kafka Cluster Audit — audit log of operations, not real-time connection state.\nKIP-1313(under discussion):ClientInstanceIdin all request headers — enriches request tracing but provides no API to query active connections.\nNone of these address the core gap of listing currently authenticated connections.\nPublic Interfaces\nKafka Protocol\nA new RPC pair:ListClientConnections.\nListClientConnectionsRequestjavascript\nListClientConnectionsResponsejavascript\nAdmin Client\nNew method onAdmin/KafkaAdminClient:javajavajavajava\nTools\nNew CLI command:\nExample output:\nIf one or more brokers do not respond, the tool prints the connections from the brokers that did respond, lists the broker IDs that failed with their errors, and exits with a non-zero status.\nResult Scope and Partial Failure\nEach broker reports only the connections it holds. The Admin client sends oneListClientConnectionsRequestto"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1329",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Item",
+        "Value"
+      ],
+      "lignes": [
+        [
+          "Discussion Thread",
+          "dev@ thread"
+        ],
+        [
+          "JIRA",
+          "KAFKA-20526"
+        ],
+        [
+          "Release",
+          ""
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "System",
+        "Command / API"
+      ],
+      "lignes": [
+        [
+          "MySQL",
+          "SHOW PROCESSLIST"
+        ],
+        [
+          "PostgreSQL",
+          "pg_stat_activity"
+        ],
+        [
+          "RabbitMQ",
+          "Management API /api/connections"
+        ],
+        [
+          "MongoDB",
+          "db.currentOp()"
+        ],
+        [
+          "Apache Kafka",
+          "Nothing"
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Workaround",
+        "Limitation"
+      ],
+      "lignes": [
+        [
+          "Set kafka.authorizer.logger\\=DEBUG dynamically",
+          "Only logs principals when they make requests that trigger authorization. Truly idle connections are invisible."
+        ],
+        [
+          "Set kafka.request.logger\\=DEBUG dynamically",
+          "Extremely verbose. Still misses connections that send zero requests."
+        ],
+        [
+          "JMX quota metrics (kafka.server:type\\=,user\\=)",
+          "Sensors expire after 600s of inactivity. Requires quotas to be enabled."
+        ],
+        [
+          "Heap dump (jmap)",
+          "Causes GC pause. Requires post-processing. Not suitable for real-time use."
+        ]
+      ],
+      "nom": "tableau_3"
+    },
+    {
+      "colonnes": [
+        "Event on the processor thread",
+        "Registry action"
+      ],
+      "lignes": [
+        [
+          "New connection registered with the Selector",
+          "put a new entry, with ConnectedSince set to the current time"
+        ],
+        [
+          "Authentication completes",
+          "put a new entry with the authenticated principal"
+        ],
+        [
+          "ApiVersionsRequest received (KIP-511 client information)",
+          "put a new entry with the software name and version"
+        ],
+        [
+          "Connection closed, or processor shut down",
+          "remove the entry"
+        ]
+      ],
+      "nom": "tableau_4"
+    },
+    {
+      "colonnes": [
+        "File",
+        "Change"
+      ],
+      "lignes": [
+        [
+          "clients/src/main/resources/common/message/ListClientConnectionsRequest.json",
+          "New request schema"
+        ],
+        [
+          "clients/src/main/resources/common/message/ListClientConnectionsResponse.json",
+          "New response schema"
+        ],
+        [
+          "clients/src/main/java/org/apache/kafka/common/protocol/ApiKeys.java",
+          "Register new API key (93)"
+        ],
+        [
+          "clients/src/main/java/org/apache/kafka/common/requests/ListClientConnectionsRequest.java",
+          "Request wrapper class"
+        ],
+        [
+          "clients/src/main/java/org/apache/kafka/common/requests/ListClientConnectionsResponse.java",
+          "Response wrapper class"
+        ],
+        [
+          "clients/src/main/java/org/apache/kafka/common/requests/AbstractRequest.java",
+          "Add parse case for API key 93"
+        ],
+        [
+          "clients/src/main/java/org/apache/kafka/common/requests/AbstractResponse.java",
+          "Add parse case for API key 93"
+        ],
+        [
+          "core/src/main/scala/kafka/network/ClientConnectionRegistry.scala",
+          "New registry + ClientConnectionEntry"
+        ],
+        [
+          "core/src/main/scala/kafka/network/SocketServer.scala",
+          "Create the registry; processors update it on register, authentication, ApiVersions, and close"
+        ],
+        [
+          "core/src/main/scala/kafka/server/KafkaApis.scala",
+          "Add registry view param + handleListClientConnections handler"
+        ],
+        [
+          "core/src/main/scala/kafka/server/BrokerServer.scala",
+          "Pass the registry view to KafkaApis"
+        ],
+        [
+          "clients/src/main/java/org/apache/kafka/clients/admin/KafkaAdminClient.java",
+          "New admin client method with per-broker fan-out"
+        ],
+        [
+          "clients/src/main/java/org/apache/kafka/clients/admin/ListClientConnectionsOptions.java",
+          "New options class"
+        ],
+        [
+          "clients/src/main/java/org/apache/kafka/clients/admin/ListClientConnectionsResult.java",
+          "New result class"
+        ],
+        [
+          "clients/src/main/java/org/apache/kafka/clients/admin/ClientConnectionInfo.java",
+          "New result element"
+        ],
+        [
+          "tools/src/main/java/org/apache/kafka/tools/",
+          "New CLI tool"
+        ]
+      ],
+      "nom": "tableau_5"
+    }
+  ]
+}

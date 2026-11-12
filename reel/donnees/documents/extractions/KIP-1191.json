@@ -1,0 +1,124 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1191",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "accepted",
+    "texte_libre": "Status\nCurrent state: Accepted\nDiscussion thread:here\nVote thread:here\nJIRA:here\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nintroduced queuing semantics to Apache Kafka for consumers using share groups. It describes the concepts of delivery counts and failed delivery attempts, but it did not have any automated processing for records which had reached their delivery attempt limit or just been rejected as unprocessable records.\nWhen a record is repeatedly delivered to a share group without being successfully acknowledged, it may be because the record has some kind of serialisation or semantic problem and is a so-called \"poison message\". The delivery attempt limit is enforced to prevent an endless loop of failed processing attempts, even in cases where the consuming application does not have adequate error handling and simply fails on each attempt. A well written consuming application can capture a failing record, and explicitly reject it, thus ending its delivery attempts more efficiently. These undeliverable records are candidates for placing on a dead-letter queue (DLQ) topic for inspection or special processing, as opposed to simply being put directly into theArchivedstate as described in KIP-932.\nApache Kafka already has dead-letter queues for Kafka Connect and Kafka Streams.A dead-letter queue in Kafka is a topic but “dead-letter queue” is a term already used in the industry.This KIP extends the idea to apply to share groups as well.\nProposed Changes\nIn Kafka, a \"dead-letter queue\" is a topic onto which records whose delivery failed are automatically written. A share group can be configured with the name of a topic to be used as the group's DLQ topic. For a share group with a DLQ topic, when a record's delivery is rejected by the consumer or the record reaches its maximum number of delivery attempts, it transitions to theArchivingstate, a record is written onto the DLQ topic, and then the record transitions into theArchivedstate.This DLQ record contains the context of the undeliverable record (topic name, partition, offset and so on) as record headers, and optionally the content of the undeliverable record itself.\nThe following context information headers are included in the DLQ record, overwriting existing headers of the same name if they already exist in the original record. To avoid clashing with headers from the original record, all error context information headers start with\"__dlq.errors.\":\n| Header name | Description\n| __dlq.errors.topic |\nThe name of the topic that contained the original record.\n| __dlq.errors.partition |\nThe partition that contains the original record (encoded as a UTF-8 string).\n| __dlq.errors.offset |\nThe offset of the original record (encoded as a UTF-8 string).\n| __dlq.errors.group |\nIf known, the group ID of the delivery of the original record.\n| __dlq.errors.delivery.count |\nIf known, the delivery count of the original record (encoded as a UTF-8 string).\n| __dlq.errors.message |\nThe reason for the original record's delivery failure.\nAdditionally, the broker can include the header, key and value of the original record in the DLQ record, but that takes additional configuration because copying the original record duplicates its content which may be undesirable in performance or security terms. Note that for situations in which the original record is not available when the DLQ record is written, such as log compaction or retention interval having caused removal of the original record, the DLQ record will not contain the original record data.\nThe broker may batch writing of records onto the DLQ topic for reasons of efficiency. It is possible in rare situations that more than one DLQ record could be written for a particular undeliverable record. This is because the broker does not guarantee to write the DLQ record onto the DLQ topic atomically with the associated write to the internal share-group state topic.\nIf"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1191",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Header name",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "__dlq.errors.topic",
+          "The name of the topic that contained the original record."
+        ],
+        [
+          "__dlq.errors.partition",
+          "The partition that contains the original record (encoded as a UTF-8 string)."
+        ],
+        [
+          "__dlq.errors.offset",
+          "The offset of the original record (encoded as a UTF-8 string)."
+        ],
+        [
+          "__dlq.errors.group",
+          "If known, the group ID of the delivery of the original record."
+        ],
+        [
+          "__dlq.errors.delivery.count",
+          "If known, the delivery count of the original record (encoded as a UTF-8 string)."
+        ],
+        [
+          "__dlq.errors.message",
+          "The reason for the original record's delivery failure."
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Configuration",
+        "Description",
+        "Values"
+      ],
+      "lignes": [
+        [
+          "errors.deadletterqueue.auto.create.topics.enable",
+          "Whether to create DLQ topics automatically. Note that automatic creation of the DLQ topics is independent of the auto.create.topics.enable configuration. When a DLQ topic is created automatically, the topic configuration errors.deadletterqueue.group.enable will be set to true .",
+          "Type: boolean, default: false"
+        ],
+        [
+          "errors.deadletterqueue.topic.name.prefix",
+          "The prefix of permitted dead-letter queue topic names. If this is set to &quot;&quot;, there is no restriction on the names used for dead-letter queue topics.",
+          "Type: string, default: &quot;dlq.&quot;"
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Configuration",
+        "Description",
+        "Values"
+      ],
+      "lignes": [
+        [
+          "errors.deadletterqueue.topic.name",
+          "The name of the topic to be used as the dead-letter queue (DLQ) for undeliverable records. The topic name is blank by default, which means that there is no DLQ topic for this group.",
+          "Type: string, default: &quot;&quot;, must not start with double underscore &quot;_ _&quot; to ensure that internal topics are not mistakenly used as DLQ topics"
+        ],
+        [
+          "errors.deadletterqueue.copy.record.enable",
+          "Whether to copy the record onto the dead-letter queue topic, or just to write a record containing the context information headers.",
+          "Type: boolean, default: false"
+        ]
+      ],
+      "nom": "tableau_3"
+    },
+    {
+      "colonnes": [
+        "Configuration",
+        "Description",
+        "Values"
+      ],
+      "lignes": [
+        [
+          "errors.deadletterqueue.group.enable",
+          "Whether the topic can be used as a DLQ topic for groups.",
+          "Type: boolean, default: false"
+        ]
+      ],
+      "nom": "tableau_4"
+    },
+    {
+      "colonnes": [
+        "Option",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "--ack-pattern",
+          "A list of acknowledge types (e.g. &quot;reject&quot;,&quot;release&quot;,&quot;accept&quot;) cycled through per record. When specified, requires acknowledgement_mode to be &quot;sync&quot; or &quot;async&quot;."
+        ]
+      ],
+      "nom": "tableau_5"
+    }
+  ]
+}

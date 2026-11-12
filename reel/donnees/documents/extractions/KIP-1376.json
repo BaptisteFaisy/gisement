@@ -1,0 +1,53 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-20728"
+    ],
+    "kip": "KIP-1376",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "in discussion",
+    "texte_libre": "Status\nCurrent state: In Discussion\nDiscussion thread:here\nJIRA:KAFKA-20728\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nNamed groups are how the JVM describes TLS key exchange schemes. APIs to use named groups have been added in Java 20.\nViaJEP 527: Post-Quantum Hybrid Key Exchange for TLS 1.3, new key exchange schemes resistant to quantum attacks, usually referred to as Post Quantum Cryptography (PQC), are being introduced. This JEP was initially delivered in Java 27. It's being backported by several implementations to earlier Java versions. Note that theSSLParameters.setNamedGroups()API is available from Java 20, but the PQC named groups themselves (e.g.x25519_mlkem768) require Java 27 or a vendor backport that includes JEP 527.\nDue to threats like \"harvest now, decrypt later\", many organizations are now actively considering PQC TLS. It is also mandated by several governments and industries such as finance, healthcare and defense.\nPublic Interfaces\nAll communication channels that are encrypted via TLS need to support PQC. This includes:\nClient to broker/controller\nBroker/controller to client\nBroker/controller to broker/controller\nConnect workers accepting REST traffic\nConnect worker to Connect worker\nOAuth token retrieval (client)\nOAuth JWKS retrieval (server)\nTo cover all these scenarios, a single configuration can be used:\nName: ssl.named.groups\nType: List\nDefault: Empty, the default JVM named groups are used\nDescription: An ordered list of key exchange named groups to use for SSL connections, with the most preferred group first. The supported values depend on the SSL provider and Java runtime.\nIt can be set in clients, servers, Streams instances and Connect worker configurations. For example:\nOn servers, it can also be set per listener, for example:\nFor OAuth it must be set viasasl.jaas.configor a JAAS file, for example:\nIf the configuration is set and the JVM does not support the named groups APIs, aConfigExceptionwill be thrown at startup.\nIf the configuration is set to unknown named groups, the failure happens when the TLS connection is established. This is the same behavior as withssl.cipher.suites.\nIf the configuration is set, like withssl.cipher.suites, a TLS connection can only be established when the client and server share at least one named group.\nThe TLS version (set via ssl.protocol) gates what named groups are valid and automatically drops entries not compatible (like for ciphers).\nProposed Changes\nThe named groups APIs are only available in Java 20+. Because the Kafka modules still support Java 11 (clients) and Java 17 (servers), logic trying to set named groups will use reflection so it compiles with the currently supported Java versions.\nClients/Servers\nTheDefaultSslEngineFactoryclass handles the TLS logic for clients and brokers. Ifssl.named.groupsis set, theSSLParameters.setNamedGroups()method will be called via reflection.\nOAuth\nThe OAuth/OIDC implementation makes two types of outbound HTTPS connections to the identity provider:\nToken retrieval (client-side):OAuthBearerLoginCallbackHandlerusesHttpJwtRetrieverto fetch JWT access tokens from the token endpoint. Every Kafka client (producer, consumer, admin) and broker (for inter-broker OAuth) makes this call on each token refresh.\nJWKS key retrieval (broker-side):OAuthBearerValidatorCallbackHandlerusesVerificationKeyResolverFactoryto periodically fetch the identity provider's public keys from the JWKS endpoint, which are used to verify JWT signatures.\nTheJaasOptionsUtils.createSSLSocketFactory()method will be updated to wrap the returnedSSLSocketFactoryso thatSSLParameters(including named groups, cipher suites, and enabled protocols) are applied to each socket after creation, mirroring whatDefaultSslEngineFactorydoes for clients and servers.\nConnect REST API\nConnect uses Jetty to expose its REST API for users and for worker-to-worker communications.\nServer-side: This ha"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1376",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "ssl.named.groups",
+        "jdk.tls.namedGroups",
+        "Behavior"
+      ],
+      "lignes": [
+        [
+          "not set",
+          "not set",
+          "JVM built-in defaults"
+        ],
+        [
+          "not set",
+          "set",
+          "System property applies"
+        ],
+        [
+          "set",
+          "not set",
+          "Kafka config applies"
+        ],
+        [
+          "set",
+          "set",
+          "Kafka config takes precedence:If ssl.named.groups is set all connections use the specified named groups.If only listener.name.internal.ssl.named.groups is set, the internal listener uses the specified named groups. If there are other listeners, they use the system property if it's set, otherwise the JVM built-in defaults."
+        ]
+      ],
+      "nom": "tableau_1"
+    }
+  ]
+}

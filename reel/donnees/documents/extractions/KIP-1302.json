@@ -1,0 +1,187 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1302",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state: Under discussion\nDiscussion thread:here\nJIRA:ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-20367\n1 Motivation\nKafka Connect sink tasks currently consume through ordinary consumer groups. Kafka partitions are assigned exclusively to task consumers, which limits useful input parallelism to the partition count.\nShare groups allow different tasks to acquire different records from the same partition. This is useful for independent, unordered work delivered to databases, services, or other external systems.\nHowever, changing the consumer implementation is insufficient.\nExisting sink connectors may depend on:\nExclusive ownership of a source partition.\nOrdered delivery.\nPartition lifecycle callbacks.\nOffset-based recovery.\nBuffered writes that become durable only duringflush()orpreCommit().\nIn particular, ordinarySinkTask.put()is allowed to return before destination writes are durable.put returns after buffering -> worker ACCEPTs input -> worker crashes -> buffered destination write is lost\nShare mode therefore needs an explicit connector-completion contract.\nThis proposal introduces an opt-in share sink runtime for compatible connectors. It providesat-least-once delivery by acknowledging exact acquired inputs only after their destination outcomes are durable.\nDestination effects can repeat when a write succeeds but acknowledgement does not complete.\nNote:\nShare Groups (KIP-932) introduce queue semantics for Kafka consumers. Unlike consumer groups, Share Groups do not assign partitions exclusively.\nInstead, records from a partition areacquiredby any available consumer in the group. After processing, the consumeracknowledgesthe record (ACCEPT, RELEASE, ARCHIEVED, or REJECT).\nThis provides:\n-Elastic Scaling:Decouples parallelism from partition count,\n-No Head-of-Line Blocking:Supportsunordered message processing; if a task slows down, records time out and are redelivered to available workers.\n-Seamless Scaling:Eliminates \"rebalance storms\" by removing the partition assignment protocol, ensuring zero downtime during task membership changes.\nNote: The share groups are only suitable for connectors withidempotent, order-independentprocessing.\n3. Public Interfaces\npoll -> conversion / SMT -> put -> later preCommit / flush -> offset commit\n| User-visible behaviour | Ordinary sink mode | Share sink mode\n| Selection | Default, orconsumer.type=consumer | consumer.type=share\n| Distribution | One task owns each assigned partition | Several tasks can process distinct records from one partition\n| Progress tracking | Committed partition offsets | Individual record acknowledgements\n| Successfulput() | May buffer writes for later flush | Every supplied record must already be durable\n| Slow processing | Task must remain within consumer polling limits | Owner thread renews record leases within processing limits\n| Recovery | Records after committed offsets can return | Records without confirmed completion can return\n| Ordering | Partition dispatch order; destination behaviour depends on |\nConcurrent and out-of-order completion\nRest API :\nDuplicates remain possible and will be taken care in next enhancement with txn. Mostly using KIP-1289:1. Worker A durably writes record 100 to the database.\n2. Worker A crashes before Kafka confirms its ACCEPT.\n3. The acquisition expires and Worker B receives record 100.\n4. Worker B writes it again.\nShare-compatible task contract\nIntroduce a public opt-in task type:public abstract class ShareSinkTask extends SinkTask {\n}\nIts contract differs from ordinarySinkTask:\nA successfulput(records)return means every supplied record has a durable destination outcome.\nFailures must be reported.\nPartial destination success before failure remains possible.\nThe implementation supports sparse, unordered inputs and nonexclusive source partitions.\nOffset frontiers do not determine share acknowledgement eligibility.\nExisting sink connectors continue using their current contract in ordinary consumer mode.\nA connecto"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1302",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "User-visible behaviour",
+        "Ordinary sink mode",
+        "Share sink mode"
+      ],
+      "lignes": [
+        [
+          "Selection",
+          "Default, or consumer.type=consumer",
+          "consumer.type=share"
+        ],
+        [
+          "Distribution",
+          "One task owns each assigned partition",
+          "Several tasks can process distinct records from one partition"
+        ],
+        [
+          "Progress tracking",
+          "Committed partition offsets",
+          "Individual record acknowledgements"
+        ],
+        [
+          "Successful put()",
+          "May buffer writes for later flush",
+          "Every supplied record must already be durable"
+        ],
+        [
+          "Slow processing",
+          "Task must remain within consumer polling limits",
+          "Owner thread renews record leases within processing limits"
+        ],
+        [
+          "Recovery",
+          "Records after committed offsets can return",
+          "Records without confirmed completion can return"
+        ],
+        [
+          "Ordering",
+          "Partition dispatch order; destination behaviour depends on",
+          "Concurrent and out-of-order completion"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Property",
+        "Default",
+        "Meaning"
+      ],
+      "lignes": [
+        [
+          "consumer.type",
+          "consumer",
+          "Select ordinary consumer or share mode."
+        ],
+        [
+          "share.group.id",
+          "connect-share-&lt;connector-name&gt;",
+          "Share-group identity for this connector’s tasks."
+        ],
+        [
+          "share.processing.max.age.ms",
+          "To be agreed",
+          "Bound the acquisition-to-finalisation processing window."
+        ],
+        [
+          "share.processing.cancel.grace.ms",
+          "To be agreed",
+          "Wait for actual execution exit after cancellation is requested."
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Lane",
+        "Responsibility"
+      ],
+      "lignes": [
+        [
+          "Consumer-control loop",
+          "Polling, acquisition, renewal, acknowledgement results, membership, and claim tracking."
+        ],
+        [
+          "Task execution lane",
+          "Converters, SMTs, serial put() calls, and plugin lifecycle."
+        ]
+      ],
+      "nom": "tableau_3"
+    },
+    {
+      "colonnes": [
+        "Situation",
+        "Behavior"
+      ],
+      "lignes": [
+        [
+          "put() succeeds durably",
+          "Original inputs become eligible for ACCEPT."
+        ],
+        [
+          "put() partially writes and throws",
+          "Retry can repeat completed destination writes."
+        ],
+        [
+          "Destination request times out",
+          "Its external outcome may be unknown; do not assume nothing happened."
+        ],
+        [
+          "Retriable processing failure",
+          "Retry or relinquish according to policy, without successful terminal ACK."
+        ],
+        [
+          "Infrastructure failure",
+          "Fail or retry; do not automatically REJECT valid records."
+        ],
+        [
+          "Claim expires during destination work",
+          "Another member may process the input; duplicate effects are possible."
+        ],
+        [
+          "ACK results partially succeed",
+          "Preserve per-partition results; aggregate failure does not mean nothing applied."
+        ],
+        [
+          "ACK response is lost",
+          "Outcome remains uncertain; do not bind a fresh ACK to a replaced acquisition."
+        ]
+      ],
+      "nom": "tableau_4"
+    },
+    {
+      "colonnes": [
+        "Alternative",
+        "Reason"
+      ],
+      "lignes": [
+        [
+          "Replace KafkaConsumer transparently for every sink",
+          "Existing ownership, ordering, context, and durability assumptions are incompatible."
+        ],
+        [
+          "ACCEPT whenever ordinary put() returns",
+          "Ordinary put() may only buffer data."
+        ],
+        [
+          "Translate preCommit() frontiers into share ACKs",
+          "Old or monotonic frontiers do not prove completion of newly delivered sparse inputs."
+        ],
+        [
+          "Use implicit acknowledgement",
+          "The next poll could acknowledge work before destination durability."
+        ],
+        [
+          "Treat every fatal exception as permanent record rejection",
+          "Infrastructure failures do not establish that input is invalid."
+        ],
+        [
+          "Promise generic external EOS",
+          "Kafka acknowledgement does not atomically commit arbitrary destination effects."
+        ]
+      ],
+      "nom": "tableau_5"
+    }
+  ]
+}

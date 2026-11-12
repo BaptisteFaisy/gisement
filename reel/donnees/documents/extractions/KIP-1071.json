@@ -1,0 +1,294 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-17125",
+      "KAFKA-20169",
+      "KAFKA-20116",
+      "KAFKA-20170",
+      "KAFKA-20172",
+      "KAFKA-20171"
+    ],
+    "kip": "KIP-1071",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "accepted",
+    "texte_libre": "Status\nCurrent state:Accepted\nDiscussion thread:here\nJIRA:\nKAFKA-17125(EA [4.1.0 release] and \"GA with limited feature set\" – 4.2.0)\nKAFKA-20169(static group membership – 4.4.0)\nKAFKA-20116(warmup task support – targeting 4.5.0)\nThis item is tracked as \"HA assignor\" but the actual design of adding warmup task only, and there is still only \"sticky\" assignor; historically, in the \"classic\" protocol, warmup tasks and HA-assignor where tightly coupled, but with \"streams\" groups, warmup tasks can be enabled for any assignor\nKAFKA-20170(topology upgrades – TBD)\nKAFKA-20172(online migration – TBD)\nKAFKA-20171(regex topic subscription – TBD)\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nNote that this is joint work byand.\nMotivation\nKafka Streams clients use a protocol to distribute stream processing tasks among Streams clients. Since the inception of Streams, this has worked by piggybacking custom byte payloads on the pre-KIP-848 consumer rebalance protocol. A custom partition assignor on one of the Streams clients would perform task assignment and various other centralized tasks, such as internal topic initialization. While this approach has served its purpose well and the streams partition assignor has achieved impressive flexibility and complexity over the years, it has also had a number of deficiencies:\nA large fraction of the production incidents in Kafka Streams are caused by bugs in the rebalancing logic or misconfiguration thereof. With the rebalance logic being run on the processing node, the implementer of the business logic is also typically responsible for configuring, upgrading and debugging the rebalance logic.\nWhen rebalance problems occur, the timeline of events and information that caused the rebalance and influenced the assignment is spread across all clients, making it difficult to debug.\nSince streams versions on the client are notoriously slow to be picked up by teams building the processing logic, bugs in the rebalance logic are prevalent for years after being fixed on trunk.\nSince assignment logic is controlled by the streams application, tuning the parameters of the assignment logic requires redeployment of the application, which in itself triggers rebalances (and reassignments), creating a vicious cycle.\nWith the rebalance logic being based on the metadata on one of the Streams clients, metadata inconsistencies among clients have caused a variety of issues.\nParticularly, the use of raw byte arrays in the protocol means that brokers cannot understand or validate the payload that is propagated among Streams clients.\nIn the implementation, piggybacking the task assignment logic on the consumer partition assignment and injecting the required Streams metadata and functionality into the general-purposeKafkaConsumerinterface has required a number of workarounds, increasing code complexity and hurting the maintainability of the code. This has affected both the streams code, which had to work around the restrictions of the consumer interface, and the consumer, whose interface had to be padded to account for Kafka Streams requirements.\nBecause the protocol is not Kafka Streams native, advanced features like “smooth scale out” or “application shutdown on error” and others require workarounds like probing rebalances, which are disruptive for the running application as well as often hard to reason about by users.\nKIP-848introduced the next generation of the consumer rebalance protocol, which also requires a redefinition of the streams rebalance protocol. We propose to use this change in the protocol to solve or alleviate the above problems by introducing a dedicated protocol for Kafka Streams, which uses dedicated RPCs for task rebalancing and where centralized logic such as topic initialization and task assignment are performed centrally by the brokers’ group coordinator.\nDesign Goals\nWe propose to introduce new RPCs designed to make Streams initia"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1071",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Configuration",
+        "Description",
+        "Values"
+      ],
+      "lignes": [
+        [
+          "group.coordinator.rebalance.protocols",
+          "The list of enabled rebalance protocols.",
+          "&quot;streams&quot; is included in the list of protocols to enable streams groups.This will be added to the default value of this configuration property once this feature is complete."
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Name",
+        "Type",
+        "Default",
+        "Doc"
+      ],
+      "lignes": [
+        [
+          "group.streams.session.timeout.ms",
+          "int",
+          "45s",
+          "The timeout to detect client failures when using the streams group protocol."
+        ],
+        [
+          "group.streams.min.session.timeout.ms",
+          "int",
+          "45s",
+          "The minimum session timeout."
+        ],
+        [
+          "group.streams.max.session.timeout.ms",
+          "int",
+          "60s",
+          "The maximum session timeout."
+        ],
+        [
+          "group.streams.heartbeat.interval.ms",
+          "int",
+          "5s",
+          "The heartbeat interval given to the members."
+        ],
+        [
+          "group.streams.min.heartbeat.interval.ms",
+          "int",
+          "5s",
+          "The minimum heartbeat interval."
+        ],
+        [
+          "group.streams.max.heartbeat.interval.ms",
+          "int",
+          "15s",
+          "The maximum heartbeat interval."
+        ],
+        [
+          "group.streams.max.size",
+          "int",
+          "MaxValue",
+          "The maximum number of streams clients that a single streams group can accommodate."
+        ],
+        [
+          "group.streams.acceptable.recovery.lag",
+          "long",
+          "10’000",
+          "The maximum acceptable lag (number of offsets to catch up) for a client to be considered caught-up enough to receive an active task assignment."
+        ],
+        [
+          "group.streams.num.warmup.replicas",
+          "int",
+          "2",
+          "The maximum number of warmup replicas."
+        ],
+        [
+          "group.streams.max.warmup.replicas",
+          "int",
+          "20",
+          "Maximum for dynamic configurations of the warmup replica configuration"
+        ],
+        [
+          "group.streams.num.standby.replicas",
+          "int",
+          "0",
+          "The number of standby replicas for each task."
+        ],
+        [
+          "group.streams.max.standby.replicas",
+          "int",
+          "2",
+          "Maximum for dynamic configurations of the standby replica configuration"
+        ],
+        [
+          "group.streams.task.offset.interval.ms",
+          "int",
+          "60s",
+          "The interval in which the task changelog offsets on a client are updated on the broker. The offsets are sent with the next heartbeat after this time has passed."
+        ],
+        [
+          "group.streams.min.task.offset.interval.ms",
+          "int",
+          "15s",
+          "Minimum for dynamic configurations of the task offset interval. Used to restrict users of the cluster from sending the task changelog offsets too often."
+        ],
+        [
+          "group.streams.assignor.name",
+          "string",
+          "null",
+          "The name of the task assignor used for all streams groups. Can be sticky or highly_available in AK. Cf which replaces this config with group.streams.assignors."
+        ],
+        [
+          "group.streams.initial.rebalance.delay.ms",
+          "int",
+          "3000",
+          "The first rebalance of a group is delayed by this amount to allow more members to join the group."
+        ],
+        [
+          "group.streams.rack.aware.assignment.tags",
+          "string[]",
+          "empty list",
+          "The client tags used for rack aware standby task assignment."
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Name",
+        "Type",
+        "Default"
+      ],
+      "lignes": [
+        [
+          "streams.session.timeout.ms",
+          "int",
+          "45s"
+        ],
+        [
+          "streams.heartbeat.interval.ms",
+          "int",
+          "5s"
+        ],
+        [
+          "streams.acceptable.recovery.lag",
+          "long",
+          "10’000"
+        ],
+        [
+          "streams.num.warmup.replicas",
+          "int",
+          "2"
+        ],
+        [
+          "streams.num.standby.replicas",
+          "int",
+          "0"
+        ],
+        [
+          "streams.task.offset.interval.ms",
+          "int",
+          "60s"
+        ],
+        [
+          "streams.assignor.name",
+          "string",
+          "null"
+        ],
+        [
+          "streams.initial.rebalance.delay.ms",
+          "int",
+          "3000"
+        ],
+        [
+          "streams.rack.aware.assignment.tags",
+          "string[]",
+          "empty list"
+        ]
+      ],
+      "nom": "tableau_3"
+    },
+    {
+      "colonnes": [
+        "Name",
+        "Type",
+        "Default",
+        "Doc"
+      ],
+      "lignes": [
+        [
+          "group.protocol",
+          "enum",
+          "classic",
+          "A flag which indicates if the new protocol should be used or not. It could be: classic or streams"
+        ],
+        [
+          "topology.epoch",
+          "int",
+          "0",
+          "The epoch of the topology for the streams group. Ignored if group.protocol=classic"
+        ]
+      ],
+      "nom": "tableau_4"
+    },
+    {
+      "colonnes": [
+        "Method signature",
+        "Description",
+        "RPC used"
+      ],
+      "lignes": [
+        [
+          "AlterStreamsGroupOffsetsResult alterStreamsGroupOffsets(String groupId, Map&lt;TopicPartition, Long&gt; offsets)",
+          "Alter offset information for a streams group.",
+          "OffsetCommit"
+        ],
+        [
+          "AlterStreamsGroupOffsetsResult alterStreamsGroupOffsets(String groupId, Map&lt;TopicPartition, Long&gt; offsets, AlterStreamsGroupOffsetsOptions options)",
+          "Alter offset information for a streams group.",
+          "OffsetCommit"
+        ],
+        [
+          "DeleteStreamsGroupOffsetsResult deleteStreamsGroupOffsets(String groupId, Set&lt;String&gt; topics)",
+          "Delete offset information for a set of topics in a streams group.",
+          "OffsetDelete"
+        ],
+        [
+          "DeleteStreamsGroupOffsetsResult deleteStreamsGroupOffsets(String groupId, Set&lt;String&gt; topics, DeleteStreamsGroupOffsetsOptions options)",
+          "Delete offset information for a set of topics in a streams group.",
+          "OffsetDelete"
+        ],
+        [
+          "DeleteStreamsGroupResult deleteStreamsGroups(Collection&lt;String&gt; groupIds)",
+          "Delete streams groups from the cluster.",
+          "DeleteGroups"
+        ],
+        [
+          "DeleteStreamsGroupResult deleteStreamsGroups(Collection&lt;String&gt; groupIds, DeleteStreamsGroupOptions options)",
+          "Delete streams groups from the cluster.",
+          "DeleteGroups"
+        ],
+        [
+          "DescribeStreamsGroupsResult describeStreamsGroups(Collection&lt;String&gt; groupIds)",
+          "Describe some streams groups in the cluster.",
+          "StreamsGroupDescribe"
+        ],
+        [
+          "DescribeStreamsGroupsResult describeStreamsGroups(Collection&lt;String&gt; groupIds, DescribeStreamsGroupsOptions options)",
+          "Describe some streams groups in the cluster.",
+          "StreamsGroupDescribe"
+        ],
+        [
+          "ListStreamsGroupOffsetsResult listStreamsGroupOffsets(Map&lt;String, ListStreamsGroupOffsetsSpec&gt; groupSpecs)",
+          "List the streams group offsets available in the cluster for the specified Streams groups.",
+          "OffsetFetch"
+        ],
+        [
+          "ListStreamsGroupOffsetsResult listStreamsGroupOffsets(Map&lt;String, ListStreamsGroupOffsetsSpec&gt; groupSpecs, ListStreamsGroupOffsetsOptions options)",
+          "List the streams group offsets available in the cluster for the specified Streams groups.",
+          "OffsetFetch"
+        ]
+      ],
+      "nom": "tableau_5"
+    }
+  ]
+}

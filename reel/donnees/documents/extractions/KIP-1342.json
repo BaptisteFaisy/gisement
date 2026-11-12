@@ -1,0 +1,23 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-18800",
+      "KAFKA-18888"
+    ],
+    "kip": "KIP-1342",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state: Under Discussion\nDiscussion thread:https://lists.apache.org/thread/0frtc6h3y9ts89do3qb9yk6oj3o1ktg2\nJIRA:KAFKA-18800\nTarget release: 4.5\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nAuthorizer#aclCount()was added byKIP-801(PR #11649, Kafka 3.2) so that the broker could publish anAclCountmetric by reading the value from the authorizer. The broker side of that plan was never implemented.\nKIP-877later introducedMonitorable/PluginMetrics, which lets every plugin register its own metrics. Authorizers gained that support in 4.1 (KAFKA-18888,PR #19050), andStandardAuthorizernow publishesacls-total-countthroughPluginMetrics, backed by exactly the same data asAuthorizer#aclCount().\nWithPluginMetricsavailable,Authorizer#aclCount()no longer has a purpose, so this KIP deprecates it. Third-party authorizers that want an ACL-count metric, or any other metric, should implementMonitorableper KIP-877.\nPublic Interfaces\nAuthorizer#aclCount()is marked@Deprecated(forRemoval = true).java\nNo other public API changes. Theacls-total-countmetric name, type, and tag set produced byStandardAuthorizerare unchanged.\nProposed Changes\nDeprecateAuthorizer#aclCount()in 4.5 and remove it in 5.0.\nMake theacls-total-countgauge inStandardAuthorizerread the count fromStandardAuthorizerDatadirectly instead of callingaclCount(). The metric value does not change.\nRemove StandardAuthorizer#aclCount()in 4.5.\nCompatibility, Deprecation, and Migration Plan\nAuthorizer#aclCount()stays on the interface with the same signature and the same-1default, so existing authorizers keep compiling and running. The only visible effect is a deprecation warning.\nNo metric changes for anyone.StandardAuthorizerkeeps publishingacls-total-countunder the same name and tags, and since the broker never usedAuthorizer#aclCount(), third-party authorizers never had a metric derived from it.\nA third-party authorizer can define its own metrics throughMonitorable(supported for authorizers since 4.1). It does not need to follow the metric names used byStandardAuthorizer. For example:javajava\nThe deprecation will be listed in the 4.5 upgrade notes, and the method will be removed in Kafka 5.0.\nTest Plan\nPR #23521(merged) added a unit test for theacls-total-countmetric. It does not depend on this KIP.\nRejected Alternatives\nKeepAuthorizer#aclCount()as is.The broker never reads it, so keeping it could mislead third-party implementations.\nFinish the KIP-801 plan by having the broker publish anAclCountmetric fromaclCount().This is no longer needed, because authorizers can now register their own metrics throughPluginMetrics(KIP-877)."
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1342",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": []
+}

@@ -9,9 +9,10 @@ silently publishing a zero (9.3, 11.3).
 from __future__ import annotations
 
 from collections.abc import Sequence
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from decimal import Decimal
 
+from gisement.calcul.occurrences import statistiques
 from gisement.processus.declaration import (
     ORIGINE_DECLAREE,
     ORIGINE_MESUREE,
@@ -19,6 +20,7 @@ from gisement.processus.declaration import (
     entree_gisement,
     processus_de,
 )
+from gisement.types.communs import arrondi
 from gisement.types.economie import EntreeGisement
 from gisement.types.mesure import Motif, Processus
 
@@ -44,17 +46,57 @@ class MesureProcessus:
 
 
 def index_motifs(motifs: Sequence[Motif]) -> dict[tuple[str, str], Motif]:
-    """Key the measured motifs by (catalogue ref, service)."""
-    index: dict[tuple[str, str], Motif] = {}
+    """Key the measured motifs by (catalogue ref, service).
+
+    Several fingerprint groups can carry the same (ref, service): a real Jira
+    has thousands of distinct subjects, and the deterministic fingerprint gives
+    one group per subject. Their occurrences are therefore **summed** before the
+    process is attached - taking the biggest group alone would publish a zero
+    median for a process the channels did observe, and would declare invisible
+    what is really measured (the real corpus of `reel/`).
+    """
+    groupes: dict[tuple[str, str], list[Motif]] = {}
     for motif in motifs:
         if not motif.catalogue_ref:
             continue
         for service in motif.services or ("",):
-            cle = (motif.catalogue_ref, service)
-            precedent = index.get(cle)
-            if precedent is None or motif.occurrences.mediane > precedent.occurrences.mediane:
-                index[cle] = motif
+            groupes.setdefault((motif.catalogue_ref, service), []).append(motif)
+    index: dict[tuple[str, str], Motif] = {}
+    for cle, couple in groupes.items():
+        fusion = _fusionner(couple)
+        precedent = index.get(cle)
+        if precedent is None or fusion.occurrences.mediane > precedent.occurrences.mediane:
+            index[cle] = fusion
     return index
+
+
+def _fusionner(couple: Sequence[Motif]) -> Motif:
+    """One (motif, service) measured over several fingerprint groups."""
+    if len(couple) == 1:
+        return couple[0]
+    series: dict[int, Decimal] = {}
+    for motif in couple:
+        for index, valeur in enumerate(motif.occurrences.serie):
+            series[index] = series.get(index, Decimal(0)) + valeur
+    serie = tuple(series[index] for index in sorted(series))
+    occurrences = statistiques(serie)
+    total = sum(serie, Decimal(0))
+    atypiques = sum(motif.part_atypique_nb_cas for motif in couple)
+    porteur = max(couple, key=lambda motif: (motif.duree_nb_cas, motif.confiance))
+    return replace(
+        porteur,
+        occurrences=occurrences,
+        duree_unitaire_minutes=porteur.duree_unitaire_minutes,
+        duree_ecart_minutes=porteur.duree_ecart_minutes,
+        duree_nb_cas=int(total),
+        part_atypique=arrondi(atypiques / total, 4) if total > 0 else Decimal(0),
+        part_atypique_nb_cas=atypiques,
+        canaux=tuple(sorted({canal for motif in couple for canal in motif.canaux})),
+        services=tuple(sorted({service for motif in couple for service in motif.services})),
+        empreintes=tuple(sorted({e for motif in couple for e in motif.empreintes})),
+        confiance=max(motif.confiance for motif in couple),
+        nouveau=any(motif.nouveau for motif in couple),
+    )
 
 
 def agreger(

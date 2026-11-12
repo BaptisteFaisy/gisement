@@ -1,0 +1,41 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-909",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "accepted",
+    "texte_libre": "Status\nCurrent state: Accepted\nDiscussion thread:here\nJIRA:here\nMotivation\nInstantiating a new client may result in a fatal failure if the bootstrap server cannot be resolved due to misconfiguration or transient network issues such as slow DNS. This is suboptimal because of the fact that it might take a long time for the address to become available at the DNS server, and users will need to continue to retry. Also, the ConfigException exception type does not accurately reflect the root cause of the problem, which makes it hard to handle this failure case. We think it is reasonable to allow users to have a grace period to retry if the address cannot be resolved immediately. Also, poisoning the clients during the construction can be obstructive; I think it is better to fail the client on its first attempt to connect to the network.\nProposed Changes\nThis KIP proposes moving bootstrapping logic from the constructor to the NetworkClient poll for two purposes,\n1. not failing the client upon instantiation. In many cases, this behavior also kills the app, which might not be desirable.\n2. piggybacking onto the client poll is a more natural way to retry.\nWe propose to add a new configuration option for timing out the bootstrapping process, a new exception type for handling bootstrap-related issues, and additional logging to aid in diagnosing bootstrapping failures.\nThis new feature will be default in AK 5.0\nPublic Facing Changes\nTimeout Configuration:bootstrap.resolve.timeout.ms\nException: BootstrapResolutionExceptionextends KafkaException\nLogging:log.WARN(\"Unable to bootstrap after {} ms.\", elapsedMs)\nInternal Changes\nThe client's bootstrap DNS resolution mode is selected bybootstrap.resolve.timeout.ms:\nSynchronous mode (bootstrap.resolve.timeout.ms= 0, default):\nThe client constructor calls ClientUtils.parseAndValidateAddresses(...) and primes its Metadata with the resolved cluster.\nA resolution failure is thrown from the constructor as ConfigException, wrapped by the constructor's outer catch into KafkaException; no client instance is created.\nNetworkClient is constructed with BootstrapConfiguration.DISABLED and performs no bootstrap resolution of its own.\nAsynchronous mode (bootstrap.resolve.timeout.ms> 0):\nThe constructor parses the bootstrap configuration but does NOT resolve DNS. The client instance is returned to the caller immediately.\nNetworkClient.ensureBootstrapped() is invoked on every poll and, when no pending resolution exists, submits an asynchronous DNS resolution via CompletableFuture.supplyAsync on a per-client executor.\nIf a resolution completes successfully, the resolved addresses are handed to the MetadataUpdater (DefaultMetadataUpdater#bootstrap or AdminMetadataManager#bootstrap).\nIf the bootstrap timer expires before any resolution succeeds, NetworkClient.checkBootstrapTimeout() records a BootstrapResolutionException as a permanent bootstrapFatalException on the Metadata (Metadata.bootstrapFatalError). ensureBootstrapped and maybeStartBootstrapResolution both short-circuit if the fatal exception is set; the client will not retry after this point.\nThe permanent flag is intentional: Metadata.maybeThrowBootstrapFatalException() is called from Metadata.maybeThrowFatalException() and clearErrorsAndMaybeThrowException(), and also directly from the API-entry helpers of Producer / Consumer / ShareConsumer / Admin, so every subsequent API call re-throws BootstrapResolutionException. The caller must close the client and construct a new one to recover.\nThe switch is centralized in ClientUtils:\nmaybeBootstrapMetadataSynchronously(config, bootstrapServers, metadata): no-op when timeout > 0; primes metadata otherwise.\nbootstrapConfiguration(config, bootstrapServers): returns BootstrapConfiguration.DISABLED when timeout = 0, otherwise BootstrapConfiguration.enabled(...).\nAffected clients: KafkaProducer, AsyncKafkaConsumer, ClassicKafkaConsumer, ShareConsumerImpl, KafkaAdminClient, and Connect's WorkerGroupMember.\nDNS Resolution "
+  },
+  "confiance": 0.8,
+  "document_id": "KIP-909",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Type:",
+        "long"
+      ],
+      "lignes": [
+        [
+          "Default:",
+          "0"
+        ],
+        [
+          "Valid Values:",
+          "0 - LONG_MAX"
+        ],
+        [
+          "Importance:",
+          "high"
+        ]
+      ],
+      "nom": "tableau_1"
+    }
+  ]
+}

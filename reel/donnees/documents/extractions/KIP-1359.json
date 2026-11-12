@@ -1,0 +1,53 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1359",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state: Under discussion\nDiscussion thread:here\nJIRA:here[Change the link from KAFKA-1 to your own ticket]\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nApache Kafka command-line tools provide the ability to reset offsets for consumer groups, share groups and streams groups. However, the usability of these tools is not great, particularly when offset information is exported to a file and then imported again.\nFor example, consider how the user exports offset information from one consumer group and resets another consumer group using those offsets. The commands look like this:bash\nThe first command exports the offset information for consumer group CG1 and topic T1, at the current position, in CSV format and then redirects it to a file called \"offsets.csv\". The second command reads the offset information from that file and executes the reset operation on the offsets for consumer group CG2 and topic T1.\nThe first command is the strange one. Given that the command is really just exporting offset information, it's not resetting offsets at all. But that's really just because--dry-runwas specified. If--executehad been specified, the command WOULD have reset the offsets on consumer group CG1, as well as exporting the offset information. The--exportoption doesn't export at all. What it does is format the output in CSV format rather than a human-readable table.\nThere is another usability problem which is that the dry-run operation for resetting offsets cannot easily check the group type. Resetting offsets can be used on a non-existent group as a way of initialising the group's position. If the user performs the dry-run reset operation for a share group when that group ID is actually a different type of group, the command works, but when they actually execute the reset operation, it fails because the group type is wrong. Really, we'd like to catch the incorrect group type in both cases, and to do this efficiently needs a change in the Admin API.\nProposed Changes\nThis KIP proposes introducing a new--export-offsetsoption onbin/kafka-consumer-groups.sh,bin/kafka-share-groups.shandbin/kafka-streams-groups.sh. This new option does not reset the offsets of the group, it just captures the offset information and exports it in CSV form. There is no need to specify--dry-runnor--executebecause they are not relevant to the export operation. The--exportsuboption of--reset-offsetsis deprecated for removal in Apache Kafka 5.0.\nThe example then becomes:bash\nThe output format is unchanged. The output from--export-offsetsis exactly the same as--reset-offsets --exportgenerates.\nIn order to improve the usability of the tools further, a new admin client method calleddescribeGroupsis added which returns group descriptions for a set of groups, regardless of group type. This makes it easy to check whether a group exists and discover the group type, something that is not easy to achieve with the admin client today.\nPublic Interfaces\nClient API changes\nAdmin client\nAdd the following methods on theorg.apache.kafka.clients.admin.Admininterface.\n| Method signature | Description\n| DescribeGroupsResult describeGroups(Collection<String> groupIds) | Describe some groups in the cluster.\n| DescribeGroupsResult describeGroups(Collection<String> groupIds, DescribeGroupsOptions options) | Describe some groups in the cluster.\nThis method will only be supported when talking to a broker which supports the newDescribeGroupsGenericRPC. This means that the command-line tools will need to handle the situation where the method throwsUnsupportedVersionExceptionand then fall back to the type-specificAdmin.describeXXXGroups(groupIds)method instead.\nHere are the method signatures.java\nDescribeGroupsOptionsjava\nDescribeGroupsResultjava\nGroupDescriptionjava\nCommand-line tools\nNote that--export-offsetsdoes not support--from-fileas an offset specification, which differs from--reset-offsets. Of "
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1359",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Method signature",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "DescribeGroupsResult describeGroups(Collection&lt;String&gt; groupIds)",
+          "Describe some groups in the cluster."
+        ],
+        [
+          "DescribeGroupsResult describeGroups(Collection&lt;String&gt; groupIds, DescribeGroupsOptions options)",
+          "Describe some groups in the cluster."
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "RPC",
+        "Operation",
+        "Resource"
+      ],
+      "lignes": [
+        [
+          "DescribeGroupsGeneric",
+          "Read",
+          "Group"
+        ]
+      ],
+      "nom": "tableau_2"
+    }
+  ]
+}

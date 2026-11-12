@@ -1,0 +1,67 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1352",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state:Under Discussion\nDiscussion thread:link\nJIRA:link\nPull Request:link\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nWhile the Kafka Streams DSL excels at temporal grouping through Tumbling, Hopping, and Sliding windows, these native constructs are fundamentally time-centric. They group records into absolute time buckets and output continuously updatingKTablechangelogs via incremental aggregation. Many real-world stream processing use cases require a more dynamic, event-centric context. Developers frequently need to evaluate a holistic 'range' of events relative to the arrival of a specific anchor record (e.g., 'the 3 events before and 2 events after this specific transaction'). Furthermore, these use cases often require the evaluation to be an immutable, point-in-time calculation rather than an infinitely updatingKTablethat triggers complex cascading updates when late data arrives.\nExample use cases include calculating time-weighted moving averages in financial applications, building context-aware feature vectors for machine learning anomaly detection, and threshold monitoring. This event-centric, point-in-time pattern is a standard paradigm in stream processing (similar to the SQLOVERclause withROWS/RANGE BETWEEN), and is natively supported by other frameworks like Apache Flink. It is a highly requested feature from the Kafka Streams community, e.g.(1),(2)and(3).\nTo bridge this gap, this KIP proposes introducing range-based query capabilities to the Kafka Streams DSL. This will empower developers to define dynamic, event-centric contexts and perform safe, non-incremental aggregations across those ranges.\nPublic Interfaces\nThe proposed changes to public interfaces include:\nA new`Range`abstract class that both built-in and custom range definitions must extend, and two built-in implementations:javaabstract Range classjavaEventTimeRange implementation\njavaEventCountRange implementation\nA new public interface extendingjava.util.Iteratorandjava.lang.AutoCloseableis introduced to manage resource-backed iterators safely without forcing users to handle checked exceptions.javaRangedRecordIterator\nTwo new methods`rangeOver`in the`KGroupedStream`interface:javaKGroupedStream\nAnd a RangedKStream interface:javaRangedKStream\nAnd a new functional interface for the range aggregator:javaRangeAggregator\nProposed Changes\nThis KIP introduces theRange<K, V>abstract class as the primary extension point for defining range boundaries. It provides two built-in implementations:\nEventTimeRange: Defines ranges based strictly on event-time durations (e.g.,Nseconds before and after the anchor).\nEventCountRange: Defines ranges based on strict record counts (e.g.,Nrecords before and after), bounded by a required maximum look-back time to ensure safe state store retention.\nTo align with modern Kafka Streams API standards (KIP-633), the grace period for late-arriving records is enforced strictly via static factory methods and constructors. Furthermore, users can pass customRangesubclasses intorangeOver()to implement arbitrary fetching logic beyond the built-in types.\nPhysical topology & state sharing\nA key architectural design of this KIP is that the buffer store is materialized atrangeOver()time, not at aggregation time.\nIn the physical topology,rangeOver()injects a dedicatedRangeStoreProcessorthat owns theWindowStore.Each subsequent call to.aggregate()on the resultingRangedKStreamintroduces an independentRangeAggregateProcessoras a child node.Because the state store is wired using low-level topology configurations, multiple.aggregate()calls on the same range seamlessly share a single underlying RocksDB instance, completely eliminating data duplication and redundant storage overhead.\nIterator Lifecycle Management:To ensure optimalO(1)memory efficiency without exposing users to resource leaks,Range.fetch()returns aRangedRecordIterator. TheRangeAggregateProces"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1352",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Key",
+        "Value"
+      ],
+      "lignes": [
+        [
+          "&lt;group-key&gt;-30",
+          "A"
+        ],
+        [
+          "&lt;group-key&gt;-70",
+          "C"
+        ],
+        [
+          "&lt;group-key&gt;-90",
+          "D"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Key",
+        "Value"
+      ],
+      "lignes": [
+        [
+          "&lt;group-key&gt;-30",
+          "A"
+        ],
+        [
+          "&lt;group-key&gt;-50",
+          "B"
+        ],
+        [
+          "&lt;group-key&gt;-70",
+          "C"
+        ],
+        [
+          "&lt;group-key&gt;-90",
+          "D"
+        ]
+      ],
+      "nom": "tableau_2"
+    }
+  ]
+}

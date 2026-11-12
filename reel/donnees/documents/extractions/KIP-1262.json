@@ -1,0 +1,22 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1262",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "accepted",
+    "texte_libre": "Status\nCurrent state: Accepted\nVote thread:https://lists.apache.org/thread/95941nto2kxfqclb1pn00pmdtlgq2zjz\nDiscussion thread:https://lists.apache.org/thread/vnzmqvcbfxo7hhyj9gzpgmdq59w3n7dy\nJIRA:ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-20174\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nThe reason for this KIP is to remove the requirement of nodes needing to runkafka-storage formatbefore starting Kafka. When runningkafka-storage format, nodes are required to supply a--cluster-idargument, which represents the cluster ID to which the node belongs, and this is persisted to the node'smeta.propertiesfile. Below are the other data that each node persists to disk upon invokingkafka-storage format:\nFor brokers,meta.properties’ other data:node.idanddirectory id, are obtained from the node’s static config and randomly generated, respectively.Persisting this data does not have to be done during storage formatting and can be done later during startup.\nFor controllers,meta.properties’ directory id may come from—-initial-controllersor--standalone, but otherwise controllers are the same as brokers with respect to the above data.\nThe main purpose of cluster id is to prevent nodes from contacting other Kafka clusters (refKIP-78). This KIP seeks to preserve this behavior around cluster id, while removing the necessity of formatting brokers and observer controllers.\nCurrently, Kafka relies on the operator/caller of kafka-storage format on all intended nodes in a cluster to generate consensus on the actual value of clusterID during format time. KRaft guarantees that upon forming a given quorum X, X's members will all have the same cluster id (which could clusterId = null) contained in meta.properties. Additionally, when a KRaft node sends a request with a non-null cluster id, this request is only handled if the request's cluster ID matches the handler's cluster ID.\nBackground on cluster.id from ZooKeeper Kafka\nCluster id was a znode,/cluster/id, that was initially empty. During the startup of a cluster, brokers would race to write a random UUID in ZK to this znode, which would never change after being set, viagetOrGenerateClusterId().\nPublic Interfaces\nmeta.properties\nIntroduce meta.properties v2 with optional cluster id. However,node.idis guaranteed to exist.directory.idis written tometa.propertiesduring startup if it does not exist. Formatting will write meta.properties v2 after this KIP, and if formatting is skipped, startup of the node will write meta.properties v2 without the cluster id. The cluster id will be discovered and persisted later on via aMetadataPublisher.\nClusterIdRecord + MetadataVersion\nIntroduce a new metadata record to store cluster id and a new MetadataVersion (MV) that supports encoding/decoding this record. This means that during formatting, the bootstrap ClusterIdRecord is only written if the node is formatted with a MV that supports this feature. When a node runskafka-storage format, some value for MV is always resolved and written to disk alongsidemeta.properties. The value either comes from--release-versionor--feature, or it defaults to the latest production MV.\nIf this feature is supported by the cluster's MV, the first elected KRaft leader will write theClusterIdRecordupon becoming the active controller alongside the other bootstrap metadata records.\nOne invariant of this feature is there is at most one committedClusterIdRecordin the metadata log. When the MV does not supportClusterIdRecord, there is noClusterIdin the metadata log, and instead the cluster id is local to each node'smeta.properties. When the finalized MV of the cluster does supportClusterIdRecord, there is exactly oneClusterIdRecordin the metadata log, which is written as part of the bootstrap metadata write by the first controller who becomes leader, or as a part of the MV upgrade records when upgrading to a MV that supports this feature. When the active con"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1262",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": []
+}

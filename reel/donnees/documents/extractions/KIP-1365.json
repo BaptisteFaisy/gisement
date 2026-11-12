@@ -1,0 +1,159 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1365",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "",
+    "texte_libre": "Status\nCurrent state:\"Under Discussion\"\nDiscussion thread:here\nJIRA:here\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nKafka Connect's Single Message Transform (SMT) framework allows users to build chains of transformations that process records between the connector and Kafka. Transforms can modify records, route them to different topics, ordrop them entirelyby returningnull(a filter operation). When combined with the error tolerance framework (errors.tolerance=all), records can also be diverted to a Dead Letter Queue (DLQ) before reaching the connector.\nToday, the transform layer has two significant gaps:no operational observabilityandno mechanism for sink connectors to learn about records they never received. This KIP addresses both with two complementary enhancements.\nProblem 1: No Per-Transform Operational Metrics\nKafka Connect providesno operational metricsat the transform layer. The existingconnector-transform-metricsgroup only exposes static metadata:\n| Existing Metric | Type | Description\n| transform-class | Gauge (string) | The class name of the transformation\n| transform-version | Gauge (string) | The version of the transformation\nThis creates several operational pain points:\nNo visibility into filtering— When using theFiltertransform (or any transform that drops records by returningnull), operators have no way to know how many records are being filtered. The only workaround is subtracting task-levelsource-record-poll-totalfromsource-record-write-total(orsink-record-read-totalfromsink-record-send-total), which provides only an aggregate across the entire transform chain.\nNo per-transform throughput— In a chain of 3-5 transforms, operators cannot determine the throughput contribution or bottleneck of each individual transform. If a transform has a bug that silently drops records, it goes undetected.\nNo error attribution— Whiletask-error-metricstracks aggregate errors, operators cannot determine which transform in a chain is causing failures without correlating with debug-level logs.\nCapacity planning gap— Without per-transform record counts, operators cannot make informed decisions about whether a transform is cost-effective (e.g., \"is this filter dropping 90% of records, or 1%?\").\nThe consumer group protocol and other Kafka subsystems have rich per-component metrics. The transform layer is a notable gap.\nProblem 2: Offset Gap for Sink Connectors When Records Are Skipped\nTheSinkTask.preCommit()API allows sink connectors to control which offsets are committed to Kafka. Many production connectors override this method to implement exactly-once or at-least-once delivery guarantees with external systems. These connectors track offsets based on records they receive input()and only return offsets frompreCommit()after durably writing to the external system.\nWhen transforms or error tolerance drop records beforeput(), these connectors haveno visibilityinto the dropped records. The result:\nOffset gap— The consumer position advances past the dropped records, but the sink's committed offset does not include them.\nReprocessing after rebalance— On rebalance, the consumer seeks to the last committed offset and re-fetches the dropped records. The transforms drop them again, and the cycle repeats.\nInfinite reprocessing loop— If all records for a partition are dropped, the sink returns an empty map frompreCommit(), the framework skips commit entirely, and no progress is ever made for that partition.\nThis problem affects widely-used connectors in production:\n| Connector | Offset Strategy | Impact\n| S3 Sink | Returns offsets only after flushing to S3 (rotation interval / record count) | Filtered records create offset gaps. Rebalance reprocesses all records since last S3 flush\n| IcebergSinkConnector | Workers commit offset only after coordinator signal | Trailing filtered records never committed. Gap grows with each poll cycle\n| Any connectorusingpreCommi"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1365",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Existing Metric",
+        "Type",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "transform-class",
+          "Gauge (string)",
+          "The class name of the transformation"
+        ],
+        [
+          "transform-version",
+          "Gauge (string)",
+          "The version of the transformation"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Connector",
+        "Offset Strategy",
+        "Impact"
+      ],
+      "lignes": [
+        [
+          "S3 Sink",
+          "Returns offsets only after flushing to S3 (rotation interval / record count)",
+          "Filtered records create offset gaps. Rebalance reprocesses all records since last S3 flush"
+        ],
+        [
+          "IcebergSinkConnector",
+          "Workers commit offset only after coordinator signal",
+          "Trailing filtered records never committed. Gap grows with each poll cycle"
+        ],
+        [
+          "Any connector using preCommit() returning {}",
+          "Full offset opt-out",
+          "If all records filtered, partition offset permanently frozen"
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Area",
+        "Criterion"
+      ],
+      "lignes": [
+        [
+          "Observability",
+          "Operators can query per-transform record-in, record-out, and record-filtered counts via JMX"
+        ],
+        [
+          "Observability",
+          "Operators can compute per-transform filter rates for alerting and dashboards"
+        ],
+        [
+          "Correctness",
+          "Sink connectors that override preCommit() can track offsets for all consumed records, including those dropped before put()"
+        ],
+        [
+          "Safety",
+          "Zero risk of data loss — the framework never overrides the sink's offset decisions"
+        ],
+        [
+          "Compatibility",
+          "Full backward compatibility — existing connectors work identically without code changes"
+        ],
+        [
+          "Performance",
+          "Zero performance regression for connectors with no transforms configured"
+        ],
+        [
+          "Universality",
+          "Metrics are available for all transforms (built-in and custom) without any transform code changes"
+        ],
+        [
+          "Simplicity",
+          "Connectors need minimal code changes to incorporate skipped record awareness"
+        ]
+      ],
+      "nom": "tableau_3"
+    },
+    {
+      "colonnes": [
+        "Type",
+        "Package",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "SkipReason",
+          "org.apache.kafka.connect.sink",
+          "Enum: FILTERED, ERROR_TOLERATED"
+        ]
+      ],
+      "nom": "tableau_4"
+    },
+    {
+      "colonnes": [
+        "Decision",
+        "Rationale"
+      ],
+      "lignes": [
+        [
+          "Default method (no-op)",
+          "Backward compatible — existing connectors compile and work without changes"
+        ],
+        [
+          "TopicPartition+ long offsetparameters",
+          "Matches the granularity of preCommit(Map&lt;TopicPartition, OffsetAndMetadata&gt;). The sink needs partition and offset to update its tracking"
+        ],
+        [
+          "SkipReasonenum",
+          "Sinks may want to log, metric, or handle filter vs DLQ differently. Extensible for future skip reasons"
+        ],
+        [
+          "No SinkRecordparameter",
+          "The record may have failed conversion — a valid SinkRecord may not exist. Partition + offset is the minimum viable information"
+        ],
+        [
+          "Called per-record, not batched",
+          "Simpler contract. Sinks that want batching can accumulate internally"
+        ],
+        [
+          "Called before put()",
+          "Sink can merge skipped offsets with delivered offsets in a single pass"
+        ],
+        [
+          "Exceptions caught by framework",
+          "Notification is advisory — a bug in onRecordSkipped()must not break the pipeline"
+        ]
+      ],
+      "nom": "tableau_5"
+    }
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-20075"
+    ],
+    "kip": "KIP-1358",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state:Under Discussion\nDiscussion thread:here\nJIRA:here\nMotivation\nWhen a Kafka broker is restarted or has its log directories rebuilt — for example after a process restart, OS reboot, host or hardware swap, storage (disk / volume) replacement, VM migration, or container reschedule — it rejoins the cluster and must re-replicate a large amount of data from its peers. Catch-up happensper partition: each partition's log fetches independently and re-enters the ISR at its own pace.\nIn KRaft today, the controller hands leadership back to the recovering broker the moment a partition re-enters the ISR — regardless of how much catch-up work the broker still has outstanding on itsotherpartitions. The result:\nThe recovering broker becomes leader for the already-caught-up partitions while its disk / network / page cache is still saturated by replica fetches for the lagging partitions.\nProducers to those newly-led partitions see high P99 latency (and, in the worst case, timeouts and retries).\nOn large clusters, the leadership comes back in a single burst, producing a spike in incoming connections and produce/fetch requests on the broker.\nInternal topics (__consumer_offsets,__transaction_state,__share_group_state) are particularly affected: their preferred leader can return to a still-loading broker while the old leader is still unloading, prolonging consumer-group recovery.\nCurrent KRaft behavior\nThe periodicelectPreferredtask runs everyleader.imbalance.check.interval.seconds(default 300s) and callsReplicationControlManager.maybeBalancePartitionLeaders():\nTwo problems for the broker-recovery scenario:\nNo gate.Preferred-leader election fires as soon as the preferred\nreplica is in the ISR for a given partition. There is no notion of \"this broker is still catching up globally, don't give it leadership yet.\"\nNo effective throttle.maxElectionsPerImbalanceis hardcoded to\n1000 and is not configurable in production (only overridden in tests viaQuorumController.Builder.setMaxElectionsPerImbalance). Worse, when a run hits the 1000 cap it returnstrue, andPeriodicTaskControlManagerreschedules the task immediately (nextDelayTimeNs(immediate=true)→task.immediatePeriodNs()), so elections drain in back-to-back 1000-partition batches — effectively all at once.\nimbalancedPartitionsis a flat, per-partitionTimelineHashSet; there is no per-broker grouping or per-broker rate limiting anywhere in the KRaft path.\nThe immediate-reschedule batching behavior predates KRaft (it is visible in 3.9.1 logs as well); what 4.1+ changed is thetimingof the first election relative to the broker event (now decoupled from broker unfencing, fired on the next periodic tick 0–300s later). This KIP addresses both the batching and the timing.\nRelated work\n|\nItem |\nStatus |\nSolves this problem?\n|\nKAFKA-20075 |\nOpen, unresolved, no fix version |\nNo fix exists; no KIP attached. This KIP is the proposed fix.\n|\nKIP-491 (preferred leader blacklist) |\nDiscarded |\nNo\n|\nKIP-1009 (broker-level throttle booleans) |\nUnder discussion, not merged |\nPartial — bandwidth lever, not leadership timing\n|\nKIP-1051 (static replication throttle rate) |\nUnder discussion, not merged |\nPartial — bandwidth lever, complementary\n|\nKIP-73 / KIP-542 (per-replica replication throttle) |\nShipped |\nBandwidth only — caught-up partitions still get leadership while others lag\n|\nKIP-966 (Eligible Leader Replicas) |\nAccepted, in 4.0/4.1+ |\nNo — durability/availability, unrelated to throttling leadership return\nThis KIP adds aleadership-pacing/gatinglayer (the controller decideswhenandhow fasta recovering broker regains leadership). It is distinct from and complementary toreplication throttling(KIP-73 / KIP-1009 / KIP-1051), which governshow fast a broker catches up. The two can coexist.\nPublic Interfaces\nFive new controller configurations are added to theleader.imbalance.*family. All arecluster-level dynamic configs, settable at runtime viakafka-configs.sh --entity-type brokers --entity-default --alter. Th"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1358",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Item",
+        "Status",
+        "Solves this problem?"
+      ],
+      "lignes": [
+        [
+          "KAFKA-20075",
+          "Open, unresolved, no fix version",
+          "No fix exists; no KIP attached. This KIP is the proposed fix."
+        ],
+        [
+          "KIP-491 (preferred leader blacklist)",
+          "Discarded",
+          "No"
+        ],
+        [
+          "KIP-1009 (broker-level throttle booleans)",
+          "Under discussion, not merged",
+          "Partial — bandwidth lever, not leadership timing"
+        ],
+        [
+          "KIP-1051 (static replication throttle rate)",
+          "Under discussion, not merged",
+          "Partial — bandwidth lever, complementary"
+        ],
+        [
+          "KIP-73 / KIP-542 (per-replica replication throttle)",
+          "Shipped",
+          "Bandwidth only — caught-up partitions still get leadership while others lag"
+        ],
+        [
+          "KIP-966 (Eligible Leader Replicas)",
+          "Accepted, in 4.0/4.1+",
+          "No — durability/availability, unrelated to throttling leadership return"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Config",
+        "Type",
+        "Default",
+        "Valid values",
+        "Importance",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "leader.imbalance.election.algorithm",
+          "string",
+          "immediate",
+          "immediate, wait-for-sync",
+          "MEDIUM",
+          "Algorithm used by the periodic preferred-leader-election task. immediate is the current behavior: elect as soon as the preferred replica is in ISR for a given partition. wait-for-sync skips preferred election for a broker when too many of its preferred partitions are still out of sync (see wait.for.sync.threshold.percent and wait.for.sync.max.wait.ms)."
+        ],
+        [
+          "leader.imbalance.election.wait.for.sync.threshold.percent",
+          "int",
+          "0",
+          "[0, 100]",
+          "LOW",
+          "Only used when algorithm = wait-for-sync. A broker's preferred-leader elections are deferred when the fraction of its imbalanced preferred partitions that are out of ISR exceeds this percentage. 0 is the strictest setting (defer if any preferred partition is out of sync). Use a small positive value (e.g. 5) to avoid one straggler partition holding the entire broker's rebalance hostage."
+        ],
+        [
+          "leader.imbalance.election.wait.for.sync.max.wait.ms",
+          "long",
+          "1800000 (30 min)",
+          "[0, …]",
+          "LOW",
+          "Only used when algorithm = wait-for-sync. Safety escape hatch: a broker that has been continuously gated for longer than this duration is released regardless of its in-sync state. 0 disables the escape hatch (gate indefinitely)."
+        ],
+        [
+          "leader.imbalance.election.max.per.run",
+          "int",
+          "1000",
+          "[1, …]",
+          "MEDIUM",
+          "Maximum number of preferred-leader elections performed per run of the periodic balancer. Replaces the hardcoded internal constant MAX_ELECTIONS_PER_IMBALANCE."
+        ],
+        [
+          "leader.imbalance.election.throttle.interval.ms",
+          "long",
+          "0",
+          "[0, …]",
+          "MEDIUM",
+          "When greater than 0, if a balancer run reaches max.per.run the next run is deferred by this interval instead of being rescheduled immediately. 0 preserves the current immediate-reschedule behavior. Composes additively with leader.imbalance.check.interval.seconds: when capped, the next run fires at now + throttle.interval.ms; when not capped, the regular periodic schedule applies."
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Metric",
+        "Type",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "OutOfSyncPreferredLeaderBrokerCount",
+          "Gauge",
+          "Number of brokers currently considered &quot;out of sync&quot; by the wait-for-sync gate. 0 under the immediate algorithm."
+        ],
+        [
+          "OutOfSyncPreferredPartitionCount (tag: broker)",
+          "Gaugeper broker",
+          "Per-broker count of imbalanced preferred partitions that are out of ISR. Lets operators identify the bottleneck broker during a recovery."
+        ],
+        [
+          "PreferredLeaderElectionsSkippedByGatePerSec",
+          "Meter",
+          "Rate of elections skipped because of the wait-for-sync gate."
+        ],
+        [
+          "PreferredLeaderElectionsDeferredByThrottlePerSec",
+          "Meter",
+          "Rate of elections deferred because a run hit max.per.run and was rescheduled after throttle.interval.ms. Useful for sizing the throttle."
+        ]
+      ],
+      "nom": "tableau_3"
+    }
+  ]
+}

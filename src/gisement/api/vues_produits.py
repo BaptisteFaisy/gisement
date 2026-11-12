@@ -287,7 +287,8 @@ def politique_cedar_vue() -> tuple[int, dict]:
 
 def connecteurs() -> tuple[int, dict]:
     """Idea #8 - the real connectors, demonstrated on canned payloads."""
-    jira = SourceJira(FauxClientHttp(pages={URL_JIRA: [ISSUE_JIRA]}), projet="SUP")
+    gabarit = SourceJira(FauxClientHttp(pages={}), projet="SUP")
+    jira = SourceJira(FauxClientHttp(pages={gabarit.url(): [ISSUE_JIRA]}, cle_page="issues"), projet="SUP")
     snow = SourceServiceNow(FauxClientHttp(pages={URL_SNOW: [INCIDENT_SNOW]}))
     return _ok(
         {
@@ -390,9 +391,13 @@ def _ecart(mesure: Decimal) -> Decimal:
     return arrondi(abs(mesure - estimation) / estimation, 4)
 
 
-def campagne_courante() -> dict:
-    """The demo campaign descriptor, for the portal header."""
-    campagne = campagne_demo()
+def campagne_courante(campagne=None) -> dict:
+    """The campaign descriptor, for the portal header.
+
+    The demo campaign by default; the real one when the state measures the real
+    corpus, so the header tells the truth about what is on screen.
+    """
+    campagne = campagne or campagne_demo()
     return {
         "id": campagne.id,
         "tenant": campagne.tenant_id,

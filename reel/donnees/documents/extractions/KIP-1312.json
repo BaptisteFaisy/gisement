@@ -1,0 +1,22 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1312",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "accepted",
+    "texte_libre": "Status\nCurrent state: Accepted\nDiscussion thread:https://lists.apache.org/thread/kc87jkgyvf9x7nwmgwrhx6fs6w0tqymj\nVote thread:https://lists.apache.org/thread/rdpjmmqdxzog2m555r2wrncfn40zjf54\nJIRA:ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-20395\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nKafka cluster membership is managed by the metadata layer, and consist mainly of two things: broker and controller registrations. Registrations are sent by brokers and controllers to the active controller via theBrokerRegistrationRequestandControllerRegistrationRequestRPCs, and are persisted to the metadata log via theBrokerRegistrationRecordandControllerRegistrationRecord.\nThe active controller uses registrations to determine the current members of the Kafka cluster, and is aware of each members' advertised listeners and supported feature ranges. Registration information is used for determining if all cluster members support a feature level during upgrades.\nHowever, there is currently no way to unregister a controller, like there is for brokers viaUnregisterBrokerRequestandUnregisterBrokerRecord. This means stale controller registrations can block feature upgrades. This KIP proposes adding support for operators to manually unregister controllers like they can with brokers.\nOne important use case for this KIP is to remove controller registrations from KRaft observers (i.e. nodes that replicate the log but do not participate in leader election or committing data) from the metadata log. This means operators can remove these stale registrations to unblock feature upgrades on their cluster.\nPublic Interfaces\nNew RPC\nUnregisterControllerRequest\nThis request can return the following errors:\nanUNSUPPORTED_VERSIONerror if the cluster's MetadataVersion does not supportUnregisterControllerRecord\naCONTROLLER_ID_NOT_REGISTEREDerror if no registration exists for the requested controller ID. This is similar to theBROKER_ID_NOT_REGISTEREDerror in the case of brokers.\naNOT_CONTROLLERerror if the request does not arrive at the active controller\nanINVALID_REQUESTerror if the requested id is part of the voter set.\nUnregisterControllerResponse\nPublic APIs\nAdmin.java\nUnregisterControllerOptions\nNew Metadata Record\nUnregisterControllerRecord\nThis KIP will also introduce a new MetadataVersion to support this new metadata record.\nCLI changes\nkafka-cluster\nAdd aunregister-controllerfor manually unregistering controllers. This command would be similar to how theunregistercommand works for brokers. Below is an example invocation.\nWhen the user executes this command to unregister controller 1:\nUnregisterControllerRequestis sent to the active controller\nThe active controller writes anUnregisterControllerRecordto the metadata log\nWhen this record is committed, return a response to the user for unregistering the controller\nThe active controller's state machine removes the registration for controller 1, meaning feature upgrades no longer consider node 1's supported features\nThe registration from controller 1 is removed from the metadata image\nkafka-cluster unregister-controlleris a command for users when they want to unregister a controller from the cluster. This command should only be run after a controller is stopped, and the operator does not intend to bring it back.kafka-cluster unregister-controllerworks irrespective of the quorum mode.\nkafka-metadata-quorum\nAdd the--unregisterflag to thekafka-metadata-quorum remove-controllercommand. When this flag is set, invoking this command with--unregisterset will remove the controller as a KRaft voter and unregister it. Below is an example invocation.\nWhen the user executes this command, kafka tries to remove 1 as a voter AND unregister it:\nRemoveRaftVoterRequestis sent to the active controller\nThe KRaft leader writes aVotersRecordwithout voter 1 to the metadata log\nWhen this record is committed, return a response to the user for removin"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1312",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": []
+}

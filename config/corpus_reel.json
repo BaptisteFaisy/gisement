@@ -1,0 +1,74 @@
+{
+  "version": "1.0",
+  "note": "Perimeter and published rules of the REAL corpus (Apache Kafka, ASF). Every figure of the manifest is read from a downloaded artefact; the only estimates are the two per-item handling times below, published here so a reader can recompute the coverage denominator. The client declares no hourly rate (13.4): the real campaign publishes hours, not euros.",
+  "client": {
+    "id": "T-KAFKA",
+    "nom": "Apache Kafka (Apache Software Foundation)",
+    "nom_en": "Apache Kafka (Apache Software Foundation)",
+    "nom_generique": "un projet logiciel open source",
+    "secteur": "edition logicielle open source / traitement de flux",
+    "sites": [
+      "apache"
+    ],
+    "taux_horaires": {}
+  },
+  "campagne": {
+    "id": "CMP-REEL-0001",
+    "graine": 20261112
+  },
+  "sources": [
+    {
+      "canal": "tickets",
+      "systeme": "Apache Jira (issues.apache.org)",
+      "url": "https://issues.apache.org/jira/rest/api/2/search?jql=project=KAFKA",
+      "licence": "Apache License 2.0 - projet public ASF, donnees publiques",
+      "collecteur": "reel/collecteurs/tickets.py"
+    },
+    {
+      "canal": "courriels",
+      "systeme": "archives publiques Pony Mail (lists.apache.org)",
+      "url": "https://lists.apache.org/api/mbox.lua?list=dev&domain=kafka.apache.org",
+      "licence": "archives publiques ASF",
+      "collecteur": "reel/collecteurs/courriels.py"
+    },
+    {
+      "canal": "journaux",
+      "systeme": "GitHub Actions (miroir apache/kafka)",
+      "url": "https://api.github.com/repos/apache/kafka/actions/runs",
+      "licence": "Apache License 2.0",
+      "collecteur": "reel/collecteurs/journaux.py"
+    },
+    {
+      "canal": "documents",
+      "systeme": "Confluence public ASF (cwiki.apache.org, espace KAFKA)",
+      "url": "https://cwiki.apache.org/confluence/rest/api/content?space=KAFKA",
+      "licence": "Apache License 2.0",
+      "collecteur": "reel/collecteurs/documents.py"
+    }
+  ],
+  "absents": [
+    {
+      "canal": "appels",
+      "raison": "aucun enregistrement audio public pour ce client ; Amazon Transcribe exige des identifiants AWS. Le canal est declare absent, pas simule."
+    },
+    {
+      "canal": "journaux",
+      "raison": "le client reel n'expose pas de journal d'exploitation du travail manuel dans le perimetre lu : ses journaux publics sont des journaux de compilation (CI), qui decrivent la machine et non le geste. Canal declare absent, pas simule."
+    }
+  ],
+  "estimations_publiees": {
+    "minutes_par_enregistrement": "7.5",
+    "origine": "mediane reelle des `duree_unitaire_typique_minutes` des 40 motifs du catalogue versionne",
+    "regle": "Aucun des outils reels de ce client ne horodate le travail manuel : le denominateur de couverture applique a chaque enregistrement reel la duree unitaire mediane du catalogue versionne (7,5 min), et le dit. Une duree mesuree, quand elle existe, remplace la regle."
+  },
+  "pseudonymisation": {
+    "sel": "reel-kafka",
+    "regle": "sha256(sel + identite) tronque a 6 hexadecimaux, applique dans le collecteur : aucun nom, aucune adresse, aucun pseudo reel n'entre dans reel/donnees/. Le brut telecharge (reel/brut/*.gz) est garde pour la provenance et n'est pas publie par le portail.",
+    "irreversible": true
+  },
+  "seuil_volume_processus": 25,
+  "limite_processus": 14,
+  "taux_horaire": "55",
+  "tjm_reference_eur": "650",
+  "taux_horaire_note": "Le client reel ne declare aucun taux horaire (13.4). Le gain est donc exprime avec le taux de reference du cabinet, publie ici, comme le TJM de 650 EUR du barriere de cout des projets : ce sont des hypotheses du cabinet, pas une donnee du client, et le rapport le dit."
+}

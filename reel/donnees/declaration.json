@@ -1,0 +1,617 @@
+{
+  "version": "1.0",
+  "corpus": "reel",
+  "note": "Perimetre reel : chaque processus est un composant reel du projet, ses motifs et ses faits viennent d'un modele reel lisant les vrais documents de conception, son cout vient du catalogue versionne. Aucune verite terrain.",
+  "regles": {
+    "seuil_volume": 25,
+    "limite_processus": 12,
+    "tjm_reference_eur": "650",
+    "faits_sans_modele": "conservateurs (jugement_requis=true, rien d'autre)"
+  },
+  "processus": [
+    {
+      "id": "R-01",
+      "nom": "Traitement des discussions de la liste de diffusion dev",
+      "nom_en": "Handling the discussions of the dev mailing list",
+      "nature_perimetre": "liste",
+      "service": "dev",
+      "famille_poste": "technique",
+      "motifs": [
+        "ING-01",
+        "ING-03",
+        "ING-02"
+      ],
+      "canaux": [
+        "courriels"
+      ],
+      "procedure_ref": "",
+      "changements_douze_mois": 0,
+      "visibilite_dirigeant": false,
+      "faits": {
+        "api_ou_flux_natif": true,
+        "dependance_externe_non_contractuelle": true,
+        "donnee_sensible": false,
+        "etape_supprimable_amont": false,
+        "interface_stable": true,
+        "jugement_requis": true,
+        "obligation_legale_humaine": false,
+        "travail_deterministe": false
+      },
+      "origine_faits": "modele_reel",
+      "raison_modele": "Les messages « [DISCUSS] KIP-1119 », « [DISCUSS] KIP-1176 » et « [jira] [Created] KAFKA-19225 » montrent des discussions de conception et des annonces suivies dans les flux natifs de la liste et de JIRA.",
+      "cout": {
+        "jours": "20.0",
+        "tjm": "650",
+        "abonnement_mensuel": "0",
+        "taux_maintenance": "0"
+      },
+      "transfert": [
+        {
+          "nom": "revue",
+          "taux": "0.30",
+          "duree_minutes": "5",
+          "forfait_heures": null
+        }
+      ],
+      "part_volume_traitee": "1",
+      "suppression_etape": false,
+      "volume_observe": {
+        "courriels": 2156
+      }
+    },
+    {
+      "id": "R-02",
+      "nom": "Traitement des demandes du composant core",
+      "nom_en": "Handling the requests of the core component",
+      "nature_perimetre": "composant",
+      "service": "core",
+      "famille_poste": "technique",
+      "motifs": [
+        "ING-05",
+        "ING-03"
+      ],
+      "canaux": [
+        "tickets"
+      ],
+      "procedure_ref": "",
+      "changements_douze_mois": 0,
+      "visibilite_dirigeant": false,
+      "faits": {
+        "api_ou_flux_natif": true,
+        "dependance_externe_non_contractuelle": true,
+        "donnee_sensible": false,
+        "etape_supprimable_amont": false,
+        "interface_stable": true,
+        "jugement_requis": true,
+        "obligation_legale_humaine": false,
+        "travail_deterministe": false
+      },
+      "origine_faits": "modele_reel",
+      "raison_modele": "Des tickets tels que « Read only disk failure » et « InitProducerId with TV2 double-increments epoch » documentent des defauts du core necessitant reproduction, diagnostic et correction.",
+      "cout": {
+        "jours": "27.5",
+        "tjm": "650",
+        "abonnement_mensuel": "0",
+        "taux_maintenance": "0"
+      },
+      "transfert": [
+        {
+          "nom": "revue",
+          "taux": "0.35",
+          "duree_minutes": "8",
+          "forfait_heures": null
+        }
+      ],
+      "part_volume_traitee": "1",
+      "suppression_etape": false,
+      "volume_observe": {
+        "tickets": 357
+      }
+    },
+    {
+      "id": "R-03",
+      "nom": "Traitement des demandes du composant streams",
+      "nom_en": "Handling the requests of the streams component",
+      "nature_perimetre": "composant",
+      "service": "streams",
+      "famille_poste": "technique",
+      "motifs": [
+        "ING-03",
+        "ING-05",
+        "ING-01"
+      ],
+      "canaux": [
+        "tickets",
+        "documents"
+      ],
+      "procedure_ref": "KIP-1394",
+      "changements_douze_mois": 0,
+      "visibilite_dirigeant": true,
+      "faits": {
+        "api_ou_flux_natif": true,
+        "dependance_externe_non_contractuelle": true,
+        "donnee_sensible": false,
+        "etape_supprimable_amont": false,
+        "interface_stable": true,
+        "jugement_requis": true,
+        "obligation_legale_humaine": false,
+        "travail_deterministe": false
+      },
+      "origine_faits": "modele_reel",
+      "raison_modele": "Les tickets « Introduce soft state for StreamsGroup » et « Streams group heartbeat sometimes fails with INVALID_REQUEST », associes a un KIP dans JIRA, combinent conception, suivi et correction.",
+      "cout": {
+        "jours": "16.5",
+        "tjm": "650",
+        "abonnement_mensuel": "0",
+        "taux_maintenance": "0"
+      },
+      "transfert": [
+        {
+          "nom": "revue",
+          "taux": "0.25",
+          "duree_minutes": "4",
+          "forfait_heures": null
+        }
+      ],
+      "part_volume_traitee": "1",
+      "suppression_etape": false,
+      "volume_observe": {
+        "tickets": 244,
+        "documents": 2
+      }
+    },
+    {
+      "id": "R-04",
+      "nom": "Traitement des demandes sans composant attribue",
+      "nom_en": "Handling the requests with no component assigned",
+      "nature_perimetre": "sans_composant",
+      "service": "sans_composant",
+      "famille_poste": "technique",
+      "motifs": [
+        "ING-03",
+        "ING-09",
+        "ING-04"
+      ],
+      "canaux": [
+        "tickets"
+      ],
+      "procedure_ref": "",
+      "changements_douze_mois": 0,
+      "visibilite_dirigeant": false,
+      "faits": {
+        "api_ou_flux_natif": true,
+        "dependance_externe_non_contractuelle": true,
+        "donnee_sensible": false,
+        "etape_supprimable_amont": false,
+        "interface_stable": true,
+        "jugement_requis": true,
+        "obligation_legale_humaine": false,
+        "travail_deterministe": false
+      },
+      "origine_faits": "modele_reel",
+      "raison_modele": "Les tickets « Checkstyle ImportControl cleanup », « Add DLQ name and replication factor to Connect configuration » et « Improve some requests/responses toString method » montrent des maintenances, parametrages et modifications de code suivies dans JIRA.",
+      "cout": {
+        "jours": "16.5",
+        "tjm": "650",
+        "abonnement_mensuel": "0",
+        "taux_maintenance": "0"
+      },
+      "transfert": [
+        {
+          "nom": "revue",
+          "taux": "0.25",
+          "duree_minutes": "4",
+          "forfait_heures": null
+        }
+      ],
+      "part_volume_traitee": "1",
+      "suppression_etape": false,
+      "volume_observe": {
+        "tickets": 185
+      }
+    },
+    {
+      "id": "R-05",
+      "nom": "Traitement des demandes transverses du projet",
+      "nom_en": "Handling the project-wide requests",
+      "nature_perimetre": "projet",
+      "service": "kafka",
+      "famille_poste": "direction",
+      "motifs": [
+        "ING-01",
+        "ING-02",
+        "ING-07"
+      ],
+      "canaux": [
+        "courriels",
+        "documents"
+      ],
+      "procedure_ref": "KIP-1396",
+      "changements_douze_mois": 0,
+      "visibilite_dirigeant": true,
+      "faits": {
+        "api_ou_flux_natif": true,
+        "dependance_externe_non_contractuelle": true,
+        "donnee_sensible": false,
+        "etape_supprimable_amont": false,
+        "interface_stable": true,
+        "jugement_requis": true,
+        "obligation_legale_humaine": false,
+        "travail_deterministe": false
+      },
+      "origine_faits": "modele_reel",
+      "raison_modele": "Le KIP sur la garantie de livraison du producer, ses 97 documents et les courriels « [jira] [Created] » et « [DISCUSS] KIP-1187 » montrent une fonction projet de proposition, publication et gouvernance.",
+      "cout": {
+        "jours": "20.0",
+        "tjm": "650",
+        "abonnement_mensuel": "0",
+        "taux_maintenance": "0"
+      },
+      "transfert": [
+        {
+          "nom": "revue",
+          "taux": "0.30",
+          "duree_minutes": "5",
+          "forfait_heures": null
+        }
+      ],
+      "part_volume_traitee": "1",
+      "suppression_etape": false,
+      "volume_observe": {
+        "courriels": 40,
+        "documents": 97
+      }
+    },
+    {
+      "id": "R-06",
+      "nom": "Traitement des demandes du composant clients",
+      "nom_en": "Handling the requests of the clients component",
+      "nature_perimetre": "composant",
+      "service": "clients",
+      "famille_poste": "technique",
+      "motifs": [
+        "ING-05",
+        "ING-03",
+        "ING-01"
+      ],
+      "canaux": [
+        "tickets",
+        "documents"
+      ],
+      "procedure_ref": "KIP-1289",
+      "changements_douze_mois": 0,
+      "visibilite_dirigeant": true,
+      "faits": {
+        "api_ou_flux_natif": true,
+        "dependance_externe_non_contractuelle": true,
+        "donnee_sensible": false,
+        "etape_supprimable_amont": false,
+        "interface_stable": true,
+        "jugement_requis": true,
+        "obligation_legale_humaine": false,
+        "travail_deterministe": false
+      },
+      "origine_faits": "modele_reel",
+      "raison_modele": "Les tickets « Members cannot rejoin with epoch=0 », « Fix commit bugs caused by race condition during rebalancing » et « Async consumer fetch intermittent delays », lies a un KIP, combinent correction, suivi et conception.",
+      "cout": {
+        "jours": "27.5",
+        "tjm": "650",
+        "abonnement_mensuel": "0",
+        "taux_maintenance": "0"
+      },
+      "transfert": [
+        {
+          "nom": "revue",
+          "taux": "0.35",
+          "duree_minutes": "8",
+          "forfait_heures": null
+        }
+      ],
+      "part_volume_traitee": "1",
+      "suppression_etape": false,
+      "volume_observe": {
+        "tickets": 117,
+        "documents": 8
+      }
+    },
+    {
+      "id": "R-07",
+      "nom": "Traitement des demandes du composant tools",
+      "nom_en": "Handling the requests of the tools component",
+      "nature_perimetre": "composant",
+      "service": "tools",
+      "famille_poste": "technique",
+      "motifs": [
+        "ING-04"
+      ],
+      "canaux": [
+        "tickets"
+      ],
+      "procedure_ref": "",
+      "changements_douze_mois": 0,
+      "visibilite_dirigeant": false,
+      "faits": {
+        "api_ou_flux_natif": true,
+        "dependance_externe_non_contractuelle": false,
+        "donnee_sensible": false,
+        "etape_supprimable_amont": false,
+        "interface_stable": false,
+        "jugement_requis": true,
+        "obligation_legale_humaine": false,
+        "travail_deterministe": false
+      },
+      "origine_faits": "modele_reel",
+      "raison_modele": "Les demandes « Improve consistency of command-line arguments » et « Add include argument to ConsumerPerformance tool » prouvent des modifications de l'interface d'un outil, typiquement soumises a revue de code.",
+      "cout": {
+        "jours": "20.0",
+        "tjm": "650",
+        "abonnement_mensuel": "0",
+        "taux_maintenance": "0"
+      },
+      "transfert": [
+        {
+          "nom": "revue",
+          "taux": "0.30",
+          "duree_minutes": "6",
+          "forfait_heures": null
+        }
+      ],
+      "part_volume_traitee": "1",
+      "suppression_etape": false,
+      "volume_observe": {
+        "tickets": 90
+      }
+    },
+    {
+      "id": "R-08",
+      "nom": "Traitement des demandes du composant consumer",
+      "nom_en": "Handling the requests of the consumer component",
+      "nature_perimetre": "composant",
+      "service": "consumer",
+      "famille_poste": "technique",
+      "motifs": [
+        "ING-05"
+      ],
+      "canaux": [
+        "tickets"
+      ],
+      "procedure_ref": "",
+      "changements_douze_mois": 0,
+      "visibilite_dirigeant": false,
+      "faits": {
+        "api_ou_flux_natif": true,
+        "dependance_externe_non_contractuelle": false,
+        "donnee_sensible": false,
+        "etape_supprimable_amont": false,
+        "interface_stable": true,
+        "jugement_requis": true,
+        "obligation_legale_humaine": false,
+        "travail_deterministe": false
+      },
+      "origine_faits": "modele_reel",
+      "raison_modele": "Les titres « Stuck __consumer_offsets partition » et « Failure in ConsumerNetworkThread.initializeResources() can cause hangs » documentent des defauts internes du consommateur qui doivent etre corriges.",
+      "cout": {
+        "jours": "27.5",
+        "tjm": "650",
+        "abonnement_mensuel": "0",
+        "taux_maintenance": "0"
+      },
+      "transfert": [
+        {
+          "nom": "revue",
+          "taux": "0.35",
+          "duree_minutes": "8",
+          "forfait_heures": null
+        }
+      ],
+      "part_volume_traitee": "1",
+      "suppression_etape": false,
+      "volume_observe": {
+        "tickets": 76
+      }
+    },
+    {
+      "id": "R-09",
+      "nom": "Traitement des demandes du composant build",
+      "nom_en": "Handling the requests of the build component",
+      "nature_perimetre": "composant",
+      "service": "build",
+      "famille_poste": "technique",
+      "motifs": [
+        "ING-06",
+        "ING-05",
+        "ING-11"
+      ],
+      "canaux": [
+        "tickets"
+      ],
+      "procedure_ref": "",
+      "changements_douze_mois": 0,
+      "visibilite_dirigeant": false,
+      "faits": {
+        "api_ou_flux_natif": true,
+        "dependance_externe_non_contractuelle": true,
+        "donnee_sensible": false,
+        "etape_supprimable_amont": false,
+        "interface_stable": true,
+        "jugement_requis": true,
+        "obligation_legale_humaine": false,
+        "travail_deterministe": true
+      },
+      "origine_faits": "modele_reel",
+      "raison_modele": "Les titres « Fix gradlew content », « GitHub Actions build issues: JUnit tests parsing fails » et « Trigger Docker image builds in release script » etablissent une chaine de construction et de livraison automatisee.",
+      "cout": {
+        "jours": "10.0",
+        "tjm": "650",
+        "abonnement_mensuel": "0",
+        "taux_maintenance": "0"
+      },
+      "transfert": [
+        {
+          "nom": "revue",
+          "taux": "0.20",
+          "duree_minutes": "4",
+          "forfait_heures": null
+        }
+      ],
+      "part_volume_traitee": "1",
+      "suppression_etape": false,
+      "volume_observe": {
+        "tickets": 68
+      }
+    },
+    {
+      "id": "R-10",
+      "nom": "Traitement des demandes du composant docs",
+      "nom_en": "Handling the requests of the docs component",
+      "nature_perimetre": "composant",
+      "service": "docs",
+      "famille_poste": "technique",
+      "motifs": [
+        "ING-07",
+        "ING-11"
+      ],
+      "canaux": [
+        "tickets"
+      ],
+      "procedure_ref": "",
+      "changements_douze_mois": 0,
+      "visibilite_dirigeant": false,
+      "faits": {
+        "api_ou_flux_natif": false,
+        "dependance_externe_non_contractuelle": false,
+        "donnee_sensible": false,
+        "etape_supprimable_amont": false,
+        "interface_stable": false,
+        "jugement_requis": true,
+        "obligation_legale_humaine": false,
+        "travail_deterministe": false
+      },
+      "origine_faits": "modele_reel",
+      "raison_modele": "Les titres « Update 4.1 docs » et « Add documentation for Gradle version upgrade process » prouvent que le livrable principal est une mise a jour documentaire.",
+      "cout": {
+        "jours": "14.0",
+        "tjm": "650",
+        "abonnement_mensuel": "0",
+        "taux_maintenance": "0"
+      },
+      "transfert": [
+        {
+          "nom": "revue",
+          "taux": "0.30",
+          "duree_minutes": "5",
+          "forfait_heures": null
+        }
+      ],
+      "part_volume_traitee": "1",
+      "suppression_etape": false,
+      "volume_observe": {
+        "tickets": 52
+      }
+    },
+    {
+      "id": "R-11",
+      "nom": "Traitement des demandes du composant group_coordinator",
+      "nom_en": "Handling the requests of the group_coordinator component",
+      "nature_perimetre": "composant",
+      "service": "group_coordinator",
+      "famille_poste": "technique",
+      "motifs": [
+        "ING-01",
+        "ING-02",
+        "ING-05"
+      ],
+      "canaux": [
+        "tickets",
+        "courriels",
+        "documents"
+      ],
+      "procedure_ref": "KIP-1071",
+      "changements_douze_mois": 0,
+      "visibilite_dirigeant": true,
+      "faits": {
+        "api_ou_flux_natif": true,
+        "dependance_externe_non_contractuelle": false,
+        "donnee_sensible": false,
+        "etape_supprimable_amont": false,
+        "interface_stable": true,
+        "jugement_requis": true,
+        "obligation_legale_humaine": false,
+        "travail_deterministe": false
+      },
+      "origine_faits": "modele_reel",
+      "raison_modele": "Le KIP accepte prouve une decision de conception et de gouvernance, tandis que les titres sur l'echec de HighWatermarkUpdate et l'affectation de membres statiques revelent des defauts du coordinateur a corriger.",
+      "cout": {
+        "jours": "20.0",
+        "tjm": "650",
+        "abonnement_mensuel": "0",
+        "taux_maintenance": "0"
+      },
+      "transfert": [
+        {
+          "nom": "revue",
+          "taux": "0.30",
+          "duree_minutes": "5",
+          "forfait_heures": null
+        }
+      ],
+      "part_volume_traitee": "1",
+      "suppression_etape": false,
+      "volume_observe": {
+        "tickets": 46,
+        "courriels": 4,
+        "documents": 1
+      }
+    },
+    {
+      "id": "R-12",
+      "nom": "Traitement des demandes du composant kraft",
+      "nom_en": "Handling the requests of the kraft component",
+      "nature_perimetre": "composant",
+      "service": "kraft",
+      "famille_poste": "technique",
+      "motifs": [
+        "ING-11",
+        "ING-05"
+      ],
+      "canaux": [
+        "tickets"
+      ],
+      "procedure_ref": "",
+      "changements_douze_mois": 0,
+      "visibilite_dirigeant": false,
+      "faits": {
+        "api_ou_flux_natif": true,
+        "dependance_externe_non_contractuelle": false,
+        "donnee_sensible": false,
+        "etape_supprimable_amont": false,
+        "interface_stable": false,
+        "jugement_requis": true,
+        "obligation_legale_humaine": false,
+        "travail_deterministe": false
+      },
+      "origine_faits": "modele_reel",
+      "raison_modele": "Les titres portant sur le blocage de la migration KRaft, les snapshots sous reseau lent et la mise a niveau de CheckStyle combinent une migration technique et des corrections de robustesse.",
+      "cout": {
+        "jours": "20.0",
+        "tjm": "650",
+        "abonnement_mensuel": "0",
+        "taux_maintenance": "0"
+      },
+      "transfert": [
+        {
+          "nom": "revue",
+          "taux": "0.30",
+          "duree_minutes": "6",
+          "forfait_heures": null
+        }
+      ],
+      "part_volume_traitee": "1",
+      "suppression_etape": false,
+      "volume_observe": {
+        "tickets": 42
+      }
+    }
+  ],
+  "non_coutes": []
+}

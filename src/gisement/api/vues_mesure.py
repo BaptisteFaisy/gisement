@@ -239,12 +239,18 @@ def _bloc_recommandation(projet) -> dict:
     }
 
 
+#: How many measured motifs the portal lists. A real corpus carries one motif
+#: per fingerprint group - 2 332 on the Apache Kafka corpus - and a page that
+#: lists them all is a page nobody reads. The API keeps them all.
+MOTIFS_AFFICHES = 100
+
+
 def motifs_mesures(resultat) -> tuple[int, dict]:
     """The groups the fingerprint produced, and what the classifier made of them."""
     if resultat is None:
         return _erreur(409, "la mesure n'a pas ete lancee")
     lignes = []
-    for motif in resultat.motifs:
+    for motif in sorted(resultat.motifs, key=lambda m: m.occurrences.mediane, reverse=True)[:MOTIFS_AFFICHES]:
         lignes.append(
             {
                 "ref": motif.catalogue_ref or "(nouveau)",

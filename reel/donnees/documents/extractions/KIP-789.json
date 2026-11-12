@@ -1,0 +1,94 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-789",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "",
+    "texte_libre": "This page is meant as a template for writing a. To create a KIP choose Tools->Copy on this page and modify with your content and replace the heading with the next KIP number and a description of your issue. Replace anything in italics with your own description.\nStatus\nCurrent state:[One of \"Under Discussion\", \"Accepted\", \"Rejected\"]\nDiscussion thread:here[Change the link from the KIP proposal email archive to your own email thread]\nJIRA:here[Change the link from KAFKA-1 to your own ticket]\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nKafka command-line tools commonly operate against a broker running on thelocal machine. Requiring--bootstrap-server localhost:9092for everyinvocation adds noise to quick-start, local development, and troubleshootingworkflows.\nDefault local endpoints are useful for command-line clients:\nThemysqlclient useslocalhost:3306when no host or port is specified.\nzkCli.shhistorically usedlocalhost:2181when no server was specified.\nkafka-streams-application-reset.shalready useslocalhost:9092when--bootstrap-serveris absent.\nThe Streams application reset tool implements its default by initializing itsbootstrap-server value tolocalhost:9092, then replacing it only when theuser supplies--bootstrap-server. This KIP applies the same convenience tothe other client tools while retaining explicit connection options for allnon-local use cases.\nPublic Interfaces\nThe broker endpoint option becomes optional for the included tools. Explicitconnection options continue to be supported.\n|\nPriority |\nConnection source |\nBehavior\n|\n1 |\n--bootstrap-server |\nUse the supplied broker endpoint.\n|\n2 |\n--bootstrap-controller |\nUse the supplied controller endpoint, where the tool supports it and--bootstrap-serveris absent.\n|\n3 |\nExisting connection properties |\nUse the configured endpoint, such asbootstrap.servers.\n|\n4 |\nNo endpoint supplied |\nUselocalhost:9092.\nWhen both--bootstrap-serverand--bootstrap-controllerare supplied,--bootstrap-servertakes precedence\nProposed Changes\nApply the priority above to the included tools. This KIP does not default--bootstrap-controller: tools that support both endpoint types uselocalhost:9092only when neither endpoint is specified.\nIncluded tools\n|\nGroup |\nTools |\nDefault behavior |\nExample\n|\nBroker or controller endpoint |\nkafka-acls.sh,kafka-configs.shkafka-cluster.sh,kafka-features.shkafka-metadata-quorum.shkafka-reassign-partitions.sh |\nDefault tolocalhost:9092only when neither--bootstrap-servernor--bootstrap-controlleris supplied. Preserve existing controller-operation restrictions. |\nbin/kafka-cluster.sh cluster-id\n|\n--bootstrap-serveronly |\nkafka-client-metrics.shkafka-console-consumer.shkafka-console-producer.shkafka-console-share-consumer.shkafka-consumer-groups.shkafka-consumer-perf-test.shkafka-delegation-tokens.shkafka-delete-records.shkafka-e2e-latency.shkafka-get-offsets.shkafka-groups.shkafka-leader-election.shkafka-log-dirs.shkafka-share-consumer-perf-test.shkafka-share-groups.shkafka-streams-groups.shkafka-topics.shkafka-transactions.shkafka-verifiable-consumer.shkafka-verifiable-producer.shkafka-verifiable-share-consumer.sh |\nMake--bootstrap-serveroptional and default it tolocalhost:9092. |\nbin/kafka-topics.sh --create --topic local-events\n|\nMultiple producer property sources |\nkafka-producer-perf-test.sh |\nDefault only when neither its command-line nor property-based configuration suppliesbootstrap.servers. |\nbin/kafka-producer-perf-test.sh --topic local-events --num-records 1000 --record-size 100 --throughput -1\n|\nLegacy address-list option |\nkafka-replica-verification.sh |\nMake its address-list--broker-listoptional and default it tolocalhost:9092. This differs from the broker-ID--broker-listinkafka-reassign-partitions.sh. |\nbin/kafka-replica-verification.sh --topics-include local-events\n|\nExisting default |\nkafka-streams-application-reset.sh |\nNo code change; it already defaults tolocalhost:9092"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-789",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Priority",
+        "Connection source",
+        "Behavior"
+      ],
+      "lignes": [
+        [
+          "1",
+          "--bootstrap-server",
+          "Use the supplied broker endpoint."
+        ],
+        [
+          "2",
+          "--bootstrap-controller",
+          "Use the supplied controller endpoint, where the tool supports it and --bootstrap-server is absent."
+        ],
+        [
+          "3",
+          "Existing connection properties",
+          "Use the configured endpoint, such as bootstrap.servers."
+        ],
+        [
+          "4",
+          "No endpoint supplied",
+          "Use localhost:9092."
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Group",
+        "Tools",
+        "Default behavior",
+        "Example"
+      ],
+      "lignes": [
+        [
+          "Broker or controller endpoint",
+          "kafka-acls.sh, kafka-configs.shkafka-cluster.sh, kafka-features.shkafka-metadata-quorum.shkafka-reassign-partitions.sh",
+          "Default to localhost:9092 only when neither --bootstrap-server nor --bootstrap-controller is supplied. Preserve existing controller-operation restrictions.",
+          "bin/kafka-cluster.sh cluster-id"
+        ],
+        [
+          "--bootstrap-server only",
+          "kafka-client-metrics.shkafka-console-consumer.shkafka-console-producer.shkafka-console-share-consumer.shkafka-consumer-groups.shkafka-consumer-perf-test.shkafka-delegation-tokens.shkafka-delete-records.shkafka-e2e-latency.shkafka-get-offsets.shkafka-groups.shkafka-leader-election.shkafka-log-dirs.shkafka-share-consumer-perf-test.shkafka-share-groups.shkafka-streams-groups.shkafka-topics.shkafka-transactions.shkafka-verifiable-consumer.shkafka-verifiable-producer.shkafka-verifiable-share-consumer.sh",
+          "Make --bootstrap-server optional and default it to localhost:9092.",
+          "bin/kafka-topics.sh --create --topic local-events"
+        ],
+        [
+          "Multiple producer property sources",
+          "kafka-producer-perf-test.sh",
+          "Default only when neither its command-line nor property-based configuration supplies bootstrap.servers.",
+          "bin/kafka-producer-perf-test.sh --topic local-events --num-records 1000 --record-size 100 --throughput -1"
+        ],
+        [
+          "Legacy address-list option",
+          "kafka-replica-verification.sh",
+          "Make its address-list --broker-list optional and default it to localhost:9092. This differs from the broker-ID --broker-list in kafka-reassign-partitions.sh.",
+          "bin/kafka-replica-verification.sh --topics-include local-events"
+        ],
+        [
+          "Existing default",
+          "kafka-streams-application-reset.sh",
+          "No code change; it already defaults to localhost:9092.",
+          "bin/kafka-streams-application-reset.sh --application-id local-streams-app --input-topics local-events --to-earliest --dry-run"
+        ]
+      ],
+      "nom": "tableau_2"
+    }
+  ]
+}

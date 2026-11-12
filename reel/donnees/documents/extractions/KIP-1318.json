@@ -1,0 +1,267 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1318",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state: Under Discussion\nDiscussion thread:https://lists.apache.org/list?PSD-8468f5f36dae6baa:2026-5:1318\nJIRA:ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-20436\nMotivation\nBackground\nThe Model Context Protocol (MCP) is an open standard originally announced by Anthropic in November 2024 and donated to the Linux Foundation's Agentic AI Foundation in December 2025, co-founded by Anthropic, Block, and OpenAI. MCP follows a client-host-server architecture where the host application (such as Claude Desktop or VS Code) creates one MCP client per MCP server connection, with all communication using JSON-RPC 2.0 messages through stateful sessions with capability negotiation at initialization.\nThe protocol defines three server-side primitives:\nTools- functions for the AI model to execute (state-changing actions)\nResources- context and data for the model (read-only)\nPrompts- templated messages and workflows\nMCP was designed to solve the \"N×M integration problem\" where developers previously had to build custom connectors for each combination of data source and AI tool. MCP adoption is accelerating across Claude Desktop, Claude Code, GitHub Copilot (VS Code), and Google's Agent Development Kit (ADK).\nWhat it shows:the general MCP client-host-server model. A host application (Claude Desktop, VS Code, Google ADK) creates one MCP client per server connection. Each client talks to its MCP server over JSON-RPC 2.0 in a stateful session, negotiating capabilities at initialization. Every server exposes up to three primitives - Tools (state-changing actions), Resources (read-only context), and Prompts (templated workflows) - and wraps an external system.Why it matters:this KIP's Kafka MCP server is one such server; the host can connect to several servers at once, which is exactly why per-server isolation and least privilege matter.\nMotivating Question\nShould Apache Kafka provide a first-party MCP server so that AI agents can interact with Kafka clusters through the standardized MCP protocol?\nYes. Apache Kafka has a rich operational surface spanning five core APIs (Producer, Consumer, Streams, Connect, Admin) with over 100 distinct operations. Today, interacting with Kafka programmatically requires either:\nWriting Java/Python client code against the Kafka client libraries\nUsing CLI tools (kafka-topics.sh,kafka-consumer-groups.sh,kafka-acls.sh)\nCalling the Connect REST API directly viacurl\nNone of these are accessible to AI agents through MCP. This means developers cannot ask their AI assistant to \"create a topic with 12 partitions and 3-day retention,\" \"show me the lag for consumer group X,\" or \"restart the failed connector task\" - operations that should be trivial in an AI-assisted workflow.\nExisting Implementations and Gap Analysis\nAt least five open-source Kafka MCP server implementations already exist (several Python implementations), validating the demand. However, all share critical gaps:\nNo ACL management - security administration is excluded from AI-assisted workflows\nNo transactional produce semantics - no exactly-once guarantees\nNo Kafka Streams or Share Group operations - major APIs are entirely absent\nConfluent coupling - the most feature-complete implementation (mcp-confluent) only works with Confluent Cloud REST APIs, not vanilla Apache Kafka\nAdditional security gaps.Beyond the functional gaps above, existing implementations also lack enterprise security controls: no separation between data-plane reads and control-plane mutations (indirect prompt injection / data-to-tool escalation), no resource-level topic scoping beyond a single broker credential, no bounded output/circuit breakers for autonomous agents, no tamper-evident audit trail, and no protection against MCP-specific attacks (tool poisoning, rug-pull, confused deputy). These are addressed in theSecurity Hardeningsection below.\nThis KIP Fills All Gaps\nNew Capabilities\nA first-party MCP server for Apache Kafka will allow:\nAI agents to create, describe, alter, "
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1318",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Property",
+        "Default",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "bootstrap.servers",
+          "(required)",
+          "Kafka broker addresses"
+        ],
+        [
+          "mcp.transport",
+          "stdio",
+          "Transport mode: stdio or http"
+        ],
+        [
+          "mcp.http.port",
+          "9090",
+          "HTTP port (when mcp.transport=http). Default avoids conflict with common services on 8080."
+        ],
+        [
+          "mcp.connect.url",
+          "(none)",
+          "Kafka Connect REST URL (optional, enables Connect tools). If Connect has authentication enabled, provide credentials via mcp.connect.auth.username and mcp.connect.auth.password."
+        ],
+        [
+          "security.protocol",
+          "PLAINTEXT",
+          "Kafka security protocol (PLAINTEXT, SSL, SASL_PLAINTEXT, SASL_SSL)"
+        ],
+        [
+          "sasl.mechanism",
+          "(none)",
+          "SASL mechanism (PLAIN, SCRAM-SHA-256, SCRAM-SHA-512, GSSAPI)"
+        ],
+        [
+          "sasl.jaas.config",
+          "(none)",
+          "JAAS configuration for SASL authentication"
+        ],
+        [
+          "ssl.truststore.location",
+          "(none)",
+          "SSL truststore path"
+        ],
+        [
+          "ssl.keystore.location",
+          "(none)",
+          "SSL keystore path (for mTLS)"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Property",
+        "Default",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "mcp.tools.allowed",
+          "* (all)",
+          "Comma-separated allow-list of tool names to register. Tools not listed are never exposed."
+        ],
+        [
+          "mcp.tools.denied",
+          "(none)",
+          "Comma-separated deny-list of tool names. Takes precedence over the allow-list."
+        ],
+        [
+          "mcp.allowed.topic.prefixes",
+          "* (all)",
+          "Comma-separated topic-name prefixes for topic-scoped tools/resources (e.g., agent.,sandbox.). Requests targeting topics outside the set are rejected before any Kafka call. Note: bounds topic operations only; cluster/ACL/broker tools are governed by mcp.readonly + allow/deny + broker ACLs."
+        ],
+        [
+          "mcp.allowed.group.prefixes",
+          "* (all)",
+          "Comma-separated consumer-group prefixes for group-scoped tools/resources."
+        ],
+        [
+          "mcp.readonly",
+          "false",
+          "When true, all writes are disabled (including produce_message); only read/describe tools and resources are registered."
+        ],
+        [
+          "mcp.taint.guard.enabled",
+          "true",
+          "Best-effort: values returned by reads are matched (normalized exact/substring) against arguments to destructive-mutate tools within a plan; a match requires the approval token. Not a complete defense (see Limitations)."
+        ],
+        [
+          "mcp.approval.required.tools",
+          "destructive set",
+          "Comma-separated tools requiring an approval token minted out-of-band before execution (default: delete_topic,delete_records,create_acls,delete_acls,alter_partition_reassignments,alter_broker_config)."
+        ],
+        [
+          "mcp.dryrun.tools",
+          "(none)",
+          "Comma-separated tools that return the intended change and blast radius without executing."
+        ],
+        [
+          "mcp.audit.topic",
+          "(none)",
+          "If set, every request (identity, tool, params, decision, result, correlation id) is appended to this Kafka topic, which MUST be configured append-only for the MCP identity (deny Delete/Alter). A local durable fallback is used if the topic is unavailable. External WORM/SIEM is the authoritative record."
+        ],
+        [
+          "mcp.policy.engine.url",
+          "(none)",
+          "Optional external policy engine (OPA/Cedar) evaluated before every tool call. Bounded by mcp.dependency.timeout.ms; fail-closed (deny) on timeout/error."
+        ],
+        [
+          "mcp.circuit.breaker.enabled",
+          "true",
+          "Enable per-dependency circuit breakers (Kafka Admin, Connect, Schema Registry)."
+        ],
+        [
+          "mcp.dependency.timeout.ms",
+          "10000",
+          "Fail-fast timeout per external dependency call."
+        ],
+        [
+          "mcp.tools.manifest.signature",
+          "(none)",
+          "Optional. The first-party tool set is static by construction; this covers operator-added interceptors/config, verified against the release-signing key. Off by default; does not block startup unless set."
+        ],
+        [
+          "mcp.oauth.expected.audience",
+          "(none)",
+          "Required token audience for HTTP transport (OAuth 2.1 / RFC 8707). Tokens with a different audience are rejected."
+        ],
+        [
+          "mcp.oauth.expected.issuer",
+          "(none)",
+          "Required token issuer for HTTP transport."
+        ],
+        [
+          "mcp.ratelimit.backend",
+          "local",
+          "local (default) enforces limits per replica; broker-side client quotas provide the cluster-wide ceiling. distributed is optional and requires an external shared store (a new dependency); see Further Work."
+        ],
+        [
+          "mcp.ifc.strict",
+          "false",
+          "Strict Information Flow Control: while the session context is Untrusted (any untrusted data was read), any control-plane (destructive) tool is blocked with -32040 unless an approval token (Trusted) is presented. Default is best-effort argument-level taint."
+        ],
+        [
+          "mcp.hard.max.records",
+          "100",
+          "Non-overridable ceiling on records returned by consume_messages (clamps any larger maxMessages)."
+        ],
+        [
+          "mcp.hard.max.bytes",
+          "1048576",
+          "Non-overridable per-response byte ceiling; output beyond this is truncated with a tag."
+        ],
+        [
+          "mcp.identity.propagation",
+          "false",
+          "When enabled, the end-user principal (from the OAuth token) is checked against per-caller broker ACLs before each operation, aligning agent capability with the operator's IAM."
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Tool Name",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "create_topic",
+          "Create a new topic with partitions, replication factor, and optional configs"
+        ],
+        [
+          "delete_topic",
+          "Delete a topic"
+        ],
+        [
+          "alter_topic_config",
+          "Incrementally alter topic configuration"
+        ],
+        [
+          "create_partitions",
+          "Increase partition count for a topic"
+        ],
+        [
+          "delete_records",
+          "Delete records before a given offset"
+        ]
+      ],
+      "nom": "tableau_3"
+    },
+    {
+      "colonnes": [
+        "Tool Name",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "produce_message",
+          "Produce a single message with optional key, headers, partition, timestamp"
+        ],
+        [
+          "produce_batch",
+          "Produce multiple messages atomically with flush"
+        ],
+        [
+          "produce_transactional",
+          "Produce messages within an exactly-once transaction"
+        ],
+        [
+          "consume_messages",
+          "Consume up to N messages from a topic with configurable offset reset"
+        ]
+      ],
+      "nom": "tableau_4"
+    },
+    {
+      "colonnes": [
+        "Tool Name",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "delete_consumer_group",
+          "Delete a consumer group"
+        ],
+        [
+          "alter_consumer_group_offsets",
+          "Reset offsets for a consumer group (group must be empty)"
+        ],
+        [
+          "remove_group_members",
+          "Force-remove members from a consumer group"
+        ],
+        [
+          "delete_consumer_group_offsets",
+          "Delete committed offsets for specific partitions"
+        ]
+      ],
+      "nom": "tableau_5"
+    }
+  ]
+}

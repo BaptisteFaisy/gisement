@@ -1,0 +1,43 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1313",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "accepted",
+    "texte_libre": "Status\nCurrent state:Accepted\nDiscussion thread:here\nVoting thread:here\nJIRA:here\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nToday, all Kafka protocol requests include the client ID. This identifier can be set by the user setting the client configuration propertyclient.id. This is a useful capability, but it has limitations. The client ID was meant for identifying an application, and not the instances of an application. Often, it is not sufficient to identify a particular client instance.\nThis KIP adds a UUID called the client instance ID into the request header of (almost) all Kafka protocol requests. Each client has a different client instance ID, so correlating requests from a particular client becomes much easier. An immediate benefit is that it can be included in request logging for troubleshooting. It is being added to improve traceability and problem determination.\nIn addition, the client ID is sent on each and every request. Users sometimes have use quite long client IDs, even encoding metadata such as the availability zone into the string. The client ID is then sent on every request, in spite of the fact that the Kafka protocol is connection-oriented and it is really only necessary to send the string on the first request after connection initiation. Sending it repeatedly is wasteful.\nProposed Changes\nThis KIP proposes the following changes to the Kafka protocol.\nClient Instance ID\nThis KIP proposes adding a UUID called theclient instance IDinto the request header of all Kafka protocol requests (with a few exceptions as documented below). The client uses the same client instance ID for its connections to every broker throughout its lifetime, even when it rebootstraps and makes new connections. The consistency and uniqueness of the identifiers are both important characteristics.\nVersion 3 of the RPC request header is introduced which adds the client instance ID. A new version of every RPC is introduced using the v3 request header, with the exception ofSaslHandshakewhich cannot be bumped due to incorrect version negotiation in the past.\nThose familiar withwill be aware that it already introduced the client instance ID, so this KIP actually proposes elevating that concept into a universal unique identifier for client instances in all RPCs.\nThe client instance ID is calculated by the client during the constructor of the client before it makes its initial connection to the cluster. This differs slightly from how KIP-714 initialized the client instance ID. In KIP-714, the client instance ID was created by the broker which responded to a client's firstGetTelemetrySubscriptionsRPC. Similarly, in KIP-848, the member ID was created by the group coordinator in response to a heartbeat, but subsequently KIP-1082 changed this so that the client created its own member ID. The protocol now favors client-generated IDs so this KIP calculates the client instance ID on the client. The Apache Kafka Java client will useorg.apache.kafka.common.Uuid.randonUuid()to calculate the client instance ID. The client instance ID is not permitted to be either of the reserved UUIDs (zero or one).\nIf a connection uses the v3 request header in its first request, it must specify the client instance ID and then omit the client instance ID from all subsequent requests on that connection. Note thatSaslHandshakeis excluded from this checking because it cannot carry a client instance ID. The initial client instance ID for each connection will be cached by the broker (this is an implementation detail, but caching it in theChannelMetadataRegistryis an option). Once a client has specified a client instance ID in its first request, any subsequent requests which specify a value for the client instance ID will be rejected with error codeINVALID_REQUEST.\nBecause the versions of RPCs which can be used inter-broker are being increased, a new metadata version (provisionallyIBP_4_5_IV0"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1313",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "",
+        "Old broker",
+        "New broker"
+      ],
+      "lignes": [
+        [
+          "Old client",
+          "GetTelemetrySubscriptions v0Initial request:request.ClientInstanceID=0response.ClientInstanceId=UUID-BSubsequent requests:request.ClientInstanceId=UUID-Bresponse.ClientInstanceId=0",
+          "GetTelemetrySubscriptions v0Initial request:request.ClientInstanceID=0response.ClientInstanceId=UUID-BSubsequent requests:request.ClientInstanceId=UUID-Bresponse.ClientInstanceId=0"
+        ],
+        [
+          "New client",
+          "GetTelemetrySubscriptions v0Initial request:request.ClientInstanceId=UUID-Rresponse.ClientInstanceId=0Subsequent requests:request.ClientInstanceId=UUID-Rresponse.ClientInstanceId=0",
+          "GetTelemetrySubscriptions v1Initial request:header.ClientInstanceId=UUID-HSubsequent requests:header.ClientInstanceId is omitted (UUID-H is cached in connection state)"
+        ]
+      ],
+      "nom": "tableau_1"
+    }
+  ]
+}

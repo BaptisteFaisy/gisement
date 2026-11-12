@@ -38,6 +38,9 @@ class ParametresCollecte:
     motif_noms: object | None = None
     """Precompiled "Firstname Lastname" pattern, built from the manifest lists."""
 
+    objets_max: int = 6
+    """How many object words a fingerprint keeps. Calibrated per corpus."""
+
 
 @runtime_checkable
 class Source(Protocol):
@@ -232,7 +235,7 @@ def _activite(
         id=f"{canal.value}:{identifiant}",
         corpus_id=parametres.corpus_id or f"corpus-{parametres.campagne_id}-{canal.value}",
         canal=canal,
-        signature=signature(geste, systemes_de(record)),
+        signature=signature(geste, systemes_de(record), parametres.objets_max),
         horodatage=horodatage(record.get("horodatage")),
         texte=texte,
         duree_mesuree_minutes=duree,

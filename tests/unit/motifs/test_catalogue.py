@@ -25,8 +25,11 @@ RACINE = Path(__file__).resolve().parents[3]
 CATALOGUE = charger_catalogue()
 
 
-def test_le_catalogue_contient_quarante_motifs() -> None:
-    assert len(CATALOGUE) == 40
+def test_le_catalogue_contient_quarante_motifs_back_office_et_douze_motifs_reels() -> None:
+    """The catalogue is alive (R25): the 40 back-office motifs, plus the 12 the
+    real corpus of `reel/` made necessary - a new family, added as data."""
+    assert len(CATALOGUE.famille("ingenierie")) == 12
+    assert len(CATALOGUE) == 52
     assert valider_catalogue(CATALOGUE) == ()
     assert refs_en_double(CATALOGUE) == ()
 
@@ -92,7 +95,7 @@ def test_un_motif_sans_rapport_ne_score_pas() -> None:
 def test_les_candidats_sont_tries_par_score_puis_par_ref() -> None:
     sig = signature("Relancer le devis sans reponse", ("crm",))
     liste = CATALOGUE.candidats(sig, ("crm",))
-    assert len(liste) == 40
+    assert len(liste) == len(CATALOGUE)
     assert isinstance(liste[0], CandidatMotif)
     scores = [c.score for c in liste]
     assert scores == sorted(scores, reverse=True)
@@ -170,9 +173,9 @@ def test_le_validateur_signale_chaque_anomalie(tmp_path: Path) -> None:
     assert refs_en_double(catalogue) == ("X-01",)
 
 
-def test_les_huit_fichiers_sont_du_json_valide() -> None:
+def test_les_fichiers_du_catalogue_sont_du_json_valide() -> None:
     fichiers = sorted((RACINE / "catalogue" / "motifs").glob("*.json"))
-    assert len(fichiers) == 8
+    assert len(fichiers) == 9
     for chemin in fichiers:
         brut = json.loads(chemin.read_text(encoding="utf-8"))
         assert isinstance(brut, list) and brut

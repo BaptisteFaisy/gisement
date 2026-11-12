@@ -1,0 +1,22 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-20427"
+    ],
+    "kip": "KIP-1347",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state: Under Discussion\nDiscussion thread:here[Change the link from the KIP proposal email archive to your own email thread]\nJIRA:KAFKA-20427[Change the link from KAFKA-1 to your own ticket]\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nWhen using Apache Kafka'sKRaftmode with dynamic quorum (kraft.version= 1, introduced inKIP-853), the cluster stores the controller voter configuration in the metadata log asVotersRecordentries.\nThese recordscontainDNS hostnames and ports for each controller voter, together with node and directory IDs.\nUnlike static quorum mode (which uses thecontroller.quorum.votersconfiguration), dynamic quorum persists voter endpoints in the metadata topic, making them the source of truth forcontrollersto form the quorum.\nThis design creates a critical problem when DNS infrastructure changes occur:\nControllers load thevoter setfrom persisted metadata (snapshot + log) duringthestartup.\nThevoter setcontainsold DNS hostnames (e.g., controller-0.old-domain.com)\nThe old DNS names no longer resolve in the updated DNS infrastructure.\nControllers cannot communicate with each other to form quorum.\nTheUpdateVoterRequestAPI (used to update voter endpoints) requires an active quorum to function.\nCannotestablishquorum to update endpoints, cannot update endpoints without quorum.\nEven with thecontroller.quorum.bootstrap.serversparameter being updated with the new DNS hostnames,on restart,the controllers use thevoter set from the persisted metadata and there is no way to rewrite it with thew new endpoints.\nIn such scenario,it’snot possible to recover theKRaftquorum.\nThe shift to dynamic quorum withKIP-853makes split brain structurally impossible during membership changes,but on the other side,it creates recovery problems, especially in dynamic environments like Kubernetes.\nWhen running an Apache Kafka cluster within a cloud-native environmentbasedonKubernetesanddeployed by an operator likeStrimzi,it’snot uncommonto rename DNS domains. In this case,when the Kubernetes cluster's DNS configuration changes (e.g., fromcluster.localto cluster-new.local, or changing the default DNS suffix), all pod DNS names are affected. For example, controller FQDNs change frommy-cluster-kafka-0.my-cluster-kafka-brokers.kafka-prod.svc.cluster.localto my-cluster-kafka-0.my-cluster-kafka-brokers.kafka-prod.svc.cluster-new.local.\nFurthermore, there is no safe recovery from majority loss. For example, if 2 of 3 controllers are permanently gone, the metadata stored on those controllers (including leader epochs, ISR/ELR state) is lost. Kafka cannot recover from such metadata loss and any re-bootstrap attempt will require additional data loss beyond the initial metadata loss, as the system lacks the information needed to determine which data is authoritative and which replicas are safely in-sync.\nFinally, recovery from volume snapshot (i.ePVC in Kubernetes) is also fragile.Itrequires preserving the cluster name and the DNS domainat least, but if one of them changes,pods get new identities (common in Kubernetes), theVotersRecordin the metadata log no longer matchesthereality, and there is no config file to simply edit to fix the mismatch.\nThesame issuedoesn’tarise when using the static quorum mode, because as soon as thecontroller.quorum.votersparameter is updated by using the new DNS hostnames for the controllersand they restart, theKRaftquorum is formedas thecontroller.quorum.voterslist is used as the source of truth. By using dynamic quorum, it's still possible to recover if not all controllers changed the DNS hostnames, but there are still controllers using the old ones and able to connect to form the quorum. This happens when number of controllers with DNS changes is less than the majority of controllers.\nPublic Interfaces\nCommand Line Interface Changes\nThe kafka-storage.sh format command has a newoption--override-voters.\nWith the--override-votersopti"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1347",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": []
+}

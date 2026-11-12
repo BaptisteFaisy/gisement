@@ -1,0 +1,79 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1350",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state: Under Discussion\nDiscussion thread:here\nJIRA:here\nMotivation\nWhen Kafka Streams uses the Streams rebalance protocol, each stream thread receives StreamsGroupHeartbeatResponse messages from the group coordinator. These responses may include statuses such asMISSING_SOURCE_TOPICS,MISSING_INTERNAL_TOPICS,INCORRECTLY_PARTITIONED_TOPICS,ASSIGNMENT_DELAYED, orSHUTDOWN_APPLICATION.\nToday, these statuses are used internally by the Streams client to determine group readiness and handle errors, but they are not directly exposed as metrics. In some cases, operators must inspect client logs to understand why a specific stream thread is not processing, why the group is not ready, or why assignment is delayed.\nThis becomes more expensive in environments with many Kafka Streams clients and many stream threads. Even within the same application, different stream threads may temporarily observe different heartbeat responses. For example, one thread may observeASSIGNMENT_DELAYED, while another may not. Application-level or client-level state alone does not identify which stream thread is affected by which coordinator-reported condition.\nAs a result, operators may not be able to narrow down the cause from dashboards or alerts alone. They must identify the affected client and thread, then inspect logs. This increases operational cost and can delay root-cause analysis and recovery.\nThis KIP proposes exposing the latest Streams group heartbeat statuses observed by each stream thread as Kafka Streams thread-level metrics. This allows operators to identify coordinator-reported conditions directly from metrics.\nPublic Interfaces\nThis KIP adds the following Kafka Streams thread-level metric.\n| Field | Value\n| metric group |\nstream-thread-metrics\n| metric name |\nheartbeat-status\n| Tags |\nthread-id = <stream-thread-id>\nstatus = <streams-group-heartbeat-status>\n| Value |\n1 : the latest successful StreamsGroupHeartbeatResponse received by this thread contains this status\n0 : the latest successful StreamsGroupHeartbeatResponse received by this thread does not contain this status\n| JMX Example |\nkafka.streams:type=stream-thread-metrics,thread-id=my-app-StreamThread-1,status=missing-source-topics\nAttribute\nheartbeat-status = 1\nA singleStreamsGroupHeartbeatResponsemay contain multiple statuses. Therefore, multiple heartbeat-statusmetrics for the same stream thread may have value1at the same time, each with a differentstatustag value.\nThestatustag value is derived fromStreamsGroupHeartbeatResponse.Statusby converting the enum name to lower-case hyphen-separated form.\nstale-topology\nmissing-source-topics\nincorrectly-partitioned-topics\nmissing-internal-topics\nmissing-client-tags\nshutdown-application\nassignment-delayed\nFor example,StreamsGroupHeartbeatResponse.Status.MISSING_SOURCE_TOPICSis exposed asstatus=missing-source-topics.\nThis metric is registered only for stream threads using the Streams rebalance protocol. When the classic rebalance protocol is used, this metric is not registered.\nProposed Changes\nKafka Streams will expose the latest Streams group heartbeat statuses observed by each stream thread as thread-level metrics.\nFor each stream thread using the Streams rebalance protocol, Kafka Streams will register one metric per known Streams group heartbeat status.\nEach metric reports whether the latest successful StreamsGroupHeartbeatResponse observed by that stream thread contains the corresponding status.\nThis metric is a Gauge. Its value is evaluated when the metric is read.\n1 = the latest successfulStreamsGroupHeartbeatResponsecontains the status\n0 = the latest successfulStreamsGroupHeartbeatResponsedoes not contain the status\nA single StreamsGroupHeartbeatResponse may contain multiple statuses. Therefore, multiple status metrics for the same stream thread may return 1 at the same time.\nThis metric is scoped to a stream thread because Streams group heartbeats are sent and received by individual stream threads. As a result, different s"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1350",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Field",
+        "Value"
+      ],
+      "lignes": [
+        [
+          "metric group",
+          "stream-thread-metrics"
+        ],
+        [
+          "metric name",
+          "heartbeat-status"
+        ],
+        [
+          "Tags",
+          "thread-id = &lt;stream-thread-id&gt;status = &lt;streams-group-heartbeat-status&gt;"
+        ],
+        [
+          "Value",
+          "1 : the latest successful StreamsGroupHeartbeatResponse received by this thread contains this status0 : the latest successful StreamsGroupHeartbeatResponse received by this thread does not contain this status"
+        ],
+        [
+          "JMX Example",
+          "kafka.streams:type=stream-thread-metrics,thread-id=my-app-StreamThread-1,status=missing-source-topicsAttributeheartbeat-status = 1"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Situation",
+        "heartbeat-status behavior"
+      ],
+      "lignes": [
+        [
+          "Before the first successful heartbeat",
+          "All gauges return 0"
+        ],
+        [
+          "Successful response containing the status",
+          "The corresponding gauge returns 1"
+        ],
+        [
+          "Successful response without the status",
+          "The corresponding gauge returns 0"
+        ],
+        [
+          "Successful response with null or empty statuses",
+          "All gauges return 0"
+        ],
+        [
+          "Heartbeat response with an error, or a request that fails",
+          "The previous gauge values remain unchanged. If no successful response has been received, all gauges remain 0."
+        ]
+      ],
+      "nom": "tableau_2"
+    }
+  ]
+}

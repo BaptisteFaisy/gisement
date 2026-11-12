@@ -1,0 +1,83 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1304",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "voting in progress",
+    "texte_libre": "Status\nCurrent state:Voting in progress\nDiscussion thread:https://lists.apache.org/thread/z4o5093zqxmc18nzb74vyhvb1hb399v4\nVote thread:https://lists.apache.org/thread/jxf789v0kdpvsb9wsosghh57odkksxt7\nJIRA:ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-18088\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nThe Kafka consumer allows users topause()andresume()individual partitions. When a partition is paused, subsequent calls topoll()will not return any records from that partition until it is resumed. This mechanism is used for application-level flow control and backpressure management.\nHigher-level frameworks like Kafka Streams make extensive use of pause/resume internally:\nBackpressure: When an internal record buffer for a partition exceeds its capacity, Kafka Streams pauses that partition to prevent further fetching. It resumes the partition once the buffer drains below the threshold.\nRebalance lifecycle: After a rebalance, Kafka Streams pauses all partitions that are not yet owned by fully initialized tasks. Partitions are only resumed after state store restoration completes.\nChangelog restore management: TheStoreChangelogReaderpauses and resumes changelog partitions on the restore consumer depending on whether the corresponding tasks still exist.\nCurrently, there are no consumer metrics that expose pause/resume state. Operators and developers have no way to answer basic questions through monitoring:\nHow many partitions are currently paused? A number of paused partitions may indicate backpressure issues, slow state restoration, or application-level processing bottlenecks.\nWhich specific partitions are paused? Knowing which partitions are paused helps pinpoint which topics or partitions are experiencing issues.\nHow long has a partition been paused? A partition that has been paused for an extended period may indicate a stuck consumer, an unrecoverable error in processing, or a state store restoration that is taking too long.\nHow frequently are partitions being paused? A high rate of pause calls may indicate instability in the application's flow control logic or repeated rebalances triggering pause/resume cycles.\nThis KIP proposes adding new consumer metrics that track paused partitions and their pause duration.\nPublic Interfaces\nNew metrics\nconsumer-coordinator-metrics\nThe metric willhave the following tags:\nclient-id\n| Metric Name | Type | Description\n| paused-partitions | Gauge (Integer) | The current number of partitions that have been paused by the user viaConsumer.pause().\n| paused-partitions-rate | Rate | The per-second rate ofConsumer.pause()calls.\n| paused-partitions-total | CumulativeCount | The total cumulative number ofConsumer.pause()calls.\n| paused-partitions-duration-seconds-max | Gauge (Long) | The maximum duration in seconds that any partition has been paused. Returns -1 if no partition is currently paused.\nconsumer-fetch-manager-metrics\nEach metric willhave the following tags:\nclient-id\ntopic\npartition\n| Metric Name | Type | Description\n| paused-partition | Gauge (Integer) | Whether this partition is currently paused. Returns1if paused,0if not paused.\n| paused-partition-duration-seconds | Gauge (Long) | The time in seconds since this partition was paused. Returns-1if the partition is not currently paused.\n| paused-partition-rate | Rate | The per-second rate ofConsumer.pause()calls for this partition.\n| paused-partition-total | CumulativeCount | The total cumulative number ofConsumer.pause()calls for this partition.\nNote: These are per-partition metrics, consistent with existing per-partition consumer metrics such asrecords-lagandrecords-lead. Cardinality increases linearly with the number of assigned partitions, which may increase memory usage in the metrics registry and in downstream monitoring systems.\nProposed Changes\nTrack Pause Timestamp\nCurrently, each partition's internal state tracks whether it is paused with a simple b"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1304",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Metric Name",
+        "Type",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "paused-partitions",
+          "Gauge (Integer)",
+          "The current number of partitions that have been paused by the user via Consumer.pause() ."
+        ],
+        [
+          "paused-partitions-rate",
+          "Rate",
+          "The per-second rate of Consumer.pause() calls."
+        ],
+        [
+          "paused-partitions-total",
+          "CumulativeCount",
+          "The total cumulative number of Consumer.pause() calls."
+        ],
+        [
+          "paused-partitions-duration-seconds-max",
+          "Gauge (Long)",
+          "The maximum duration in seconds that any partition has been paused. Returns -1 if no partition is currently paused."
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Metric Name",
+        "Type",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "paused-partition",
+          "Gauge (Integer)",
+          "Whether this partition is currently paused. Returns 1 if paused, 0 if not paused."
+        ],
+        [
+          "paused-partition-duration-seconds",
+          "Gauge (Long)",
+          "The time in seconds since this partition was paused. Returns -1 if the partition is not currently paused."
+        ],
+        [
+          "paused-partition-rate",
+          "Rate",
+          "The per-second rate of Consumer.pause() calls for this partition."
+        ],
+        [
+          "paused-partition-total",
+          "CumulativeCount",
+          "The total cumulative number of Consumer.pause() calls for this partition."
+        ]
+      ],
+      "nom": "tableau_2"
+    }
+  ]
+}

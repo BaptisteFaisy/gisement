@@ -1,0 +1,43 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1322",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under vote",
+    "texte_libre": "Status\nCurrent state:Under Vote\nDiscussion thread:here\nVot thread:here\nJIRA:here\nMotivation\nKRaft relies on two critical timeouts to maintain cluster health:fetch timeouts(a follower hasn't received a timely response from the leader) andelection timeouts(a candidate/unattached/prospective node hasn't completed an election in time). Both trigger state transitions that are essential for leader election and fault recovery.\nCurrently, there are no metrics that track how often these timeouts occur. We have no direct way to observe timeout frequency, making it difficult to detect network instability in Kraft.\nSo adding cumulative counters for these events gives us immediate visibility into KRaft cluster stability.\nPublic Interfaces\nA new tagged metric will be added to thekafka.raft:type=raft-metricsmetric group:\n| MBean | Type | Description\n| kafka.raft:type=raft-metrics,name=timeout-expirations,timer-name=fetch | Integer | This metric tracks the total number of fetch timeouts that have occurred on this node. A fetch timeout happens when a follower does not receive a timely fetch response from the leader. This metric is always registered regardless of the node's current state.\n| kafka.raft:type=raft-metrics,name=timeout-expirations,timer-name=election | Integer | This metric tracks the total number of election timeouts that have occurred on this node. An election timeout happens when a node in Unattached, Prospective, or Candidate state does not complete an election in time and transitions to the next state. This metric is always registered regardless of the node's current state.\nThe metric uses a single nametimeout-expirationswith atimer-nametag to distinguish between timeout types.\nThe metric increments when its corresponding timer transitions from unexpired to expired during a poll of the raft client. It does not increment if the timer remains in an already-expired state across consecutive polls.\nProposed Changes\nAdd two cumulative counters toKafkaRaftMetrics, each exposed as aGauge<Integer>:\ntimeout-expirations{timer-name=fetch}: tracks the number of fetch timeout expirations.\ntimeout-expirations{timer-name=election}: tracks the number of election timeout expirations.\nBoth metrics are registered at startup and remain registered for the lifetime of the raft client.\nCompatibility, Deprecation, and Migration Plan\nNew metrics only, no changes to existing behavior or interfaces.\nNo deprecations. No migration needed.\nTest Plan\nUnit tests to verify that fetch timeout and election timeout scenarios correctly increment the respective metric counters.\nRejected Alternatives\n1.Sensor with CumulativeCount instead of Gauge\nWe only need a simple cumulative counter. AGaugebacked by avolatile intis more straightforward than aSensorwithCumulativeCount, which is designed for more complex aggregation scenarios.\n2.State-based metric registration/unregistration\nWe considered only registering timeout metrics during relevant states (e.g., fetch timeout only inFollowerState). The problem is that timeouts happen right at the end of a state, which means the counter increments and the node immediately transitions out, so operators would miss the updated value. Always registering is simpler and more useful.\n3.Incrementing only when the timer transitions from unexpired to expired\nWe considered having the timer itself detect the transition and increment the counter automatically. This is not trivial to implement and not necessary. The simpler approach of incrementing in the poll methods whenisExpired()returns true produces the same result since expirations always trigger immediate state transitions. This KIP assumesKAFKA-20514is resolved first."
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1322",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "MBean",
+        "Type",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "kafka.raft:type=raft-metrics,name=timeout-expirations,timer-name=fetch",
+          "Integer",
+          "This metric tracks the total number of fetch timeouts that have occurred on this node. A fetch timeout happens when a follower does not receive a timely fetch response from the leader. This metric is always registered regardless of the node's current state."
+        ],
+        [
+          "kafka.raft:type=raft-metrics,name=timeout-expirations,timer-name=election",
+          "Integer",
+          "This metric tracks the total number of election timeouts that have occurred on this node. An election timeout happens when a node in Unattached, Prospective, or Candidate state does not complete an election in time and transitions to the next state. This metric is always registered regardless of the node's current state."
+        ]
+      ],
+      "nom": "tableau_1"
+    }
+  ]
+}

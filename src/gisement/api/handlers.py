@@ -8,8 +8,11 @@ identically. Every measure route passes through `politique.evaluer` first
 
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
+from decimal import Decimal
+from pathlib import Path
 
 from gisement.api.auth import (
     Identite,
@@ -19,7 +22,14 @@ from gisement.api.auth import (
 )
 from gisement.couverture import ligne_publication, par_canal_publication
 from gisement.observabilite import CompteurCout, ecart_a_l_estimation
-from gisement.pipeline import ResultatCampagne, campagne_demo, executer
+from gisement.pipeline import (
+    DONNEES,
+    TAUX_DEFAUT,
+    VERITE,
+    ResultatCampagne,
+    campagne_demo,
+    executer,
+)
 from gisement.politique import (
     CompteurRequetes,
     JournalAcces,
@@ -36,7 +46,12 @@ from gisement.types.mesure import Processus
 
 @dataclass
 class Etat:
-    """The state of one demo campaign."""
+    """The state of one campaign - the synthetic demo one, or the real one.
+
+    The same handlers serve both: only the corpus (its root, its declared
+    perimeter, its recorded model answers) changes, never the code that reads
+    them. That is what makes the site, the API and the tests unable to diverge.
+    """
 
     campagne: Campagne
     statut_campagne: StatutCampagne = StatutCampagne.BROUILLON
@@ -45,11 +60,34 @@ class Etat:
     journal: JournalAcces = field(default_factory=JournalAcces)
     compteur: CompteurRequetes = field(default_factory=CompteurRequetes)
     cout: CompteurCout = field(default_factory=CompteurCout)
+    racine: Path = DONNEES
+    declaration: Path = VERITE
+    modele: object | None = None
+    objets_max: int = 6
+    taux_horaire: Decimal | None = TAUX_DEFAUT
+    """The rate the campaign publishes its gains with (None = hours only)."""
 
     @classmethod
     def demo(cls) -> Etat:
         campagne = campagne_demo()
         return cls(campagne=campagne)
+
+    @classmethod
+    def reel(cls) -> Etat:
+        """The state of the REAL corpus (Apache Kafka), when it is present."""
+        from reel.corpus import campagne_reelle, modele_reel
+
+        racine = Path(__file__).resolve().parents[3] / "reel"
+        manifeste = json.loads((racine / "donnees" / "manifeste.json").read_text(encoding="utf-8"))
+        taux = manifeste.get("taux_horaire")
+        return cls(
+            campagne=campagne_reelle(racine),
+            taux_horaire=Decimal(str(taux)) if taux else None,
+            racine=racine / "donnees",
+            declaration=racine / "donnees" / "declaration.json",
+            modele=modele_reel(racine),
+            objets_max=2,
+        )
 
 
 def _ok(donnees: object) -> tuple[int, dict]:
@@ -102,7 +140,14 @@ def lancer(etat: Etat, identite: Identite) -> tuple[int, dict]:
             bouton_grise=True,
         )
     if etat.resultat is None:
-        etat.resultat = executer(etat.campagne)
+        etat.resultat = executer(
+            etat.campagne,
+            taux_horaire=etat.taux_horaire,
+            racine=etat.racine,
+            declaration=etat.declaration,
+            modele=etat.modele,
+            objets_max=etat.objets_max,
+        )
         _alimenter_cout(etat)
     etat.statut_campagne = StatutCampagne.TERMINEE
     return _ok({"campagne": etat.campagne.id, "statut": "terminee"})

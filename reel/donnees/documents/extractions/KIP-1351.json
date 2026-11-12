@@ -1,0 +1,43 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1351",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state:Under Discussion\nDiscussion thread:here\nJIRA:here\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nSummary\nAdd a new tool action,--cancel-all, tokafka-reassign-partitionsthat cancels all ongoing inter-broker partition reassignment in the cluster without requiring a reassignment JSON file.\nThe existing--cancelaction remains unchanged and continues to support:\nJSON-scoped cancellation\nintra-brokerlog_dirsmovement cancellation\nthrottle cleanup behavior driven by the provided reassignment JSON\nMotivation\nOperators often need to stop all in-flight replica reassignments quickly—for example during an incident, a bad rollout, or when the original reassignment JSON is missing or out of date.\nToday, the practical workflow is:\nCallListPartitionReassignmentsfor the full cluster\nBuild anAlterPartitionReassignmentsrequest withreplicas = nullfor each in-flight partition\nExecute the request manually or through ad-hoc scripts\nThis workflow is:\nerror-prone\noperationally slow under pressure\ndifficult to execute safely when many topics are involved\nThe cluster already exposes the authoritative set of in-flight reassignments. The CLI should therefore provide a single, well-defined operation for the common case of cancelling all ongoing inter-broker partition reassignments.\nPublic Interfaces\nCLI (kafka-reassign-partitions.sh)\n| Action | Required Arguments | Behavior\n| --cancel-all | --bootstrap-server(optional--command-config,--preserve-throttles) | Lists all ongoing partition reassignments. For each reassignment with non-empty adding/removing replica sets, issues cancellation throughAlterPartitionReassignmentsusingreplicas = null.\n| --cancel | unchanged | Still requires--reassignment-json-file. Continues to support scoped cancellation, intra-broker log directory movement cancellation vialog_dirs, and throttle cleanup based on the provided JSON plan.\n--cancel-allbecomes an additional top-level action alongside:\n--execute\n--verify\n--generate\n--cancel\n--list\nExactly one action may be specified per invocation, consistent with existing CLI behavior.\nProposed Changes\nNew Action:--cancel-all\nThe new action performs the following steps:\nFetch all ongoing partition reassignments using:\nAdminClient.listPartitionReassignments()\nFilter reassignments where:\naddingReplicasorremovingReplicasis non-empty\nSubmit cancellation requests using:\nAdminClient.alterPartitionReassignments(... Optional.empty())\nThis provides a cluster-wide cancellation mechanism for inter-broker reassignments.\nBehavior and Semantics\nScope:Cluster-wideinter-brokerpartition reassignments only (same notion as “ongoing” inListPartitionReassignmentswhen adding/removing is non-empty).\nLog directories:--cancel-alldoes notcancel ongoingAlterReplicaLogDirs/log_dirsmoves; operators continue to use--cancelwith a JSON plan that includeslog_dirsfor those.\nThrottles:If--preserve-throttlesis not set, clear replication throttlesonly for brokers/topics implied by partitions that were actually cancelled(or document cluster-wide broker throttle behavior if implementation chooses otherwise—pick one and state it in the final KIP).\nPartial failure:Per-partition errors from the controller (e.g. revert would require unclean leader election but topic disallows it) must be surfaced clearly; tool exits non-zero on any failed cancel.\nCompatibility, Deprecation, and Migration Plan\nWire protocol:None (reuses existing Admin APIs).\nCLI:Additive; no change to existing flags beyond new action.\nSecurity:Same ACL expectations as existingAlterPartitionReassignments/Describepaths; cluster-wide cancel is ahigh-privilegeoperation—call out in release notes / ops docs.\nWhy Not Just Document “List + Script”?\nListing and scripting is duplicated logic every organization reimplements, and it fails under stress. A first-class tool action matches how operators think (“cancel everything in flight”) and aligns with APIs the controller already suppor"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1351",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Action",
+        "Required Arguments",
+        "Behavior"
+      ],
+      "lignes": [
+        [
+          "--cancel-all",
+          "--bootstrap-server (optional --command-config, --preserve-throttles)",
+          "Lists all ongoing partition reassignments. For each reassignment with non-empty adding/removing replica sets, issues cancellation through AlterPartitionReassignments using replicas = null."
+        ],
+        [
+          "--cancel",
+          "unchanged",
+          "Still requires --reassignment-json-file. Continues to support scoped cancellation, intra-broker log directory movement cancellation via log_dirs, and throttle cleanup based on the provided JSON plan."
+        ]
+      ],
+      "nom": "tableau_1"
+    }
+  ]
+}

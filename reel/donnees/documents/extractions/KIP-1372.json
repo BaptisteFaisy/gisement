@@ -1,0 +1,52 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-4680"
+    ],
+    "kip": "KIP-1372",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "cancelled",
+    "texte_libre": "Status\nCurrent state:Cancelled\nDiscussion thread:here[Change the link from the KIP proposal email archive to your own email thread]\nJIRA:here\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nKafka currently accepts anymin.insync.replicasvalue of 1 or more, with no relation to the replication factor of the topics it applies to. A topic can be created with--replication-factor 1 --config min.insync.replicas=2and the request succeeds, even though the configuration is contradictory: the topic can never have enough in-sync replicas to satisfy the configured minimum.\nThis misconfiguration is not hypothetical. It has been reported since 2017 (KAFKA-4680), where producing withacks=allto such a topic fails with theretriableNotEnoughReplicasException(retries that can never succeed), and the resulting error-log flood filled a broker's disk in a production cluster. Replication tooling that creates topics on a destination cluster whose defaultmin.insync.replicasexceeds the source topic's replication factor hits the same trap, and the failure surfaces far from its cause.\nKIP-966 (Eligible Leader Replicas) has already settled the semantic question: theeffectiveminimum ISR of a partition is defined asmin(min.insync.replicas, replication factor), and both the controller and the broker silently clamp to that value (ReplicationControlManager#getTopicEffectiveMinIsr,Partition#effectiveMinIsr). In other words, amin.insync.replicasabove the replication factor already has no effect: the configured value is simply ignored beyond the clamp. Accepting a value the cluster will never honor is a silent footgun: the user believes they have configured a durability guarantee that does not exist.\nThis KIP proposes to reject such configurations at the API boundary, where the mistake is made: topic creation and topic-level configuration changes.\nPublic Interfaces\nNo new configurations, request/response schema fields, error codes, or APIs are introduced. The change is new validation behavior on two existing request types, using the existingINVALID_CONFIG(40) error code:\n| API | Scenario | Current behavior | Proposed behavior\n| CreateTopics | The topic's resolved replication factor is lower than its effectivemin.insync.replicas | Topic is created; the configured min ISR is silently clamped to the replication factor | Request fails withINVALID_CONFIG\n| IncrementalAlterConfigs/AlterConfigs(TOPIC resource) | min.insync.replicasis set to a value higher than the topic's replication factor | Change is accepted and silently clamped | Request fails withINVALID_CONFIG\n| CreatePartitions,AlterPartitionReassignments, broker-, cluster-, and controller-level configuration changes | n/a | n/a | Unchanged (see Proposed Changes for rationale)\nForCreateTopics, theresolvedreplication factor is the request's value, the size of the manual replica assignment if one is given, or the cluster default (default.replication.factor) when the request passes-1. Theeffectivemin.insync.replicasis the value that would govern the new topic: the topic-level override in the request if present, otherwise the cluster-level dynamic default, otherwise the static broker/controller configuration.\nExample error messages:\nProposed Changes\nValidation at topic creation\nIn the KRaft controller (ReplicationControlManager#createTopic), after the replication factor has been resolved (from the request, the manual assignment, or the cluster default) and before any records are generated, the controller computes the effectivemin.insync.replicasfor the new topic and rejects the creation withINVALID_CONFIGif it exceeds the replication factor.\nThe check must live here rather than in the existing topic-config validation path (ControllerConfigurationValidator/LogConfig.validate), because that path runs before the replication factor is resolved and receives only the topic name; the replication factor is structurally unavailable to it.\nInterna"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1372",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "API",
+        "Scenario",
+        "Current behavior",
+        "Proposed behavior"
+      ],
+      "lignes": [
+        [
+          "CreateTopics",
+          "The topic's resolved replication factor is lower than its effective min.insync.replicas",
+          "Topic is created; the configured min ISR is silently clamped to the replication factor",
+          "Request fails with INVALID_CONFIG"
+        ],
+        [
+          "IncrementalAlterConfigs / AlterConfigs (TOPIC resource)",
+          "min.insync.replicas is set to a value higher than the topic's replication factor",
+          "Change is accepted and silently clamped",
+          "Request fails with INVALID_CONFIG"
+        ],
+        [
+          "CreatePartitions, AlterPartitionReassignments, broker-, cluster-, and controller-level configuration changes",
+          "n/a",
+          "n/a",
+          "Unchanged (see Proposed Changes for rationale)"
+        ]
+      ],
+      "nom": "tableau_1"
+    }
+  ]
+}

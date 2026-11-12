@@ -24,12 +24,13 @@ def valider_catalogue(catalogue: Catalogue) -> tuple[str, ...]:
 
 
 def _comptes(catalogue: Catalogue) -> list[str]:
+    """The annexe B families must hold their count; other families are allowed.
+
+    The catalogue is alive (R25): a client brings its own family - the twelve
+    motifs measured on the real corpus of `reel/` are one - and the validator
+    checks those motifs like the others without forbidding the family.
+    """
     erreurs: list[str] = []
-    if len(catalogue) != sum(COMPTES_PAR_FAMILLE.values()):
-        erreurs.append(
-            f"le catalogue contient {len(catalogue)} motifs, "
-            f"{sum(COMPTES_PAR_FAMILLE.values())} attendus (annexe B)"
-        )
     for famille, attendu in COMPTES_PAR_FAMILLE.items():
         obtenu = len(catalogue.famille(famille))
         if obtenu != attendu:
@@ -42,8 +43,8 @@ def _valider_motif(motif) -> list[str]:
     for champ in ("ref", "famille", "nom", "nom_en"):
         if not getattr(motif, champ):
             erreurs.append(f"{motif.ref or '?'} : champ '{champ}' vide")
-    if motif.famille not in COMPTES_PAR_FAMILLE:
-        erreurs.append(f"{motif.ref} : famille inconnue '{motif.famille}'")
+    if not motif.famille:
+        erreurs.append(f"{motif.ref} : famille absente")
     if not motif.types_envisageables:
         erreurs.append(f"{motif.ref} : aucun type d'automatisation envisageable")
     for type_ in motif.types_envisageables:

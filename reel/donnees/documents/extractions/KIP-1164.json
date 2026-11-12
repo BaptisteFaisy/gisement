@@ -1,0 +1,48 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-19161"
+    ],
+    "kip": "KIP-1164",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Authors:Greg Harris, Ivan Yurchenko, Jorge Quilcate, Giuseppe Lillo, Anatolii Popov, Juha Mynttinen, Josep Prat, Filip Yonov, PSD-38d9f081d109c73b-Vass\nStatus\nCurrent state: Under Discussion\nDiscussion thread:here\nJIRA:KAFKA-19161\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nintroduces the concepts of diskless topics.describes how Diskless topics work. One of the principal components that was mentioned but not described was the Diskless coordinator. This KIP closes this gap and describes the Diskless coordinator (DC) in detail.\nRole of Diskless coordinator\nThe Diskless coordinator manages metadata specific to Diskless topics, such as batches, WAL files, producer and transaction state for Diskless topics. Brokers rely on DC to perform operations on Diskless topics. For example:\nWhen a broker writes a WAL file, it sends a commit request to DC so it stores the metadata about the file and batches.\nWhen a broker serves a consumer, it queries DC for partitions’ offsets and existing batches and also files where the batches are located.\nWhen a partition is deleted or truncated, DC deletes the corresponding batches and marks WAL files as free.\nTo perform this and other operations, brokers need to use the request-response API of the Diskless coordinator.\nProposed Changes\nThis KIP proposes the following:\nThe Diskless coordinator broker API.\nThe approach to the Diskless coordinator implementation based on topics and the coordinator framework.\nDiskless coordinator API\nThe Diskless coordinator API will be a part of the broker API. However, it is not expected to be used directly by client applications. It will require theCLUSTER_ACTIONpermission.\nThe Diskless coordinator will expose the following operations:\nDisklessCreatePartitions: Create new partitions, could be used both for creating new topics and for increasing the number of partitions in an existing one.\nDisklessDeleteTopics: Delete existing topics and their partitions.\nDisklessCommitFile: Commit a WAL file with batches. During this operation, various checks are performed (e.g. for producer idempotence, transactional checks) and offsets are assigned to batches.\nDisklessDeleteRecords: Delete tail records in partitions.\nDisklessListOffsets: List offsets for specified timestamps, including special timestamps for “earliest”, “latest” for finding the log start offset and high watermark. This is a read-only operation with strict consistency (i.e. it should reflect the state after applying all the previous mutating operations).\nDisklessFindBatches: Find batches in the specified partitions starting from the specified offset. This is a read-only operation with less strict consistency requirements (i.e. could be served from stale state and by followers).\nDisklessDescribeFile:Check if the coordinator has live batches in a WAL file.\nThe request-response protocol for these operations will be explained in the Public interfaces section.\nSome operations remain out of scope of this KIP, such as the ones for transaction management or offloading to tiered storage. They will be explained in the corresponding KIPs.\nTopic-based implementation\nThe KIP proposes to use a new internal Kafka topic__diskless_metadatawith multiple partitions as the primary storage. The implementation and deployment and operation models will be built around this fact.\nPartitioning of__diskless_metadata\nThe__diskless_metadatatopic will have multiple partitions, effectively creating multiple coordinators and sharding the space of user partitions for scalability. Following the current terminology, we will be saying “Diskless coordinators” and “the Diskless coordinator for partition N” when referring to Diskless code and (meta-)data associated with these partitions.\nThe__diskless_metadatapartitions and Diskless coordinators will be independent in all senses: placement, Diskless operations, etc.\nUser partitions will be assigned to Diskless coordinators / me"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1164",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Configuration",
+        "Description",
+        "Values"
+      ],
+      "lignes": [
+        [
+          "diskless.metadata.topic.num.partitions",
+          "The number of Diskless metadata partitions and the number of Diskless coordinators.",
+          ""
+        ],
+        [
+          "diskless.coordinator.orphan.scan.interval.ms",
+          "The interval for scanning for orphan files.",
+          ""
+        ],
+        [
+          "diskless.coordinator.orphan.scan.grace.period.ms",
+          "The grace period to give to deletable files.",
+          ""
+        ]
+      ],
+      "nom": "tableau_1"
+    }
+  ]
+}

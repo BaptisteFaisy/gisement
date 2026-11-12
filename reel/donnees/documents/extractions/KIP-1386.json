@@ -1,0 +1,62 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1386",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state:Under Discussion\nDiscussion thread:here\nJIRA:ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-21350\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nmax.poll.recordsandmax.poll.interval.msare read when a consumer is constructed and neither can be changedafterwards.\nIf processing slows down,a batch that used to fit inside the poll interval stops fitting.The consumer misses itsdeadline and leaves the group.The assignment is released throughonPartitionsLost,so the in-flight batch was nevercommitted and the next owner reprocesses it.\nThe consumer rejoins and asks for the same batch size without any changes to config.It misses the deadline again.This continues until the slowdown ends.A shared dependency degrades for all members at once,so they hit it togetherand the group rebalances repeatedly.The common response is a process restart after increasingmax.poll.interval.msor decreasingmax.poll.records,which reassigns every group in that JVM.\nThe existing levers do not help.pause()postpones records without reducing them,so SmallRye's Kafka connector pausespartitions for backpressure and keeps its own queue,sized atmax.poll.recordstimes a factor.Spring Integration'sKafkaMessageSourcereturns one record perreceive(),so it rewrites the user'sConsumerFactorywithmax.poll.records=1or refuses to start;allowMultiFetchinstead buffers the batch and drains it one record at atime,and the documentation then warns you to process the batch and poll again withinmax.poll.interval.ms.\nmax.poll.interval.msdoes two jobs.It detects a dead member,and it gives a live member headroom.It is also not local:the consumer sends it to the coordinator as a rebalance timeout,so it sets how longthe rest of the group waits for this member to hand its partitions back,and varying it per call would change that waitfor everyone else.It is unchanged by this proposal.\nmax.poll.recordsis read inside the consumer and sent nowhere,and it is already only a maximum,because the consumerreturns fewer records whenever fewer are buffered.Choosing it on each call changes when the value is picked rather thanwhat it means.An application measures its own throughput and knows whether a smaller batch means less work.This KIPlets it set the batch size per call.\nPublic InterfacesjavaPollOptions.java\nmax.poll.records\nNo change to the default,the type or the behaviour.The documentation gains a sentence naming the per-call override:javamax.poll.records\nConsumerjavaConsumer.java\nKafkaConsumerjavaConsumer.java\nMetrics\nFive metrics in theconsumer-metricsgroup,taggedclient-id.They are for an operator reading JMX.An application sizes the limit from its own clock.\n| Metric | Group | Type | Meaning\n| poll-interval-remaining-ms | consumer-metrics | gauge | Time left before the poll interval expires.\n| poll-budget-used-ratio-avg,-max | consumer-metrics | sampled | Processing time between polls, as a fraction ofmax.poll.interval.ms.\n| records-per-poll-avg,-max | consumer-metrics | sampled | Records returned per call.\n| configured-max-poll-records | consumer-metrics | gauge | The configuredmax.poll.records. Constant.\n| effective-max-poll-records | consumer-metrics | gauge | Limit in force on the last call.\nA metric already inconsumer-metricslook close,but does notanswer the question,which is how much of thedeadline is left right now.\nlast-poll-seconds-agocounts seconds since the lastpoll()invocation rather than since the poll timer reset,soit diverges from the deadline for a caller using a long timeout.\nconfigured-max-poll-recordsnever changes. It is there so the ceiling and the limit actually in force plot on one chart, which is what shows how far a member has backed off.\nProposed Changes\nSame shape asCloseOptionsin this package:private constructor,static factory,build pattern to mutate.Itis mutable so a caller can hold one instance and changemaxRecordsbetween calls rather than rebuilding it.The timeout"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1386",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Metric",
+        "Group",
+        "Type",
+        "Meaning"
+      ],
+      "lignes": [
+        [
+          "poll-interval-remaining-ms",
+          "consumer-metrics",
+          "gauge",
+          "Time left before the poll interval expires."
+        ],
+        [
+          "poll-budget-used-ratio-avg, -max",
+          "consumer-metrics",
+          "sampled",
+          "Processing time between polls, as a fraction of max.poll.interval.ms."
+        ],
+        [
+          "records-per-poll-avg, -max",
+          "consumer-metrics",
+          "sampled",
+          "Records returned per call."
+        ],
+        [
+          "configured-max-poll-records",
+          "consumer-metrics",
+          "gauge",
+          "The configured max.poll.records. Constant."
+        ],
+        [
+          "effective-max-poll-records",
+          "consumer-metrics",
+          "gauge",
+          "Limit in force on the last call."
+        ]
+      ],
+      "nom": "tableau_1"
+    }
+  ]
+}

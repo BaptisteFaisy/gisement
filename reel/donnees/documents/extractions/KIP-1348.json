@@ -1,0 +1,133 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1348",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state:Under Discussion\nDiscussion thread:https://lists.apache.org/thread/8rcj09wrz98qjlmy4srvt593b776y9yz\nJIRA:ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-20604\nMotivation\nadded built-in Dead Letter Queue support to Kafka Streams by extending all three exception handler interfaces with aResponseclass that can carry DLQ records. However, the built-in handler implementations shipped with Kafka Streams are asymmetric:\n| Error Type | Fail Handler | Continue Handler\n| Deserialization | LogAndFailExceptionHandler | LogAndContinueExceptionHandler\n| Processing | LogAndFailProcessingExceptionHandler | LogAndContinueProcessingExceptionHandler\n| Production / Serialization | DefaultProductionExceptionHandler | None\nDefaultProductionExceptionHandleralways returnsResponse.fail()for both handleError and handleSerializationError. Even whenerrors.dead.letter.queue.topic.nameis configured, the failed record is sent to the DLQ but the application still shuts down. Users who want to log-and-continue on production or serialization errors must write a custom handler — something that isn't required for deserialization or processing errors.\nThis gap matters in practice:\nPoison pill records.Long-lived topics accumulate records across schema versions. A single record that fails output serialization — due to an incompatible or deprecated schema — will block the application on every restart, creating a crash loop that requires manual intervention to resolve.\nSchema evolution mismatches.A record may deserialize fine but fail to serialize for the output topic if the output schema has evolved independently.\nRecord size violations.A record that processes successfully may exceedmax.message.bytesafter transformation or enrichment.\nThis need has been raised independently by multiple community projects (e.g.,Kstreamplifyissue#524)\nPublic Interfaces\nClasses addition/modification\nA new built-inProductionExceptionHandlerimplementation in packageorg.apache.kafka.streams.errors:javaEclipseNew class: LogAndContinueProductionExceptionHandler\nFor naming consistency with the other handler pairs, the existingDefaultProductionExceptionHandlerwill be renamed toLogAndFailProductionExceptionHandler. The old class will be kept as a deprecated subclass so existing configurations continue to work without changes.\nLogAndFailProductionExceptionHandlercontains the exact same logic that was previously inDefaultProductionExceptionHandler— it logs atERRORlevel and returnsResponse.fail(). No behavioral change. The only differences compared to the newLogAndContinueProductionExceptionHandlerare the log level (errorvswarn) and the response type (failvsresume).javaEclipseRenamed class: DefaultProductionExceptionHandler → LogAndFailProductionExceptionHandler\nNo new configuration keys\nyamlEclipseUsers opt in via the existing config:\nThe default value ofproduction.exception.handlerremainsDefaultProductionExceptionHandler(fail behavior). No existing behavior changes.\nComplete handler matrix after this KIP\n| Error Type | Fail Handler | Continue Handler\n| Deserialization | LogAndFailExceptionHandler | LogAndContinueExceptionHandler\n| Processing | LogAndFailProcessingExceptionHandler | LogAndContinueProcessingExceptionHandler\n| Production | LogAndFailProductionExceptionHandler(new name) /DefaultProductionExceptionHandler(deprecated) | LogAndContinueProductionExceptionHandler(new)\nProposed Changes\nWhat gets added\nA single new class,LogAndContinueProductionExceptionHandler, following the exact same pattern as the existing continue handlers for deserialization and processing. The class:\nLogs the error atWARNlevel (including task ID, topic, partition, offset, and the exception)\nBuilds DLQ records viaExceptionHandlerUtils.maybeBuildDeadLetterQueueRecords()iferrors.dead.letter.queue.topic.nameis configured\nReturnsResponse.resume()to skip the failed record and continue processing\nReturnsResponse.retry()forRetriableExceptioninhandleError(consistent with existing behavior)\nSerializati"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1348",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Error Type",
+        "Fail Handler",
+        "Continue Handler"
+      ],
+      "lignes": [
+        [
+          "Deserialization",
+          "LogAndFailExceptionHandler",
+          "LogAndContinueExceptionHandler"
+        ],
+        [
+          "Processing",
+          "LogAndFailProcessingExceptionHandler",
+          "LogAndContinueProcessingExceptionHandler"
+        ],
+        [
+          "Production / Serialization",
+          "DefaultProductionExceptionHandler",
+          "None"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Error Type",
+        "Fail Handler",
+        "Continue Handler"
+      ],
+      "lignes": [
+        [
+          "Deserialization",
+          "LogAndFailExceptionHandler",
+          "LogAndContinueExceptionHandler"
+        ],
+        [
+          "Processing",
+          "LogAndFailProcessingExceptionHandler",
+          "LogAndContinueProcessingExceptionHandler"
+        ],
+        [
+          "Production",
+          "LogAndFailProductionExceptionHandler (new name) / DefaultProductionExceptionHandler (deprecated)",
+          "LogAndContinueProductionExceptionHandler (new)"
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Scenario",
+        "Invocation",
+        "Transaction impact",
+        "RESUME behavior"
+      ],
+      "lignes": [
+        [
+          "Serialization error (any mode)",
+          "Synchronous, stream thread",
+          "None — record never hit the producer",
+          "Clean skip, no complications"
+        ],
+        [
+          "Production error under ALOS",
+          "Async, producer callback",
+          "No transactions",
+          "Clean skip"
+        ],
+        [
+          "Production error under EOS",
+          "Async, producer callback",
+          "May poison transaction",
+          "RESUME accepted; commit may fail → task restarts from last offset → may crash-loop if computation is deterministic (see Known Limitations)"
+        ]
+      ],
+      "nom": "tableau_3"
+    },
+    {
+      "colonnes": [
+        "Guarantee",
+        "How it's enforced"
+      ],
+      "lignes": [
+        [
+          "ProductionExceptionHandler is never invoked for DLQ records",
+          "sendDlqRecord() uses a direct callback, not recordSendError()"
+        ],
+        [
+          "No DLQ-of-DLQ records are produced",
+          "The callback never calls the handler, so no Response with new DLQ records is created"
+        ],
+        [
+          "Only the first failure is preserved",
+          "compareAndSet(null, ...) keeps the root cause exception"
+        ],
+        [
+          "No further records are processed after DLQ failure",
+          "The sendException guard (if (sendException.get() != null) return;) at the top of all callbacks prevents further processing"
+        ],
+        [
+          "Task fails cleanly",
+          "flush() or the next send() checks sendException and throws StreamsException"
+        ],
+        [
+          "DLQ failures from deserialization/processing paths also hard-fail",
+          "RecordDeserializer, ProcessorNode and StreamTask call collector.sendDlqRecord() instead of collector.send(), so DLQ failures never reach the production handler"
+        ]
+      ],
+      "nom": "tableau_4"
+    }
+  ]
+}

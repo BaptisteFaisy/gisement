@@ -1,0 +1,178 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-19883"
+    ],
+    "kip": "KIP-1289",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status (UNDER ACTIVE CONSTRUCTION)\nAuthors:and\nCurrent state:Under Discussion(previous voting thread had no votes and significant rework has occurred since then)\nDiscussion thread:here\nJIRA: [KAFKA-19883](ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-19883)\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nToday, the Producer'ssendOffsetsToTransaction(offsets, consumerGroupMetadata)allows EOS in read-process-write topologies that consume from regular consumer groups. With KIP-932 introducing share groups, the equivalent capability is missing for share groups.\nThisblocks share-group adoption in:\nMirrorMaker and other Kafka-to-Kafka mirroring/forwarding pipelines.\nKafka Streams stateless topologies that want to use share groups for parallelism beyond partition count.\nAtomic DLQ write in different connectors\nThe Goal: Atomic \"Read-Process-Write\"\nEnableExactly-Once Semantics (EOS)by making acknowledgments part of a Kafka transaction.\nEither the output is produced AND the source record is acknowledged, or neither happens. This KIP is scoped for Kafka producer write AND acknowledgements from a share group.\nThis KIP is focused on Kafka client applications which combine use of a KafkaProducer and a KafkaShareConsumer in the same application. It does not attempt enable EOS for share groups in processing frameworks such as Apache Flink.\nProposed Changes\nThis KIP introduces transactional share-group record acknowledgements. A new transactional share acknowledgement mode is introduced. Because Kafka transactions are driven by a Kafka producer, the application uses a KafkaProducer to begin and complete the transactions, along with KafkaShareConsumer to acknowledge the record deliveries. The combination of these classes achieves the transactional record acknowledgements.\nHere's an example to illustrate:java\nThe notable parts are:\nThe share consumer is using the transactional share-acknowledgement mode.\nThe share consumer uses the producer to manage transaction context. (THIS PIECE STILL UNDER CONSTRUCTION)\nIf processing succeeds, the share consumer uses the ACCEPT acknowledge type, and commits the transaction.\nIf processing fails, the share consumer uses the REJECT acknowledge type, and commits the transaction.\nIf the transaction aborts, the acknowledgement will be rolled back which is semantically equivalent to the RELEASE acknowledgement type.\nThere are actually no new in-flight record states. Instead, the transition fromAcquiredtoAcknowledged(for ACCEPT) or toArchived(for REJECT) remains pending until the transaction completes.\nThere are several changes going on behind the scenes.\nA new RPC TxnShareAcknowledge is used by the share consumer to tell the share-partition leader that records are being acknowledged transactionally.\nWhen a share-partition is involved in a transaction, the partition of the_share_group_statetopic associated with its share-coordinator shard must be added to the transaction with the transaction coordinator so that the TC can write the transaction markers when the transaction closes. Even though the records being acknowledged are actually on a user's topic, it is the internal SGS topic which is added to the transaction because it is the state transition in the share coordinator (and then notified to the share-partition leader) which is transactional.\nThe share coordinator must be able to writeShareUpdaterecords marked with the producer ID and producer epoch corresponding to a transaction.\nThe share coordinator must be upgraded to replay transaction marker control records and update its internal state accordingly.\nWhen a transaction completes, the share coordinator is responsible for notifying the share-partition leader of any share-partitions added to the transaction. This notification is via a new TxnComplete RPC sent from the share coordinator to the share-partition leader.\nThe share-partition leader is able to acknowledge records"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1289",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "RPC",
+        "Operation",
+        "Resource"
+      ],
+      "lignes": [
+        [
+          "TxnShareAcknowledge",
+          "ReadReadWrite",
+          "GroupTopicTransactional ID"
+        ],
+        [
+          "TxnComplete",
+          "ClusterAction",
+          "Cluster"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Step",
+        "Side / Module",
+        "Component (class)",
+        "Thread"
+      ],
+      "lignes": [
+        [
+          "send(output) + acknowledge(rec) + acknowledgementsForTransaction()",
+          "client / clients",
+          "KafkaProducer, ShareConsumerImpl",
+          "app thread (consumer posts a ShareGroupMetadataEvent to the consumer background thread, which reads ShareMembershipManager for member id/epoch)"
+        ],
+        [
+          "enqueue sendShareAcknowledgementsInTransaction",
+          "client / clients",
+          "TransactionManager",
+          "app thread enqueues; producer sender thread sends TxnShareAcknowledge (apiKey 94, TV2-required)"
+        ],
+        [
+          "handle request",
+          "server / core",
+          "KafkaApis.handleTxnShareAcknowledgeRequest",
+          "broker request-handler (io) thread - authorizes (WRITE txn-id, READ group, READ topic), validates member via GroupCoordinator.validateShareGroupMember"
+        ],
+        [
+          "register participant",
+          "server / core",
+          "AddPartitionsToTxnManager -&gt; TransactionCoordinator",
+          "inter-broker send thread; registers __share_group_state-N in __transaction_state"
+        ],
+        [
+          "stage acks (on success)",
+          "server / core + share-coordinator",
+          "SharePartitionManager.acknowledgeTransactional -&gt; SharePartition.stageTxnAcknowledge -&gt; persister WriteShareGroupState",
+          "request-handler stages in-memory TX_PENDING; share-coordinator event-loop thread persists staged batch"
+        ],
+        [
+          "commitTransaction()",
+          "client -&gt; server",
+          "TransactionManager -&gt; TransactionCoordinator",
+          "app thread blocks; Sender thread sends EndTxn; TxnCoord resolves participant leaders, dispatches WriteTxnMarkers"
+        ],
+        [
+          "apply marker",
+          "server / core + share-coordinator",
+          "KafkaApis.handleWriteTxnMarkersRequest -&gt; shareCoordinator.completeTransaction -&gt; invalidate caches",
+          "request-handler thread; share-coordinator event-loop thread finalizes TX_PENDING and persists final state"
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Module",
+        "Metric",
+        "Type",
+        "Purpose"
+      ],
+      "lignes": [
+        [
+          "Broker — SharePartitionManager",
+          "TxnPendingRecordsCount",
+          "Gauge",
+          "Current count of records in TX_PENDING (primary health signal)"
+        ],
+        [
+          "Broker — SharePartitionManager",
+          "TxnShareAcknowledgeRequestLatencyMs",
+          "Histogram",
+          "p99 latency of staging requests"
+        ],
+        [
+          "Broker — SharePartitionManager",
+          "TxnPendingLockExpiredCount",
+          "Counter",
+          "Any non-zero = abandoned txns or missing markers (critical alert)"
+        ],
+        [
+          "Broker — TransactionCoordinator",
+          "TransactionPartitionsCount (existing)",
+          "Gauge",
+          "Reused; now includes __share_group_state-N entries"
+        ],
+        [
+          "Producer",
+          "share-ack-txn-send-rate",
+          "Meter",
+          "EOS-call throughput"
+        ],
+        [
+          "Producer",
+          "share-ack-txn-send-error-rate",
+          "Meter",
+          "Stage-failure rate (drives retry loops)"
+        ],
+        [
+          "Consumer",
+          "share-group-metadata-fetch-rate",
+          "Meter",
+          "Confirms read-process-write loop is active"
+        ],
+        [
+          "Total: 6 new + 1 reused = 7 metrics. Primary alert: TxnPendingRecordsCount &gt; 0 sustained for &gt; 60s.",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "nom": "tableau_3"
+    },
+    {
+      "colonnes": [
+        "Client",
+        "Broker, share.version=2",
+        "Broker, share.version=1",
+        "Old broker (no binary)"
+      ],
+      "lignes": [
+        [
+          "New",
+          "Works",
+          "UnsupportedVersionException (synchronous, no wire bytes)",
+          "Same"
+        ],
+        [
+          "Old",
+          "Unaffected",
+          "Unaffected",
+          "Unaffected"
+        ]
+      ],
+      "nom": "tableau_4"
+    }
+  ]
+}

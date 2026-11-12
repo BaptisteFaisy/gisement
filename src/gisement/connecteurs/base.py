@@ -28,20 +28,34 @@ class ClientHttp(Protocol):
 
 
 class FauxClientHttp:
-    """Canned pages for tests: `pages[url]` is the list of records of that page."""
+    """Canned pages for tests: `pages[url]` is the list of records of that page.
 
-    def __init__(self, pages: dict[str, list[dict[str, Any]]], liens: dict[str, str] | None = None):
+    `cle_page` is the key the vendor really uses (`values`, `issues`, `result`)
+    and `totaux` publishes the `total` an offset-paginated API announces.
+    """
+
+    def __init__(
+        self,
+        pages: dict[str, list[dict[str, Any]]],
+        liens: dict[str, str] | None = None,
+        cle_page: str = "values",
+        totaux: dict[str, int] | None = None,
+    ):
         self.pages = pages
         self.liens = liens or {}
+        self.cle_page = cle_page
+        self.totaux = totaux or {}
         self.appels: list[str] = []
 
     def get(self, url: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
         self.appels.append(url)
         valeurs = list(self.pages.get(url, []))
         suivant = self.liens.get(url)
-        reponse: dict[str, Any] = {"values": valeurs}
+        reponse: dict[str, Any] = {self.cle_page: valeurs}
         if suivant:
             reponse["next"] = suivant
+        if url in self.totaux:
+            reponse["total"] = self.totaux[url]
         return reponse
 
 
@@ -60,6 +74,40 @@ def paginer(
         yield from reponse.get(cle_page, []) or []
         courant = _suivant(reponse)
         pages += 1
+
+
+def paginer_decalage(
+    client: ClientHttp,
+    url: str,
+    cle_page: str = "issues",
+    pas: int = 100,
+    max_pages: int = 100,
+) -> Iterator[dict[str, Any]]:
+    """Offset pagination (`startAt`/`total`), used by a Jira **server** API.
+
+    A cursor-less API has no `next` link: the bound is the published `total`,
+    and `max_pages` still turns a server that lies about its total into a loud
+    stop instead of an infinite loop.
+    """
+    debut = 0
+    for _ in range(max_pages):
+        reponse = client.get(_avec_decalage(url, debut, pas))
+        page = reponse.get(cle_page, []) or []
+        yield from page
+        total = int(reponse.get("total", 0) or 0)
+        debut += len(page)
+        if not page or debut >= total:
+            return
+
+
+def _avec_decalage(url: str, debut: int, pas: int) -> str:
+    """The same URL, with `startAt` and `maxResults` set to this page."""
+    from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+
+    parts = urlsplit(url)
+    parametres = [(cle, val) for cle, val in parse_qsl(parts.query) if cle not in {"startAt", "maxResults"}]
+    parametres += [("startAt", str(debut)), ("maxResults", str(pas))]
+    return urlunsplit((parts.scheme, parts.netloc, parts.path, urlencode(parametres), ""))
 
 
 def _suivant(reponse: dict[str, Any]) -> str | None:
@@ -92,11 +140,7 @@ def normaliser_ticket(brut: dict[str, Any], source: str) -> dict[str, Any]:
     return {
         "id": _texte(brut.get("key") or brut.get("number") or brut.get("id")),
         "horodatage": _texte(champs.get("created") or champs.get("opened_at") or brut.get("horodatage")),
-        "service": _texte(
-            champs.get("project", {}).get("key")
-            if isinstance(champs.get("project"), dict)
-            else champs.get("project") or champs.get("service") or ""
-        ),
+        "service": _service(champs),
         "site": _texte(champs.get("site") or ""),
         "agent": _texte(_nom(champs.get("assignee") or champs.get("assigned_to"))),
         "sujet": _texte(champs.get("summary") or champs.get("short_description") or ""),
@@ -116,8 +160,29 @@ def normaliser_ticket(brut: dict[str, Any], source: str) -> dict[str, Any]:
             if isinstance(champs.get("comment"), dict)
             else champs.get("allers_retours", 0) or 0
         ),
-        "groupe": _texte(champs.get("groupe") or champs.get("group") or ""),
+        "groupe": _texte(champs.get("groupe") or champs.get("group") or _priorite(champs)),
     }
+
+
+def _service(champs: dict[str, Any]) -> str:
+    """The team of a ticket: its first real component, else its project."""
+    composants = champs.get("components")
+    if isinstance(composants, list) and composants:
+        premier = composants[0]
+        if isinstance(premier, dict) and premier.get("name"):
+            return _texte(premier["name"])
+    projet = champs.get("project")
+    if isinstance(projet, dict):
+        return _texte(projet.get("key"))
+    return _texte(projet or champs.get("service") or "")
+
+
+def _priorite(champs: dict[str, Any]) -> str:
+    """The real queue of a Jira ticket: its priority, lowercased."""
+    priorite = champs.get("priority")
+    if isinstance(priorite, dict):
+        return _texte(priorite.get("name")).lower()
+    return _texte(priorite).lower()
 
 
 def _nom(valeur: Any) -> str:

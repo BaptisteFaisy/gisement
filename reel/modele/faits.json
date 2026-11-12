@@ -1,0 +1,248 @@
+{
+  "modele": "claude-sonnet-4-5",
+  "date": "2026-11-12",
+  "source": "reel/donnees/declaration.json (perimetre reel) + preuves reelles du corpus reel",
+  "regle": "Un motif du catalogue n'est retenu que s'il decrit vraiment le travail observe ; la liste vide est une reponse valide.",
+  "constat": "Premier passage : aucun des 40 motifs back-office ne decrit le travail d'un projet d'ingenierie logicielle (liste vide pour les 12 perimetres). Douze motifs ont alors ete ajoutes au catalogue a partir des groupes reels observes (ING-01 a ING-12), et un second passage du modele reel les a affectes aux perimetres. C'est un resultat mesure, pas une opinion.",
+  "processus": {
+    "dev": {
+      "motifs": [
+        "ING-01",
+        "ING-03",
+        "ING-02"
+      ],
+      "famille_poste": "technique",
+      "faits": {
+        "api_ou_flux_natif": true,
+        "dependance_externe_non_contractuelle": true,
+        "donnee_sensible": false,
+        "etape_supprimable_amont": false,
+        "interface_stable": true,
+        "jugement_requis": true,
+        "obligation_legale_humaine": false,
+        "travail_deterministe": false
+      },
+      "justification": "Les messages « [DISCUSS] KIP-1119 », « [DISCUSS] KIP-1176 » et « [jira] [Created] KAFKA-19225 » montrent des discussions de conception et des annonces suivies dans les flux natifs de la liste et de JIRA.",
+      "id": "R-01"
+    },
+    "core": {
+      "motifs": [
+        "ING-05",
+        "ING-03"
+      ],
+      "famille_poste": "technique",
+      "faits": {
+        "api_ou_flux_natif": true,
+        "dependance_externe_non_contractuelle": true,
+        "donnee_sensible": false,
+        "etape_supprimable_amont": false,
+        "interface_stable": true,
+        "jugement_requis": true,
+        "obligation_legale_humaine": false,
+        "travail_deterministe": false
+      },
+      "justification": "Des tickets tels que « Read only disk failure » et « InitProducerId with TV2 double-increments epoch » documentent des defauts du core necessitant reproduction, diagnostic et correction.",
+      "id": "R-02"
+    },
+    "streams": {
+      "motifs": [
+        "ING-03",
+        "ING-05",
+        "ING-01"
+      ],
+      "famille_poste": "technique",
+      "faits": {
+        "api_ou_flux_natif": true,
+        "dependance_externe_non_contractuelle": true,
+        "donnee_sensible": false,
+        "etape_supprimable_amont": false,
+        "interface_stable": true,
+        "jugement_requis": true,
+        "obligation_legale_humaine": false,
+        "travail_deterministe": false
+      },
+      "justification": "Les tickets « Introduce soft state for StreamsGroup » et « Streams group heartbeat sometimes fails with INVALID_REQUEST », associes a un KIP dans JIRA, combinent conception, suivi et correction.",
+      "id": "R-03"
+    },
+    "sans_composant": {
+      "motifs": [
+        "ING-03",
+        "ING-09",
+        "ING-04"
+      ],
+      "famille_poste": "technique",
+      "faits": {
+        "api_ou_flux_natif": true,
+        "dependance_externe_non_contractuelle": true,
+        "donnee_sensible": false,
+        "etape_supprimable_amont": false,
+        "interface_stable": true,
+        "jugement_requis": true,
+        "obligation_legale_humaine": false,
+        "travail_deterministe": false
+      },
+      "justification": "Les tickets « Checkstyle ImportControl cleanup », « Add DLQ name and replication factor to Connect configuration » et « Improve some requests/responses toString method » montrent des maintenances, parametrages et modifications de code suivies dans JIRA.",
+      "id": "R-04"
+    },
+    "kafka": {
+      "motifs": [
+        "ING-01",
+        "ING-02",
+        "ING-07"
+      ],
+      "famille_poste": "direction",
+      "faits": {
+        "api_ou_flux_natif": true,
+        "dependance_externe_non_contractuelle": true,
+        "donnee_sensible": false,
+        "etape_supprimable_amont": false,
+        "interface_stable": true,
+        "jugement_requis": true,
+        "obligation_legale_humaine": false,
+        "travail_deterministe": false
+      },
+      "justification": "Le KIP sur la garantie de livraison du producer, ses 97 documents et les courriels « [jira] [Created] » et « [DISCUSS] KIP-1187 » montrent une fonction projet de proposition, publication et gouvernance.",
+      "id": "R-05"
+    },
+    "clients": {
+      "motifs": [
+        "ING-05",
+        "ING-03",
+        "ING-01"
+      ],
+      "famille_poste": "technique",
+      "faits": {
+        "api_ou_flux_natif": true,
+        "dependance_externe_non_contractuelle": true,
+        "donnee_sensible": false,
+        "etape_supprimable_amont": false,
+        "interface_stable": true,
+        "jugement_requis": true,
+        "obligation_legale_humaine": false,
+        "travail_deterministe": false
+      },
+      "justification": "Les tickets « Members cannot rejoin with epoch=0 », « Fix commit bugs caused by race condition during rebalancing » et « Async consumer fetch intermittent delays », lies a un KIP, combinent correction, suivi et conception.",
+      "id": "R-06"
+    },
+    "tools": {
+      "motifs": [
+        "ING-04"
+      ],
+      "famille_poste": "technique",
+      "faits": {
+        "api_ou_flux_natif": true,
+        "dependance_externe_non_contractuelle": false,
+        "donnee_sensible": false,
+        "etape_supprimable_amont": false,
+        "interface_stable": false,
+        "jugement_requis": true,
+        "obligation_legale_humaine": false,
+        "travail_deterministe": false
+      },
+      "justification": "Les demandes « Improve consistency of command-line arguments » et « Add include argument to ConsumerPerformance tool » prouvent des modifications de l'interface d'un outil, typiquement soumises a revue de code.",
+      "id": "R-07"
+    },
+    "consumer": {
+      "motifs": [
+        "ING-05"
+      ],
+      "famille_poste": "technique",
+      "faits": {
+        "api_ou_flux_natif": true,
+        "dependance_externe_non_contractuelle": false,
+        "donnee_sensible": false,
+        "etape_supprimable_amont": false,
+        "interface_stable": true,
+        "jugement_requis": true,
+        "obligation_legale_humaine": false,
+        "travail_deterministe": false
+      },
+      "justification": "Les titres « Stuck __consumer_offsets partition » et « Failure in ConsumerNetworkThread.initializeResources() can cause hangs » documentent des defauts internes du consommateur qui doivent etre corriges.",
+      "id": "R-08"
+    },
+    "build": {
+      "motifs": [
+        "ING-06",
+        "ING-05",
+        "ING-11"
+      ],
+      "famille_poste": "technique",
+      "faits": {
+        "api_ou_flux_natif": true,
+        "dependance_externe_non_contractuelle": true,
+        "donnee_sensible": false,
+        "etape_supprimable_amont": false,
+        "interface_stable": true,
+        "jugement_requis": true,
+        "obligation_legale_humaine": false,
+        "travail_deterministe": true
+      },
+      "justification": "Les titres « Fix gradlew content », « GitHub Actions build issues: JUnit tests parsing fails » et « Trigger Docker image builds in release script » etablissent une chaine de construction et de livraison automatisee.",
+      "id": "R-09"
+    },
+    "docs": {
+      "motifs": [
+        "ING-07",
+        "ING-11"
+      ],
+      "famille_poste": "technique",
+      "faits": {
+        "api_ou_flux_natif": false,
+        "dependance_externe_non_contractuelle": false,
+        "donnee_sensible": false,
+        "etape_supprimable_amont": false,
+        "interface_stable": false,
+        "jugement_requis": true,
+        "obligation_legale_humaine": false,
+        "travail_deterministe": false
+      },
+      "justification": "Les titres « Update 4.1 docs » et « Add documentation for Gradle version upgrade process » prouvent que le livrable principal est une mise a jour documentaire.",
+      "id": "R-10"
+    },
+    "group_coordinator": {
+      "motifs": [
+        "ING-01",
+        "ING-02",
+        "ING-05"
+      ],
+      "famille_poste": "technique",
+      "faits": {
+        "api_ou_flux_natif": true,
+        "dependance_externe_non_contractuelle": false,
+        "donnee_sensible": false,
+        "etape_supprimable_amont": false,
+        "interface_stable": true,
+        "jugement_requis": true,
+        "obligation_legale_humaine": false,
+        "travail_deterministe": false
+      },
+      "justification": "Le KIP accepte prouve une decision de conception et de gouvernance, tandis que les titres sur l'echec de HighWatermarkUpdate et l'affectation de membres statiques revelent des defauts du coordinateur a corriger.",
+      "id": "R-11"
+    },
+    "kraft": {
+      "motifs": [
+        "ING-11",
+        "ING-05"
+      ],
+      "famille_poste": "technique",
+      "faits": {
+        "api_ou_flux_natif": true,
+        "dependance_externe_non_contractuelle": false,
+        "donnee_sensible": false,
+        "etape_supprimable_amont": false,
+        "interface_stable": false,
+        "jugement_requis": true,
+        "obligation_legale_humaine": false,
+        "travail_deterministe": false
+      },
+      "justification": "Les titres portant sur le blocage de la migration KRaft, les snapshots sous reseau lent et la mise a niveau de CheckStyle combinent une migration technique et des corrections de robustesse.",
+      "id": "R-12"
+    }
+  },
+  "etapes": [
+    "1. modele reel, 40 motifs back-office -> 0 motif sur 12 perimetres reels",
+    "2. boucle de validation du catalogue : 12 motifs ajoutes comme donnees (catalogue/motifs/ingenierie.json), a partir des groupes reels",
+    "3. modele reel, catalogue elargi -> motifs affectes aux 12 perimetres"
+  ],
+  "cle": "service"
+}

@@ -1,0 +1,117 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1395",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state: Under Discussion\nDiscussion thread:here\nJIRA:here\nRelease: TBD\nPlease keep the discussion on the dev mailing list rather than in wiki comments(wiki discussions get unwieldy fast).\nMotivation\nShare groups redeliver a released record immediately, so a transient failure can use up all of a record's delivery attempts immediately. This KIP lets a share group wait before redelivering such a record, with an optional exponential backoff that grows with each attempt.\nWith share groups (KIP-932), a consumer that cannot process a record acknowledges it withAcknowledgeType.RELEASE. The record is then available for another delivery attempt straight away. The same happens when the record's acquisition lock times out, or when the consumer holding it disconnects.\nImmediate redelivery suits failures that are unlikely to recur, such as a consumer crash. It works badly for failures that last seconds or minutes, example - a downstream service is unavailable or throttling, a database fails over etc. The record fails again at once, reaches the delivery count limit (group.share.delivery.count.limit, default 5) and is archived and written to the dead-letter queue (KIP-1191, if configured), although its processing could have succeeded a little later.\nPublic Interfaces\nThis KIP adds three group configurations, one broker configuration and one share-partition metric. It changes no RPCs, no records in__share_group_statetopic and no client APIs.\nGroup configuration\nThese are set per share group withkafka-configs.shorAdmin.incrementalAlterConfigson theGROUPresource. As with the existing share group configurations, a value outside the broker's minimum and maximum is rejected when it is set.\n|\nConfiguration\n|\nDescription\n|\nValues\n|\nshare.release.backoff.ms |\nThe time a record waits before its next delivery attempt, after a consumer releases it, or its acquisition lock times out, or the consumer holding it disconnects. 0 makes the record available immediately. |\nType: int. Default: 0. Valid values: 0 togroup.share.max.release.backoff.ms\n|\nshare.release.backoff.exponential.enable |\nWhether the wait doubles with each further delivery attempt, up toshare.release.backoff.max.ms, with random jitter of up to 20%. If false, every wait isshare.release.backoff.ms, without jitter. |\nType: boolean. Default: false.\n|\nshare.release.backoff.max.ms |\nThe longest wait when exponential backoff is enabled. It has no effect otherwise. |\nype: int. Default: the value ofgroup.share.max.release.backoff.ms. Valid values: 0 togroup.share.max.release.backoff.ms.\nBroker configuration\n|\nConfiguration\n|\nDescription\n|\nValues\n|\ngroup.share.max.release.backoff.ms |\nThe maximum value ofshare.release.backoff.msandshare.release.backoff.max.ms, hence the longest delay before a redelivery. 0 turns off redelivery delays for all share groups. |\nType: int. Default: 60000. Valid values: 0 to 3600000.\nMetrics\nOne share-partition metric is added\n| Name | Type | Group | Tags | Description | JMX Bean | Rationale\n| RedeliveryDelayedRecordCount | Gauge | SharePartitionMetrics | group: <group_id>,topic: <topic>,partition: <partition> | The number of records in the share partition that are waiting for their redelivery delay. | kafka.server:type=SharePartitionMetrics,name=RedeliveryDelayedRecordCount,group=<group_id>,topic=<topic>,partition=<partition> | Delayed records count as in-flight and the share-partition start offset can’t move past them. Delayed records use upshare.partition.max.record.locks. When the gauge approaches that limit, the partition is about to stop handing out new records.\nUnchanged interfaces\nClient API.Nothing is added.\nProtocol and records.No RPC changes, and no changes to the records in__share_group_statetopic. The delay is kept in memory by the share-partition leader.\nProposed Changes\nWhen a record becomes available again after a failed delivery attempt, the share-partition leader stops it from being acquired until its redelivery delay expires. The delay is kep"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1395",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Configuration",
+        "Description",
+        "Values"
+      ],
+      "lignes": [
+        [
+          "share.release.backoff.ms",
+          "The time a record waits before its next delivery attempt, after a consumer releases it, or its acquisition lock times out, or the consumer holding it disconnects. 0 makes the record available immediately.",
+          "Type: int. Default: 0. Valid values: 0 to group.share.max.release.backoff.ms"
+        ],
+        [
+          "share.release.backoff.exponential.enable",
+          "Whether the wait doubles with each further delivery attempt, up to share.release.backoff.max.ms, with random jitter of up to 20%. If false, every wait is share.release.backoff.ms, without jitter.",
+          "Type: boolean. Default: false."
+        ],
+        [
+          "share.release.backoff.max.ms",
+          "The longest wait when exponential backoff is enabled. It has no effect otherwise.",
+          "ype: int. Default: the value of group.share.max.release.backoff.ms. Valid values: 0 to group.share.max.release.backoff.ms."
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Configuration",
+        "Description",
+        "Values"
+      ],
+      "lignes": [
+        [
+          "group.share.max.release.backoff.ms",
+          "The maximum value of share.release.backoff.ms and share.release.backoff.max.ms, hence the longest delay before a redelivery. 0 turns off redelivery delays for all share groups.",
+          "Type: int. Default: 60000. Valid values: 0 to 3600000."
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Name",
+        "Type",
+        "Group",
+        "Tags",
+        "Description",
+        "JMX Bean",
+        "Rationale"
+      ],
+      "lignes": [
+        [
+          "RedeliveryDelayedRecordCount",
+          "Gauge",
+          "SharePartitionMetrics",
+          "group: &lt;group_id&gt;, topic: &lt;topic&gt;, partition: &lt;partition&gt;",
+          "The number of records in the share partition that are waiting for their redelivery delay.",
+          "kafka.server:type=SharePartitionMetrics,name=RedeliveryDelayedRecordCount,group=&lt;group_id&gt;,topic=&lt;topic&gt;,partition=&lt;partition&gt;",
+          "Delayed records count as in-flight and the share-partition start offset can’t move past them. Delayed records use up share.partition.max.record.locks. When the gauge approaches that limit, the partition is about to stop handing out new records."
+        ]
+      ],
+      "nom": "tableau_3"
+    },
+    {
+      "colonnes": [
+        "How the delivery attempt ends",
+        "Is the record delayed?"
+      ],
+      "lignes": [
+        [
+          "A consumer acknowledges the record with RELEASE",
+          "Yes"
+        ],
+        [
+          "The consumer cannot deserialize the record and releases it automatically",
+          "Yes"
+        ],
+        [
+          "The record's acquisition lock times out",
+          "Yes"
+        ],
+        [
+          "The consumer holding the record disconnects without closing its share session",
+          "Yes"
+        ],
+        [
+          "The consumer closes its share session, for example in KafkaShareConsumer.close()",
+          "No. The records it held are available immediately, as today."
+        ],
+        [
+          "The attempt was the last one the delivery count limit allows",
+          "No. The record is archived + written to the dead-letter queue (if configured), as today."
+        ]
+      ],
+      "nom": "tableau_4"
+    }
+  ]
+}

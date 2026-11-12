@@ -1,0 +1,150 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-20848",
+      "KAFKA-20761",
+      "KAFKA-20744",
+      "KAFKA-20925"
+    ],
+    "kip": "KIP-1389",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state: Under Discussion\nDiscussion thread: https://lists.apache.org/thread/gctkxrg2y664jt4sq18znrgl0omd93tp\nJIRA: KAFKA-20848\nRelease: TBD\nMotivation\nWith the consumer group protocol (KIP-848), share groups (KIP-932) and the Streams rebalance protocol (KIP-1071), settings that shape how a client behaves are group configurations owned by the broker. Some of them, such as the session timeout and the heartbeat interval of consumer groups, used to be client configurations; others, such as a share group's record lock duration, were introduced as group configurations. Settings such as session timeouts and heartbeat intervals have broker-level defaults and bounds, and an administrator can override them for a single group. None of these values are set in the client's configuration.\nThe client sees only some of these values. The heartbeat responses of all three protocols carry the heartbeat interval, and the Streams heartbeat response also carries the task offset interval and the acceptable recovery lag. Clients recently started logging these values (KAFKA-20761 for consumer and share groups, and the equivalent change for Streams). A share consumer also receives the record lock duration in the ShareFetch and ShareAcknowledge responses, as AcquisitionLockTimeoutMs, and exposes it through ShareConsumer#acquisitionLockTimeoutMs(). Other values, including the session timeout of every group type, are not included in any response. When diagnosing unexpected group behavior from the client's logs, one cannot tell which of these values the brokers are applying.\nThe values in effect can also differ from the configured ones. KIP-1240 lets a broker start even if a stored group configuration lies outside the broker's current bounds, and clamps the effective value to those bounds. The broker logs a warning when it does so, but the client is not told. In a reproduction attached to KAFKA-20848, consumer.session.timeout.ms was set to 60000 for a group, and the broker was then restarted with the session timeout bounds narrowed to 20000–30000 (group.consumer.min.session.timeout.ms=20000, group.consumer.session.timeout.ms=25000, group.consumer.max.session.timeout.ms=30000):\nThe broker logged that the value is capped to 30000.\nDescribing the group configuration still returned 60000, the stored value.\nThe consumer received no indication that its effective session timeout had been reduced, because the session timeout is not part of the heartbeat response.\nAfter the consumer was killed, the member was fenced approximately 30 seconds after the coordinator processed its last heartbeat, so 30000 was the value in effect.\nA user who chose 60 seconds to tolerate long pauses therefore sees members fenced after 30 seconds, and nothing on the client side explains why. Similar discrepancies between configured and effective values can arise when other settings are clamped to their lower or upper bounds, or when a group names a Streams task assignor that is not available and the coordinator falls back to the default assignor. Even for values that are sent to the client, such as the heartbeat interval or the record lock duration, the client receives the effective value but cannot tell that it differs from the configured one.\nThe protocols already carry this kind of information in places. The share fetch path sends the effective record lock duration to the client, and Streams uses the heartbeat response to report a misconfiguration: the MISSING_CLIENT_TAGS status (KAFKA-20744) tells a member that client tags required for rack-aware standby task assignment are missing. This KIP exposes the effective group configurations relevant to each protocol through responses from the broker that applies them. For the group heartbeats that broker is the group coordinator. The share configurations that govern record delivery, such as the record lock duration and the delivery count limit, are applied by each share partition leader against its own bounds and defaults, so the"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1389",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "RPC",
+        "Current versions",
+        "New version",
+        "Broker that sends the list",
+        "Entries"
+      ],
+      "lignes": [
+        [
+          "ConsumerGroupHeartbeat",
+          "0-1",
+          "N (2 today)",
+          "group coordinator",
+          "4"
+        ],
+        [
+          "ShareGroupHeartbeat",
+          "1",
+          "N (2 today)",
+          "group coordinator",
+          "4"
+        ],
+        [
+          "StreamsGroupHeartbeat",
+          "0-1",
+          "N (2 today)",
+          "group coordinator",
+          "11"
+        ],
+        [
+          "ShareFetch",
+          "1-2",
+          "N (3 today)",
+          "share partition leader",
+          "8"
+        ],
+        [
+          "ShareAcknowledge",
+          "1-2",
+          "N (3 today)",
+          "share partition leader",
+          "8"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "RPC",
+        "Group configurations"
+      ],
+      "lignes": [
+        [
+          "ConsumerGroupHeartbeat",
+          "consumer.session.timeout.ms, consumer.heartbeat.interval.ms, consumer.assignment.interval.ms, consumer.assignor.offload.enable"
+        ],
+        [
+          "ShareGroupHeartbeat",
+          "share.session.timeout.ms, share.heartbeat.interval.ms, share.assignment.interval.ms, share.assignor.offload.enable"
+        ],
+        [
+          "StreamsGroupHeartbeat",
+          "streams.session.timeout.ms, streams.heartbeat.interval.ms, streams.assignment.interval.ms, streams.assignor.offload.enable, streams.task.offset.interval.ms, streams.acceptable.recovery.lag, streams.num.standby.replicas, streams.num.warmup.replicas, streams.initial.rebalance.delay.ms, streams.rack.aware.assignment.tags, streams.assignor.name"
+        ],
+        [
+          "ShareFetch, ShareAcknowledge",
+          "share.record.lock.duration.ms, share.delivery.count.limit, share.partition.max.record.locks, share.renew.acknowledge.enable, share.auto.offset.reset, share.isolation.level, errors.deadletterqueue.topic.name, errors.deadletterqueue.copy.record.enable"
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Path",
+        "Scope and lifetime of the cache and the deduplication state"
+      ],
+      "lignes": [
+        [
+          "ConsumerGroupHeartbeat, ShareGroupHeartbeat, StreamsGroupHeartbeat",
+          "One key per group within a client instance. Cleared when the client explicitly leaves the group or closes."
+        ],
+        [
+          "ShareFetch and ShareAcknowledge",
+          "One key per broker, shared by both RPCs. Kept as long as the client keeps local share session state for that broker, and discarded together with it."
+        ]
+      ],
+      "nom": "tableau_3"
+    },
+    {
+      "colonnes": [
+        "Response",
+        "Token only",
+        "Full list, default configuration",
+        "Full list, one clamped override"
+      ],
+      "lignes": [
+        [
+          "ConsumerGroupHeartbeat",
+          "10",
+          "167",
+          "172"
+        ],
+        [
+          "ShareGroupHeartbeat",
+          "10",
+          "155",
+          "160"
+        ],
+        [
+          "StreamsGroupHeartbeat",
+          "10",
+          "419",
+          "424 (437 with an unavailable task assignor)"
+        ],
+        [
+          "ShareFetch, ShareAcknowledge",
+          "10",
+          "322",
+          "328"
+        ]
+      ],
+      "nom": "tableau_4"
+    }
+  ]
+}

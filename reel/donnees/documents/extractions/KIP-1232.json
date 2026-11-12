@@ -1,0 +1,109 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-18628"
+    ],
+    "kip": "KIP-1232",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "accepted",
+    "texte_libre": "Status\nCurrent state:Accepted\nDiscussion thread:https://lists.apache.org/thread/6zsr70lpzqp96g4jf6kngyms4kkz1tp1\nVote thread:https://lists.apache.org/thread/dtc48g4zjdj4s4n0hm99hm0xoho5sp1n\nJIRA:KAFKA-18628\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nSince Apache Kafka 4.0, ZooKeeper has been removed and KRaft is the only supported mode (KIP-500). In KRaft mode, a single process can serve as a broker, a controller, or both.KIP-631therefore introducednode.idto replacebroker.idas the canonical node identifier.\nHowever, the legacybroker.idconfiguration still exists and is treated as a synonym ofnode.id. If only one is set, the other is automatically populated with the same value. If both are explicitly set, they must be equal; otherwise, aConfigExceptionis thrown.\nHaving two configuration properties that must always hold the same value causes unnecessary confusion and contradicts the documentation, which describesnode.idas required in KRaft mode.\nRelated ZooKeeper-era configurations such asbroker.id.generation.enableandreserved.broker.max.idwere already removed in Kafka 4.0, makingbroker.idthe only remaining legacy identifier config. We should deprecate it to simplify the configuration surface and guide all users toward the single, canonical configuration:node.id.broker.idis also the key the tiered storage plugins are configured with, so removing the broker config alone would leave the legacy name in the plugin contract.\nPublic Interfaces\nThis KIP proposes to deprecate thebroker.idserver configuration property in Apache Kafka 4.4 and remove it in Apache Kafka 5.0.\n|\nConfig |\nDefault |\n4.4 |\n5.0\n|\nbroker.id |\n-1 |\nDeprecated |\nRemoved\n|\nnode.id |\n(required) |\nNo change |\nNo change\nNotes:\nThe default value of-1forbroker.idis effectively unused in KRaft mode. Ifnode.idis set, the synonym mechanism overwritesbroker.idwith the value ofnode.id. If neither is set,node.idvalidation fails with aConfigExceptionbefore the default is ever used.\nThe documentation describesnode.idas required in KRaft mode, but it can actually be omitted currently ifbroker.idis set, because the synonym mechanism automatically populatesnode.idfrombroker.id. After the removal in 5.0,node.idmust be explicitly set.\nThe behavior is the same for allprocess.roles(broker, controller, or combined). No changes to public APIs, network protocols, metrics, or command-line tools.\nTiered storage plugin configuration\nRemoteLogManagerconfiguresRemoteStorageManagerandRemoteLogMetadataManagerinstances with a map that includesbroker.idbut notnode.id.\n|\nKey passed to RSM/RLMM |\n4.4 |\n5.0\n|\nbroker.id |\npassed (unchanged) |\nnot passed\n|\nnode.id |\nnewly passed, same value |\npassed\nTopicBasedRemoteLogMetadataManagerConfig.BROKER_IDis deprecated and replaced byNODE_ID:java\nMetrics reporter plugins are unaffected: they are configured throughAbstractConfig#getConfiguredInstances, which passes the broker's fulloriginals(), so both keys are already visible to them.\nProposed Changes\nPhase 1: Deprecation (Apache Kafka 4.4)\nLog deprecation warning: Whenbroker.idis explicitly set in the server configuration, log a WARN-level message at startup:\nPreserve backward compatibility: The existing synonym mechanism will continue to function. Users who only setbroker.idwill still have it automatically copied tonode.id. The validation requiring both to be equal (if both are explicitly set) also remains unchanged.\nPassnode.idto the tiered storage plugins alongsidebroker.id, and switch Kafka's own plugin implementations to readnode.id. They fall back tobroker.idwith a WARN whennode.idis absent, and fail with aConfigExceptionwhen neither key is present. The fallback never triggers inside a broker, sinceRemoteLogManageralways passes both keys.\nPhase 2: Removal (Apache Kafka 5.0)\nRemovebroker.idconfiguration: TheBROKER_ID_CONFIGwill be removed fromServerConfigs. Setting it will be silently ignored.\nRemove synonym logic: Rem"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1232",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Config",
+        "Default",
+        "4.4",
+        "5.0"
+      ],
+      "lignes": [
+        [
+          "broker.id",
+          "-1",
+          "Deprecated",
+          "Removed"
+        ],
+        [
+          "node.id",
+          "(required)",
+          "No change",
+          "No change"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Key passed to RSM/RLMM",
+        "4.4",
+        "5.0"
+      ],
+      "lignes": [
+        [
+          "broker.id",
+          "passed (unchanged)",
+          "not passed"
+        ],
+        [
+          "node.id",
+          "newly passed, same value",
+          "passed"
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Configuration",
+        "Current (4.0 ~ 4.2)",
+        "Phase 1: Deprecated (4.4 ~ 4.x)",
+        "Phase 2: Removed (5.0)"
+      ],
+      "lignes": [
+        [
+          "Only node.id set",
+          "Valid",
+          "Valid",
+          "Valid"
+        ],
+        [
+          "Only broker.id set",
+          "Valid; node.id is auto-populated from broker.id",
+          "Valid + broker.id deprecation warning; node.id is auto-populated from broker.id",
+          "ConfigException: node.id is required"
+        ],
+        [
+          "Both set, same value",
+          "Valid",
+          "Valid + broker.id deprecation warning",
+          "Valid; broker.id is ignored"
+        ],
+        [
+          "Both set, different values",
+          "ConfigException: node.id must equal broker.id",
+          "ConfigException: node.id must equal broker.id",
+          "Valid; broker.id is ignored"
+        ],
+        [
+          "Neither set",
+          "ConfigException: node.id is required",
+          "ConfigException: node.id is required",
+          "ConfigException: node.id is required"
+        ]
+      ],
+      "nom": "tableau_3"
+    }
+  ]
+}

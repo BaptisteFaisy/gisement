@@ -1,0 +1,19 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1295",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state:Under Discussion\nDiscussion thread:https://lists.apache.org/thread/t7x46hl4ykozrtj641woz3g52cqpwlms\nJIRA:ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-20280\nMotivation\nIt's a follow-up of KIP-1270. We do not support records which failed during global store/KTable processing to be available in DLQ. It currently logs record metadata. With this KIP, we aim to enable the DLQ support, which would enable the end user to have more control over the failed record.\nPublic Interface\nNo public interface changes.\nThe existing configuration `processing.exception.handler.global.enabled` (introduced in KIP-1270) will now fully enable DLQ functionality when set to `true`.\nBefore this KIP:\nprocessing.exception.handler.global.enabled=true # Only logs, drops DLQ records\nAfter this KIP:\nprocessing.exception.handler.global.enabled=true # Fully functional DLQ\nProposed Changes\nOverview\nThis KIP reuses the existing `RecordCollectorImpl` infrastructure to enable DLQ support for global tasks, maintaining consistency with regular stream tasks.\nImplementation Details\nUsing the existing record collector implementation has several benefits\nCritical error handline like ProductionExceptionHandler is automatically invoked if the DLQ send fails.\nBuilt-in Metrics Infrastructure.\nSame DLQ code path for regular and global tasks.\nSimilar to ProcessorContextImpl, GlobalProcessorContextImpl would implement the RecordCollector Supplier interface.javaGlobalProcessorContextImpl\nSimilar to StreamThread, GlobalStreamThread would initialise the StreamProducer and create a RecordCollectorImpl object, which would then set it in GlobalProcessorContextImpl.\nCompatibility, Deprecation, and Migration Plan\nThis is anenhancement,not a breaking change, as DLQ records will now be sent instead of logging.\nTest Plan\nSince this is a fairly small change, unit tests and integration tests should be sufficient.\nRejected Alternatives\nCreating a Single Producer specifically for GlobalTask instead of using RecordCollector. It would be lighter weight and sufficient for DLQ implementation, but it's not future-proof and also breaks consistency with the stream processing."
+  },
+  "confiance": 0.8,
+  "document_id": "KIP-1295",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": []
+}

@@ -1,0 +1,22 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-21127"
+    ],
+    "kip": "KIP-1378",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "",
+    "texte_libre": "Status\nCurrent state:\"Under Discussion\"\nDiscussion thread:DISCUSS: KIP-1378: Allow Consumer Group Renaming in MirrorMaker 2 Checkpoint Connector\nJIRA:KAFKA-21127\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nMirrorMaker 2 (MM2) provides pluggable topic renaming across clusters via the`ReplicationPolicy`interface (e.g.,`DefaultReplicationPolicy`prefixes topic names with the source cluster alias`<source>.<topic>`, while`IdentityReplicationPolicy`keeps them identical).\nHowever, consumer groups do not have an equivalent pluggable naming mechanism. Today,`MirrorCheckpointConnector`and`MirrorCheckpointTask`mirror consumer group offsets to the target cluster preserving the exact source consumer group ID (`group.id`).\nWhen multiple primary clusters replicate into a single disaster recovery (DR) or analytical target cluster, consumer group names from different source clusters can easily collide if identical group IDs were used independently on each source.\nThis KIP proposes introducing a pluggable`GroupMirroringPolicy`interface (analogous to`ReplicationPolicy`) to allow operators to customize consumer group names created and tracked on the target cluster.\nPublic InterfacesNew Interface:`org.apache.kafka.connect.mirror.GroupMirroringPolicy`\n```\npackage org.apache.kafka.connect.mirror;\n/**\n* An interface used by MirrorMaker connectors to rename consumer groups between source and target clusters.\n* Analogous to ReplicationPolicy for topics, this allows operators to define a custom naming\n* convention for consumer groups on the target cluster.\n*/@InterfaceAudience.Publicpublic interface GroupMirroringPolicy extends Configurable {\n/**\n* Returns the name that the given source consumer group should use on the target cluster.\n* This name is used when emitting checkpoints and syncing consumer group offsets to the target.\n*\n* @param sourceClusterAlias the alias of the source cluster\n* @param group the consumer group ID on the source cluster\n* @return the consumer group ID to use on the target cluster\n*/\nString targetGroupId(String sourceClusterAlias, String group);\n/**\n* Returns the source consumer group ID for a given group on the target cluster.\n* This is the inverse of targetGroupId(String, String).\n*\n* @param sourceClusterAlias the alias of the source cluster\n* @param targetGroup the consumer group ID on the target cluster\n* @return the original consumer group ID on the source cluster, or null if not determinable\n*/\nString sourceGroupId(String sourceClusterAlias, String targetGroup);\n@Override\ndefault void configure(Map<String, ?> configs) {\n// no-op by default\n}\n}\n```\nDefault Implementation:`org.apache.kafka.connect.mirror.DefaultGroupMirroringPolicy`\nAn identity implementation providing backward-compatible default behavior:\n3. New Configuration Property\nThe following configuration property is added to`MirrorCheckpointConfig`and`MirrorClientConfig`:\n`group.mirroring.policy.class`\nType:`Class`\nDeafult:`org.apache.kafka.connect.mirror.DefaultGroupMirroringPolicy`\nImportance :`LOW`\nDescription:Class which defines the consumer group naming convention on the target cluster.\nProposed Changes\nDescribe the new thing you want to do in appropriate detail. This may be fairly extensive and have large subsections of its own. Or it may be a few sentences. Use judgement based on the scope of the change.\nCompatibility, Deprecation, and Migration Plan\nFully backward compatible. Existing setups without this configuration will use`DefaultGroupMirroringPolicy`, which preserves existing consumer group IDs verbatim.\nTest Plan\nJunit-driven integration test, that includes stopping and restarting the connector to exercise CheckpointStore initialisation\nRejected Alternatives\nN/A"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1378",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": []
+}

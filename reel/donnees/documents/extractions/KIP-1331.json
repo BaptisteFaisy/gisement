@@ -1,0 +1,101 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1331",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "accepted",
+    "texte_libre": "Status\nCurrent state: Accepted\nDiscussion thread:here\nJIRA:ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-20618\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nKafka Streams applications are opaque to cluster operators. When an application hits performance degradation or a protracted rebalance, operators cannot inspect the processing graph — the individual source, processor, and sink nodes, their predecessor/successor relationships, and the state stores they touch — without access to the application source code or logs.KIP-1071 (Streams Rebalance Protocol)already has clients send a topology to the broker, but only the subset the coordinator needs for assignment: subtopologies, source topics, changelog topics, and copartition groups. The full processing graph is not part of that assignment topology and is not currently available on the broker.\nThis KIP proposes a mechanism to send the full topology description from the client to the broker, where a pluggable backend can store and expose it for operational tooling and topology visualization in management UIs. The design follows the pattern established byKIP-714 (Client Metrics and Observability): the broker acts as a conduit, receiving data from clients and delegating storage and presentation to a plugin implementation. This keeps the broker itself simple and the feature extensible.\nPublic Interfaces\nNew Broker Configuration\n| Configuration name | Description | Values\n| group.streams.topology.description.plugin.class | The fully qualified class name of aStreamsGroupTopologyDescriptionPluginimplementation. When not set, the feature is disabled. |\nType:class, Default:null, Importance: MEDIUM\nNew Client Configuration\n| Configuration name | Description | Values\n| topology.description.push.enabled | Controls whether the Kafka Streams client sends topology descriptions to the broker when requested.\nWhen set tofalse, the client ignoresTopologyDescriptionRequired=truein heartbeat responses. | Type:boolean, Default:true\nStreamsGroupHeartbeatResponse Change\nStreamsGroupHeartbeatResponseis bumped to the next version (N) and gains a new field at that version:true\nThe broker sets this field totruewhen a topology description plugin is configured and the broker expects the client to send it's current version of the topology description.\nNew RPC: StreamsGroupTopologyDescriptionUpdate (API Key TBD)\nA new RPC is introduced for setting the topology description for a streams group. LikeStreamsGroupHeartbeat, the request is sent to the group coordinator for the group.\nRequest:true\nResponse:\ntrue\nAuthorization:RequiresREADACL on the GROUP resource for the given group ID. Like offset commits, we don't consider this a modification of the GROUP. This allows deploying apps withREADACLs on the group.\nError codes:\nGROUP_AUTHORIZATION_FAILED— the client is not authorized\nINVALID_REQUEST— the request is malformed (including an emptyMemberId)\nUNSUPPORTED_VERSION— the coordinator cannot serve this RPC because no topology description plugin is configured.\nSTREAMS_INVALID_TOPOLOGY_EPOCH - incorrect topology epoch in push. Must agree with groups current topology epoch.\nSTREAMS_TOPOLOGY_DESCRIPTION_UPDATE_FAILED— the plugin failed to process the request. The accompanyingErrorMessagecarries the plugin's exception message. The broker's response shape is identical for both permanent and transient plugin failures; the distinction is broker-internal state that determines whether subsequent heartbeats at the same topology epoch will re-solicit (seeBroker Side).\nUNKNOWN_MEMBER_ID— the member named inMemberIdis no longer in the group; the client should treat itself as fenced and rejoin\nGROUP_ID_NOT_FOUND— the specified group does not exist\nNOT_COORDINATOR— the broker is not the coordinator for this group\nCOORDINATOR_NOT_AVAILABLE— the coordinator is not available\nCOORDINATOR_LOAD_IN_PROGRESS— the coordinator is loading\nClient-side retry "
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1331",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Configuration name",
+        "Description",
+        "Values"
+      ],
+      "lignes": [
+        [
+          "group.streams.topology.description.plugin.class",
+          "The fully qualified class name of a StreamsGroupTopologyDescriptionPlugin implementation. When not set, the feature is disabled.",
+          "Type: class, Default: null, Importance: MEDIUM"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Configuration name",
+        "Description",
+        "Values"
+      ],
+      "lignes": [
+        [
+          "topology.description.push.enabled",
+          "Controls whether the Kafka Streams client sends topology descriptions to the broker when requested. When set to false, the client ignores TopologyDescriptionRequired=true in heartbeat responses.",
+          "Type: boolean, Default: true"
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "MBean",
+        "Type",
+        "Description"
+      ],
+      "lignes": [
+        [
+          "kafka.server:type=group-coordinator-metrics,name=streams-group-topology-description-set-success-{rate,count}",
+          "Meter",
+          "Successful plugin.setTopology calls."
+        ],
+        [
+          "kafka.server:type=group-coordinator-metrics,name=streams-group-topology-description-set-error-{rate,count}",
+          "Meter",
+          "Failed plugin.setTopology calls. An error increments this sensor regardless of whether it was StreamsTopologyDescriptionPermanentFailureException, StreamsTopologyDescriptionTransientFailureException, or any other exception."
+        ],
+        [
+          "kafka.server:type=group-coordinator-metrics,name=streams-group-topology-description-delete-success-{rate,count}",
+          "Meter",
+          "Successful plugin.deleteTopology calls (covers both the explicit DeleteGroups and periodic-cleanup paths)."
+        ],
+        [
+          "kafka.server:type=group-coordinator-metrics,name=streams-group-topology-description-delete-error-{rate,count}",
+          "Meter",
+          "Failed plugin.deleteTopology calls."
+        ],
+        [
+          "kafka.server:type=group-coordinator-metrics,name=streams-group-topology-description-get-success-{rate,count}",
+          "Meter",
+          "Successful plugin.getTopology calls."
+        ],
+        [
+          "kafka.server:type=group-coordinator-metrics,name=streams-group-topology-description-get-error-{rate,count}",
+          "Meter",
+          "Failed plugin.getTopology calls."
+        ],
+        [
+          "kafka.server:type=group-coordinator-metrics,name=streams-group-topology-description-cleanup-cycle-{rate,count}",
+          "Meter",
+          "Periodic topology-description cleanup cycles that actually ran."
+        ],
+        [
+          "kafka.server:type=group-coordinator-metrics,name=streams-group-topology-description-cleanup-eligible-{rate,count}",
+          "Meter",
+          "Streams group IDs identified as eligible for topology-description cleanup, summed across partitions."
+        ]
+      ],
+      "nom": "tableau_3"
+    }
+  ]
+}

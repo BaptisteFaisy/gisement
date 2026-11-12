@@ -1,0 +1,170 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1373",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state:Under Discussion\nDiscussion thread:here\nJIRA:here\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nBrokers already expose per-client quota usagebyte-rate,request-timeand throttle timethrottle-time. They do not expose how that usage compares to the effective quota applied to the same quota sensor.\nThat join is left to operators: scrape the rate, then independently resolve user, client-id, and default overrides (or a customClientQuotaCallback)from a different path. Limits can differ by orders of magnitude and can change dynamically, so absolute-rate alerts do not transfer across clients.\nthrottle-timeonly changes after throttling has occurred. Operators need a normalized rate signal that identifies clients whose recent usage is approaching or exceeding the quota actually applied on that broker, without requiring the monitoring stack to resolve the quota independently.\nKIP-1257: Partition Size Percentage Metrics for Storage Monitoringestablished the precedent of shipping a normalized percentage from Kafka rather than requiring operators to compute it externally. The analogy is only partial:retention.bytesis a topic configuration, while client quotas are resolved per quota entity through the existing quota hierarchy and optional callbacks. This KIP preserves the existing quota-resolution and enforcement behavior.\nProposed Changes\nAddquota-utilizationas an additional attribute on the existing client-quota MBeans. No new MBean type, ObjectName, sensor, or quota entity is introduced.\n| existing | new\n| byte-rate | request-time , throttle-time | quota-utilization\nDefinition\nquota-utilization is the recent quota-measured rate expressed as a percentage of the effective quota applied to the same quota sensor.calculation\nMeasured rate is the value of the existing quota rate metric on that sensor (byte-rate or request-time).\nEffective quota is the quota currently associated with that rate metric's MetricConfig, after callback resolution and default/override resolution, and is the same bound used for enforcement on that sensor.\nThe metric is a rate-utilization signal. It is not a representation of throttle state or of remaining headroom before the next request is delayed.\nValue and meaning\nLess than 100: recent rate is below the effective quota.\nEqual to 100: recent rate equals the effective quota.\nGreater than 100: recent rate exceeds the effective quota; not capped.\nthrottle-time: actual throttling that already occurred.\nThe result is always a percentage of the applicable quota, regardless of the physical unit of the numerator.\n| Quota | numerator | denominator\n| Produce | byte-rate (bytes/sec) | producer_byte_rate\n| Fetch | byte-rate (bytes/sec) | consumer_byte_rate\n| Request | request-time | request_percentage\nRequest units are the easiest to misread. request-time is already a percentage of broker network and I/O thread time, and request_percentage caps that quantity. Utilization is a percentage of that cap, not request-time / 100. Exempt request time is not included in the numerator.\nExamples\n| Quota | Input | Quota-utilization\n| Produce | byte-rate = 800 KiB/s, producer_byte_rate = 1 MiB/s | 80\n| Request | request-time = 40, request_percentage = 50 | 80 (40 percent of the pool, 80 percent of the client quota)\n| Unlimited | byte-rate = 800 KiB/s, quota = Long.MaxValue | NaN\nEffective quota\nThe denominator is not re-resolved by calling ClientQuotaCallback.quotaLimit() during metric collection.\nKafka already writes the resolved bound onto the quota rate metric when the sensor is created and when quota configuration is updated (MetricConfig.quota). Utilization uses that cached bound.\nConsequences:\nJMX and reporter scrapes do not execute custom callback code.\nClientQuotaCallback invocation frequency is unchanged.\nIf a custom callback changes limits only through the existing update paths (updateQuota, or quotaResetRequired triggering a met"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1373",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "existing",
+        "new"
+      ],
+      "lignes": [
+        [
+          "byte-rate | request-time , throttle-time",
+          "quota-utilization"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Quota",
+        "numerator",
+        "denominator"
+      ],
+      "lignes": [
+        [
+          "Produce",
+          "byte-rate (bytes/sec)",
+          "producer_byte_rate"
+        ],
+        [
+          "Fetch",
+          "byte-rate (bytes/sec)",
+          "consumer_byte_rate"
+        ],
+        [
+          "Request",
+          "request-time",
+          "request_percentage"
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Quota",
+        "Input",
+        "Quota-utilization"
+      ],
+      "lignes": [
+        [
+          "Produce",
+          "byte-rate = 800 KiB/s, producer_byte_rate = 1 MiB/s",
+          "80"
+        ],
+        [
+          "Request",
+          "request-time = 40, request_percentage = 50",
+          "80 (40 percent of the pool, 80 percent of the client quota)"
+        ],
+        [
+          "Unlimited",
+          "byte-rate = 800 KiB/s, quota = Long.MaxValue",
+          "NaN"
+        ]
+      ],
+      "nom": "tableau_3"
+    },
+    {
+      "colonnes": [
+        "Quota",
+        "Produced on",
+        "MBean",
+        "Attributes after this KIP"
+      ],
+      "lignes": [
+        [
+          "​Produce",
+          "​Every broker",
+          "​kafka.server:type=Produce,user=...,client-id=...",
+          "​byte-rate, throttle-time, quota-utilization"
+        ],
+        [
+          "Fetch",
+          "Every broker",
+          "kafka.server:type=Fetch,user=...,client-id=...",
+          "​byte-rate, throttle-time, quota-utilization"
+        ],
+        [
+          "Request",
+          "Every broker",
+          "kafka.server:type=Request,user=...,client-id=...",
+          "​request-time, throttle-time, quota-utilization"
+        ]
+      ],
+      "nom": "tableau_4"
+    },
+    {
+      "colonnes": [
+        "Alternative",
+        "Reason"
+      ],
+      "lignes": [
+        [
+          "Computing utilization in the monitoring stack",
+          "Operators could divide the existing usage metric by the configured quota externally. This requires independently resolving defaults, overrides, dynamic updates, and custom ClientQuotaCallback behavior. The broker already has the effective quota associated with the quota metric, so computing utilization in the broker avoids duplicating that logic."
+        ],
+        [
+          "Adding a new MBean or metric namespace",
+          "A new MBean or metric namespace would add unnecessary complexity and cardinality. quota-utilization is an additional attribute on the existing quota MBeans, keeping the metric alongside the usage and throttling metrics it complements."
+        ],
+        [
+          "Using a PascalCase metric name such as QuotaUtilizationPercent",
+          "The existing client quota metrics use kebab-case names such as byte-rate, request-time, and throttle-time. quota-utilization follows the existing naming convention and makes the denominator explicit."
+        ],
+        [
+          "Integer percentages",
+          "The existing quota MBean attributes are double values. Returning a floating-point percentage preserves useful resolution around common alerting thresholds such as 70%, 80%, and 90%."
+        ],
+        [
+          "Returning 0 for unlimited quotas",
+          "0 could be interpreted as zero usage or an idle client. NaN makes it explicit that no meaningful percentage can be calculated because there is no finite quota."
+        ],
+        [
+          "Omitting the attribute for unlimited quotas",
+          "The attribute follows the lifecycle of the existing quota sensor. Keeping it present and returning NaN distinguishes an existing quota sensor with no finite denominator from a sensor that does not exist because quotas were never enabled."
+        ],
+        [
+          "Capping utilization at 100%",
+          "The measured rate can temporarily exceed the configured quota. Values above 100% provide useful information about rate overshoot and should not be capped."
+        ],
+        [
+          "Broker-level aggregated utilization",
+          "Produce, Fetch, and Request quotas are enforced independently on each broker. Aggregating utilization across brokers can hide the broker where a client is approaching its quota. Aggregation is left to the monitoring system based on the operator's alerting intent."
+        ],
+        [
+          "Including ControllerMutation quotas",
+          "ControllerMutation quotas use token-bucket enforcement rather than the windowed rate model used by Produce, Fetch, and Request. A windowed rate percentage would therefore not represent token-bucket headroom or reliably predict throttling. ControllerMutation can be addressed separately with a metric whose semantics match its enforcement model."
+        ],
+        [
+          "Exposing a separate quota-limit metric",
+          "A quota-limit metric could be useful, particularly for idle or unlimited clients, but is not required for the primary use case of normalized utilization alerting. It can be considered as a follow-up."
+        ],
+        [
+          "Calling quotaLimit() during metric collection",
+          "Resolving the quota through ClientQuotaCallback.quotaLimit() on every metric scrape would change the callback contract and could execute custom callback code as a result of JMX or metrics collection. The effective quota is already associated with the quota metric through MetricConfig, so utilization uses that value instead."
+        ],
+        [
+          "Time-to-throttle or remaining-headroom metrics",
+          "These metrics require assumptions about future client behavior and can be misleading. quota-utilization reports the recent measured rate relative to the effective quota, while throttle-time remains the signal for actual throttling."
+        ]
+      ],
+      "nom": "tableau_5"
+    }
+  ]
+}

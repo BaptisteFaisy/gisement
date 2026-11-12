@@ -1,0 +1,357 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-848",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "accepted",
+    "texte_libre": "4\nStatus\nCurrent state:Accepted\nDiscussion thread:Thread 1,Thread 2andhere.\nJIRA:\nASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-14048\nASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-18327\nASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-18328\nASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-18329\nASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-17747\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nNote this is a joint work proposed by,and.\nThe consumer rebalance protocol with server side assignors is GA in Apache Kafka 4.0.\nThe Streams related parts are obsolete and have been superseded by.\nThe client side assignors are not implemented yet.\nThe topic id support for offset fetch/commit are in Apache Kafka 4.2.\nMotivation\nIt has been about 8 years since we introduced the so-called new consumer which does group membership and rebalancing through Kafka. Although it was a huge improvement over the old Zookeeper based consumer, it has still been a major pain point from an operation perspective. There are multiple reasons for this, let’s dive into them:\nThe protocol relies on thick clients. Thick clients are annoying in many ways:\nWe have had many bugs in the rebalance protocol over the last years and the majority of them required client side bug fixes. In the cloud area, this is really annoying because we effectively depend on the adoption of the clients in order to fix the issues in production. Unfortunately, the adoption is usually rather slow in the Kafka community;\nIt is almost impossible to debug issues in the protocol without having access to the client logs. In the cloud area, it is a bit annoying to have to request client logs to troubleshoot your system;\nThe clients specify the so-called embedded protocol in the rebalance protocol. While this allows the core protocol to be reused for different purposes, for instance it is used by both the consumer and connect in Apache Kafka, this makes inspecting the state on the broker side hard because the brokers get a bunch of raw bytes. The compatibility of the embedded protocols has also been a challenge; and\nThe clients are responsible for monitoring the metadata and for triggering rebalances. This has caused all sorts of issues in the past because clients of a given group might have a different view of the metadata at a given point in time.\nThe protocol relies on a group-wide synchronization barrier. This means that a single misbehaving consumer can take down or disturb the whole group because a rebalance of the whole group is required whenever a consumer joins, leaves or fails. This also limits its scalability as the cost of a rebalance increases with the number of members in the group. Even the cooperative rebalancing protocols depend on the barrier. Specifically, one of the deficiencies of the cooperative protocol is that offsets cannot be committed while the consumer is waiting on the rebalance to complete. So even though a consumer can keep fetching while the rebalance is in progress, it still tends to get stuck behind the barrier.\nThe protocol has gotten too complex over the years. We started with a rather simple protocol and we have extended it a few times over the years. For instance, we introduced KIP-429: Kafka Consumer Incremental Rebalance Protocol, KIP-345: Introduce static membership protocol to reduce consumer rebalances, and a few others. All the incremental changes that we have made have increased the complexity of the protocol.\nThe group protocol has been used for general state propagation between members. This is especially the case for power users such as Kafka Streams. While the state propagation is not an issue in itself, the protocol only propagates the state during a rebalance so we have introduced fake or dummy rebalance with the sole goal to propagate some new state to the leader of the group or to all the members of the group. This has been very confusing for our users both o"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-848",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Consumer Group"
+      ],
+      "lignes": [
+        [
+          "Name",
+          "Type",
+          "Description"
+        ],
+        [
+          "Group ID",
+          "string",
+          "The group ID as configured by the consumer. The ID uniquely identifies the group."
+        ],
+        [
+          "Group Epoch",
+          "int32",
+          "The current epoch of the group. The epoch is incremented by the group coordinator when a new assignment is required for the group."
+        ],
+        [
+          "Members",
+          "[]Member",
+          "The set of members in the group."
+        ],
+        [
+          "Partitions Metadata",
+          "[]PartitionMetadata",
+          "The metadata of the partitions that the group is subscribed to. This is used to detect partition metadata changes."
+        ],
+        [
+          "Member"
+        ],
+        [
+          "Name",
+          "Type",
+          "Description"
+        ],
+        [
+          "Member ID",
+          "string",
+          "The unique identifier of the member. It is generated by the coordinator upon the first heartbeat request and must be used during the lifetime of the member. The ID is similar to an incarnation ID."
+        ],
+        [
+          "Instance ID",
+          "string",
+          "The instance ID configured by the consumer."
+        ],
+        [
+          "Rack ID",
+          "string",
+          "The rack ID configured by the consumer."
+        ],
+        [
+          "Client ID",
+          "string",
+          "The client ID configured by the consumer."
+        ],
+        [
+          "Client Host",
+          "string",
+          "The client host configured by the consumer."
+        ],
+        [
+          "Subscribed Topic Names",
+          "[]string",
+          "The current set of subscribed topic names configured by the consumer."
+        ],
+        [
+          "Subscribed Topic Regex",
+          "string",
+          "The current subscription regular expression configured by the consumer."
+        ],
+        [
+          "Server Assignor",
+          "string",
+          "The server side assignor used by the group."
+        ],
+        [
+          "Client Assignors",
+          "[]Assignor",
+          "The list of client-side assignors supported by the member. The order of this list defined the priority."
+        ],
+        [
+          "Assignor"
+        ],
+        [
+          "Name",
+          "Type",
+          "Description"
+        ],
+        [
+          "Name",
+          "string",
+          "The unique name of the assignor."
+        ],
+        [
+          "Reason",
+          "int8",
+          "The reason why the metadata was updated."
+        ],
+        [
+          "Minimum Version",
+          "int16",
+          "The minimum version of the metadata schema supported by this assignor."
+        ],
+        [
+          "Maximum Version",
+          "int16",
+          "The maximum version of the metadata schema supported by this assignor."
+        ],
+        [
+          "Version",
+          "int16",
+          "The version used to encode the metadata."
+        ],
+        [
+          "Metadata",
+          "bytes",
+          "The metadata provided by the consumer for this assignor."
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Target Assignment"
+      ],
+      "lignes": [
+        [
+          "Name",
+          "Type",
+          "Description"
+        ],
+        [
+          "Group ID",
+          "string",
+          "The group ID as configured by the consumer. The ID uniquely identifies the group."
+        ],
+        [
+          "Assignment Epoch",
+          "int32",
+          "The epoch of the assignment. It represents the epoch of the group used to generate the assignment. It will eventually match the group epoch."
+        ],
+        [
+          "Assignment Error",
+          "int8",
+          "The error reported by the assignor."
+        ],
+        [
+          "Members",
+          "[]Member",
+          "The assignment for each member."
+        ],
+        [
+          "Member"
+        ],
+        [
+          "Name",
+          "Type",
+          "Description"
+        ],
+        [
+          "Member ID",
+          "string",
+          "The unique identifier of the member."
+        ],
+        [
+          "Partitions",
+          "[]TopicIdPartition",
+          "The set of partitions assigned to this member."
+        ],
+        [
+          "Metadata",
+          "bytes",
+          "The metadata assigned to this member."
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "Current Assignment"
+      ],
+      "lignes": [
+        [
+          "Name",
+          "Type",
+          "Description"
+        ],
+        [
+          "Group ID",
+          "string",
+          "The group ID as configured by the consumer. The ID uniquely identifies the group."
+        ],
+        [
+          "Member ID",
+          "string",
+          "The member ID of this member."
+        ],
+        [
+          "Member Epoch",
+          "int32",
+          "The current epoch of this member. The epoch is the assignment epoch of the assignment currently used by this member. This epoch is the one used to fence the member (e.g. offsets commit)."
+        ],
+        [
+          "Error",
+          "int8",
+          "The error reported by the assignor."
+        ],
+        [
+          "Partitions",
+          "[]TopicIdPartition",
+          "The current partitions used by the member."
+        ],
+        [
+          "Version",
+          "int16",
+          "The version used to encode the metadata."
+        ],
+        [
+          "Metadata",
+          "bytes",
+          "The current metadata used by the member."
+        ]
+      ],
+      "nom": "tableau_3"
+    },
+    {
+      "colonnes": [
+        "Name",
+        "Type",
+        "Default",
+        "Doc"
+      ],
+      "lignes": [
+        [
+          "group.coordinator.threads",
+          "int",
+          "1",
+          "The number of threads used to run the state machines."
+        ],
+        [
+          "group.coordinator.rebalance.protocols",
+          "list",
+          "&quot;classic,consumer&quot;",
+          "The list of enabled rebalance protocols."
+        ],
+        [
+          "group.coordinator.append.linger.ms",
+          "int",
+          "5ms",
+          "The duration that the coordinator will wait for writes to accumulate before flushing to disk (not applicable to txn writes)."
+        ],
+        [
+          "group.consumer.session.timeout.ms",
+          "int",
+          "45s",
+          "The timeout to detect client failures when using the consumer group protocol."
+        ],
+        [
+          "group.consumer.min.session.timeout.ms",
+          "int",
+          "45s",
+          "The minimum session timeout."
+        ],
+        [
+          "group.consumer.max.session.timeout.ms",
+          "int",
+          "60s",
+          "The maximum session timeout."
+        ],
+        [
+          "group.consumer.heartbeat.interval.ms",
+          "int",
+          "5s",
+          "The heartbeat interval given to the members."
+        ],
+        [
+          "group.consumer.min.heartbeat.interval.ms",
+          "int",
+          "5s",
+          "The minimum heartbeat interval."
+        ],
+        [
+          "group.consumer.max.heartbeat.interval.ms",
+          "int",
+          "15s",
+          "The maximum heartbeat interval."
+        ],
+        [
+          "group.consumer.max.size",
+          "int",
+          "MaxValue",
+          "The maximum number of consumers that a single consumer group can accommodate."
+        ],
+        [
+          "group.consumer.assignors",
+          "list",
+          "&quot;uniform,range&quot;",
+          "The server side assignors as a list of either names for builtin assignors or full class names for customer assignors. The first one in the list is considered as the default assignor to be used in the case where the consumer does not specify an assignor."
+        ],
+        [
+          "group.consumer.migration.policy",
+          "string",
+          "&quot;bidirectional&quot;",
+          "The config that enables converting the non-empty classic group using the consumer embedded protocol to the non-empty consumer group using the consumer group protocol and vice versa; conversions of empty groups in both directions are always enabled regardless of this policy.- bidirectional: both upgrade from classic group to consumer group and downgrade from consumer group to classic group are enabled,- upgrade: only upgrade from classic group to consumer group is enabled,- downgrade: only downgrade from consumer group to classic group is enabled,- disabled: neither upgrade nor downgrade is enabled."
+        ]
+      ],
+      "nom": "tableau_4"
+    },
+    {
+      "colonnes": [
+        "Name",
+        "Type",
+        "Default",
+        "Doc"
+      ],
+      "lignes": [
+        [
+          "group.consumer.session.timeout.ms",
+          "int",
+          "45s",
+          "The timeout to detect client failures when using the consumer group protocol."
+        ],
+        [
+          "group.consumer.heartbeat.interval.ms",
+          "int",
+          "5s",
+          "The heartbeat interval given to the members."
+        ]
+      ],
+      "nom": "tableau_5"
+    }
+  ]
+}

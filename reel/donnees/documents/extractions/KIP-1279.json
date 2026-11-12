@@ -1,0 +1,477 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1279",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "accepted",
+    "texte_libre": "Authors: Luke Chen, PSD-6352e83d3bcf651b, Omnia Ibrahim, Gaurav Narula\nThis design follows and simplifies the goals ofKIP-986: Cross-Cluster Replicationby Greg Harris, whose high level proposal provided the foundational vision for this feature.\nA special thanks to PoAn Yang, Kuan-Po Tseng, and Jiunn-Yang Huang for their design and code contributions, which helpedkickstart the projectat its inception.\nStatus\nCurrent state: Accepted\nDiscussion thread:here\nVoting thread:here\nJIRA:ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-20186\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nKafka deployments often require replicating data across geographically distributed clusters for disaster recovery (DR), regulatory compliance, data locality, cluster migrations or active-active architectures. While MirrorMaker 2 (MM2) provides cross-cluster replication capabilities, it presents operational challenges and significant shortcomings:\nOperational Burden: MM2 runs as standalone Connect workers external to Kafka brokers, requiring separate deployment, monitoring, and lifecycle management. Operators must provision additional hosts, manage Connect-specific configurations, and coordinate MM2 upgrades independently from Kafka broker upgrades.\nCompression Inefficiency: If source cluster records are compressed, MM2 will decompress and compress them again when producing to the destination cluster. These redundant operations decrease the mirroring throughput and increase latency.\nLossy Offset Translation: The offset translation process in MM2 is inherently lossy. When translating an offset from the source cluster to the destination cluster, MM2 cannot guarantee returning the exact same record. It is not possible to maintain a complete in-memory mapping of source to destination offsets for all mirrored records. When an exact translation is unavailable, MM2 guarantees that the record at the translated offset is always earlier than the actual record, ensuring consuming applications never skip data at the cost of potential reprocessing. This conservative approach can lead to significant duplicate processing during failover scenarios, particularly for high-throughput topics where offset translation granularity is coarse.\nExternal Offset Complexity: Advanced streaming platforms like Apache Flink and Apache Spark, Kafka Connect source connectors, and transactional applications often store consumed offsets externally rather than in Kafka's __consumer_offsets topic. When a failover happens, these applications face additional complexity because source and destination offsets don't match. Applications must query MM2's offset-sync internal topic to translate offsets, adding operational complexity and potential failure points. This offset translation dependency complicates disaster recovery procedures and increases the risk of incorrect offset mapping leading to data loss or duplicate processing.\nUnclean Leader Election: MM2 does not handle unclean leader elections on the source cluster gracefully. When an unclean leader election occurs, data loss on the source may not be reflected on the destination, leading to log divergence between clusters.\nRetention Gaps: Topics have retention policies to determine when to delete data. If these trigger and delete a segment while the MirrorSourceConnector is mirroring it, it may create gaps in the data which also results in log divergence.\nCluster Mirroring addresses these issues by integrating cross-cluster replication directly into Kafka brokers, providing a simpler and more robust solution for cross-cluster replication. Producers send messages to the source cluster and receive acknowledgments based on the source cluster's replication requirements (e.g. acks=all ensures replication to all in-sync replicas within the source cluster). Each topic partition's data is then asynchronously replicated to the destination cluster with no impact on producer "
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1279",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "0",
+        "LOG_ALIGNMENT",
+        "Truncates local log to last mirror epoch, waits for ISR completion (or all assigned replicas if unclean leader election support is enabled).",
+        ""
+      ],
+      "lignes": [
+        [
+          "1",
+          "EPOCH_FENCING",
+          "Bumps destination leader epoch via controller."
+        ],
+        [
+          "2",
+          "ULE_RECOVERY",
+          "Waits for all destination replicas (not just ISR) to converge to the truncated offset after an unclean leader election on the source cluster."
+        ],
+        [
+          "3",
+          "MIRRORING",
+          "Mirror fetcher thread actively replicates records."
+        ],
+        [
+          "4",
+          "PAUSING",
+          "Removes fetcher threads for affected partitions."
+        ],
+        [
+          "5",
+          "PAUSED",
+          "Read-only state with no active fetchers."
+        ],
+        [
+          "6",
+          "STOPPING",
+          "Sequential shutdown: removes fetchers, persists last mirror epoch, bumps leader epoch, aborts pending transactions, writes MIRROR_PID_RESET."
+        ],
+        [
+          "7",
+          "STOPPED",
+          "The mirror fetcher is removed and partition becomes writable on destination."
+        ],
+        [
+          "8",
+          "FAILED",
+          "Error occurred; coordinator attempts recovery then fails permanently."
+        ],
+        [
+          "-1",
+          "UNKNOWN",
+          "No cached state; broker just became leader."
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "RPC",
+        "Component",
+        "ACL Operation",
+        "ACL Resource",
+        "Purpose"
+      ],
+      "lignes": [
+        [
+          "Fetch",
+          "MFT",
+          "Read",
+          "Topic",
+          "Data replication"
+        ],
+        [
+          "Metadata",
+          "MMM",
+          "Describe",
+          "Topic",
+          "Topic discovery and leader tracking"
+        ],
+        [
+          "DescribeConfigs",
+          "MMM",
+          "DescribeConfigs",
+          "Topic",
+          "Topic configuration sync"
+        ],
+        [
+          "ListGroups",
+          "MMM",
+          "Describe",
+          "Group",
+          "Consumer group offset sync"
+        ],
+        [
+          "OffsetFetch",
+          "MMM",
+          "Describe",
+          "Group",
+          "Consumer group offset sync"
+        ],
+        [
+          "DescribeAcls",
+          "MMM",
+          "Describe",
+          "Cluster",
+          "ACL synchronization"
+        ],
+        [
+          "DescribeShareGroupOffsets",
+          "MMM",
+          "Describe",
+          "Group",
+          "Share group offset sync"
+        ],
+        [
+          "DescribeClusterMirrors",
+          "MC",
+          "Read",
+          "ClusterMirror",
+          "Log truncation"
+        ],
+        [
+          "ApiVersions",
+          "MMM",
+          "",
+          "",
+          "Feature negotiation"
+        ],
+        [
+          "ListOffsets",
+          "MFT",
+          "Describe",
+          "Topic",
+          "Offset bounds discovery"
+        ],
+        [
+          "OffsetsForLeaderEpoch",
+          "MFT",
+          "Describe",
+          "Topic",
+          "Log truncation when source doesnot support Fetch v12+."
+        ]
+      ],
+      "nom": "tableau_2"
+    },
+    {
+      "colonnes": [
+        "RPC",
+        "Component",
+        "ACL Operation",
+        "ACL Resource",
+        "Purpose"
+      ],
+      "lignes": [
+        [
+          "CreateClusterMirror",
+          "Controller",
+          "Create",
+          "ClusterMirror",
+          "Cluster mirror creation"
+        ],
+        [
+          "StartMirrorTopics",
+          "Controller",
+          "Alter",
+          "ClusterMirror",
+          "Mirror topics creation"
+        ],
+        [
+          "StartMirrorTopics",
+          "Controller",
+          "Create",
+          "Topic",
+          "Mirror topics creation"
+        ],
+        [
+          "StartMirrorTopics",
+          "Controller",
+          "AlterConfigs",
+          "Topic",
+          "Mirror topics creation"
+        ],
+        [
+          "StopMirrorTopics",
+          "Controller",
+          "Alter",
+          "ClusterMirror",
+          "Mirror topics stop"
+        ],
+        [
+          "StopMirrorTopics",
+          "Controller",
+          "AlterConfigs",
+          "Topic",
+          "Mirror topics stop"
+        ],
+        [
+          "PauseMirrorTopics",
+          "Controller",
+          "Alter",
+          "ClusterMirror",
+          "Mirror topics pause"
+        ],
+        [
+          "PauseMirrorTopics",
+          "Controller",
+          "AlterConfigs",
+          "Topic",
+          "Mirror topics pause"
+        ],
+        [
+          "ResumeMirrorTopics",
+          "Controller",
+          "Alter",
+          "ClusterMirror",
+          "Mirror topics resume"
+        ],
+        [
+          "ResumeMirrorTopics",
+          "Controller",
+          "AlterConfigs",
+          "Topic",
+          "Mirror topics resume"
+        ],
+        [
+          "RecoverMirrorTopics",
+          "Controller",
+          "Alter",
+          "ClusterMirror",
+          "Mirror topics recovery"
+        ],
+        [
+          "RecoverMirrorTopics",
+          "Controller",
+          "AlterConfigs",
+          "Topic",
+          "Mirror topics recovery"
+        ],
+        [
+          "DeleteClusterMirror",
+          "Controller",
+          "AlterConfigs",
+          "ClusterMirror",
+          "Cluster mirror deletion"
+        ],
+        [
+          "DeleteClusterMirror",
+          "Controller",
+          "Delete",
+          "ClusterMirror",
+          "Cluster mirror deletion"
+        ],
+        [
+          "ListClusterMirrors",
+          "Broker",
+          "Describe",
+          "ClusterMirror",
+          "Mirror topic listing"
+        ],
+        [
+          "DescribeClusterMirrors",
+          "Broker",
+          "Describe",
+          "ClusterMirror",
+          "Mirror topic describe"
+        ],
+        [
+          "DescribeConfigs",
+          "Broker",
+          "DescribeConfigs",
+          "ClusterMirror",
+          "Mirror configuration describe"
+        ],
+        [
+          "WriteMirrorStates",
+          "MC",
+          "ClusterAction",
+          "Cluster",
+          "Mirror partition state write"
+        ],
+        [
+          "ReadMirrorStates",
+          "MC",
+          "Describe",
+          "Cluster",
+          "Mirror partition state read"
+        ],
+        [
+          "ReadMirrorOffsets",
+          "Broker",
+          "Describe",
+          "Cluster",
+          "Mirror partition lags read"
+        ],
+        [
+          "BumpLeaderEpochs",
+          "MC",
+          "ClusterAction",
+          "Cluster",
+          "Leader epoch bump"
+        ],
+        [
+          "CreateTopics",
+          "MMM",
+          "Create",
+          "Topic",
+          "Topic creation"
+        ],
+        [
+          "CreatePartitions",
+          "MMM",
+          "Alter",
+          "Topic",
+          "Partitions scaling"
+        ],
+        [
+          "IncrementalAlterConfigs",
+          "MMM",
+          "AlterConfigs",
+          "ClusterMirror",
+          "Mirror configuration update"
+        ],
+        [
+          "AlterShareGroupOffsets",
+          "MMM",
+          "Read",
+          "Group",
+          "Source share group offsets commit"
+        ],
+        [
+          "AlterShareGroupOffsets",
+          "MMM",
+          "Read",
+          "Topic",
+          "Source share group offsets commit"
+        ],
+        [
+          "OffsetCommit",
+          "MMM",
+          "Read",
+          "Topic",
+          "Source CG offsets commit"
+        ],
+        [
+          "OffsetCommit",
+          "MMM",
+          "Read",
+          "Group",
+          "Source CG offsets commit"
+        ],
+        [
+          "CreateAcls",
+          "MMM",
+          "Alter",
+          "Cluster",
+          "Source ACLs creation"
+        ],
+        [
+          "DeleteAcls",
+          "MMM",
+          "Alter",
+          "Cluster",
+          "Source ACLs removal"
+        ]
+      ],
+      "nom": "tableau_3"
+    },
+    {
+      "colonnes": [
+        "Offset",
+        "LE",
+        "Type",
+        "PID",
+        "Content"
+      ],
+      "lignes": [
+        [
+          "0",
+          "0",
+          "DATA",
+          "4001",
+          "key=A, value=1"
+        ],
+        [
+          "1",
+          "0",
+          "DATA",
+          "4001",
+          "key=B, value=2"
+        ],
+        [
+          "2",
+          "0",
+          "DATA",
+          "4002",
+          "key=X, value=9"
+        ],
+        [
+          "3",
+          "0",
+          "COMMIT",
+          "4001",
+          ""
+        ],
+        [
+          "4",
+          "0",
+          "DATA",
+          "4003",
+          "key=Y, value=5"
+        ],
+        [
+          "5",
+          "0",
+          "DATA",
+          "none",
+          "key=Z, value=10"
+        ]
+      ],
+      "nom": "tableau_4"
+    },
+    {
+      "colonnes": [
+        "Offset",
+        "LE",
+        "Type",
+        "PID",
+        "Content"
+      ],
+      "lignes": [
+        [
+          "0",
+          "0",
+          "DATA",
+          "4001",
+          "key=A, value=1"
+        ],
+        [
+          "1",
+          "0",
+          "DATA",
+          "4001",
+          "key=B, value=2"
+        ],
+        [
+          "2",
+          "0",
+          "DATA",
+          "4002",
+          "key=X, value=9"
+        ]
+      ],
+      "nom": "tableau_5"
+    }
+  ]
+}

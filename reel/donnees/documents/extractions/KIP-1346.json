@@ -1,0 +1,57 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [],
+    "kip": "KIP-1346",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state:Under Discussion\nDiscussion thread:\nJIRA:ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-20595\nMotivation\nDuring broker startup,LogManagerparallelizes log loading across partitions using a per-data-directory thread pool controlled bynum.recovery.threads.per.data.dir. However, within each partition,LogLoader.loadSegmentFiles()processes segment files strictly sequentially: eachLogSegmentis opened and sanity-checked one at a time before proceeding to the next segment. This design becomes a startup bottleneck for brokers with a large number of segments per partition.\nThe sequential per-partition loading phase becomes the dominant startup cost. Increasingnum.recovery.threads.per.data.dironly increases the number of partitions loaded concurrently, while segment loading within each partition remains serialized. As a result, broker startup time scales approximately linearly with the maximum segment count of any partition, regardless of the number of available CPU cores or recovery threads.\nThis KIP proposes parallelizing the per-partition segment loading phase. A new broker configuration,num.segment.loading.threads.per.data.dir, controls the thread pool size used to concurrently open and sanity-check segment files within a partition.\nPublic Interfaces\nNew Broker Configuration\nnum.segment.loading.threads.per.data.dir\n| Property | Value\n| Type | Integer\n| Default | 1\n| Validator | atLeast(1)\nThe number of threads per data directory to be used for loading log segments in parallel during broker startup. A value of 1 disables parallel loading and processes segments sequentially (the default behavior). Values greater than 1 enable parallel segment loading, which can speed up startup when partitions have many segments.\nNew Metrics\nA new gauge metricremainingSegmentsToLoadis added, providing visibility into parallel segment loading progress during broker startup.\n| Metric | MBean | Tags\n| remainingSegmentsToLoad | kafka.log:type=LogManager,name=RemainingSegmentsToLoad | dir, threadNum\nThe number of segments still pending parallel loading for a given data directory and loading thread. Only registered whennum.segment.loading.threads.per.data.dir > 1. Removed after startup completes.\nProposed Changes\nLogLoader.loadSegmentFiles()is extended to support parallel segment loading when a dedicated ExecutorService is supplied. LogManager creates this executor per data directory using the newnum.segment.loading.threads.per.data.dirconfiguration. When the configuration is 1 (the default), no executor is created and the existing sequential code path is exercised unchanged.\nTwo-Phase Loading in LogLoader\nPhase 1 — Parallel (open + sanity check)\nA CompletableFuture is submitted to the segment loading executor for each file in the log directory. Each task:\nIndex file — checks whether the corresponding .log file exists. If not, the index file is recorded as orphaned.\nLog file — calls LogSegment.open() followed by segment.sanityCheck().\nOn success, the segment is added to LogSegments directly. This is safe because LogSegments is backed by a ConcurrentSkipListMap.\nOn CorruptIndexException or NoSuchFileException, the segment is recorded for sequential recovery.\nPhase 2 — Sequential (recovery)\nAfter all parallel tasks complete:\nOrphaned index files are logged and deleted.\nSegments that encountered errors are recovered via the existingrecoverSegment()method, then added to LogSegments.\nrecoverSegment()is kept sequential because it mutates shared state (the leader epoch cache).\nProgress Metric\nWhen the segment loading executor is active,LogLoader.loadSegmentFilesInParallel()tracks the number of remaining segments per thread by writing to aConcurrentMap<String, Integer>keyed by Thread.currentThread().getName(). The metric is deregistered inremoveLogRecoveryMetrics()after startup completes.\nCompatibility, Deprecation, and Migration Plan\nSince this is a newly introduced behavior, there are no compatibility concerns.\nTest Plan\nAll existing tests s"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1346",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Property",
+        "Value"
+      ],
+      "lignes": [
+        [
+          "Type",
+          "Integer"
+        ],
+        [
+          "Default",
+          "1"
+        ],
+        [
+          "Validator",
+          "atLeast(1)"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Metric",
+        "MBean",
+        "Tags"
+      ],
+      "lignes": [
+        [
+          "remainingSegmentsToLoad",
+          "kafka.log:type=LogManager,name=RemainingSegmentsToLoad",
+          "dir, threadNum"
+        ]
+      ],
+      "nom": "tableau_2"
+    }
+  ]
+}

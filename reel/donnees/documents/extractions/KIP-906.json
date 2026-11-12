@@ -1,0 +1,22 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-14614"
+    ],
+    "kip": "KIP-906",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "accepted",
+    "texte_libre": "Status\nCurrent state:Accepted\nDiscussion thread:here\nJIRA:here\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nThe tools migration effort is ongoing and being tracked inKAFKA-14525. This is part of a bigger initiative to split the core module into multiple modules (e.g. storage, network, security, tools), which is being tracked inKAFKA-14524.\nThe plan is to migrate tools and related classes in a fully compatible way fromkafka.toolsandkafka.adminpackages (core module) toorg.apache.kafka.toolspackage (tools module).\nWhile kicking off this activity, we identified a number of potential compatibility issues:\nMissing wrapper: some tools do not have a wrapper script.\nThere are system tests that directly refer to the tool's fully qualified class name (FQCN) and expect the old package name when running on old Kafka releases.\nThey are often used for troubleshooting or automation through thekafka-run-class.shscript which takes the FQCN as input parameter.\nSPI argument: some tools have arguments for setting a custom SPI implementation to be used in place of the default implementation.\nAny custom SPI implementation depends on the old package name.\nBroken tool: some tools do not work on supported releases.\nCore dependency: some tools require access to non-trivial core classes that should be migrated first.\nPublic Interfaces\nDetailed list of tools grouped by issue:\nTools with missing wrapper script\nkafka.tools.JmxTool\nkafka.tools.StateChangeLogMerger\nkafka.tools.GetOffsetShell\nTools with no wrapper script and used in system tests with version older thanDEV_BRANCH\nkafka.tools.JmxTool\nkafka.tools.TestEndToEndLatency\nTools with no BAT wrapper script\nkafka.tools.ClusterTool (KAFKA-14614)\nkafka.admin.FeatureCommand\norg.apache.kafka.shell.MetadataShell\norg.apache.kafka.tools.VerifiableConsumer\norg.apache.kafka.tools.VerifiableProducer\nkafka.admin.ZkSecurityMigrator\nTools with SPI argument\nkafka.common.MessageReaderused in kafka.tools.ConsoleProducer\nTools that do not work on supported releases\nkafka.tools.StateChangeLogMerger\nTools with non trivial core classes dependencies\nkafka.tools.DumpLogSegments\nkafka.tools.StorageTools\nkafka.admin.AclCommand\nProposed Changes\nAccording to the KIP process, command line tools and arguments have to be considered public interface, so we want to maintain full compatibility or provide a deprecation period.\nRather than discussing common migration issues on a case by case basis, we would like to define some guidelines on how to address them in a consistent way.\nMissing wrapper\nEvery tool should have its own wrapper script inbinandbin/windowsdirectories. If a system test refers to the tool's FQCN, it should be updated to use the wrapper script name.\nDuring the package deprecation period, we should provide a redirection to the new compatible implementation via reflection. We should also add a note in the release changes and create a sub-task as a reminder to remove the redirection in the next major release.\nExample:scala\nSPI argument\nWe only have one tool with this issue (kafka.tools.ConsoleProducer) and a number of known external implementations. We can address this as originally proposed inKIP-641.\nBroken tool\nWe only have one tool with this issue (kafka.tools.StateChangeLogMerger), which is tracked inKAFKA-7735. This tool has been broken since 2.0 release, so it means that there is not much interest and we should simply deprecate.\nCore dependency\nMost tools communicate via Kafka protocol by using client classes, so they can be migrated without dependencies on core. Instead, tools with non-trivial dependencies on core (e.g. log message parsers) should wait until all required dependencies are migrated. If present, we should set related tasks as blockers for the tool migration sub-task.\nCompatibility, Deprecation, and Migration Plan\nMigrated tools must be fully compatible with the old implementation.\nThe old package name must be depreca"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-906",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": []
+}

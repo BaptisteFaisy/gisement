@@ -1,0 +1,22 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-18735"
+    ],
+    "kip": "KIP-1341",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state: Under Discussion\nDiscussion thread:https://lists.apache.org/thread.html/7b66g5c3v52jhf1w08l7lplk9g5h27g4\nJIRA:KAFKA-18735\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nClientQuotaEntity.ConfigEntity#name()returns the placeholder string\"<default>\"for default quota entities. This is problematic on three counts:\nInconsistent with every other Kafka public API.Across Kafka — Admin client, KRaft records — a default client-quota entity is represented bynull, not by a placeholder string.ConfigEntity#name()is the only public surface still returning\"<default>\", whichKAFKA-16411already designated as a ZooKeeper-internal detail.\nOpaque origin.\"<default>\"is a ZooKeeper-era artifact (znode paths like/config/users/<default>) with no semantic meaning in KRaft-only Kafka.\nJavadoc and implementation disagree.The Javadoc claimsname()returns \"an empty string\" for default entities; the implementation has always returned\"<default>\".\nThis KIP addsOptional<String> entityName(), which expresses \"absent value\" in the type system instead of overloading a string literal. The legacyname()is deprecated for removal in the next major release.\nPublic Interfaces\nA new abstract method is added toorg.apache.kafka.server.quota.ClientQuotaEntity.ConfigEntity;name()is deprecated for removal in the next major release. (The<release>placeholder below is the release in which this KIP ships.)java\nClientQuotaCallbackimplementations only consumeConfigEntityinstances handed in by the broker, so the new abstract method does not affect them at compile time.\nThe Javadoc forname()is also corrected to document the actual\"<default>\"return value instead of the previously-claimed \"empty string\".\nProposed Changes\nBroker-internalConfigEntityimplementations overrideentityName():Optional.empty()for default singletons (DEFAULT_USER_ENTITY,DEFAULT_USER_CLIENT_ID),Optional.of(name)for explicit user/client-id entities.\nBroker-internal callers migrate fromname()toentityName().\nCompatibility, Deprecation, and Migration Plan\nUpon shipping: Zero runtime break. Calls toname()emit a deprecation warning but continue to return\"<default>\"for default entities.\nNext major release:name()is removed.ClientQuotaCallbackimplementations that callname()will fail to compile and must migrate toentityName().\nTest Plan\nUnit tests.\nRejected Alternatives\n1. Keep\"<default>\"and just update the Javadoc to match\nThis documents the bug instead of fixing it.KAFKA-16411already designated\"<default>\"as a ZooKeeper-internal detail and aligned the rest of Kafka onnull-for-default; recording the placeholder in the Javadoc would lock the callback interface into the very inconsistency the project has been removing elsewhere.\n2. Directly changename()to returnnullfor default entities (no new method, no deprecation cycle)\nReturningnullwithout a deprecation cycle silently breaks callers:name().equals(...)and similar dereferences throwNullPointerException, and string-formatted uses (logging, metric tags) emit the literal\"null\"and corrupt dashboards. The deprecation route preserves runtime behavior and lets callbacks migrate to the type-safeOptional<String>API at their own pace."
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1341",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": []
+}

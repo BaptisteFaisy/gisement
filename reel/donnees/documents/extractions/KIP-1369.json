@@ -1,0 +1,66 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "JSR-305",
+      "KAFKA-9234"
+    ],
+    "kip": "KIP-1369",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "draft",
+    "texte_libre": "Status\nCurrent state:Draft\nDiscussion thread:here\nJIRA:ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-20833\nMotivation\nKafka's null-safety and thread-safety contracts live only in Javadoc,so nothing enforces them.A method thatstarts returning null,or a field read without its lock,compiles clean and breaks at runtime.Concurrency isalso affected:Kafka is heavily threaded,and the lock-ownership reasoning behind many classes lives only injavadoc.\nThis proposal annotates Kafka's public API with existing contract annotations.A typed@Nullableor@GuardedBy(\"lock\")beats a Javadoc sentence:it is uniform,greppable,shows in the IDE and generated docs,and tools read it without parsing prose.These concepts are already duplicated across the ecosystem,so ratherthan issue Kafka's own we can reuse the CLASS-retained SpotBugs and JSR-305 annotations,which the build's existingtools already recognise.\nPublic Interfaces\nKafka annotates its public API with existing annotations,addedcompileOnlyviaspotbugs-annotations(whichalso bringsjsr305).All are@Retention(CLASS):read by build tooling and dropped by the JVM,so there is noruntime footprint.compileOnlykeeps the jars out of the shadow jar and the published runtimedependencies.\nNull-safety\nedu.umd.cs.findbugs.annotations.@Nullableand@NonNull,applied where a value can be null:\njava\nThese are SpotBugs'own annotations,so SpotBugs recognizes them directly,and IntelliJ,Kotlin,and NullAwayrecognize them too.They areCLASS-retained,so unlikejavax.annotation.@Nullable(RUNTIME)they leave nodangling reference in shipped bytecode (JSpecify has this known limitation).For non-null-by-default a package may add@ReturnValuesAreNonnullByDefaultor@DefaultAnnotation(NonNull.class)from the same jar.\nThread-safety\njavax.annotation.concurrent.@GuardedBy,@Immutable,@ThreadSafe,@NotThreadSafe\njava\n@GuardedByis in Error Prone's recognized set,so if Kafka ever adds Error Prone itsGuardedBy checker verifies lock discipline with no upstream change.\nProposed Changes\nEnforcement\nSpotBugs(already in thecheckphase)recognizes the nullness annotations,so they are checked with no newsetup.Flow-sensitive checks(a@Nullabledereferenced unchecked,or a@GuardedBylock actually held)needError Prone or the Checker Framework and are out of scope;both already recognize these annotations,so adoptingthem later needs no upstream change.-Werroris unaffected:the annotations add no javac warnings.\nCheckstyle keeps the vocabulary consistent,with no new tooling.Each module'simport-control.xmlallowsedu.umd.cs.findbugs.annotationsandjavax.annotation.concurrent,and disallows the rest ofjavax.annotation;most-specific-match means the concurrency package stays allowed while the RUNTIME-retainedjavax.annotation.@Nullable/@Nonnullare banned,so nullness always uses the CLASS-retained findbugs types.\nRollout\nPilotclients,package by package,starting with the consumer and producer public API.spotbugs-annotationsis addedcompileOnlytoclients(it is alreadycompileOnlyin several server-side modules).Generatedgeneratorclasses wait until the generator emits annotations.\nSet the non-null default per package with@DefaultAnnotation(NonNull.class)inpackage-info.java,ratherthan on individual classes,so a package opts in as a unit.Expect a cleanup pass:the default surfaces everyfield,return,and parameter that is actually nullable,each of which then gets an explicit@Nullable.\nCompatibility\nAdditive and compile-time only:no runtime behavior,wire format,or signature changes.The annotations areCLASS-retained and their jars arecompileOnly,so nothing reaches a consumer's runtime classpath or theshadow jar.jsr305(pulledcompileOnlyviaspotbugs-annotations)is Apache-2.0 and already resolvestransitively in the build.\n| Scenario | Behavior\n| Existing Java consumer | No change; annotations are invisible at runtime.\n| Contributor in IntelliJ | Nullness inspections fire; IntelliJ recognizes these annotations by default.\n| Kotlin consumer | Kotlin reads the CLASS-retained findbugs nullness anno"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1369",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Scenario",
+        "Behavior"
+      ],
+      "lignes": [
+        [
+          "Existing Java consumer",
+          "No change; annotations are invisible at runtime."
+        ],
+        [
+          "Contributor in IntelliJ",
+          "Nullness inspections fire; IntelliJ recognizes these annotations by default."
+        ],
+        [
+          "Kotlin consumer",
+          "Kotlin reads the CLASS-retained findbugs nullness annotations from the compiled bytecode and infers nullability"
+        ],
+        [
+          "Scala consumer",
+          "Scala 2.13 does not read nullability annotations; no change."
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "KIP",
+        "Relationship"
+      ],
+      "lignes": [
+        [
+          "",
+          "Created Kafka-owned annotations for API audience; this reuses existing annotations for API contracts, since nullness and concurrency are already standardized."
+        ],
+        [
+          "ASF JIRA5aa69414-a9e9-3523-82ec-879b028fb15bKAFKA-9234",
+          "Original request from 2019"
+        ]
+      ],
+      "nom": "tableau_2"
+    }
+  ]
+}

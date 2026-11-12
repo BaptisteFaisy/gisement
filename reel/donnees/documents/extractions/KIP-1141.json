@@ -1,0 +1,24 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-18775"
+    ],
+    "kip": "KIP-1141",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "",
+    "texte_libre": "Status\nCurrent state:\"Accepted\"\nVote thread:here\nDiscussion thread:here\nJIRA:https://issues.apache.org/jira/browse/KAFKA-18775\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nCurrently, when usingMetadataQuorumCommandto add a controller, users must provide acontroller.propertiesconfiguration file. This file is required for the command to retrieve the metadata local path and endpoints needed to add voters. However, this approach has several limitations:\nLimited Accessibility: The node executing the tool must have direct access to the metadata path of the node being added or removed. This restricts the ability to use node A to manage node B, as node A may not have access to the metadata folder on node B.\nDependency on Node Configuration: The tool requires access to the configuration of the node being managed.\nHowever, the essential information for these operations — thedirectory UUIDandendpoints— is already available from the active controller’s in-memory state and theClusterImage.\nLeveraging these sources allows us to simplify voter addition and removal, enabling the command to run without direct access to the target node’s metadata directory.\nPublic Interfaces\nCLI\nAdding a controller\nFor adding a controller, introduces a new option—-controller-idfor theadd-controllersubcommand.bashAdd a new controller with bootstrap server\nbashAdd a new controller with bootstrap controller\nRemoving a controller\nFor removing a controller, the—-controller_directory_idoption is no longer required.bashRemove a controller with bootstrap server\nbashRemove a controller with bootstrap controller\nPublic APIs\nThe Admin API will make the options-based overloads the preferred APIs for adding and removing voters.\nAddRaftVoterOptions will be extended to include optional voterDirectoryId and endpoints fields, in addition to the existing optional clusterId. If voterDirectoryId is empty, the Admin client sends Uuid.ZERO_UUID, allowing the active controller to derive the voter's directory ID from its in-memory observer state. If endpoints is empty, the Admin client sends an empty listener collection, allowing the active controller to derive the voter's endpoints from its in-memory state. If either field is provided, the provided value is used.\nRemoveRaftVoterOptions will be extended to include an optional voterDirectoryId, in addition to the existing optional clusterId. If voterDirectoryId is empty, the Admin client sends Uuid.ZERO_UUID, allowing the active controller to derive the voter's directory ID from the current voter set. If it is provided, the provided directory ID is used to identify the voter.\nExisting overloads that take voterDirectoryId and endpoints as positional arguments will remain for compatibility but will be deprecated. For those overloads, the positional arguments take precedence over any corresponding values configured in the options object.\nAddRaftVoterOptions.javajava\nRemoveRaftVoterOptions.javajava\nAdmin.java\naddRaftVoterjavaAdmin.java\nremoveRaftVoterjava\nRPC Changes\nAddRaftVoterRequest.jsondiff\nRemoveRaftVoterRequest.jsondiff\nProposed Changes\nServer side changes\nDuringAddRaftVoterRequesthandling, if api version >= 2,\nthe voter directory id is derived from in-memoryLeaderStatewhen the value is Uuid.ZERO_UUID,\nthe controller endpoints are derived fromClusterImageif endpoint set is empty, note that the ClusterImage may lag behind actual state, so endpoints are not strictly idempotent.\nDuringAddRaftVoterRequesthanding, if multiple observers share the same node ID, reject withIllegalStateExceptionindicating the duplicate node ID and instruct the user to resolve the conflict.\nDuringRemoveRaftVoterRequesthanding, if api version >=1, the voter directory id is derived from in-memoryLeaderStatewhen the value is Uuid.ZERO_UUID.\nClient side changes\nTwo convenience methods for adding and removing controllers have been introduced inAdmin.java, addRaftVoter documented "
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1141",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": []
+}

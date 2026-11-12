@@ -1,0 +1,200 @@
+{
+  "4a7299f90c0630aa": {
+    "motif_ref": "ING-06",
+    "confiance": "0.98",
+    "citations": [
+      "Jenkins build is still unstable: Kafka » Kafka PowerPC Daily » test-powerpc #286"
+    ],
+    "faits": {
+      "api_ou_flux_natif": true,
+      "etape_supprimable_amont": true,
+      "interface_stable": true,
+      "jugement_requis": false,
+      "travail_deterministe": true
+    },
+    "jetons_entree": 187,
+    "jetons_sortie": 48
+  },
+  "6a9ac080b4e8c041": {
+    "motif_ref": "ING-01",
+    "confiance": "0.94",
+    "citations": [
+      "Re: [DISCUSS] KIP-1161: cleanup.policy shouldn't be empty"
+    ],
+    "faits": {
+      "api_ou_flux_natif": true,
+      "etape_supprimable_amont": false,
+      "interface_stable": true,
+      "jugement_requis": true,
+      "travail_deterministe": false
+    },
+    "jetons_entree": 186,
+    "jetons_sortie": 48
+  },
+  "a9125a8399d0a6b5": {
+    "motif_ref": "ING-01",
+    "confiance": "0.97",
+    "citations": [
+      "[DISCUSS] KIP-1176: Tiered Storage for Active Log Segment"
+    ],
+    "faits": {
+      "api_ou_flux_natif": true,
+      "etape_supprimable_amont": false,
+      "interface_stable": true,
+      "jugement_requis": true,
+      "travail_deterministe": false
+    },
+    "jetons_entree": 197,
+    "jetons_sortie": 48
+  },
+  "de3fa96cb63e0b89": {
+    "motif_ref": "ING-01",
+    "confiance": "0.97",
+    "citations": [
+      "Re: [DISCUSS] KIP-1119: Add support for SSL hot reload"
+    ],
+    "faits": {
+      "api_ou_flux_natif": true,
+      "etape_supprimable_amont": false,
+      "interface_stable": true,
+      "jugement_requis": true,
+      "travail_deterministe": false
+    },
+    "jetons_entree": 196,
+    "jetons_sortie": 48
+  },
+  "7a91a169f642bf32": {
+    "motif_ref": "ING-01",
+    "confiance": "0.78",
+    "citations": [
+      "Re: [DISCUSS] Apache Kafka 4.1.0 release"
+    ],
+    "faits": {
+      "api_ou_flux_natif": true,
+      "etape_supprimable_amont": false,
+      "interface_stable": true,
+      "jugement_requis": true,
+      "travail_deterministe": false
+    },
+    "jetons_entree": 186,
+    "jetons_sortie": 48
+  },
+  "ad6bc8f8390ee011": {
+    "motif_ref": "ING-01",
+    "confiance": "0.96",
+    "citations": [
+      "RE: [DISCUSS] KIP-1150 Diskless Topics"
+    ],
+    "faits": {
+      "api_ou_flux_natif": true,
+      "etape_supprimable_amont": false,
+      "interface_stable": true,
+      "jugement_requis": true,
+      "travail_deterministe": false
+    },
+    "jetons_entree": 194,
+    "jetons_sortie": 48
+  },
+  "4a483dffaa9deedd": {
+    "motif_ref": "ING-03",
+    "confiance": "0.99",
+    "citations": [
+      "[jira] [Created] (KAFKA-19241) reuse the same socket on subsequent share requests"
+    ],
+    "faits": {
+      "api_ou_flux_natif": true,
+      "etape_supprimable_amont": true,
+      "interface_stable": true,
+      "jugement_requis": false,
+      "travail_deterministe": true
+    },
+    "jetons_entree": 196,
+    "jetons_sortie": 48
+  },
+  "a33f28681dc908e6": {
+    "motif_ref": "ING-02",
+    "confiance": "0.99",
+    "citations": [
+      "[ANNOUNCE] New Kafka Committer"
+    ],
+    "faits": {
+      "api_ou_flux_natif": true,
+      "etape_supprimable_amont": false,
+      "interface_stable": true,
+      "jugement_requis": false,
+      "travail_deterministe": true
+    },
+    "jetons_entree": 188,
+    "jetons_sortie": 48
+  },
+  "0f964291a68db587": {
+    "motif_ref": "ING-06",
+    "confiance": "0.98",
+    "citations": [
+      "Jenkins build is still unstable: Kafka » Kafka Branch Builder » 3.9 #199"
+    ],
+    "faits": {
+      "api_ou_flux_natif": true,
+      "etape_supprimable_amont": true,
+      "interface_stable": true,
+      "jugement_requis": false,
+      "travail_deterministe": true
+    },
+    "jetons_entree": 178,
+    "jetons_sortie": 48
+  },
+  "5e2d399811737f5e": {
+    "motif_ref": "ING-01",
+    "confiance": "0.96",
+    "citations": [
+      "Re: [DISCUSS] KIP-1159: Large message reference based Serializer"
+    ],
+    "faits": {
+      "api_ou_flux_natif": true,
+      "etape_supprimable_amont": false,
+      "interface_stable": true,
+      "jugement_requis": true,
+      "travail_deterministe": false
+    },
+    "jetons_entree": 193,
+    "jetons_sortie": 48
+  },
+  "986ac94838613114": {
+    "motif_ref": "ING-02",
+    "confiance": "0.99",
+    "citations": [
+      "[ANNOUNCE] New Kafka PMC Member"
+    ],
+    "faits": {
+      "api_ou_flux_natif": true,
+      "etape_supprimable_amont": false,
+      "interface_stable": true,
+      "jugement_requis": false,
+      "travail_deterministe": true
+    },
+    "jetons_entree": 188,
+    "jetons_sortie": 48
+  },
+  "47e6907b84f9ab47": {
+    "motif_ref": "ING-01",
+    "confiance": "0.97",
+    "citations": [
+      "[DISCUSS] KIP-1147: Improve consistency of command-line arguments"
+    ],
+    "faits": {
+      "api_ou_flux_natif": true,
+      "etape_supprimable_amont": false,
+      "interface_stable": true,
+      "jugement_requis": true,
+      "travail_deterministe": false
+    },
+    "jetons_entree": 194,
+    "jetons_sortie": 48
+  },
+  "_meta": {
+    "modele": "claude-sonnet-4-5",
+    "date": "2026-11-12",
+    "portee": "les 12 plus gros groupes reels du corpus (502 occurrences sur 3 679) ; les 2 315 autres groupes gardent la decision deterministe du scoreur et partent en revue humaine",
+    "regle": "Une reponse enregistree ne vaut que pour l'invite exacte qu'elle repond ; toute autre invite reste sans reponse, et le groupe part en revue humaine."
+  }
+}

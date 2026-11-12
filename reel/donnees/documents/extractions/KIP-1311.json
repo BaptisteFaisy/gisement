@@ -1,0 +1,22 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-20297"
+    ],
+    "kip": "KIP-1311",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state: Under discussion\nDiscussion thread:here\nJIRA:KAFKA-20297\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nTheTimeinterface inorg.apache.kafka.common.utilsis currently exposed through public APIs but not officially designated as public. Classes such asKafkaStreamsandMetricsacceptTimeparameters in their public constructors, making it part of the user-facing API surface without official support. FollowingKIP-1247 (Make Bytes public), it should be made officially public.java\nSince Time is already part of the user-facing API surface, it should be officially public.\nHowever, the currentTimeinterface inorg.apache.kafka.common.utilscombines multiple unrelated responsibilities:\nWall clock time (milliseconds())\nMonotonic timing (nanoseconds(),hiResClockMs())\nThread coordination (sleep(),waitObject(),waitForFuture())\nTimer creation (timer()methods)\nInvestigation of all officially public Javadoc classes shows that onlymilliseconds()is needed in the public API. The other methods are only used internally.\nTherefore, rather than making the fullTimeinterface public, we introduce a minimal focused public interface exposing only what public API consumers need and make the existing internal Time extend this newly created public Time interface as suggested byduring the discussion.\nPublic Interfaces\nNew public APIs (4.4):\norg.apache.kafka.common.Time(minimal,milliseconds()only)\nProposed Changes\nStep 1: Create minimal public Time interface (4.4):\nA new minimalTimeinterface will be introduced inorg.apache.kafka.common\nStep 2: Internal Time Extends Public Time (4.4):\nThe existing internalTimeinterface (org.apache.kafka.common.utils.Time) extends the new public interface (org.apache.kafka.common.Time) for backwards compatibility\nStep 3: Update public constructors accepting org.apache.kafka.common.utils.Time to use org.apache.kafka.common.Time:\nFor example, KafkaStreams(Topology, Properties, org.apache.kafka.common.Time), and update corresponding Metrics, ClientCredentialsJwtRetriever and JwtBearerJwtRetriever constructors\nCompatibility, Deprecation, and Migration Plan\nNew minimal publicTimeinterface introduced\nInternalTimeextends publicTime(backwards compatible)\nPublic constructors in Metrics, KafkaStreams, ClientCredentialsJwtRetriever and JwtBearerJwtRetriever updated to accept org.apache.kafka.common.Time\nExisting code continues working unchanged asutils.TimeIS-Acommon.Time\nMockTime requires no changes as it already implementsutils.Timewhich extendscommon.Time, making it automatically compatible with all updated constructors\nUsers can optionally migrate fromorg.apache.kafka.common.utils.Timetoorg.apache.kafka.common.Timewhere onlymilliseconds()is needed\nTest Plan\nThis KIP primarily involves API designation rather than functional changes. Testing will focus on:\nJavadoc generation: Verify org.apache.kafka.common.Timeappear correctly in public API documentation\nVerify existing tests continue passing unchanged\nNo new system tests are required.\nRejected Alternatives\nDeprecate utils.Time:Would require @SuppressWarnings(\"deprecation\") across all internal Kafka code using it - huge changes.\nDeprecate all Time-accepting constructors:Internal Kafka code in other packages (KafkaProducer, KafkaAdminClient) would lose access in version 5.0 when constructors become package-private, breaking testing capabilities."
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1311",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": []
+}

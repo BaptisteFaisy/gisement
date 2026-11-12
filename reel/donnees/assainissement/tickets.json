@@ -1,0 +1,15 @@
+{
+  "canal": "tickets",
+  "categories_sensibles": [
+    "opinion_politique"
+  ],
+  "cle": "HMAC-SHA256 tronque (gisement.assainissement.pseudonyme), irreversible",
+  "exclus": 6,
+  "identites_reelles_retirees": 346,
+  "motifs_exclusion": {
+    "opinion_politique": 6
+  },
+  "pseudonymes_appliques": 4600,
+  "volume_entree": 1390,
+  "volume_sortie": 1384
+}

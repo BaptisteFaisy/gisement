@@ -1,0 +1,73 @@
+{
+  "categories_sensibles_detectees": [],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-20392"
+    ],
+    "kip": "KIP-1315",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Status\nCurrent state:Under Discussion\nDiscussion thread:https://lists.apache.org/thread/7vkpl9k0wxdtm170xbq77o00z52h66yy\nJIRA:KAFKA-20392\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nThe currentGET /connectorsendpoint in Kafka Connect supports anexpandquery parameter that changes theshape of the response:\nWithoutexpand: returns alist of connector names\nWithexpand: returns amap of connector → expanded details\nThis creates anon-uniform API contract, where the same endpoint producesincompatible response schemasdepending on query parameters.\nThis causes issues for:\nGenerated clients (OpenAPI / strongly typed clients)\nAPI consumers expecting stable schemas\nDocumentation clarity and long-term maintainability\nMore importantly, this violates a core REST principle:\nA single endpoint should have a predictable response structure.\nThis KIP proposes toseparate the concerns:\nKeep/connectorsas a stable, simple listing endpoint\nIntroduce anew endpointfor expanded connector metadata\nThis is the problem described inKAFKA-20392.\nGoals\nOne predictable response type per endpointfor the scope of this KIP (strict list vs. expanded map).\nPreserveall behavior currently available throughexpand(no capability loss).\nImproveclarity for clients and schema tooling.\nProvide amigration pathwithout abreakingchange in the first release.\nNon-goals\nRedesigning the broader Connect REST API.\nChanging connector runtime behavior or semantics.\nForcing every client to migrate in a single release.\nPublic interfaces\nREST API\nGET /connectors\nResponse:JSON array of connector name strings only (unchanged shape whenexpandis absent).\nexpand:Not part of the long-term contract on this URL.\nFrom the release that introducesGET /connectors-details:requests that includeexpandstill behave as today(expanded map) forone major releaseonly; implementationsMUSTlog aWARNon each such request with text that namesGET /connectors-detailsas the replacement.\nStarting the next major release:requests toGET /connectorsthat includeexpandwill ignore it and will return list of connectors.\nMedia type:application/json.\nGET /connectors-details(new)\nPurpose:Sole supported URL for theexpanded mapresponse.\nQuery parameters:Same as today:expand=status,expand=info, repeatedexpandfor multiple values; unknown values ignored/logged as today.\nResponse:Same JSON object shape as today’sGET /connectors?expand=...(connector name → object with optionalstatus/infoentries).\nNew response entity ConnectorDetails: introduced so the expanded response has a concrete OpenAPI schema instead of a free-form object map. Fields: status (ConnectorStateInfo, optional), info (ConnectorInfo, optional). This is a new public entity added by this KIP; it does not change the wire format.\nDocumentation / OpenAPI\nDocumentGET /connectorsasarray onlyin the steady state after deprecation; document theone-major-releasewarning window.\nDocument GET /connectors-detailswith a single fixed response schema:a map of connector name to ConnectorDetails, so generated clients get typed status / info fields rather than a free-form object\nUpdatepublic Connect REST documentationandOpenAPIto reflectdeprecation ofexpandonGET /connectors, thewarning window, and the newGET /connectors-detailsendpoint.\nMonitoring\nRequired for the deprecation window:WARN log whenexpandis used onGET /connectors\nProposed Changes\nNew Endpoint\nIntroduce a new endpoint:\nGET/connectors-details\nThis endpoint returns expanded connector metadata.\nSupported query parameters:\nexpand=status\nexpand=info\nexpand=status&expand=info\nResponse Format\nExample:\n{\n\"my-source\": {\n\"status\": {\n\"name\": \"my-source\",\n\"connector\": {\n\"state\": \"RUNNING\",\n\"worker_id\": \"worker1:8083\"\n},\n\"tasks\": [\n{ \"id\": 0, \"state\": \"RUNNING\", \"worker_id\": \"worker1:8083\" }\n],\n\"type\": \"source\"\n},\n\"info\": {\n\"name\": \"my-source\",\n\"config\": {\n\"connector.class\": \"org.apache.kafka.connect.file.FileStreamSourceConnector\",\n\"tasks.max\": \"1\",\n\"topic\": \"m"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1315",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": [
+    {
+      "colonnes": [
+        "Endpoint",
+        "Behavior",
+        "Return"
+      ],
+      "lignes": [
+        [
+          "GET /connectors",
+          "Returns list of names",
+          "List&lt;String&gt;"
+        ],
+        [
+          "GET /connectors?expand=...",
+          "Still supported (deprecated)",
+          "Map&lt;String,Map&lt;String,Object&gt;&gt;"
+        ],
+        [
+          "GET /connectors-details",
+          "New endpoint",
+          "Map&lt;String, ConnectorDetails&gt;"
+        ]
+      ],
+      "nom": "tableau_1"
+    },
+    {
+      "colonnes": [
+        "Endpoint",
+        "Behavior",
+        "Return"
+      ],
+      "lignes": [
+        [
+          "GET /connectors",
+          "Returns list only",
+          "List&lt;String&gt;"
+        ],
+        [
+          "GET /connectors?expand=...",
+          "Returns list only",
+          "List&lt;String&gt;"
+        ],
+        [
+          "GET /connectors-details",
+          "Fully supported",
+          "Map&lt;String, ConnectorDetails&gt;"
+        ]
+      ],
+      "nom": "tableau_2"
+    }
+  ]
+}

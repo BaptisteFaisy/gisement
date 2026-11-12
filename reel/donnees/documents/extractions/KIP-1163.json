@@ -1,0 +1,24 @@
+{
+  "categories_sensibles_detectees": [
+    "opinion_politique"
+  ],
+  "champs": {
+    "jira_lie": [
+      "KAFKA-19161"
+    ],
+    "kip": "KIP-1163",
+    "sections": [
+      "motivation",
+      "proposed changes",
+      "public interfaces",
+      "compatibility",
+      "rejected alternatives"
+    ],
+    "statut": "under discussion",
+    "texte_libre": "Authors:PSD-22539dbee3692406, Ivan Yurchenko, Jorge Quilcate, Giuseppe Lillo, Anatolii Popov, Juha Mynttinen, Josep Prat, Filip Yonov\nStatus\nCurrent state: Under Discussion\nDiscussion thread:here\nJIRA:KAFKA-19161\nPlease keep the discussion on the mailing list rather than commenting on the wiki (wiki discussions get unwieldy fast).\nMotivation\nintroduces the concepts of diskless topics. This KIP describes the core functionality of diskless topics, such as the produce and consume paths.\nGlossary\nDiskless Topic:A topic which does not append directly to block storage devices, and does not utilize direct replication.\nClassic Topic:A topic which appends directly to block storage devices and utilizes direct replication, the present Kafka status quo.\nTiered Topic:A classic topic using KIP-405 Tiered Storage to move inactive segments off of block storage, but still appends to block storage devices.\nHybrid Topic: A topic which has portions of the log stored under both Classic and Diskless mechanisms.\nDiskless-Ready Cluster:An Apache Kafka cluster which is configured to host Diskless Topics in addition to Classic and Tiered topics.\nBroker Disk:A local block device available for a broker to store log directories on. May be direct-attached or network-attached.\nObject Storage:A shared, durable, concurrent, and eventually consistent storage supporting arbitrary sized byte values and a minimal set of atomic operations: put, delete, list, and ranged get.\nObject Key:A unique reference to an object within Object Storage.\nBroker/Client Rack:A hint provided to Apache Kafka brokers and clients about the underlying infrastructure topology. Data transfers within a rack are assumed to have lower costs and lower latency than transfers between racks. Failures are assumed to be less correlated across racks, so durable information is persisted across multiple racks. When Apache Kafka is deployed in a hyperscaler, this is typically synonymous with “Region”, “Availability Zone”, or “Zone”.\nBatch:A container for Kafka records and a unit of record representation in the network protocol and storage format in both classic and diskless topics.\nWAL Segment:An object containing a batches for one or more diskless topic-partitions on the object storage.\nBatch Coordinate:A reference to a record batch within a WAL Segment, at some byte range.\nDiskless Coordinator:Component serving as source of truth about batch coordinates and WAL Segments. Establishes a global order of batches within a diskless topic, and serves coordinates to enable retrieval of batches.\nHyperscaler/Cloud:Widely available cloud computing vendors offering compute, storage, and networking solutions.\nProposed Changes\nOverview\nThe KIP proposes a new kind of topic in Kafka calleddiskless topic, which have the following properties and immediate effects:\nData in diskless topics is durably stored in object storage at all times.\nLocal segments on broker disks serve as caches and not sources of truth\nRemote storage may have higher latency than local disks, increasing the latency of Kafka requests and end-to-end data latency.\nKafka delegates replication of diskless topics to object storage, and does not perform replication itself.\nReplicas placement is still used to control client traffic and cache placement\nAny broker may build a replica of any set of diskless partitions by contacting the diskless coordinator, lowering load on other brokers and eliminating unclean leader elections.\nAll operators can use efficient types of storage backends, such as ones with erasure coding.\nHyperscaler operators can avoid most inter-zonedata replicationcosts.\nAll brokers are capable of interacting with all diskless topics, and produce requests do not need to be handled by the partition leader.\nProduce requests are preferentially served by replicas of the partition, and do not need to be directed to the partition leader.\nPartition leaders are still elected to upload to tiered storage, and handle share fetches.\nClusters are able to perfor"
+  },
+  "confiance": 1.0,
+  "document_id": "KIP-1163",
+  "extracteur": "heuristique-local (Bedrock Data Automation en production, hors ligne ici)",
+  "tableaux": []
+}

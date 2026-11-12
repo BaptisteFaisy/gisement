@@ -44,7 +44,7 @@
         "couverture_par_canal": [
           "tickets : 62.0 %"
         ],
-        "gisement_net_annuel": "108318.12",
+        "gisement_net_annuel": "0.00",
         "cout_mesure_usd": "19.27"
       }
     }
@@ -54,181 +54,10 @@
     "corps": {
       "ok": true,
       "donnees": {
-        "vague1_existe": true,
-        "recommandation_elargissement": "",
-        "part_deconseilles": "0.26",
-        "projets": [
-          {
-            "processus_id": "P-07",
-            "type": "A",
-            "vague": "vague_1",
-            "rang": 1,
-            "gain_mensuel": "1102.50",
-            "delai_retour_mois": "1.8",
-            "risque": "faible",
-            "score": "0.9120"
-          },
-          {
-            "processus_id": "P-14",
-            "type": "A",
-            "vague": "vague_1",
-            "rang": 2,
-            "gain_mensuel": "257.39",
-            "delai_retour_mois": "0.0",
-            "risque": "faible",
-            "score": "0.7135"
-          },
-          {
-            "processus_id": "P-19",
-            "type": "B",
-            "vague": "vague_2",
-            "rang": 1,
-            "gain_mensuel": "1418.63",
-            "delai_retour_mois": "12.4",
-            "risque": "faible",
-            "score": "0.8811"
-          },
-          {
-            "processus_id": "P-01",
-            "type": "B",
-            "vague": "vague_2",
-            "rang": 2,
-            "gain_mensuel": "648.16",
-            "delai_retour_mois": "13.1",
-            "risque": "faible",
-            "score": "0.6871"
-          },
-          {
-            "processus_id": "P-16",
-            "type": "B",
-            "vague": "vague_2",
-            "rang": 3,
-            "gain_mensuel": "354.58",
-            "delai_retour_mois": "9.9",
-            "risque": "faible",
-            "score": "0.6325"
-          },
-          {
-            "processus_id": "P-11",
-            "type": "B",
-            "vague": "vague_2",
-            "rang": 4,
-            "gain_mensuel": "382.45",
-            "delai_retour_mois": "13.2",
-            "risque": "faible",
-            "score": "0.6210"
-          },
-          {
-            "processus_id": "P-21",
-            "type": "D",
-            "vague": "vague_3",
-            "rang": 1,
-            "gain_mensuel": "815.00",
-            "delai_retour_mois": "27.4",
-            "risque": "eleve",
-            "score": "0.5239"
-          },
-          {
-            "processus_id": "P-15",
-            "type": "D",
-            "vague": "vague_3",
-            "rang": 2,
-            "gain_mensuel": "379.81",
-            "delai_retour_mois": "30.1",
-            "risque": "eleve",
-            "score": "0.2965"
-          },
-          {
-            "processus_id": "P-12",
-            "type": "B",
-            "vague": "aucune",
-            "rang": 0,
-            "gain_mensuel": "425.70",
-            "delai_retour_mois": "16.3",
-            "risque": "faible",
-            "score": "0.6145"
-          },
-          {
-            "processus_id": "P-13",
-            "type": "A",
-            "vague": "aucune",
-            "rang": 0,
-            "gain_mensuel": "401.63",
-            "delai_retour_mois": "7.0",
-            "risque": "faible",
-            "score": "0.6052"
-          },
-          {
-            "processus_id": "P-17",
-            "type": "B",
-            "vague": "aucune",
-            "rang": 0,
-            "gain_mensuel": "372.00",
-            "delai_retour_mois": "16.1",
-            "risque": "faible",
-            "score": "0.6023"
-          },
-          {
-            "processus_id": "P-03",
-            "type": "B",
-            "vague": "aucune",
-            "rang": 0,
-            "gain_mensuel": "379.97",
-            "delai_retour_mois": "16.6",
-            "risque": "faible",
-            "score": "0.6015"
-          },
-          {
-            "processus_id": "P-08",
-            "type": "B",
-            "vague": "aucune",
-            "rang": 0,
-            "gain_mensuel": "305.99",
-            "delai_retour_mois": "19.2",
-            "risque": "faible",
-            "score": "0.5688"
-          },
-          {
-            "processus_id": "P-23",
-            "type": "B",
-            "vague": "aucune",
-            "rang": 0,
-            "gain_mensuel": "388.50",
-            "delai_retour_mois": "18.2",
-            "risque": "faible",
-            "score": "0.4898"
-          },
-          {
-            "processus_id": "P-05",
-            "type": "B",
-            "vague": "aucune",
-            "rang": 0,
-            "gain_mensuel": "315.53",
-            "delai_retour_mois": "22.4",
-            "risque": "faible",
-            "score": "0.4484"
-          },
-          {
-            "processus_id": "P-04",
-            "type": "B",
-            "vague": "aucune",
-            "rang": 0,
-            "gain_mensuel": "258.08",
-            "delai_retour_mois": "25.9",
-            "risque": "faible",
-            "score": "0.4148"
-          },
-          {
-            "processus_id": "P-10",
-            "type": "C",
-            "vague": "aucune",
-            "rang": 0,
-            "gain_mensuel": "380.76",
-            "delai_retour_mois": "29.5",
-            "risque": "faible",
-            "score": "0.3626"
-          }
-        ]
+        "vague1_existe": false,
+        "recommandation_elargissement": "Aucun processus ne permet une vague 1 a delai court et risque faible : elargir le perimetre plutot que de fabriquer une vague 1 artificielle (EF-43, R18).",
+        "part_deconseilles": "1.00",
+        "projets": []
       }
     }
   },
@@ -238,22 +67,94 @@
       "ok": true,
       "donnees": [
         {
-          "processus_id": "P-22",
+          "processus_id": "P-01",
           "motif": "volume_insuffisant",
-          "seuil_atteint": "gain annuel net 1064.40 EUR inferieur a 3000 EUR",
+          "seuil_atteint": "gain annuel net 0 EUR inferieur a 3000 EUR",
           "condition_reexamen": "reexamen si le volume depasse 15 occurrences par mois"
         },
         {
           "processus_id": "P-02",
           "motif": "volume_insuffisant",
-          "seuil_atteint": "gain annuel net 858.00 EUR inferieur a 3000 EUR",
+          "seuil_atteint": "gain annuel net 0 EUR inferieur a 3000 EUR",
           "condition_reexamen": "reexamen si le volume depasse 15 occurrences par mois"
         },
         {
-          "processus_id": "P-20",
-          "motif": "dependance_externe",
-          "seuil_atteint": "interface tierce sans API ni engagement de stabilite",
-          "condition_reexamen": "reexamen si une API contractuelle devient disponible"
+          "processus_id": "P-03",
+          "motif": "volume_insuffisant",
+          "seuil_atteint": "gain annuel net 0 EUR inferieur a 3000 EUR",
+          "condition_reexamen": "reexamen si le volume depasse 15 occurrences par mois"
+        },
+        {
+          "processus_id": "P-07",
+          "motif": "volume_insuffisant",
+          "seuil_atteint": "gain annuel net 0 EUR inferieur a 3000 EUR",
+          "condition_reexamen": "reexamen si le volume depasse 15 occurrences par mois"
+        },
+        {
+          "processus_id": "P-08",
+          "motif": "volume_insuffisant",
+          "seuil_atteint": "gain annuel net 0 EUR inferieur a 3000 EUR",
+          "condition_reexamen": "reexamen si le volume depasse 15 occurrences par mois"
+        },
+        {
+          "processus_id": "P-11",
+          "motif": "volume_insuffisant",
+          "seuil_atteint": "gain annuel net 0 EUR inferieur a 3000 EUR",
+          "condition_reexamen": "reexamen si le volume depasse 15 occurrences par mois"
+        },
+        {
+          "processus_id": "P-12",
+          "motif": "volume_insuffisant",
+          "seuil_atteint": "gain annuel net 0 EUR inferieur a 3000 EUR",
+          "condition_reexamen": "reexamen si le volume depasse 15 occurrences par mois"
+        },
+        {
+          "processus_id": "P-14",
+          "motif": "volume_insuffisant",
+          "seuil_atteint": "gain annuel net 0 EUR inferieur a 3000 EUR",
+          "condition_reexamen": "reexamen si le volume depasse 15 occurrences par mois"
+        },
+        {
+          "processus_id": "P-16",
+          "motif": "volume_insuffisant",
+          "seuil_atteint": "gain annuel net 0 EUR inferieur a 3000 EUR",
+          "condition_reexamen": "reexamen si le volume depasse 15 occurrences par mois"
+        },
+        {
+          "processus_id": "P-17",
+          "motif": "volume_insuffisant",
+          "seuil_atteint": "gain annuel net 0 EUR inferieur a 3000 EUR",
+          "condition_reexamen": "reexamen si le volume depasse 15 occurrences par mois"
+        },
+        {
+          "processus_id": "P-19",
+          "motif": "volume_insuffisant",
+          "seuil_atteint": "gain annuel net 0 EUR inferieur a 3000 EUR",
+          "condition_reexamen": "reexamen si le volume depasse 15 occurrences par mois"
+        },
+        {
+          "processus_id": "P-21",
+          "motif": "volume_insuffisant",
+          "seuil_atteint": "gain annuel net 0 EUR inferieur a 3000 EUR",
+          "condition_reexamen": "reexamen si le volume depasse 15 occurrences par mois"
+        },
+        {
+          "processus_id": "P-22",
+          "motif": "volume_insuffisant",
+          "seuil_atteint": "gain annuel net 0 EUR inferieur a 3000 EUR",
+          "condition_reexamen": "reexamen si le volume depasse 15 occurrences par mois"
+        },
+        {
+          "processus_id": "P-04",
+          "motif": "volume_insuffisant",
+          "seuil_atteint": "gain annuel net 0 EUR inferieur a 3000 EUR",
+          "condition_reexamen": "reexamen si le volume depasse 15 occurrences par mois"
+        },
+        {
+          "processus_id": "P-05",
+          "motif": "volume_insuffisant",
+          "seuil_atteint": "gain annuel net 0 EUR inferieur a 3000 EUR",
+          "condition_reexamen": "reexamen si le volume depasse 15 occurrences par mois"
         },
         {
           "processus_id": "P-06",
@@ -264,7 +165,37 @@
         {
           "processus_id": "P-09",
           "motif": "volume_insuffisant",
-          "seuil_atteint": "gain annuel net 149.88 EUR inferieur a 3000 EUR",
+          "seuil_atteint": "gain annuel net 0 EUR inferieur a 3000 EUR",
+          "condition_reexamen": "reexamen si le volume depasse 15 occurrences par mois"
+        },
+        {
+          "processus_id": "P-10",
+          "motif": "volume_insuffisant",
+          "seuil_atteint": "gain annuel net 0 EUR inferieur a 3000 EUR",
+          "condition_reexamen": "reexamen si le volume depasse 15 occurrences par mois"
+        },
+        {
+          "processus_id": "P-13",
+          "motif": "volume_insuffisant",
+          "seuil_atteint": "gain annuel net 0 EUR inferieur a 3000 EUR",
+          "condition_reexamen": "reexamen si le volume depasse 15 occurrences par mois"
+        },
+        {
+          "processus_id": "P-15",
+          "motif": "volume_insuffisant",
+          "seuil_atteint": "gain annuel net 0 EUR inferieur a 3000 EUR",
+          "condition_reexamen": "reexamen si le volume depasse 15 occurrences par mois"
+        },
+        {
+          "processus_id": "P-20",
+          "motif": "dependance_externe",
+          "seuil_atteint": "interface tierce sans API ni engagement de stabilite",
+          "condition_reexamen": "reexamen si une API contractuelle devient disponible"
+        },
+        {
+          "processus_id": "P-23",
+          "motif": "volume_insuffisant",
+          "seuil_atteint": "gain annuel net 0 EUR inferieur a 3000 EUR",
           "condition_reexamen": "reexamen si le volume depasse 15 occurrences par mois"
         },
         {
@@ -288,10 +219,10 @@
           "23.5",
           "29.2"
         ],
-        "gain_mensuel": "1102.50",
-        "gain_naif_mensuel": "1575.00",
-        "ecart_naif": "1.43",
-        "delai_retour_mois": "1.8"
+        "gain_mensuel": "None",
+        "gain_naif_mensuel": "None",
+        "ecart_naif": "None",
+        "delai_retour_mois": "None"
       }
     }
   },
@@ -301,7 +232,7 @@
       "ok": true,
       "donnees": {
         "langue": "fr",
-        "rapport": "Rapport dirigeant - Gisement\nCampagne CMP-0031 - fenetre 2026-05-01 .. 2026-11-01\n\n\nCouverture de la mesure: 62 % du volume de travail estime du perimetre est couvert par les canaux observes ; 1536.8 heures ne le sont pas, principalement : travail de terrain (entrepot, livraisons), reunions non enregistrees, echanges oraux informels, messagerie instantanee hors perimetre.\nGisement net annuel: 108318.12 EUR (108318.12 avec l'incertitude).\nA ne pas automatiser: 6 processus (26 %).\n\nVague 1 - amorcage\n  1. P-07 [A] gain 1102.50 EUR/mois, retour 1.8 mois\n  2. P-14 [A] gain 257.39 EUR/mois, retour 0 mois\nVague 2 - structurel\n  1. P-19 [B] gain 1418.63 EUR/mois, retour 12.4 mois\n  2. P-01 [B] gain 648.16 EUR/mois, retour 13.1 mois\n  3. P-16 [B] gain 354.58 EUR/mois, retour 9.9 mois\n  4. P-11 [B] gain 382.45 EUR/mois, retour 13.2 mois\nVague 3 - transformation\n  1. P-21 [D] gain 815.00 EUR/mois, retour 27.4 mois\n  2. P-15 [D] gain 379.81 EUR/mois, retour 30.1 mois\n\nCas de reference : saisie des commandes fournisseurs\n  Calcul naif:    2016.00 EUR/mois, retour 5.2 mois\n  Gisement:      779.05 EUR/mois, retour 13.6 mois\n  Facteur de surestimation: 2.59\n\n- Gisement ne produit aucun classement, score ou indicateur individuel.\n- Aucune mesure du temps de travail utilisable en paie ou en discipline.\n- Aucune analyse de sentiment, d'opinion ou d'humeur.\n- Aucune identification de sous-performance individuelle.\n- Aucun croisement avec les donnees RH (evaluation, absence, sanction)."
+        "rapport": "Rapport dirigeant - Gisement\nCampagne CMP-0031 - fenetre 2026-05-01 .. 2026-11-01\n\n\nCouverture de la mesure: 62 % du volume de travail estime du perimetre est couvert par les canaux observes ; 1536.8 heures ne le sont pas, principalement : travail de terrain (entrepot, livraisons), reunions non enregistrees, echanges oraux informels, messagerie instantanee hors perimetre.\nGisement net annuel: 0.00 EUR (0.00 avec l'incertitude).\nA ne pas automatiser: 23 processus (100 %).\n\n\nCas de reference : saisie des commandes fournisseurs\n  Calcul naif:    0 EUR/mois, retour 0 mois\n  Gisement:      0 EUR/mois, retour 0 mois\n  Facteur de surestimation: 0\n\n- Gisement ne produit aucun classement, score ou indicateur individuel.\n- Aucune mesure du temps de travail utilisable en paie ou en discipline.\n- Aucune analyse de sentiment, d'opinion ou d'humeur.\n- Aucune identification de sous-performance individuelle.\n- Aucun croisement avec les donnees RH (evaluation, absence, sanction)."
       }
     }
   },
@@ -311,7 +242,7 @@
       "ok": true,
       "donnees": {
         "langue": "en",
-        "rapport": "Executive report - Gisement\nCampagne CMP-0031 - fenetre 2026-05-01 .. 2026-11-01\n\n\nMeasurement coverage: 62% of the estimated work volume of the perimeter is covered by the observed channels; 1536.8 hours are not, mainly: travail de terrain (entrepot, livraisons), reunions non enregistrees, echanges oraux informels, messagerie instantanee hors perimetre.\nGisement net annuel: 108318.12 EUR (108318.12 avec l'incertitude).\nDo not automate: 6 processus (26 %).\n\nWave 1 - quick wins\n  1. P-07 [A] gain 1102.50 EUR/mois, retour 1.8 mois\n  2. P-14 [A] gain 257.39 EUR/mois, retour 0 mois\nWave 2 - structural\n  1. P-19 [B] gain 1418.63 EUR/mois, retour 12.4 mois\n  2. P-01 [B] gain 648.16 EUR/mois, retour 13.1 mois\n  3. P-16 [B] gain 354.58 EUR/mois, retour 9.9 mois\n  4. P-11 [B] gain 382.45 EUR/mois, retour 13.2 mois\nWave 3 - transformation\n  1. P-21 [D] gain 815.00 EUR/mois, retour 27.4 mois\n  2. P-15 [D] gain 379.81 EUR/mois, retour 30.1 mois\n\nReference case: keying supplier orders\n  Naive calculation:    2016.00 EUR/mois, retour 5.2 mois\n  Gisement:      779.05 EUR/mois, retour 13.6 mois\n  Overstatement factor: 2.59\n\n- Gisement produces no individual ranking, score or indicator.\n- No measure of working time usable for payroll or discipline.\n- No sentiment, opinion or mood analysis.\n- No identification of individual underperformance.\n- No cross-referencing with HR data (appraisal, absence, sanction)."
+        "rapport": "Executive report - Gisement\nCampagne CMP-0031 - fenetre 2026-05-01 .. 2026-11-01\n\n\nMeasurement coverage: 62% of the estimated work volume of the perimeter is covered by the observed channels; 1536.8 hours are not, mainly: travail de terrain (entrepot, livraisons), reunions non enregistrees, echanges oraux informels, messagerie instantanee hors perimetre.\nGisement net annuel: 0.00 EUR (0.00 avec l'incertitude).\nDo not automate: 23 processus (100 %).\n\n\nReference case: keying supplier orders\n  Naive calculation:    0 EUR/mois, retour 0 mois\n  Gisement:      0 EUR/mois, retour 0 mois\n  Overstatement factor: 0\n\n- Gisement produces no individual ranking, score or indicator.\n- No measure of working time usable for payroll or discipline.\n- No sentiment, opinion or mood analysis.\n- No identification of individual underperformance.\n- No cross-referencing with HR data (appraisal, absence, sanction)."
       }
     }
   },
@@ -382,11 +313,11 @@
               "13.3",
               "17.6"
             ],
-            "gain_mensuel": "648.16",
-            "gain_annuel": "7777.92",
-            "ecart_naif": "2.21",
-            "delai_retour_mois": "13.1",
-            "type": "B",
+            "gain_mensuel": "None",
+            "gain_annuel": "None",
+            "ecart_naif": "None",
+            "delai_retour_mois": "None",
+            "type": "E",
             "vague": "aucune",
             "risque": "faible"
           },
@@ -409,10 +340,10 @@
               "0.5",
               "3.0"
             ],
-            "gain_mensuel": "71.50",
-            "gain_annuel": "858.00",
-            "ecart_naif": "12.75",
-            "delai_retour_mois": "370.1",
+            "gain_mensuel": "None",
+            "gain_annuel": "None",
+            "ecart_naif": "None",
+            "delai_retour_mois": "None",
             "type": "E",
             "vague": "aucune",
             "risque": "eleve"
@@ -436,11 +367,11 @@
               "7.5",
               "10.6"
             ],
-            "gain_mensuel": "379.97",
-            "gain_annuel": "4559.64",
-            "ecart_naif": "2.66",
-            "delai_retour_mois": "16.6",
-            "type": "B",
+            "gain_mensuel": "None",
+            "gain_annuel": "None",
+            "ecart_naif": "None",
+            "delai_retour_mois": "None",
+            "type": "E",
             "vague": "aucune",
             "risque": "faible"
           },
@@ -463,11 +394,11 @@
               "5.6",
               "6.7"
             ],
-            "gain_mensuel": "258.08",
-            "gain_annuel": "3096.96",
-            "ecart_naif": "1.45",
-            "delai_retour_mois": "25.9",
-            "type": "B",
+            "gain_mensuel": "None",
+            "gain_annuel": "None",
+            "ecart_naif": "None",
+            "delai_retour_mois": "None",
+            "type": "E",
             "vague": "aucune",
             "risque": "faible"
           },
@@ -490,11 +421,11 @@
               "6.3",
               "8.7"
             ],
-            "gain_mensuel": "315.53",
-            "gain_annuel": "3786.36",
-            "ecart_naif": "2.75",
-            "delai_retour_mois": "22.4",
-            "type": "B",
+            "gain_mensuel": "None",
+            "gain_annuel": "None",
+            "ecart_naif": "None",
+            "delai_retour_mois": "None",
+            "type": "E",
             "vague": "aucune",
             "risque": "faible"
           },
@@ -517,10 +448,10 @@
               "0.4",
               "2.1"
             ],
-            "gain_mensuel": "52.98",
-            "gain_annuel": "635.76",
-            "ecart_naif": "11.32",
-            "delai_retour_mois": "283.8",
+            "gain_mensuel": "None",
+            "gain_annuel": "None",
+            "ecart_naif": "None",
+            "delai_retour_mois": "None",
             "type": "E",
             "vague": "aucune",
             "risque": "eleve"
@@ -544,11 +475,11 @@
               "23.5",
               "29.2"
             ],
-            "gain_mensuel": "1102.50",
-            "gain_annuel": "13230.00",
-            "ecart_naif": "1.43",
-            "delai_retour_mois": "1.8",
-            "type": "A",
+            "gain_mensuel": "None",
+            "gain_annuel": "None",
+            "ecart_naif": "None",
+            "delai_retour_mois": "None",
+            "type": "E",
             "vague": "aucune",
             "risque": "faible"
           },
@@ -571,11 +502,11 @@
               "6.6",
               "8.0"
             ],
-            "gain_mensuel": "305.99",
-            "gain_annuel": "3671.88",
-            "ecart_naif": "1.48",
-            "delai_retour_mois": "19.2",
-            "type": "B",
+            "gain_mensuel": "None",
+            "gain_annuel": "None",
+            "ecart_naif": "None",
+            "delai_retour_mois": "None",
+            "type": "E",
             "vague": "aucune",
             "risque": "faible"
           },
@@ -598,10 +529,10 @@
               "0.2",
               "0.4"
             ],
-            "gain_mensuel": "12.49",
-            "gain_annuel": "149.88",
-            "ecart_naif": "4.14",
-            "delai_retour_mois": "394.9",
+            "gain_mensuel": "None",
+            "gain_annuel": "None",
+            "ecart_naif": "None",
+            "delai_retour_mois": "None",
             "type": "E",
             "vague": "aucune",
             "risque": "faible"
@@ -625,11 +556,11 @@
               "7.6",
               "10.5"
             ],
-            "gain_mensuel": "380.76",
-            "gain_annuel": "4569.12",
-            "ecart_naif": "2.63",
-            "delai_retour_mois": "29.5",
-            "type": "C",
+            "gain_mensuel": "None",
+            "gain_annuel": "None",
+            "ecart_naif": "None",
+            "delai_retour_mois": "None",
+            "type": "E",
             "vague": "aucune",
             "risque": "faible"
           },
@@ -652,11 +583,11 @@
               "8.3",
               "9.9"
             ],
-            "gain_mensuel": "382.45",
-            "gain_annuel": "4589.40",
-            "ecart_naif": "1.36",
-            "delai_retour_mois": "13.2",
-            "type": "B",
+            "gain_mensuel": "None",
+            "gain_annuel": "None",
+            "ecart_naif": "None",
+            "delai_retour_mois": "None",
+            "type": "E",
             "vague": "aucune",
             "risque": "faible"
           },
@@ -679,11 +610,11 @@
               "9.2",
               "11.1"
             ],
-            "gain_mensuel": "425.70",
-            "gain_annuel": "5108.40",
-            "ecart_naif": "1.48",
-            "delai_retour_mois": "16.3",
-            "type": "B",
+            "gain_mensuel": "None",
+            "gain_annuel": "None",
+            "ecart_naif": "None",
+            "delai_retour_mois": "None",
+            "type": "E",
             "vague": "aucune",
             "risque": "faible"
           },
@@ -706,11 +637,11 @@
               "9.0",
               "10.2"
             ],
-            "gain_mensuel": "401.63",
-            "gain_annuel": "4819.56",
-            "ecart_naif": "1.18",
-            "delai_retour_mois": "7.0",
-            "type": "A",
+            "gain_mensuel": "None",
+            "gain_annuel": "None",
+            "ecart_naif": "None",
+            "delai_retour_mois": "None",
+            "type": "E",
             "vague": "aucune",
             "risque": "faible"
           },
@@ -733,11 +664,11 @@
               "5.7",
               "6.6"
             ],
-            "gain_mensuel": "257.39",
-            "gain_annuel": "3088.68",
-            "ecart_naif": "1.43",
-            "delai_retour_mois": "0.0",
-            "type": "A",
+            "gain_mensuel": "None",
+            "gain_annuel": "None",
+            "ecart_naif": "None",
+            "delai_retour_mois": "None",
+            "type": "E",
             "vague": "aucune",
             "risque": "faible"
           },
@@ -760,11 +691,11 @@
               "5.2",
               "13.2"
             ],
-            "gain_mensuel": "379.81",
-            "gain_annuel": "4557.72",
-            "ecart_naif": "2.46",
-            "delai_retour_mois": "30.1",
-            "type": "D",
+            "gain_mensuel": "None",
+            "gain_annuel": "None",
+            "ecart_naif": "None",
+            "delai_retour_mois": "None",
+            "type": "E",
             "vague": "aucune",
             "risque": "eleve"
           },
@@ -787,11 +718,11 @@
               "0.0",
               "26.1"
             ],
-            "gain_mensuel": "354.58",
-            "gain_annuel": "4254.96",
-            "ecart_naif": "2.03",
-            "delai_retour_mois": "9.9",
-            "type": "B",
+            "gain_mensuel": "None",
+            "gain_annuel": "None",
+            "ecart_naif": "None",
+            "delai_retour_mois": "None",
+            "type": "E",
             "vague": "aucune",
             "risque": "faible"
           },
@@ -814,11 +745,11 @@
               "7.8",
               "9.9"
             ],
-            "gain_mensuel": "372.00",
-            "gain_annuel": "4464.00",
-            "ecart_naif": "1.79",
-            "delai_retour_mois": "16.1",
-            "type": "B",
+            "gain_mensuel": "None",
+            "gain_annuel": "None",
+            "ecart_naif": "None",
+            "delai_retour_mois": "None",
+            "type": "E",
             "vague": "aucune",
             "risque": "faible"
           },
@@ -841,10 +772,10 @@
               "1.1",
               "2.5"
             ],
-            "gain_mensuel": "73.14",
-            "gain_annuel": "877.68",
-            "ecart_naif": "2.81",
-            "delai_retour_mois": "115.2",
+            "gain_mensuel": "None",
+            "gain_annuel": "None",
+            "ecart_naif": "None",
+            "delai_retour_mois": "None",
             "type": "E",
             "vague": "aucune",
             "risque": "eleve"
@@ -868,11 +799,11 @@
               "29.8",
               "37.4"
             ],
-            "gain_mensuel": "1418.63",
-            "gain_annuel": "17023.56",
-            "ecart_naif": "1.22",
-            "delai_retour_mois": "12.4",
-            "type": "B",
+            "gain_mensuel": "None",
+            "gain_annuel": "None",
+            "ecart_naif": "None",
+            "delai_retour_mois": "None",
+            "type": "E",
             "vague": "aucune",
             "risque": "faible"
           },
@@ -895,10 +826,10 @@
               "3.0",
               "3.7"
             ],
-            "gain_mensuel": "141.02",
-            "gain_annuel": "1692.24",
-            "ecart_naif": "1.52",
-            "delai_retour_mois": "69.7",
+            "gain_mensuel": "None",
+            "gain_annuel": "None",
+            "ecart_naif": "None",
+            "delai_retour_mois": "None",
             "type": "E",
             "vague": "aucune",
             "risque": "moyen"
@@ -922,11 +853,11 @@
               "16.6",
               "22.2"
             ],
-            "gain_mensuel": "815.00",
-            "gain_annuel": "9780.00",
-            "ecart_naif": "2.44",
-            "delai_retour_mois": "27.4",
-            "type": "D",
+            "gain_mensuel": "None",
+            "gain_annuel": "None",
+            "ecart_naif": "None",
+            "delai_retour_mois": "None",
+            "type": "E",
             "vague": "aucune",
             "risque": "eleve"
           },
@@ -949,10 +880,10 @@
               "1.3",
               "3.1"
             ],
-            "gain_mensuel": "88.70",
-            "gain_annuel": "1064.40",
-            "ecart_naif": "2.50",
-            "delai_retour_mois": "79.1",
+            "gain_mensuel": "None",
+            "gain_annuel": "None",
+            "ecart_naif": "None",
+            "delai_retour_mois": "None",
             "type": "E",
             "vague": "aucune",
             "risque": "eleve"
@@ -976,11 +907,11 @@
               "8.3",
               "10.2"
             ],
-            "gain_mensuel": "388.50",
-            "gain_annuel": "4662.00",
-            "ecart_naif": "1.43",
-            "delai_retour_mois": "18.2",
-            "type": "B",
+            "gain_mensuel": "None",
+            "gain_annuel": "None",
+            "ecart_naif": "None",
+            "delai_retour_mois": "None",
+            "type": "E",
             "vague": "aucune",
             "risque": "faible"
           }
@@ -1001,148 +932,407 @@
         "nb_en_revue": 24,
         "motifs": [
           {
-            "ref": "(nouveau)",
-            "nom": "Activite batiment travaux",
-            "nouveau": true,
-            "en_revue_humaine": true,
-            "confiance": "0",
-            "occurrences_medianes": "0",
+            "ref": "CLASS-03",
+            "nom": "Indexation",
+            "nouveau": false,
+            "en_revue_humaine": false,
+            "confiance": "0.7667",
+            "occurrences_medianes": "412.5",
+            "services": [
+              "adv"
+            ],
+            "canaux": [
+              "journaux"
+            ],
+            "duree_minutes": "3.00",
+            "duree_statut": "mesuree",
+            "repartition": "diffuse",
+            "part_atypique": "0.0453"
+          },
+          {
+            "ref": "COORD-02",
+            "nom": "Transmission d'information entre services",
+            "nouveau": false,
+            "en_revue_humaine": false,
+            "confiance": "0.8833",
+            "occurrences_medianes": "375",
+            "services": [
+              "support"
+            ],
+            "canaux": [
+              "tickets"
+            ],
+            "duree_minutes": "3.00",
+            "duree_statut": "mesuree",
+            "repartition": "interruptive",
+            "part_atypique": "0.0621"
+          },
+          {
+            "ref": "RESS-01",
+            "nom": "Courriel vers ERP",
+            "nouveau": false,
+            "en_revue_humaine": false,
+            "confiance": "0.9250",
+            "occurrences_medianes": "320",
+            "services": [
+              "approvisionnements"
+            ],
+            "canaux": [
+              "courriels",
+              "journaux",
+              "tickets"
+            ],
+            "duree_minutes": "9",
+            "duree_statut": "mesuree",
+            "repartition": "semi_regroupee",
+            "part_atypique": "0.1469"
+          },
+          {
+            "ref": "COORD-03",
+            "nom": "Affectation d'une demande",
+            "nouveau": false,
+            "en_revue_humaine": false,
+            "confiance": "0.8833",
+            "occurrences_medianes": "317.5",
+            "services": [
+              "support"
+            ],
+            "canaux": [
+              "journaux"
+            ],
+            "duree_minutes": "2.99",
+            "duree_statut": "mesuree",
+            "repartition": "interruptive",
+            "part_atypique": "0.1081"
+          },
+          {
+            "ref": "RESS-01",
+            "nom": "Courriel vers ERP",
+            "nouveau": false,
+            "en_revue_humaine": false,
+            "confiance": "0.9250",
+            "occurrences_medianes": "255",
+            "services": [
+              "adv"
+            ],
+            "canaux": [
+              "journaux"
+            ],
+            "duree_minutes": "8.04",
+            "duree_statut": "mesuree",
+            "repartition": "semi_regroupee",
+            "part_atypique": "0.1196"
+          },
+          {
+            "ref": "RECH-01",
+            "nom": "Recherche d'une reference",
+            "nouveau": false,
+            "en_revue_humaine": false,
+            "confiance": "0.8833",
+            "occurrences_medianes": "237.5",
+            "services": [
+              "support"
+            ],
+            "canaux": [
+              "journaux",
+              "courriels",
+              "appels"
+            ],
+            "duree_minutes": "11.96",
+            "duree_statut": "mesuree",
+            "repartition": "semi_regroupee",
+            "part_atypique": "0.2021"
+          },
+          {
+            "ref": "RAPPR-01",
+            "nom": "Facture et bon de livraison",
+            "nouveau": false,
+            "en_revue_humaine": false,
+            "confiance": "0.9250",
+            "occurrences_medianes": "207.5",
+            "services": [
+              "comptabilite"
+            ],
+            "canaux": [
+              "journaux"
+            ],
+            "duree_minutes": "6.96",
+            "duree_statut": "mesuree",
+            "repartition": "semi_regroupee",
+            "part_atypique": "0.1616"
+          },
+          {
+            "ref": "RESS-06",
+            "nom": "Formulaire vers systeme",
+            "nouveau": false,
+            "en_revue_humaine": false,
+            "confiance": "0.9250",
+            "occurrences_medianes": "179",
+            "services": [
+              "comptabilite"
+            ],
+            "canaux": [
+              "tickets",
+              "documents",
+              "journaux"
+            ],
+            "duree_minutes": "4.02",
+            "duree_statut": "mesuree",
+            "repartition": "semi_regroupee",
+            "part_atypique": "0.0963"
+          },
+          {
+            "ref": "COORD-01",
+            "nom": "Prise de rendez-vous",
+            "nouveau": false,
+            "en_revue_humaine": false,
+            "confiance": "0.8083",
+            "occurrences_medianes": "149",
+            "services": [
+              "support"
+            ],
+            "canaux": [
+              "tickets"
+            ],
+            "duree_minutes": "6.06",
+            "duree_statut": "mesuree",
+            "repartition": "interruptive",
+            "part_atypique": "0.0690"
+          },
+          {
+            "ref": "RELAN-02",
+            "nom": "Facture echue",
+            "nouveau": false,
+            "en_revue_humaine": false,
+            "confiance": "0.8833",
+            "occurrences_medianes": "129",
+            "services": [
+              "comptabilite"
+            ],
+            "canaux": [
+              "journaux"
+            ],
+            "duree_minutes": "5.01",
+            "duree_statut": "mesuree",
+            "repartition": "regroupee",
+            "part_atypique": "0.0874"
+          },
+          {
+            "ref": "VERI-01",
+            "nom": "Conformite d'un document",
+            "nouveau": false,
+            "en_revue_humaine": false,
+            "confiance": "0.8833",
+            "occurrences_medianes": "119",
+            "services": [
+              "adv"
+            ],
+            "canaux": [
+              "journaux"
+            ],
+            "duree_minutes": "12.00",
+            "duree_statut": "mesuree",
+            "repartition": "semi_regroupee",
+            "part_atypique": "0.2104"
+          },
+          {
+            "ref": "RELAN-01",
+            "nom": "Devis sans reponse",
+            "nouveau": false,
+            "en_revue_humaine": false,
+            "confiance": "0.8833",
+            "occurrences_medianes": "94",
+            "services": [
+              "adv"
+            ],
+            "canaux": [
+              "journaux"
+            ],
+            "duree_minutes": "7.90",
+            "duree_statut": "mesuree",
+            "repartition": "regroupee",
+            "part_atypique": "0.0669"
+          },
+          {
+            "ref": "RAPPR-02",
+            "nom": "Releve bancaire et facture",
+            "nouveau": false,
+            "en_revue_humaine": false,
+            "confiance": "0.9250",
+            "occurrences_medianes": "89",
+            "services": [
+              "comptabilite"
+            ],
+            "canaux": [
+              "journaux"
+            ],
+            "duree_minutes": "6.00",
+            "duree_statut": "mesuree",
+            "repartition": "regroupee",
+            "part_atypique": "0.0784"
+          },
+          {
+            "ref": "RECH-02",
+            "nom": "Recherche d'un precedent",
+            "nouveau": false,
+            "en_revue_humaine": false,
+            "confiance": "0.8083",
+            "occurrences_medianes": "89",
+            "services": [
+              "support"
+            ],
+            "canaux": [
+              "appels"
+            ],
+            "duree_minutes": "15",
+            "duree_statut": "inferree",
+            "repartition": "semi_regroupee",
+            "part_atypique": "0.2411"
+          },
+          {
+            "ref": "RESS-04",
+            "nom": "Application vers application",
+            "nouveau": false,
+            "en_revue_humaine": false,
+            "confiance": "0.8083",
+            "occurrences_medianes": "61.5",
+            "services": [
+              "approvisionnements"
+            ],
+            "canaux": [
+              "journaux"
+            ],
+            "duree_minutes": "4.98",
+            "duree_statut": "mesuree",
+            "repartition": "regroupee",
+            "part_atypique": "0.0539"
+          },
+          {
+            "ref": "VERI-05",
+            "nom": "Application d'une grille tarifaire",
+            "nouveau": false,
+            "en_revue_humaine": false,
+            "confiance": "0.7500",
+            "occurrences_medianes": "59",
+            "services": [
+              "adv"
+            ],
+            "canaux": [
+              "tickets"
+            ],
+            "duree_minutes": "22.08",
+            "duree_statut": "mesuree",
+            "repartition": "semi_regroupee",
+            "part_atypique": "0.5393"
+          },
+          {
+            "ref": "RAPPR-03",
+            "nom": "Commande et reception",
+            "nouveau": false,
+            "en_revue_humaine": false,
+            "confiance": "0.8833",
+            "occurrences_medianes": "41",
+            "services": [
+              "approvisionnements"
+            ],
+            "canaux": [
+              "journaux"
+            ],
+            "duree_minutes": "25.10",
+            "duree_statut": "mesuree",
+            "repartition": "semi_regroupee",
+            "part_atypique": "0.1176"
+          },
+          {
+            "ref": "COORD-04",
+            "nom": "Compte rendu de reunion",
+            "nouveau": false,
+            "en_revue_humaine": false,
+            "confiance": "1.0000",
+            "occurrences_medianes": "39.5",
+            "services": [
+              "support"
+            ],
+            "canaux": [
+              "journaux",
+              "courriels"
+            ],
+            "duree_minutes": "20.14",
+            "duree_statut": "mesuree",
+            "repartition": "regroupee",
+            "part_atypique": "0.1423"
+          },
+          {
+            "ref": "VERI-04",
+            "nom": "Validite d'un tiers",
+            "nouveau": false,
+            "en_revue_humaine": false,
+            "confiance": "0.8083",
+            "occurrences_medianes": "34",
+            "services": [
+              "approvisionnements"
+            ],
+            "canaux": [
+              "tickets"
+            ],
+            "duree_minutes": "25.20",
+            "duree_statut": "mesuree",
+            "repartition": "diffuse",
+            "part_atypique": "0.3088"
+          },
+          {
+            "ref": "VERI-06",
+            "nom": "Respect d'un seuil ou d'une regle",
+            "nouveau": false,
+            "en_revue_humaine": false,
+            "confiance": "0.7667",
+            "occurrences_medianes": "24.5",
             "services": [
               "adv"
             ],
             "canaux": [
               "courriels"
             ],
-            "duree_minutes": "0",
+            "duree_minutes": "12",
             "duree_statut": "inferree",
-            "repartition": "regroupee",
-            "part_atypique": "0.0000"
+            "repartition": "semi_regroupee",
+            "part_atypique": "0.3446"
           },
           {
-            "ref": "(nouveau)",
-            "nom": "Activite batiment travaux",
-            "nouveau": true,
+            "ref": "REPO-01",
+            "nom": "Extraction periodique",
+            "nouveau": false,
             "en_revue_humaine": true,
-            "confiance": "0",
-            "occurrences_medianes": "1",
+            "confiance": "0.6917",
+            "occurrences_medianes": "12",
             "services": [
-              "support"
+              "comptabilite"
             ],
             "canaux": [
-              "courriels"
+              "journaux"
             ],
-            "duree_minutes": "0",
-            "duree_statut": "inferree",
+            "duree_minutes": "206.88",
+            "duree_statut": "mesuree",
             "repartition": "regroupee",
-            "part_atypique": "0.0000"
+            "part_atypique": "0.0694"
           },
           {
-            "ref": "(nouveau)",
-            "nom": "Activite changement horaires",
-            "nouveau": true,
-            "en_revue_humaine": true,
-            "confiance": "0",
-            "occurrences_medianes": "0",
+            "ref": "VERI-03",
+            "nom": "Coherence de montants",
+            "nouveau": false,
+            "en_revue_humaine": false,
+            "confiance": "0.7500",
+            "occurrences_medianes": "4",
             "services": [
-              "adv"
+              "comptabilite"
             ],
             "canaux": [
-              "courriels"
+              "tickets"
             ],
-            "duree_minutes": "0",
-            "duree_statut": "inferree",
-            "repartition": "regroupee",
-            "part_atypique": "0.0000"
-          },
-          {
-            "ref": "(nouveau)",
-            "nom": "Activite changement horaires",
-            "nouveau": true,
-            "en_revue_humaine": true,
-            "confiance": "0",
-            "occurrences_medianes": "0",
-            "services": [
-              "support"
-            ],
-            "canaux": [
-              "courriels"
-            ],
-            "duree_minutes": "0",
-            "duree_statut": "inferree",
-            "repartition": "regroupee",
-            "part_atypique": "0.0000"
-          },
-          {
-            "ref": "(nouveau)",
-            "nom": "Activite commande fournitures",
-            "nouveau": true,
-            "en_revue_humaine": true,
-            "confiance": "0",
-            "occurrences_medianes": "0",
-            "services": [
-              "adv"
-            ],
-            "canaux": [
-              "courriels"
-            ],
-            "duree_minutes": "0",
-            "duree_statut": "inferree",
-            "repartition": "regroupee",
-            "part_atypique": "0.0000"
-          },
-          {
-            "ref": "(nouveau)",
-            "nom": "Activite commande fournitures",
-            "nouveau": true,
-            "en_revue_humaine": true,
-            "confiance": "0",
-            "occurrences_medianes": "0",
-            "services": [
-              "support"
-            ],
-            "canaux": [
-              "courriels"
-            ],
-            "duree_minutes": "0",
-            "duree_statut": "inferree",
-            "repartition": "regroupee",
-            "part_atypique": "0.0000"
-          },
-          {
-            "ref": "(nouveau)",
-            "nom": "Activite conges ete",
-            "nouveau": true,
-            "en_revue_humaine": true,
-            "confiance": "0",
-            "occurrences_medianes": "0",
-            "services": [
-              "adv"
-            ],
-            "canaux": [
-              "courriels"
-            ],
-            "duree_minutes": "0",
-            "duree_statut": "inferree",
-            "repartition": "regroupee",
-            "part_atypique": "0.0000"
-          },
-          {
-            "ref": "(nouveau)",
-            "nom": "Activite conges ete",
-            "nouveau": true,
-            "en_revue_humaine": true,
-            "confiance": "0",
-            "occurrences_medianes": "0.5",
-            "services": [
-              "support"
-            ],
-            "canaux": [
-              "courriels"
-            ],
-            "duree_minutes": "0",
-            "duree_statut": "inferree",
-            "repartition": "regroupee",
-            "part_atypique": "0.0000"
+            "duree_minutes": "18.46",
+            "duree_statut": "mesuree",
+            "repartition": "diffuse",
+            "part_atypique": "0.2083"
           },
           {
             "ref": "(nouveau)",
@@ -1200,6 +1390,186 @@
           },
           {
             "ref": "(nouveau)",
+            "nom": "Activite batiment travaux",
+            "nouveau": true,
+            "en_revue_humaine": true,
+            "confiance": "0",
+            "occurrences_medianes": "1",
+            "services": [
+              "support"
+            ],
+            "canaux": [
+              "courriels"
+            ],
+            "duree_minutes": "0",
+            "duree_statut": "inferree",
+            "repartition": "regroupee",
+            "part_atypique": "0.0000"
+          },
+          {
+            "ref": "(nouveau)",
+            "nom": "Activite conges ete",
+            "nouveau": true,
+            "en_revue_humaine": true,
+            "confiance": "0",
+            "occurrences_medianes": "0.5",
+            "services": [
+              "support"
+            ],
+            "canaux": [
+              "courriels"
+            ],
+            "duree_minutes": "0",
+            "duree_statut": "inferree",
+            "repartition": "regroupee",
+            "part_atypique": "0.0000"
+          },
+          {
+            "ref": "(nouveau)",
+            "nom": "Activite disponibilite reunion service",
+            "nouveau": true,
+            "en_revue_humaine": true,
+            "confiance": "0",
+            "occurrences_medianes": "0.5",
+            "services": [
+              "adv"
+            ],
+            "canaux": [
+              "courriels"
+            ],
+            "duree_minutes": "0",
+            "duree_statut": "inferree",
+            "repartition": "regroupee",
+            "part_atypique": "0.0000"
+          },
+          {
+            "ref": "(nouveau)",
+            "nom": "Activite editeur invitation webinar",
+            "nouveau": true,
+            "en_revue_humaine": true,
+            "confiance": "0",
+            "occurrences_medianes": "0.5",
+            "services": [
+              "adv"
+            ],
+            "canaux": [
+              "courriels"
+            ],
+            "duree_minutes": "0",
+            "duree_statut": "inferree",
+            "repartition": "regroupee",
+            "part_atypique": "0.0000"
+          },
+          {
+            "ref": "(nouveau)",
+            "nom": "Activite batiment travaux",
+            "nouveau": true,
+            "en_revue_humaine": true,
+            "confiance": "0",
+            "occurrences_medianes": "0",
+            "services": [
+              "adv"
+            ],
+            "canaux": [
+              "courriels"
+            ],
+            "duree_minutes": "0",
+            "duree_statut": "inferree",
+            "repartition": "regroupee",
+            "part_atypique": "0.0000"
+          },
+          {
+            "ref": "(nouveau)",
+            "nom": "Activite changement horaires",
+            "nouveau": true,
+            "en_revue_humaine": true,
+            "confiance": "0",
+            "occurrences_medianes": "0",
+            "services": [
+              "adv"
+            ],
+            "canaux": [
+              "courriels"
+            ],
+            "duree_minutes": "0",
+            "duree_statut": "inferree",
+            "repartition": "regroupee",
+            "part_atypique": "0.0000"
+          },
+          {
+            "ref": "(nouveau)",
+            "nom": "Activite changement horaires",
+            "nouveau": true,
+            "en_revue_humaine": true,
+            "confiance": "0",
+            "occurrences_medianes": "0",
+            "services": [
+              "support"
+            ],
+            "canaux": [
+              "courriels"
+            ],
+            "duree_minutes": "0",
+            "duree_statut": "inferree",
+            "repartition": "regroupee",
+            "part_atypique": "0.0000"
+          },
+          {
+            "ref": "(nouveau)",
+            "nom": "Activite commande fournitures",
+            "nouveau": true,
+            "en_revue_humaine": true,
+            "confiance": "0",
+            "occurrences_medianes": "0",
+            "services": [
+              "adv"
+            ],
+            "canaux": [
+              "courriels"
+            ],
+            "duree_minutes": "0",
+            "duree_statut": "inferree",
+            "repartition": "regroupee",
+            "part_atypique": "0.0000"
+          },
+          {
+            "ref": "(nouveau)",
+            "nom": "Activite commande fournitures",
+            "nouveau": true,
+            "en_revue_humaine": true,
+            "confiance": "0",
+            "occurrences_medianes": "0",
+            "services": [
+              "support"
+            ],
+            "canaux": [
+              "courriels"
+            ],
+            "duree_minutes": "0",
+            "duree_statut": "inferree",
+            "repartition": "regroupee",
+            "part_atypique": "0.0000"
+          },
+          {
+            "ref": "(nouveau)",
+            "nom": "Activite conges ete",
+            "nouveau": true,
+            "en_revue_humaine": true,
+            "confiance": "0",
+            "occurrences_medianes": "0",
+            "services": [
+              "adv"
+            ],
+            "canaux": [
+              "courriels"
+            ],
+            "duree_minutes": "0",
+            "duree_statut": "inferree",
+            "repartition": "regroupee",
+            "part_atypique": "0.0000"
+          },
+          {
+            "ref": "(nouveau)",
             "nom": "Activite consignes rappel securite",
             "nouveau": true,
             "en_revue_humaine": true,
@@ -1222,45 +1592,9 @@
             "nouveau": true,
             "en_revue_humaine": true,
             "confiance": "0",
-            "occurrences_medianes": "0.5",
-            "services": [
-              "adv"
-            ],
-            "canaux": [
-              "courriels"
-            ],
-            "duree_minutes": "0",
-            "duree_statut": "inferree",
-            "repartition": "regroupee",
-            "part_atypique": "0.0000"
-          },
-          {
-            "ref": "(nouveau)",
-            "nom": "Activite disponibilite reunion service",
-            "nouveau": true,
-            "en_revue_humaine": true,
-            "confiance": "0",
             "occurrences_medianes": "0",
             "services": [
               "support"
-            ],
-            "canaux": [
-              "courriels"
-            ],
-            "duree_minutes": "0",
-            "duree_statut": "inferree",
-            "repartition": "regroupee",
-            "part_atypique": "0.0000"
-          },
-          {
-            "ref": "(nouveau)",
-            "nom": "Activite editeur invitation webinar",
-            "nouveau": true,
-            "en_revue_humaine": true,
-            "confiance": "0",
-            "occurrences_medianes": "0.5",
-            "services": [
-              "adv"
             ],
             "canaux": [
               "courriels"
@@ -1359,409 +1693,6 @@
             "duree_statut": "inferree",
             "repartition": "regroupee",
             "part_atypique": "0.0000"
-          },
-          {
-            "ref": "CLASS-03",
-            "nom": "Indexation",
-            "nouveau": false,
-            "en_revue_humaine": false,
-            "confiance": "0.7667",
-            "occurrences_medianes": "412.5",
-            "services": [
-              "adv"
-            ],
-            "canaux": [
-              "journaux"
-            ],
-            "duree_minutes": "3.00",
-            "duree_statut": "mesuree",
-            "repartition": "diffuse",
-            "part_atypique": "0.0453"
-          },
-          {
-            "ref": "COORD-02",
-            "nom": "Transmission d'information entre services",
-            "nouveau": false,
-            "en_revue_humaine": false,
-            "confiance": "0.8833",
-            "occurrences_medianes": "375",
-            "services": [
-              "support"
-            ],
-            "canaux": [
-              "tickets"
-            ],
-            "duree_minutes": "3.00",
-            "duree_statut": "mesuree",
-            "repartition": "interruptive",
-            "part_atypique": "0.0621"
-          },
-          {
-            "ref": "REPO-01",
-            "nom": "Extraction periodique",
-            "nouveau": false,
-            "en_revue_humaine": true,
-            "confiance": "0.6917",
-            "occurrences_medianes": "12",
-            "services": [
-              "comptabilite"
-            ],
-            "canaux": [
-              "journaux"
-            ],
-            "duree_minutes": "206.88",
-            "duree_statut": "mesuree",
-            "repartition": "regroupee",
-            "part_atypique": "0.0694"
-          },
-          {
-            "ref": "COORD-03",
-            "nom": "Affectation d'une demande",
-            "nouveau": false,
-            "en_revue_humaine": false,
-            "confiance": "0.8833",
-            "occurrences_medianes": "317.5",
-            "services": [
-              "support"
-            ],
-            "canaux": [
-              "journaux"
-            ],
-            "duree_minutes": "2.99",
-            "duree_statut": "mesuree",
-            "repartition": "interruptive",
-            "part_atypique": "0.1081"
-          },
-          {
-            "ref": "COORD-01",
-            "nom": "Prise de rendez-vous",
-            "nouveau": false,
-            "en_revue_humaine": false,
-            "confiance": "0.8083",
-            "occurrences_medianes": "149",
-            "services": [
-              "support"
-            ],
-            "canaux": [
-              "tickets"
-            ],
-            "duree_minutes": "6.06",
-            "duree_statut": "mesuree",
-            "repartition": "interruptive",
-            "part_atypique": "0.0690"
-          },
-          {
-            "ref": "RAPPR-02",
-            "nom": "Releve bancaire et facture",
-            "nouveau": false,
-            "en_revue_humaine": false,
-            "confiance": "0.9250",
-            "occurrences_medianes": "89",
-            "services": [
-              "comptabilite"
-            ],
-            "canaux": [
-              "journaux"
-            ],
-            "duree_minutes": "6.00",
-            "duree_statut": "mesuree",
-            "repartition": "regroupee",
-            "part_atypique": "0.0784"
-          },
-          {
-            "ref": "RAPPR-01",
-            "nom": "Facture et bon de livraison",
-            "nouveau": false,
-            "en_revue_humaine": false,
-            "confiance": "0.9250",
-            "occurrences_medianes": "207.5",
-            "services": [
-              "comptabilite"
-            ],
-            "canaux": [
-              "journaux"
-            ],
-            "duree_minutes": "6.96",
-            "duree_statut": "mesuree",
-            "repartition": "semi_regroupee",
-            "part_atypique": "0.1616"
-          },
-          {
-            "ref": "RAPPR-03",
-            "nom": "Commande et reception",
-            "nouveau": false,
-            "en_revue_humaine": false,
-            "confiance": "0.8833",
-            "occurrences_medianes": "41",
-            "services": [
-              "approvisionnements"
-            ],
-            "canaux": [
-              "journaux"
-            ],
-            "duree_minutes": "25.10",
-            "duree_statut": "mesuree",
-            "repartition": "semi_regroupee",
-            "part_atypique": "0.1176"
-          },
-          {
-            "ref": "RECH-02",
-            "nom": "Recherche d'un precedent",
-            "nouveau": false,
-            "en_revue_humaine": false,
-            "confiance": "0.8083",
-            "occurrences_medianes": "89",
-            "services": [
-              "support"
-            ],
-            "canaux": [
-              "appels"
-            ],
-            "duree_minutes": "15",
-            "duree_statut": "inferree",
-            "repartition": "semi_regroupee",
-            "part_atypique": "0.2411"
-          },
-          {
-            "ref": "RECH-01",
-            "nom": "Recherche d'une reference",
-            "nouveau": false,
-            "en_revue_humaine": false,
-            "confiance": "0.8833",
-            "occurrences_medianes": "237.5",
-            "services": [
-              "support"
-            ],
-            "canaux": [
-              "journaux",
-              "courriels",
-              "appels"
-            ],
-            "duree_minutes": "11.96",
-            "duree_statut": "mesuree",
-            "repartition": "semi_regroupee",
-            "part_atypique": "0.2021"
-          },
-          {
-            "ref": "RESS-04",
-            "nom": "Application vers application",
-            "nouveau": false,
-            "en_revue_humaine": false,
-            "confiance": "0.8083",
-            "occurrences_medianes": "61.5",
-            "services": [
-              "approvisionnements"
-            ],
-            "canaux": [
-              "journaux"
-            ],
-            "duree_minutes": "4.98",
-            "duree_statut": "mesuree",
-            "repartition": "regroupee",
-            "part_atypique": "0.0539"
-          },
-          {
-            "ref": "RESS-01",
-            "nom": "Courriel vers ERP",
-            "nouveau": false,
-            "en_revue_humaine": false,
-            "confiance": "0.9250",
-            "occurrences_medianes": "255",
-            "services": [
-              "adv"
-            ],
-            "canaux": [
-              "journaux"
-            ],
-            "duree_minutes": "8.04",
-            "duree_statut": "mesuree",
-            "repartition": "semi_regroupee",
-            "part_atypique": "0.1196"
-          },
-          {
-            "ref": "RESS-01",
-            "nom": "Courriel vers ERP",
-            "nouveau": false,
-            "en_revue_humaine": false,
-            "confiance": "0.9250",
-            "occurrences_medianes": "320",
-            "services": [
-              "approvisionnements"
-            ],
-            "canaux": [
-              "courriels",
-              "journaux",
-              "tickets"
-            ],
-            "duree_minutes": "9",
-            "duree_statut": "mesuree",
-            "repartition": "semi_regroupee",
-            "part_atypique": "0.1469"
-          },
-          {
-            "ref": "COORD-04",
-            "nom": "Compte rendu de reunion",
-            "nouveau": false,
-            "en_revue_humaine": false,
-            "confiance": "1.0000",
-            "occurrences_medianes": "39.5",
-            "services": [
-              "support"
-            ],
-            "canaux": [
-              "journaux",
-              "courriels"
-            ],
-            "duree_minutes": "20.14",
-            "duree_statut": "mesuree",
-            "repartition": "regroupee",
-            "part_atypique": "0.1423"
-          },
-          {
-            "ref": "RELAN-01",
-            "nom": "Devis sans reponse",
-            "nouveau": false,
-            "en_revue_humaine": false,
-            "confiance": "0.8833",
-            "occurrences_medianes": "94",
-            "services": [
-              "adv"
-            ],
-            "canaux": [
-              "journaux"
-            ],
-            "duree_minutes": "7.90",
-            "duree_statut": "mesuree",
-            "repartition": "regroupee",
-            "part_atypique": "0.0669"
-          },
-          {
-            "ref": "RELAN-02",
-            "nom": "Facture echue",
-            "nouveau": false,
-            "en_revue_humaine": false,
-            "confiance": "0.8833",
-            "occurrences_medianes": "129",
-            "services": [
-              "comptabilite"
-            ],
-            "canaux": [
-              "journaux"
-            ],
-            "duree_minutes": "5.01",
-            "duree_statut": "mesuree",
-            "repartition": "regroupee",
-            "part_atypique": "0.0874"
-          },
-          {
-            "ref": "RESS-06",
-            "nom": "Formulaire vers systeme",
-            "nouveau": false,
-            "en_revue_humaine": false,
-            "confiance": "0.9250",
-            "occurrences_medianes": "179",
-            "services": [
-              "comptabilite"
-            ],
-            "canaux": [
-              "tickets",
-              "documents",
-              "journaux"
-            ],
-            "duree_minutes": "4.02",
-            "duree_statut": "mesuree",
-            "repartition": "semi_regroupee",
-            "part_atypique": "0.0963"
-          },
-          {
-            "ref": "VERI-05",
-            "nom": "Application d'une grille tarifaire",
-            "nouveau": false,
-            "en_revue_humaine": false,
-            "confiance": "0.7500",
-            "occurrences_medianes": "59",
-            "services": [
-              "adv"
-            ],
-            "canaux": [
-              "tickets"
-            ],
-            "duree_minutes": "22.08",
-            "duree_statut": "mesuree",
-            "repartition": "semi_regroupee",
-            "part_atypique": "0.5393"
-          },
-          {
-            "ref": "VERI-03",
-            "nom": "Coherence de montants",
-            "nouveau": false,
-            "en_revue_humaine": false,
-            "confiance": "0.7500",
-            "occurrences_medianes": "4",
-            "services": [
-              "comptabilite"
-            ],
-            "canaux": [
-              "tickets"
-            ],
-            "duree_minutes": "18.46",
-            "duree_statut": "mesuree",
-            "repartition": "diffuse",
-            "part_atypique": "0.2083"
-          },
-          {
-            "ref": "VERI-01",
-            "nom": "Conformite d'un document",
-            "nouveau": false,
-            "en_revue_humaine": false,
-            "confiance": "0.8833",
-            "occurrences_medianes": "119",
-            "services": [
-              "adv"
-            ],
-            "canaux": [
-              "journaux"
-            ],
-            "duree_minutes": "12.00",
-            "duree_statut": "mesuree",
-            "repartition": "semi_regroupee",
-            "part_atypique": "0.2104"
-          },
-          {
-            "ref": "VERI-06",
-            "nom": "Respect d'un seuil ou d'une regle",
-            "nouveau": false,
-            "en_revue_humaine": false,
-            "confiance": "0.7667",
-            "occurrences_medianes": "24.5",
-            "services": [
-              "adv"
-            ],
-            "canaux": [
-              "courriels"
-            ],
-            "duree_minutes": "12",
-            "duree_statut": "inferree",
-            "repartition": "semi_regroupee",
-            "part_atypique": "0.3446"
-          },
-          {
-            "ref": "VERI-04",
-            "nom": "Validite d'un tiers",
-            "nouveau": false,
-            "en_revue_humaine": false,
-            "confiance": "0.8083",
-            "occurrences_medianes": "34",
-            "services": [
-              "approvisionnements"
-            ],
-            "canaux": [
-              "tickets"
-            ],
-            "duree_minutes": "25.20",
-            "duree_statut": "mesuree",
-            "repartition": "diffuse",
-            "part_atypique": "0.3088"
           }
         ],
         "revue_humaine": [
@@ -1894,10 +1825,11 @@
     "corps": {
       "ok": true,
       "donnees": {
-        "nb_motifs": 40,
+        "nb_motifs": 52,
         "familles": {
           "classement": 4,
           "coordination": 4,
+          "ingenierie": 12,
           "rapprochement": 6,
           "recherche": 3,
           "relance": 5,
@@ -2006,6 +1938,161 @@
               ],
               "cout_jours": "4-15",
               "modele_texte": "Rediger le compte rendu de reunion"
+            }
+          ],
+          "ingenierie": [
+            {
+              "ref": "ING-01",
+              "nom": "Discussion de conception sur la liste de diffusion",
+              "nom_en": "Design discussion on the mailing list",
+              "duree_typique": "25",
+              "repartition": "semi_regroupee",
+              "types": [
+                "C",
+                "D"
+              ],
+              "cout_jours": "10-30",
+              "modele_texte": "Discuter une proposition de conception (discuss, kip, api) sur la liste de diffusion"
+            },
+            {
+              "ref": "ING-02",
+              "nom": "Annonce de gouvernance ou de version",
+              "nom_en": "Governance or release announcement",
+              "duree_typique": "15",
+              "repartition": "diffuse",
+              "types": [
+                "B",
+                "C"
+              ],
+              "cout_jours": "3-8",
+              "modele_texte": "Annoncer une version ou une nomination du projet (announce, apache, kafka)"
+            },
+            {
+              "ref": "ING-03",
+              "nom": "Suivi d'incident ou de ticket",
+              "nom_en": "Incident or ticket follow-up",
+              "duree_typique": "20",
+              "repartition": "semi_regroupee",
+              "types": [
+                "C",
+                "D"
+              ],
+              "cout_jours": "8-25",
+              "modele_texte": "Relancer un ticket jusqu'a sa resolution (created, jira, resolved)"
+            },
+            {
+              "ref": "ING-04",
+              "nom": "Revue de modification (pull request)",
+              "nom_en": "Pull request review",
+              "duree_typique": "30",
+              "repartition": "semi_regroupee",
+              "types": [
+                "C",
+                "D"
+              ],
+              "cout_jours": "10-30",
+              "modele_texte": "Consulter les modifications avant fusion (kafka, minor, cleanup)"
+            },
+            {
+              "ref": "ING-05",
+              "nom": "Correction de defaut",
+              "nom_en": "Bug fixing",
+              "duree_typique": "45",
+              "repartition": "semi_regroupee",
+              "types": [
+                "D",
+                "E"
+              ],
+              "cout_jours": "15-40",
+              "modele_texte": "Verifier et corriger un defaut (fix, flaky, bug)"
+            },
+            {
+              "ref": "ING-06",
+              "nom": "Chain de construction et de livraison",
+              "nom_en": "Build and release pipeline",
+              "duree_typique": "20",
+              "repartition": "diffuse",
+              "types": [
+                "B",
+                "C"
+              ],
+              "cout_jours": "5-15",
+              "modele_texte": "Construire et livrer une version (build, daily, branch)"
+            },
+            {
+              "ref": "ING-07",
+              "nom": "Mise a jour de la documentation",
+              "nom_en": "Documentation update",
+              "duree_typique": "25",
+              "repartition": "semi_regroupee",
+              "types": [
+                "C"
+              ],
+              "cout_jours": "8-20",
+              "modele_texte": "Documenter et mettre a jour un guide (docs, documentation, guide)"
+            },
+            {
+              "ref": "ING-08",
+              "nom": "Demande d'acces ou de droit d'edition",
+              "nom_en": "Access or edit rights request",
+              "duree_typique": "10",
+              "repartition": "diffuse",
+              "types": [
+                "B"
+              ],
+              "cout_jours": "2-6",
+              "modele_texte": "Relancer une demande d'acces en edition (confluence, access, edit)"
+            },
+            {
+              "ref": "ING-09",
+              "nom": "Parametrage et configuration",
+              "nom_en": "Configuration and settings",
+              "duree_typique": "20",
+              "repartition": "semi_regroupee",
+              "types": [
+                "C"
+              ],
+              "cout_jours": "5-15",
+              "modele_texte": "Saisir un parametre de fonctionnement (config, configuration, allow)"
+            },
+            {
+              "ref": "ING-10",
+              "nom": "Analyse et investigation de production",
+              "nom_en": "Production analysis and investigation",
+              "duree_typique": "40",
+              "repartition": "semi_regroupee",
+              "types": [
+                "D",
+                "E"
+              ],
+              "cout_jours": "12-35",
+              "modele_texte": "Analyser une anomalie de production (costs, cross, discover)"
+            },
+            {
+              "ref": "ING-11",
+              "nom": "Migration et mise a niveau",
+              "nom_en": "Migration and upgrade",
+              "duree_typique": "35",
+              "repartition": "semi_regroupee",
+              "types": [
+                "D",
+                "E"
+              ],
+              "cout_jours": "10-30",
+              "modele_texte": "Migrer une version et la verifier (java, gradle, bootstrapping)"
+            },
+            {
+              "ref": "ING-12",
+              "nom": "Support utilisateur et usage client",
+              "nom_en": "User support and client usage",
+              "duree_typique": "15",
+              "repartition": "semi_regroupee",
+              "types": [
+                "B",
+                "C"
+              ],
+              "cout_jours": "4-12",
+              "modele_texte": "Consulter une question d'usage (consumer, api, avoid)"
             }
           ],
           "rapprochement": [
@@ -2453,148 +2540,14 @@
             "raison": "l'analyse des appels suppose l'affectation des demandes déjà automatisée"
           }
         ],
-        "taches": [
-          {
-            "projet": "P-01",
-            "debut_mois": 1,
-            "fin_mois": 1,
-            "jours": "14",
-            "dependances": []
-          },
-          {
-            "projet": "P-07",
-            "debut_mois": 1,
-            "fin_mois": 1,
-            "jours": "3",
-            "dependances": []
-          },
-          {
-            "projet": "P-13",
-            "debut_mois": 1,
-            "fin_mois": 1,
-            "jours": "5",
-            "dependances": []
-          },
-          {
-            "projet": "P-14",
-            "debut_mois": 1,
-            "fin_mois": 1,
-            "jours": "0",
-            "dependances": []
-          },
-          {
-            "projet": "P-16",
-            "debut_mois": 1,
-            "fin_mois": 1,
-            "jours": "6",
-            "dependances": []
-          },
-          {
-            "projet": "P-11",
-            "debut_mois": 2,
-            "fin_mois": 2,
-            "jours": "8",
-            "dependances": []
-          },
-          {
-            "projet": "P-12",
-            "debut_mois": 2,
-            "fin_mois": 2,
-            "jours": "11",
-            "dependances": []
-          },
-          {
-            "projet": "P-17",
-            "debut_mois": 2,
-            "fin_mois": 2,
-            "jours": "10",
-            "dependances": []
-          },
-          {
-            "projet": "P-03",
-            "debut_mois": 3,
-            "fin_mois": 3,
-            "jours": "10",
-            "dependances": [
-              "P-07"
-            ]
-          },
-          {
-            "projet": "P-08",
-            "debut_mois": 3,
-            "fin_mois": 3,
-            "jours": "10",
-            "dependances": []
-          },
-          {
-            "projet": "P-19",
-            "debut_mois": 4,
-            "fin_mois": 4,
-            "jours": "28",
-            "dependances": [
-              "P-03"
-            ]
-          },
-          {
-            "projet": "P-05",
-            "debut_mois": 5,
-            "fin_mois": 5,
-            "jours": "11",
-            "dependances": []
-          },
-          {
-            "projet": "P-23",
-            "debut_mois": 5,
-            "fin_mois": 5,
-            "jours": "11",
-            "dependances": []
-          },
-          {
-            "projet": "P-04",
-            "debut_mois": 6,
-            "fin_mois": 6,
-            "jours": "11",
-            "dependances": []
-          },
-          {
-            "projet": "P-10",
-            "debut_mois": 6,
-            "fin_mois": 6,
-            "jours": "18",
-            "dependances": []
-          },
-          {
-            "projet": "P-15",
-            "debut_mois": 7,
-            "fin_mois": 7,
-            "jours": "18",
-            "dependances": []
-          }
-        ],
-        "impossibles": [
-          {
-            "projet": "P-21",
-            "raison": "depasse la capacite mensuelle (35 jours > 30 jours)"
-          }
-        ],
-        "duree_totale_mois": 7,
-        "capacite_utilisee": "0.2417",
-        "gain_cumule": "93260.16",
-        "chemin_critique": [
-          "P-17",
-          "P-21"
-        ],
-        "gantt": "P-01   |#......| 14 j\nP-07   |#......| 3 j\nP-13   |#......| 5 j\nP-14   |#......| 0 j\nP-16   |#......| 6 j\nP-11   |.#.....| 8 j\nP-12   |.#.....| 11 j\nP-17   |.#.....| 10 j\nP-03   |..#....| 10 j\nP-08   |..#....| 10 j\nP-19   |...#...| 28 j\nP-05   |....#..| 11 j\nP-23   |....#..| 11 j\nP-04   |.....#.| 11 j\nP-10   |.....#.| 18 j\nP-15   |......#| 18 j",
-        "jours_par_projet": {
-          "P-07": "3",
-          "P-14": "0",
-          "P-19": "28",
-          "P-01": "14",
-          "P-16": "6",
-          "P-11": "8",
-          "P-21": "35",
-          "P-15": "18"
-        }
+        "taches": [],
+        "impossibles": [],
+        "duree_totale_mois": 0,
+        "capacite_utilisee": "0.0000",
+        "gain_cumule": "0.00",
+        "chemin_critique": [],
+        "gantt": "(aucune tache planifiee)",
+        "jours_par_projet": {}
       }
     }
   },
@@ -2608,250 +2561,44 @@
           "2027-T2",
           "2027-T3"
         ],
-        "suivis": [
-          {
-            "projet": "P-07",
-            "trimestre": "2027-T1",
-            "predit": "1102.50",
-            "mesure": "1168.65",
-            "ecart": "0.0600",
-            "statut": "conforme",
-            "parametre_fautif": ""
-          },
-          {
-            "projet": "P-07",
-            "trimestre": "2027-T2",
-            "predit": "1102.50",
-            "mesure": "1223.78",
-            "ecart": "0.1100",
-            "statut": "conforme",
-            "parametre_fautif": ""
-          },
-          {
-            "projet": "P-07",
-            "trimestre": "2027-T3",
-            "predit": "1102.50",
-            "mesure": "1190.70",
-            "ecart": "0.0800",
-            "statut": "conforme",
-            "parametre_fautif": ""
-          },
-          {
-            "projet": "P-14",
-            "trimestre": "2027-T1",
-            "predit": "257.39",
-            "mesure": "249.67",
-            "ecart": "0.0300",
-            "statut": "conforme",
-            "parametre_fautif": ""
-          },
-          {
-            "projet": "P-14",
-            "trimestre": "2027-T2",
-            "predit": "257.39",
-            "mesure": "262.54",
-            "ecart": "0.0200",
-            "statut": "conforme",
-            "parametre_fautif": ""
-          },
-          {
-            "projet": "P-14",
-            "trimestre": "2027-T3",
-            "predit": "257.39",
-            "mesure": "257.39",
-            "ecart": "0.0000",
-            "statut": "conforme",
-            "parametre_fautif": ""
-          },
-          {
-            "projet": "P-19",
-            "trimestre": "2027-T1",
-            "predit": "1418.63",
-            "mesure": "1248.39",
-            "ecart": "0.1200",
-            "statut": "conforme",
-            "parametre_fautif": ""
-          },
-          {
-            "projet": "P-19",
-            "trimestre": "2027-T2",
-            "predit": "1418.63",
-            "mesure": "1290.95",
-            "ecart": "0.0900",
-            "statut": "conforme",
-            "parametre_fautif": ""
-          },
-          {
-            "projet": "P-19",
-            "trimestre": "2027-T3",
-            "predit": "1418.63",
-            "mesure": "1333.51",
-            "ecart": "0.0600",
-            "statut": "conforme",
-            "parametre_fautif": ""
-          },
-          {
-            "projet": "P-01",
-            "trimestre": "2027-T1",
-            "predit": "648.16",
-            "mesure": "920.39",
-            "ecart": "0.4200",
-            "statut": "prediction_invalide",
-            "parametre_fautif": "coefficient de fragmentation trop prudent (le temps libere est plus reel)"
-          },
-          {
-            "projet": "P-01",
-            "trimestre": "2027-T2",
-            "predit": "648.16",
-            "mesure": "875.02",
-            "ecart": "0.3500",
-            "statut": "ecart_modere",
-            "parametre_fautif": "coefficient de fragmentation trop prudent (le temps libere est plus reel)"
-          },
-          {
-            "projet": "P-01",
-            "trimestre": "2027-T3",
-            "predit": "648.16",
-            "mesure": "829.64",
-            "ecart": "0.2800",
-            "statut": "ecart_modere",
-            "parametre_fautif": "coefficient de fragmentation trop prudent (le temps libere est plus reel)"
-          },
-          {
-            "projet": "P-16",
-            "trimestre": "2027-T1",
-            "predit": "354.58",
-            "mesure": "195.02",
-            "ecart": "0.4500",
-            "statut": "prediction_invalide",
-            "parametre_fautif": "part ineliminable ou taux de revue sous-estime (le gain reel est plus faible)"
-          },
-          {
-            "projet": "P-16",
-            "trimestre": "2027-T2",
-            "predit": "354.58",
-            "mesure": "216.29",
-            "ecart": "0.3900",
-            "statut": "ecart_modere",
-            "parametre_fautif": "part ineliminable ou taux de revue sous-estime (le gain reel est plus faible)"
-          },
-          {
-            "projet": "P-16",
-            "trimestre": "2027-T3",
-            "predit": "354.58",
-            "mesure": "205.66",
-            "ecart": "0.4200",
-            "statut": "prediction_invalide",
-            "parametre_fautif": "part ineliminable ou taux de revue sous-estime (le gain reel est plus faible)"
-          },
-          {
-            "projet": "P-11",
-            "trimestre": "2027-T1",
-            "predit": "382.45",
-            "mesure": "393.92",
-            "ecart": "0.0300",
-            "statut": "conforme",
-            "parametre_fautif": ""
-          },
-          {
-            "projet": "P-11",
-            "trimestre": "2027-T2",
-            "predit": "382.45",
-            "mesure": "401.57",
-            "ecart": "0.0500",
-            "statut": "conforme",
-            "parametre_fautif": ""
-          },
-          {
-            "projet": "P-11",
-            "trimestre": "2027-T3",
-            "predit": "382.45",
-            "mesure": "386.27",
-            "ecart": "0.0100",
-            "statut": "conforme",
-            "parametre_fautif": ""
-          }
-        ],
+        "suivis": [],
         "precision_cumulee": {
-          "nb_trimestres": 3,
-          "nb_projets": 6,
-          "ecart_moyen": "0.1650",
-          "part_conformes": "0.6667",
-          "part_invalides": "0.1667",
+          "nb_trimestres": 0,
+          "nb_projets": 0,
+          "ecart_moyen": "0",
+          "part_conformes": "0",
+          "part_invalides": "0",
           "cible": "ecart < 25 % (KPI-6)"
         },
-        "alertes": [
-          {
-            "projet": "P-01",
-            "gravite": "critique",
-            "code": "prediction_invalide",
-            "message": "Prediction invalide sur 2027-T1 : 920.39 EUR realizes contre 648.16 EUR predits (ecart de 42 %). Le modele de calcul doit etre revu et l'ecart publie au client.",
-            "valeur": "0.4200"
-          },
-          {
-            "projet": "P-16",
-            "gravite": "critique",
-            "code": "prediction_invalide",
-            "message": "Prediction invalide sur 2027-T1 : 195.02 EUR realizes contre 354.58 EUR predits (ecart de 45 %). Le modele de calcul doit etre revu et l'ecart publie au client.",
-            "valeur": "0.4500"
-          },
-          {
-            "projet": "P-16",
-            "gravite": "critique",
-            "code": "prediction_invalide",
-            "message": "Prediction invalide sur 2027-T3 : 205.66 EUR realizes contre 354.58 EUR predits (ecart de 42 %). Le modele de calcul doit etre revu et l'ecart publie au client.",
-            "valeur": "0.4200"
-          },
-          {
-            "projet": "P-01",
-            "gravite": "a_surveiller",
-            "code": "gain_depasse",
-            "message": "Ecart de 35 % sur 2027-T2 (875.02 EUR realizes / 648.16 EUR predits). Parametre en cause : coefficient de fragmentation trop prudent (le temps libere est plus reel).",
-            "valeur": "0.3500"
-          },
-          {
-            "projet": "P-01",
-            "gravite": "a_surveiller",
-            "code": "gain_depasse",
-            "message": "Ecart de 28 % sur 2027-T3 (829.64 EUR realizes / 648.16 EUR predits). Parametre en cause : coefficient de fragmentation trop prudent (le temps libere est plus reel).",
-            "valeur": "0.2800"
-          },
-          {
-            "projet": "P-16",
-            "gravite": "a_surveiller",
-            "code": "gain_non_atteint",
-            "message": "Ecart de 39 % sur 2027-T2 (216.29 EUR realizes / 354.58 EUR predits). Parametre en cause : part ineliminable ou taux de revue sous-estime (le gain reel est plus faible).",
-            "valeur": "0.3900"
-          }
-        ],
-        "resume_alertes": "6 alerte(s) dont 3 critique(s) ; la plus severe : prediction_invalide sur P-01",
+        "alertes": [],
+        "resume_alertes": "Aucune alerte : les predictions tiennent et les volumes sont stables.",
         "coefficients_calibres": [
           {
             "nom": "coefficient_fragmentation",
             "defaut": "0.70",
-            "calibre": "0.7000",
-            "echantillons": 6,
-            "confiance": "0.6667",
-            "ratio_realise": "0.9917",
-            "commentaire": "coefficient_fragmentation : realise a -0.8 % de l'ecart predit, sous la bande de calibration ; le defaut 0.70 est conserve (6 projets suivis)"
+            "calibre": "0.70",
+            "echantillons": 0,
+            "confiance": "0",
+            "ratio_realise": "1",
+            "commentaire": "aucun realise disponible : le defaut est conserve"
           },
           {
             "nom": "part_atypique",
             "defaut": "0.15",
-            "calibre": "0.1500",
-            "echantillons": 6,
-            "confiance": "0.6667",
-            "ratio_realise": "0.9917",
-            "commentaire": "part_atypique : realise a -0.8 % de l'ecart predit, sous la bande de calibration ; le defaut 0.15 est conserve (6 projets suivis)"
+            "calibre": "0.15",
+            "echantillons": 0,
+            "confiance": "0",
+            "ratio_realise": "1",
+            "commentaire": "aucun realise disponible : le defaut est conserve"
           },
           {
             "nom": "taux_revue",
             "defaut": "0.20",
-            "calibre": "0.2000",
-            "echantillons": 6,
-            "confiance": "0.6667",
-            "ratio_realise": "0.9917",
-            "commentaire": "taux_revue : realise a -0.8 % de l'ecart predit, sous la bande de calibration ; le defaut 0.20 est conserve (6 projets suivis)"
+            "calibre": "0.20",
+            "echantillons": 0,
+            "confiance": "0",
+            "ratio_realise": "1",
+            "commentaire": "aucun realise disponible : le defaut est conserve"
           }
         ],
         "note": "Historique de demonstration : les reels sont simules de facon deterministe. En production, chaque trimestre est saisi par le consultant et la base devient l'actif longitudinal (8.2)."
@@ -2988,8 +2735,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "47723f983c6bb510",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 47723f983c6bb510."
+            "empreinte": "8959e3535d87fd29",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 8959e3535d87fd29."
           },
           {
             "mesure": "P-02",
@@ -2998,8 +2745,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "2cbc9e10d38cf745",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 2cbc9e10d38cf745."
+            "empreinte": "6e3b63339e558a25",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 6e3b63339e558a25."
           },
           {
             "mesure": "P-03",
@@ -3008,8 +2755,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "4dedb4c3d1eaeaf1",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 4dedb4c3d1eaeaf1."
+            "empreinte": "28d6670f0594d6c7",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 28d6670f0594d6c7."
           },
           {
             "mesure": "P-04",
@@ -3018,8 +2765,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "25929ce6e291d1e4",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 25929ce6e291d1e4."
+            "empreinte": "3dcb668987a9f44e",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 3dcb668987a9f44e."
           },
           {
             "mesure": "P-05",
@@ -3028,8 +2775,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "a0098b6cc6ca2c9e",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : a0098b6cc6ca2c9e."
+            "empreinte": "7fa5058cb4bffe7f",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 7fa5058cb4bffe7f."
           },
           {
             "mesure": "P-06",
@@ -3038,8 +2785,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "45ce8aebd5b09b38",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 45ce8aebd5b09b38."
+            "empreinte": "9d234775f2d92fe5",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 9d234775f2d92fe5."
           },
           {
             "mesure": "P-07",
@@ -3048,8 +2795,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "8ae122d3e727bd80",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 8ae122d3e727bd80."
+            "empreinte": "f653df0aa19e759e",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : f653df0aa19e759e."
           },
           {
             "mesure": "P-08",
@@ -3058,8 +2805,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "da0efe881f07c6a5",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : da0efe881f07c6a5."
+            "empreinte": "54a169066a7497a4",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 54a169066a7497a4."
           },
           {
             "mesure": "P-09",
@@ -3068,8 +2815,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "3c7657861468cefb",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 3c7657861468cefb."
+            "empreinte": "226744deb1932fd6",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 226744deb1932fd6."
           },
           {
             "mesure": "P-10",
@@ -3078,8 +2825,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "de6157b79b419240",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : de6157b79b419240."
+            "empreinte": "71529aaa17210964",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 71529aaa17210964."
           },
           {
             "mesure": "P-11",
@@ -3088,8 +2835,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "5127ce3701b0cdb3",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 5127ce3701b0cdb3."
+            "empreinte": "0e66c341d6b18498",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 0e66c341d6b18498."
           },
           {
             "mesure": "P-12",
@@ -3098,8 +2845,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "63b8a058ce5774a0",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 63b8a058ce5774a0."
+            "empreinte": "1b635cd6fd6252fa",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 1b635cd6fd6252fa."
           },
           {
             "mesure": "P-13",
@@ -3108,8 +2855,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "ee6c26a2927346a0",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : ee6c26a2927346a0."
+            "empreinte": "f0d95a1b3cc4e03b",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : f0d95a1b3cc4e03b."
           },
           {
             "mesure": "P-14",
@@ -3118,8 +2865,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "ad9ac9e57e33d85e",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : ad9ac9e57e33d85e."
+            "empreinte": "a01752f1e3f823a5",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : a01752f1e3f823a5."
           },
           {
             "mesure": "P-15",
@@ -3128,8 +2875,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "96f0fb90eff8e42d",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 96f0fb90eff8e42d."
+            "empreinte": "4f66d47fc3a7f39f",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 4f66d47fc3a7f39f."
           },
           {
             "mesure": "P-16",
@@ -3138,8 +2885,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "525a5449a4e20073",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 525a5449a4e20073."
+            "empreinte": "cda53a537cf16d32",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : cda53a537cf16d32."
           },
           {
             "mesure": "P-17",
@@ -3148,8 +2895,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "0b0357e092928d69",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 0b0357e092928d69."
+            "empreinte": "62cfaae97fc3c716",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 62cfaae97fc3c716."
           },
           {
             "mesure": "P-18",
@@ -3158,8 +2905,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "18f83a4e9f680565",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 18f83a4e9f680565."
+            "empreinte": "fa5a70743656a6b2",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : fa5a70743656a6b2."
           },
           {
             "mesure": "P-19",
@@ -3168,8 +2915,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "7dbdba88a1807078",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 7dbdba88a1807078."
+            "empreinte": "156485d00f93da14",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 156485d00f93da14."
           },
           {
             "mesure": "P-20",
@@ -3178,8 +2925,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "bffe07104484d3fd",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : bffe07104484d3fd."
+            "empreinte": "8b38aa51a0b6a456",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 8b38aa51a0b6a456."
           },
           {
             "mesure": "P-21",
@@ -3188,8 +2935,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "1f4405d9ab2f4c4a",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 1f4405d9ab2f4c4a."
+            "empreinte": "e3548a485ec66f6d",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : e3548a485ec66f6d."
           },
           {
             "mesure": "P-22",
@@ -3198,8 +2945,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "f5277b4bb8e661e4",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : f5277b4bb8e661e4."
+            "empreinte": "5dabc032c34f421b",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 5dabc032c34f421b."
           },
           {
             "mesure": "P-23",
@@ -3208,8 +2955,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "34139608db615b33",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 34139608db615b33."
+            "empreinte": "a20c9547cb28c653",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : a20c9547cb28c653."
           }
         ],
         "chaine_verifiee": true,
@@ -3339,7 +3086,7 @@
       "ok": true,
       "donnees": {
         "client": "Demo Distribution SAS",
-        "texte": "Proposition - cartographie du travail automatisable\nClient : Demo Distribution SAS\nCampagne : CMP-0031\n\n62 % du volume de travail estime du perimetre est couvert par les canaux observes ; 1536.8 heures ne le sont pas, principalement : travail de terrain (entrepot, livraisons), reunions non enregistrees, echanges oraux informels, messagerie instantanee hors perimetre.\nGisement net annuel identifie : 108318.12 EUR,\nsur 17 processus actionnables et 6 processus que nous recommandons de ne pas automatiser.\n\nCout reel de la cartographie pour nous : 18.64 USD (transcription 8.64, extraction documentaire 10.00, inference 0.00; ecart a l'estimation : 0.0567).\n\nLa sequence que nous recommandons\n\nVague 1 - amorcage (rapide, visible, sur)\n  1. P-07 (type A, risque faible) - gain 1102.50 EUR/mois, cout annee 1 1950.00 EUR, retour 1.8 mois\n  2. P-14 (type A, risque faible) - gain 257.39 EUR/mois, cout annee 1 0.00 EUR, retour 0.0 mois\n\nVague 2 - structurel\n  1. P-19 (type B, risque faible) - gain 1418.63 EUR/mois, cout annee 1 17640.00 EUR, retour 12.4 mois\n  2. P-01 (type B, risque faible) - gain 648.16 EUR/mois, cout annee 1 8460.00 EUR, retour 13.1 mois\n  3. P-16 (type B, risque faible) - gain 354.58 EUR/mois, cout annee 1 3510.00 EUR, retour 9.9 mois\n  4. P-11 (type B, risque faible) - gain 382.45 EUR/mois, cout annee 1 5052.00 EUR, retour 13.2 mois\n\nVague 3 - transformation\n  1. P-21 (type D, risque eleve) - gain 815.00 EUR/mois, cout annee 1 22350.00 EUR, retour 27.4 mois\n  2. P-15 (type D, risque eleve) - gain 379.81 EUR/mois, cout annee 1 11424.00 EUR, retour 30.1 mois\n\nCe que nous recommandons de ne PAS automatiser\n\n  P-22 - gain annuel net 1064.40 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  P-02 - gain annuel net 858.00 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  P-20 - interface tierce sans API ni engagement de stabilite\n      reexamen si une API contractuelle devient disponible\n  P-06 - 3 changements du processus en 12 mois\n      reexamen apres six mois de stabilite du processus\n  P-09 - gain annuel net 149.88 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  P-18 - obligation legale de traitement humain (signature)\n      reexamen si le texte qui impose un traitement humain change\n\nDire non est ce qui rend le oui credible : un outil qui trouve toujours quelque chose a automatiser est un outil de vente, pas un instrument.\n\nNotre offre\n\n  - Cartographie du travail reel : forfait, prix coutant, livree avec le portefeuille.\n  - Suivi trimestriel du realise contre le predit : abonnement, engagement d'un an.\n  - Projets d'automatisation : chiffres au cas par cas, le premier projet de la vague 1 est propose au cout indique ci-dessous.\n\nPremier projet propose : P-07, 1950.00 EUR, retour en 1.8 mois, gain 1102.50 EUR/mois.\n\nEngagement : si le realise d'un trimestre s'ecarte de plus de 40 % du predit, l'ecart est publie, le modele de calcul est revu, et le trimestre de suivi est offert.",
+        "texte": "Proposition - cartographie du travail automatisable\nClient : Demo Distribution SAS\nCampagne : CMP-0031\n\n62 % du volume de travail estime du perimetre est couvert par les canaux observes ; 1536.8 heures ne le sont pas, principalement : travail de terrain (entrepot, livraisons), reunions non enregistrees, echanges oraux informels, messagerie instantanee hors perimetre.\nGisement net annuel identifie : 0.00 EUR,\nsur 0 processus actionnables et 23 processus que nous recommandons de ne pas automatiser.\n\nCout reel de la cartographie pour nous : 18.64 USD (transcription 8.64, extraction documentaire 10.00, inference 0.00; ecart a l'estimation : 0.0567).\n\nLa sequence que nous recommandons\n\nAucun processus ne permet une vague 1 a delai court et risque faible : elargir le perimetre plutot que de fabriquer une vague 1 artificielle (EF-43, R18).\n\nCe que nous recommandons de ne PAS automatiser\n\n  P-01 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  P-02 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  P-03 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  P-07 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  P-08 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  P-11 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  P-12 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  P-14 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  P-16 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  P-17 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  P-19 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  P-21 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  P-22 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  P-04 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  P-05 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  P-06 - 3 changements du processus en 12 mois\n      reexamen apres six mois de stabilite du processus\n  P-09 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  P-10 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  P-13 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  P-15 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  P-20 - interface tierce sans API ni engagement de stabilite\n      reexamen si une API contractuelle devient disponible\n  P-23 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  P-18 - obligation legale de traitement humain (signature)\n      reexamen si le texte qui impose un traitement humain change\n\nDire non est ce qui rend le oui credible : un outil qui trouve toujours quelque chose a automatiser est un outil de vente, pas un instrument.\n\nNotre offre\n\n  - Cartographie du travail reel : forfait, prix coutant, livree avec le portefeuille.\n  - Suivi trimestriel du realise contre le predit : abonnement, engagement d'un an.\n  - Projets d'automatisation : chiffres au cas par cas, le premier projet de la vague 1 est propose au cout indique ci-dessous.\n\nEngagement : si le realise d'un trimestre s'ecarte de plus de 40 % du predit, l'ecart est publie, le modele de calcul est revu, et le trimestre de suivi est offert.",
         "pdf": "python3 -m gisement.cli proposition --pdf proposition.pdf"
       }
     }
@@ -3352,16 +3099,16 @@
         "portefeuille": [
           {
             "processus_id": "P-01",
-            "type": "B",
+            "type": "E",
             "vague": "aucune",
             "rang": 0,
             "risque": "faible",
-            "score": "0.6871",
-            "gain_mensuel": "648.16",
-            "gain_annuel": "7777.92",
-            "delai_retour_mois": "13.1",
+            "score": "0.2000",
+            "gain_mensuel": "0",
+            "gain_annuel": "0",
+            "delai_retour_mois": "0",
             "cout_annee_1": "8460.00",
-            "deconseille": ""
+            "deconseille": "volume_insuffisant"
           },
           {
             "processus_id": "P-02",
@@ -3369,51 +3116,51 @@
             "vague": "aucune",
             "rang": 0,
             "risque": "eleve",
-            "score": "0.2176",
-            "gain_mensuel": "71.50",
-            "gain_annuel": "858.00",
-            "delai_retour_mois": "370.1",
+            "score": "0.2000",
+            "gain_mensuel": "0",
+            "gain_annuel": "0",
+            "delai_retour_mois": "0",
             "cout_annee_1": "26460.00",
             "deconseille": "volume_insuffisant"
           },
           {
             "processus_id": "P-03",
-            "type": "B",
+            "type": "E",
             "vague": "aucune",
             "rang": 0,
             "risque": "faible",
-            "score": "0.6015",
-            "gain_mensuel": "379.97",
-            "gain_annuel": "4559.64",
-            "delai_retour_mois": "16.6",
+            "score": "0.2000",
+            "gain_mensuel": "0",
+            "gain_annuel": "0",
+            "delai_retour_mois": "0",
             "cout_annee_1": "6318.00",
-            "deconseille": ""
+            "deconseille": "volume_insuffisant"
           },
           {
             "processus_id": "P-04",
-            "type": "B",
+            "type": "E",
             "vague": "aucune",
             "rang": 0,
             "risque": "faible",
-            "score": "0.4148",
-            "gain_mensuel": "258.08",
-            "gain_annuel": "3096.96",
-            "delai_retour_mois": "25.9",
+            "score": "0.0950",
+            "gain_mensuel": "0",
+            "gain_annuel": "0",
+            "delai_retour_mois": "0",
             "cout_annee_1": "6696.00",
-            "deconseille": ""
+            "deconseille": "volume_insuffisant"
           },
           {
             "processus_id": "P-05",
-            "type": "B",
+            "type": "E",
             "vague": "aucune",
             "rang": 0,
             "risque": "faible",
-            "score": "0.4484",
-            "gain_mensuel": "315.53",
-            "gain_annuel": "3786.36",
-            "delai_retour_mois": "22.4",
+            "score": "0.0950",
+            "gain_mensuel": "0",
+            "gain_annuel": "0",
+            "delai_retour_mois": "0",
             "cout_annee_1": "7056.00",
-            "deconseille": ""
+            "deconseille": "volume_insuffisant"
           },
           {
             "processus_id": "P-06",
@@ -3421,38 +3168,38 @@
             "vague": "aucune",
             "rang": 0,
             "risque": "eleve",
-            "score": "0.1081",
-            "gain_mensuel": "52.98",
-            "gain_annuel": "635.76",
-            "delai_retour_mois": "283.8",
+            "score": "0.0950",
+            "gain_mensuel": "0",
+            "gain_annuel": "0",
+            "delai_retour_mois": "0",
             "cout_annee_1": "15036.00",
             "deconseille": "instabilite"
           },
           {
             "processus_id": "P-07",
-            "type": "A",
+            "type": "E",
             "vague": "aucune",
             "rang": 0,
             "risque": "faible",
-            "score": "0.9120",
-            "gain_mensuel": "1102.50",
-            "gain_annuel": "13230.00",
-            "delai_retour_mois": "1.8",
+            "score": "0.2000",
+            "gain_mensuel": "0",
+            "gain_annuel": "0",
+            "delai_retour_mois": "0",
             "cout_annee_1": "1950.00",
-            "deconseille": ""
+            "deconseille": "volume_insuffisant"
           },
           {
             "processus_id": "P-08",
-            "type": "B",
+            "type": "E",
             "vague": "aucune",
             "rang": 0,
             "risque": "faible",
-            "score": "0.5688",
-            "gain_mensuel": "305.99",
-            "gain_annuel": "3671.88",
-            "delai_retour_mois": "19.2",
+            "score": "0.2000",
+            "gain_mensuel": "0",
+            "gain_annuel": "0",
+            "delai_retour_mois": "0",
             "cout_annee_1": "5874.00",
-            "deconseille": ""
+            "deconseille": "volume_insuffisant"
           },
           {
             "processus_id": "P-09",
@@ -3460,116 +3207,116 @@
             "vague": "aucune",
             "rang": 0,
             "risque": "faible",
-            "score": "0.0981",
-            "gain_mensuel": "12.49",
-            "gain_annuel": "149.88",
-            "delai_retour_mois": "394.9",
+            "score": "0.0950",
+            "gain_mensuel": "0",
+            "gain_annuel": "0",
+            "delai_retour_mois": "0",
             "cout_annee_1": "4932.00",
             "deconseille": "volume_insuffisant"
           },
           {
             "processus_id": "P-10",
-            "type": "C",
+            "type": "E",
             "vague": "aucune",
             "rang": 0,
             "risque": "faible",
-            "score": "0.3626",
-            "gain_mensuel": "380.76",
-            "gain_annuel": "4569.12",
-            "delai_retour_mois": "29.5",
+            "score": "0.0950",
+            "gain_mensuel": "0",
+            "gain_annuel": "0",
+            "delai_retour_mois": "0",
             "cout_annee_1": "11232.00",
-            "deconseille": ""
+            "deconseille": "volume_insuffisant"
           },
           {
             "processus_id": "P-11",
-            "type": "B",
+            "type": "E",
             "vague": "aucune",
             "rang": 0,
             "risque": "faible",
-            "score": "0.6210",
-            "gain_mensuel": "382.45",
-            "gain_annuel": "4589.40",
-            "delai_retour_mois": "13.2",
+            "score": "0.2000",
+            "gain_mensuel": "0",
+            "gain_annuel": "0",
+            "delai_retour_mois": "0",
             "cout_annee_1": "5052.00",
-            "deconseille": ""
+            "deconseille": "volume_insuffisant"
           },
           {
             "processus_id": "P-12",
-            "type": "B",
+            "type": "E",
             "vague": "aucune",
             "rang": 0,
             "risque": "faible",
-            "score": "0.6145",
-            "gain_mensuel": "425.70",
-            "gain_annuel": "5108.40",
-            "delai_retour_mois": "16.3",
+            "score": "0.2000",
+            "gain_mensuel": "0",
+            "gain_annuel": "0",
+            "delai_retour_mois": "0",
             "cout_annee_1": "6936.00",
-            "deconseille": ""
+            "deconseille": "volume_insuffisant"
           },
           {
             "processus_id": "P-13",
-            "type": "A",
+            "type": "E",
             "vague": "aucune",
             "rang": 0,
             "risque": "faible",
-            "score": "0.6052",
-            "gain_mensuel": "401.63",
-            "gain_annuel": "4819.56",
-            "delai_retour_mois": "7.0",
+            "score": "0.0950",
+            "gain_mensuel": "0",
+            "gain_annuel": "0",
+            "delai_retour_mois": "0",
             "cout_annee_1": "2808.00",
-            "deconseille": ""
+            "deconseille": "volume_insuffisant"
           },
           {
             "processus_id": "P-14",
-            "type": "A",
+            "type": "E",
             "vague": "aucune",
             "rang": 0,
             "risque": "faible",
-            "score": "0.7135",
-            "gain_mensuel": "257.39",
-            "gain_annuel": "3088.68",
+            "score": "0.2000",
+            "gain_mensuel": "0",
+            "gain_annuel": "0",
             "delai_retour_mois": "0",
             "cout_annee_1": "0.00",
-            "deconseille": ""
+            "deconseille": "volume_insuffisant"
           },
           {
             "processus_id": "P-15",
-            "type": "D",
+            "type": "E",
             "vague": "aucune",
             "rang": 0,
             "risque": "eleve",
-            "score": "0.2965",
-            "gain_mensuel": "379.81",
-            "gain_annuel": "4557.72",
-            "delai_retour_mois": "30.1",
+            "score": "0.0950",
+            "gain_mensuel": "0",
+            "gain_annuel": "0",
+            "delai_retour_mois": "0",
             "cout_annee_1": "11424.00",
-            "deconseille": ""
+            "deconseille": "volume_insuffisant"
           },
           {
             "processus_id": "P-16",
-            "type": "B",
+            "type": "E",
             "vague": "aucune",
             "rang": 0,
             "risque": "faible",
-            "score": "0.6325",
-            "gain_mensuel": "354.58",
-            "gain_annuel": "4254.96",
-            "delai_retour_mois": "9.9",
+            "score": "0.2000",
+            "gain_mensuel": "0",
+            "gain_annuel": "0",
+            "delai_retour_mois": "0",
             "cout_annee_1": "3510.00",
-            "deconseille": ""
+            "deconseille": "volume_insuffisant"
           },
           {
             "processus_id": "P-17",
-            "type": "B",
+            "type": "E",
             "vague": "aucune",
             "rang": 0,
             "risque": "faible",
-            "score": "0.6023",
-            "gain_mensuel": "372.00",
-            "gain_annuel": "4464.00",
-            "delai_retour_mois": "16.1",
+            "score": "0.2000",
+            "gain_mensuel": "0",
+            "gain_annuel": "0",
+            "delai_retour_mois": "0",
             "cout_annee_1": "5994.00",
-            "deconseille": ""
+            "deconseille": "volume_insuffisant"
           },
           {
             "processus_id": "P-18",
@@ -3577,25 +3324,25 @@
             "vague": "aucune",
             "rang": 0,
             "risque": "eleve",
-            "score": "0.0731",
-            "gain_mensuel": "73.14",
-            "gain_annuel": "877.68",
-            "delai_retour_mois": "115.2",
+            "score": "0.0550",
+            "gain_mensuel": "0",
+            "gain_annuel": "0",
+            "delai_retour_mois": "0",
             "cout_annee_1": "8424.00",
             "deconseille": "obligation_legale"
           },
           {
             "processus_id": "P-19",
-            "type": "B",
+            "type": "E",
             "vague": "aucune",
             "rang": 0,
             "risque": "faible",
-            "score": "0.8811",
-            "gain_mensuel": "1418.63",
-            "gain_annuel": "17023.56",
-            "delai_retour_mois": "12.4",
+            "score": "0.2000",
+            "gain_mensuel": "0",
+            "gain_annuel": "0",
+            "delai_retour_mois": "0",
             "cout_annee_1": "17640.00",
-            "deconseille": ""
+            "deconseille": "volume_insuffisant"
           },
           {
             "processus_id": "P-20",
@@ -3603,25 +3350,25 @@
             "vague": "aucune",
             "rang": 0,
             "risque": "moyen",
-            "score": "0.1298",
-            "gain_mensuel": "141.02",
-            "gain_annuel": "1692.24",
-            "delai_retour_mois": "69.7",
+            "score": "0.0950",
+            "gain_mensuel": "0",
+            "gain_annuel": "0",
+            "delai_retour_mois": "0",
             "cout_annee_1": "9828.00",
             "deconseille": "dependance_externe"
           },
           {
             "processus_id": "P-21",
-            "type": "D",
+            "type": "E",
             "vague": "aucune",
             "rang": 0,
             "risque": "eleve",
-            "score": "0.5239",
-            "gain_mensuel": "815.00",
-            "gain_annuel": "9780.00",
-            "delai_retour_mois": "27.4",
+            "score": "0.2000",
+            "gain_mensuel": "0",
+            "gain_annuel": "0",
+            "delai_retour_mois": "0",
             "cout_annee_1": "22350.00",
-            "deconseille": ""
+            "deconseille": "volume_insuffisant"
           },
           {
             "processus_id": "P-22",
@@ -3629,61 +3376,28 @@
             "vague": "aucune",
             "rang": 0,
             "risque": "eleve",
-            "score": "0.2219",
-            "gain_mensuel": "88.70",
-            "gain_annuel": "1064.40",
-            "delai_retour_mois": "79.1",
+            "score": "0.2000",
+            "gain_mensuel": "0",
+            "gain_annuel": "0",
+            "delai_retour_mois": "0",
             "cout_annee_1": "7020.00",
             "deconseille": "volume_insuffisant"
           },
           {
             "processus_id": "P-23",
-            "type": "B",
+            "type": "E",
             "vague": "aucune",
             "rang": 0,
             "risque": "faible",
-            "score": "0.4898",
-            "gain_mensuel": "388.50",
-            "gain_annuel": "4662.00",
-            "delai_retour_mois": "18.2",
+            "score": "0.0950",
+            "gain_mensuel": "0",
+            "gain_annuel": "0",
+            "delai_retour_mois": "0",
             "cout_annee_1": "7056.00",
-            "deconseille": ""
+            "deconseille": "volume_insuffisant"
           }
         ],
-        "vagues": [
-          {
-            "vague": "vague_1",
-            "nb_projets": 2,
-            "cout_total": "1950.00",
-            "gain_annuel_total": "16318.68",
-            "processus": [
-              "P-07",
-              "P-14"
-            ]
-          },
-          {
-            "vague": "vague_2",
-            "nb_projets": 4,
-            "cout_total": "34662.00",
-            "gain_annuel_total": "33645.84",
-            "processus": [
-              "P-19",
-              "P-01",
-              "P-16",
-              "P-11"
-            ]
-          },
-          {
-            "vague": "vague_3",
-            "nb_projets": 2,
-            "cout_total": "33774.00",
-            "gain_annuel_total": "14337.72",
-            "processus": [
-              "P-21",
-              "P-15"
-            ]
-          }
-        ],
+        "vagues": [],
         "tendances": [
           {
             "processus_id": "P-01",
@@ -3962,14 +3676,11 @@
             "13.3",
             "17.6"
           ],
-          "gain_mensuel": "648.16",
-          "gain_mensuel_intervalle": [
-            "557",
-            "740"
-          ],
-          "gain_annuel": "7777.92",
-          "gain_naif_mensuel": "1435.14",
-          "ecart_naif": "2.21",
+          "gain_mensuel": "None",
+          "gain_mensuel_intervalle": null,
+          "gain_annuel": "None",
+          "gain_naif_mensuel": "None",
+          "ecart_naif": "None",
           "cout": {
             "developpement": "6500.00",
             "outil_annuel": "1440.00",
@@ -3977,35 +3688,14 @@
             "annee_1": "8460.00",
             "recurrent": "1960.00"
           },
-          "delai_retour_mois": "13.1",
-          "delai_retour_naif_mois": "5.9",
-          "gain_trois_ans": "10953.76",
+          "delai_retour_mois": "None",
+          "delai_retour_naif_mois": "None",
+          "gain_trois_ans": "None",
           "tirages_monte_carlo": 10000
         },
-        "faisabilite": {
-          "type": "B",
-          "motifs_decision": [
-            "une API ou un flux natif existe et couvre le besoin"
-          ],
-          "api_existe": true,
-          "interface_stable": true,
-          "jugement_requis": false,
-          "risque": "faible",
-          "score_priorite": "0.6871",
-          "criteres": {
-            "gain": "0.4569",
-            "faisabilite": "0.80",
-            "rapidite": "0.6361111111111111111111111111",
-            "visibilite": "1.0",
-            "securite_juridique": "1"
-          }
-        },
+        "faisabilite": {},
         "recommandation": {
-          "vague": "vague_2",
-          "rang": 2,
-          "gain_mensuel": "648.16",
-          "cout_annee_1": "8460.00",
-          "retour_mois": "13.1"
+          "vague": "aucune"
         },
         "confidentialite": "Mesure aggregatee au-dessus du seuil k >= 5. Aucune attribution individuelle. Pseudonymisation appliquee a l'ingestion, avant tout modele."
       }
@@ -4082,14 +3772,11 @@
             "0.5",
             "3.0"
           ],
-          "gain_mensuel": "71.50",
-          "gain_mensuel_intervalle": [
-            "19",
-            "124"
-          ],
-          "gain_annuel": "858.00",
-          "gain_naif_mensuel": "911.90",
-          "ecart_naif": "12.75",
+          "gain_mensuel": "None",
+          "gain_mensuel_intervalle": null,
+          "gain_annuel": "None",
+          "gain_naif_mensuel": "None",
+          "ecart_naif": "None",
           "cout": {
             "developpement": "19500.00",
             "outil_annuel": "5400.00",
@@ -4097,9 +3784,9 @@
             "annee_1": "26460.00",
             "recurrent": "6960.00"
           },
-          "delai_retour_mois": "370.1",
-          "delai_retour_naif_mois": "29.0",
-          "gain_trois_ans": "-37806.00",
+          "delai_retour_mois": "None",
+          "delai_retour_naif_mois": "None",
+          "gain_trois_ans": "None",
           "tirages_monte_carlo": 10000
         },
         "faisabilite": {},
@@ -4171,14 +3858,11 @@
             "7.5",
             "10.6"
           ],
-          "gain_mensuel": "379.97",
-          "gain_mensuel_intervalle": [
-            "316",
-            "444"
-          ],
-          "gain_annuel": "4559.64",
-          "gain_naif_mensuel": "1010.94",
-          "ecart_naif": "2.66",
+          "gain_mensuel": "None",
+          "gain_mensuel_intervalle": null,
+          "gain_annuel": "None",
+          "gain_naif_mensuel": "None",
+          "ecart_naif": "None",
           "cout": {
             "developpement": "5850.00",
             "outil_annuel": "0.00",
@@ -4186,35 +3870,14 @@
             "annee_1": "6318.00",
             "recurrent": "468.00"
           },
-          "delai_retour_mois": "16.6",
-          "delai_retour_naif_mois": "6.2",
-          "gain_trois_ans": "6424.92",
+          "delai_retour_mois": "None",
+          "delai_retour_naif_mois": "None",
+          "gain_trois_ans": "None",
           "tirages_monte_carlo": 10000
         },
-        "faisabilite": {
-          "type": "B",
-          "motifs_decision": [
-            "une API ou un flux natif existe et couvre le besoin"
-          ],
-          "api_existe": true,
-          "interface_stable": true,
-          "jugement_requis": false,
-          "risque": "faible",
-          "score_priorite": "0.6015",
-          "criteres": {
-            "gain": "0.2678",
-            "faisabilite": "0.80",
-            "rapidite": "0.5388888888888888888888888889",
-            "visibilite": "1.0",
-            "securite_juridique": "1"
-          }
-        },
+        "faisabilite": {},
         "recommandation": {
-          "vague": "aucune",
-          "rang": 0,
-          "gain_mensuel": "379.97",
-          "cout_annee_1": "6318.00",
-          "retour_mois": "16.6"
+          "vague": "aucune"
         },
         "confidentialite": "Mesure aggregatee au-dessus du seuil k >= 5. Aucune attribution individuelle. Pseudonymisation appliquee a l'ingestion, avant tout modele."
       }
@@ -4280,14 +3943,11 @@
             "5.6",
             "6.7"
           ],
-          "gain_mensuel": "258.08",
-          "gain_mensuel_intervalle": [
-            "235",
-            "282"
-          ],
-          "gain_annuel": "3096.96",
-          "gain_naif_mensuel": "373.80",
-          "ecart_naif": "1.45",
+          "gain_mensuel": "None",
+          "gain_mensuel_intervalle": null,
+          "gain_annuel": "None",
+          "gain_naif_mensuel": "None",
+          "ecart_naif": "None",
           "cout": {
             "developpement": "5200.00",
             "outil_annuel": "1080.00",
@@ -4295,35 +3955,14 @@
             "annee_1": "6696.00",
             "recurrent": "1496.00"
           },
-          "delai_retour_mois": "25.9",
-          "delai_retour_naif_mois": "17.9",
-          "gain_trois_ans": "-397.12",
+          "delai_retour_mois": "None",
+          "delai_retour_naif_mois": "None",
+          "gain_trois_ans": "None",
           "tirages_monte_carlo": 10000
         },
-        "faisabilite": {
-          "type": "B",
-          "motifs_decision": [
-            "une API ou un flux natif existe et couvre le besoin"
-          ],
-          "api_existe": true,
-          "interface_stable": true,
-          "jugement_requis": false,
-          "risque": "faible",
-          "score_priorite": "0.4148",
-          "criteres": {
-            "gain": "0.1819",
-            "faisabilite": "0.80",
-            "rapidite": "0.2805555555555555555555555556",
-            "visibilite": "0.3",
-            "securite_juridique": "1"
-          }
-        },
+        "faisabilite": {},
         "recommandation": {
-          "vague": "aucune",
-          "rang": 0,
-          "gain_mensuel": "258.08",
-          "cout_annee_1": "6696.00",
-          "retour_mois": "25.9"
+          "vague": "aucune"
         },
         "confidentialite": "Mesure aggregatee au-dessus du seuil k >= 5. Aucune attribution individuelle. Pseudonymisation appliquee a l'ingestion, avant tout modele."
       }
@@ -4400,14 +4039,11 @@
             "6.3",
             "8.7"
           ],
-          "gain_mensuel": "315.53",
-          "gain_mensuel_intervalle": [
-            "265",
-            "366"
-          ],
-          "gain_annuel": "3786.36",
-          "gain_naif_mensuel": "866.25",
-          "ecart_naif": "2.75",
+          "gain_mensuel": "None",
+          "gain_mensuel_intervalle": null,
+          "gain_annuel": "None",
+          "gain_naif_mensuel": "None",
+          "ecart_naif": "None",
           "cout": {
             "developpement": "5200.00",
             "outil_annuel": "1440.00",
@@ -4415,35 +4051,14 @@
             "annee_1": "7056.00",
             "recurrent": "1856.00"
           },
-          "delai_retour_mois": "22.4",
-          "delai_retour_naif_mois": "8.1",
-          "gain_trois_ans": "591.08",
+          "delai_retour_mois": "None",
+          "delai_retour_naif_mois": "None",
+          "gain_trois_ans": "None",
           "tirages_monte_carlo": 10000
         },
-        "faisabilite": {
-          "type": "B",
-          "motifs_decision": [
-            "une API ou un flux natif existe et couvre le besoin"
-          ],
-          "api_existe": true,
-          "interface_stable": true,
-          "jugement_requis": false,
-          "risque": "faible",
-          "score_priorite": "0.4484",
-          "criteres": {
-            "gain": "0.2224",
-            "faisabilite": "0.80",
-            "rapidite": "0.3777777777777777777777777778",
-            "visibilite": "0.3",
-            "securite_juridique": "1"
-          }
-        },
+        "faisabilite": {},
         "recommandation": {
-          "vague": "aucune",
-          "rang": 0,
-          "gain_mensuel": "315.53",
-          "cout_annee_1": "7056.00",
-          "retour_mois": "22.4"
+          "vague": "aucune"
         },
         "confidentialite": "Mesure aggregatee au-dessus du seuil k >= 5. Aucune attribution individuelle. Pseudonymisation appliquee a l'ingestion, avant tout modele."
       }
@@ -4520,14 +4135,11 @@
             "0.4",
             "2.1"
           ],
-          "gain_mensuel": "52.98",
-          "gain_mensuel_intervalle": [
-            "19",
-            "88"
-          ],
-          "gain_annuel": "635.76",
-          "gain_naif_mensuel": "599.76",
-          "ecart_naif": "11.32",
+          "gain_mensuel": "None",
+          "gain_mensuel_intervalle": null,
+          "gain_annuel": "None",
+          "gain_naif_mensuel": "None",
+          "ecart_naif": "None",
           "cout": {
             "developpement": "11700.00",
             "outil_annuel": "2400.00",
@@ -4535,9 +4147,9 @@
             "annee_1": "15036.00",
             "recurrent": "3336.00"
           },
-          "delai_retour_mois": "283.8",
-          "delai_retour_naif_mois": "25.1",
-          "gain_trois_ans": "-19800.72",
+          "delai_retour_mois": "None",
+          "delai_retour_naif_mois": "None",
+          "gain_trois_ans": "None",
           "tirages_monte_carlo": 10000
         },
         "faisabilite": {},
@@ -4606,14 +4218,11 @@
             "23.5",
             "29.2"
           ],
-          "gain_mensuel": "1102.50",
-          "gain_mensuel_intervalle": [
-            "985",
-            "1228"
-          ],
-          "gain_annuel": "13230.00",
-          "gain_naif_mensuel": "1575.00",
-          "ecart_naif": "1.43",
+          "gain_mensuel": "None",
+          "gain_mensuel_intervalle": null,
+          "gain_annuel": "None",
+          "gain_naif_mensuel": "None",
+          "ecart_naif": "None",
           "cout": {
             "developpement": "1950.00",
             "outil_annuel": "0.00",
@@ -4621,35 +4230,14 @@
             "annee_1": "1950.00",
             "recurrent": "0.00"
           },
-          "delai_retour_mois": "1.8",
-          "delai_retour_naif_mois": "1.2",
-          "gain_trois_ans": "37740.00",
+          "delai_retour_mois": "None",
+          "delai_retour_naif_mois": "None",
+          "gain_trois_ans": "None",
           "tirages_monte_carlo": 10000
         },
-        "faisabilite": {
-          "type": "A",
-          "motifs_decision": [
-            "l'etape peut etre supprimee en amont"
-          ],
-          "api_existe": true,
-          "interface_stable": true,
-          "jugement_requis": false,
-          "risque": "faible",
-          "score_priorite": "0.9120",
-          "criteres": {
-            "gain": "0.7772",
-            "faisabilite": "1.00",
-            "rapidite": "0.95",
-            "visibilite": "1.0",
-            "securite_juridique": "1"
-          }
-        },
+        "faisabilite": {},
         "recommandation": {
-          "vague": "vague_1",
-          "rang": 1,
-          "gain_mensuel": "1102.50",
-          "cout_annee_1": "1950.00",
-          "retour_mois": "1.8"
+          "vague": "aucune"
         },
         "confidentialite": "Mesure aggregatee au-dessus du seuil k >= 5. Aucune attribution individuelle. Pseudonymisation appliquee a l'ingestion, avant tout modele."
       }
@@ -4715,14 +4303,11 @@
             "6.6",
             "8.0"
           ],
-          "gain_mensuel": "305.99",
-          "gain_mensuel_intervalle": [
-            "277",
-            "336"
-          ],
-          "gain_annuel": "3671.88",
-          "gain_naif_mensuel": "452.40",
-          "ecart_naif": "1.48",
+          "gain_mensuel": "None",
+          "gain_mensuel_intervalle": null,
+          "gain_annuel": "None",
+          "gain_naif_mensuel": "None",
+          "ecart_naif": "None",
           "cout": {
             "developpement": "4550.00",
             "outil_annuel": "960.00",
@@ -4730,35 +4315,14 @@
             "annee_1": "5874.00",
             "recurrent": "1324.00"
           },
-          "delai_retour_mois": "19.2",
-          "delai_retour_naif_mois": "13.0",
-          "gain_trois_ans": "2493.64",
+          "delai_retour_mois": "None",
+          "delai_retour_naif_mois": "None",
+          "gain_trois_ans": "None",
           "tirages_monte_carlo": 10000
         },
-        "faisabilite": {
-          "type": "B",
-          "motifs_decision": [
-            "une API ou un flux natif existe et couvre le besoin"
-          ],
-          "api_existe": true,
-          "interface_stable": true,
-          "jugement_requis": false,
-          "risque": "faible",
-          "score_priorite": "0.5688",
-          "criteres": {
-            "gain": "0.2157",
-            "faisabilite": "0.80",
-            "rapidite": "0.4666666666666666666666666667",
-            "visibilite": "1.0",
-            "securite_juridique": "1"
-          }
-        },
+        "faisabilite": {},
         "recommandation": {
-          "vague": "aucune",
-          "rang": 0,
-          "gain_mensuel": "305.99",
-          "cout_annee_1": "5874.00",
-          "retour_mois": "19.2"
+          "vague": "aucune"
         },
         "confidentialite": "Mesure aggregatee au-dessus du seuil k >= 5. Aucune attribution individuelle. Pseudonymisation appliquee a l'ingestion, avant tout modele."
       }
@@ -4811,14 +4375,11 @@
             "0.2",
             "0.4"
           ],
-          "gain_mensuel": "12.49",
-          "gain_mensuel_intervalle": [
-            "8",
-            "18"
-          ],
-          "gain_annuel": "149.88",
-          "gain_naif_mensuel": "51.69",
-          "ecart_naif": "4.14",
+          "gain_mensuel": "None",
+          "gain_mensuel_intervalle": null,
+          "gain_annuel": "None",
+          "gain_naif_mensuel": "None",
+          "ecart_naif": "None",
           "cout": {
             "developpement": "3900.00",
             "outil_annuel": "720.00",
@@ -4826,9 +4387,9 @@
             "annee_1": "4932.00",
             "recurrent": "1032.00"
           },
-          "delai_retour_mois": "394.9",
-          "delai_retour_naif_mois": "95.4",
-          "gain_trois_ans": "-6546.36",
+          "delai_retour_mois": "None",
+          "delai_retour_naif_mois": "None",
+          "gain_trois_ans": "None",
           "tirages_monte_carlo": 10000
         },
         "faisabilite": {},
@@ -4908,14 +4469,11 @@
             "7.6",
             "10.5"
           ],
-          "gain_mensuel": "380.76",
-          "gain_mensuel_intervalle": [
-            "321",
-            "441"
-          ],
-          "gain_annuel": "4569.12",
-          "gain_naif_mensuel": "999.60",
-          "ecart_naif": "2.63",
+          "gain_mensuel": "None",
+          "gain_mensuel_intervalle": null,
+          "gain_annuel": "None",
+          "gain_naif_mensuel": "None",
+          "ecart_naif": "None",
           "cout": {
             "developpement": "10400.00",
             "outil_annuel": "0.00",
@@ -4923,35 +4481,14 @@
             "annee_1": "11232.00",
             "recurrent": "832.00"
           },
-          "delai_retour_mois": "29.5",
-          "delai_retour_naif_mois": "11.2",
-          "gain_trois_ans": "811.36",
+          "delai_retour_mois": "None",
+          "delai_retour_naif_mois": "None",
+          "gain_trois_ans": "None",
           "tirages_monte_carlo": 10000
         },
-        "faisabilite": {
-          "type": "C",
-          "motifs_decision": [
-            "aucune API, travail deterministe et repetitif, interface stable"
-          ],
-          "api_existe": false,
-          "interface_stable": true,
-          "jugement_requis": false,
-          "risque": "faible",
-          "score_priorite": "0.3626",
-          "criteres": {
-            "gain": "0.2684",
-            "faisabilite": "0.55",
-            "rapidite": "0.1805555555555555555555555556",
-            "visibilite": "0.3",
-            "securite_juridique": "1"
-          }
-        },
+        "faisabilite": {},
         "recommandation": {
-          "vague": "aucune",
-          "rang": 0,
-          "gain_mensuel": "380.76",
-          "cout_annee_1": "11232.00",
-          "retour_mois": "29.5"
+          "vague": "aucune"
         },
         "confidentialite": "Mesure aggregatee au-dessus du seuil k >= 5. Aucune attribution individuelle. Pseudonymisation appliquee a l'ingestion, avant tout modele."
       }
@@ -5028,14 +4565,11 @@
             "8.3",
             "9.9"
           ],
-          "gain_mensuel": "382.45",
-          "gain_mensuel_intervalle": [
-            "349",
-            "416"
-          ],
-          "gain_annuel": "4589.40",
-          "gain_naif_mensuel": "519.82",
-          "ecart_naif": "1.36",
+          "gain_mensuel": "None",
+          "gain_mensuel_intervalle": null,
+          "gain_annuel": "None",
+          "gain_naif_mensuel": "None",
+          "ecart_naif": "None",
           "cout": {
             "developpement": "3900.00",
             "outil_annuel": "840.00",
@@ -5043,35 +4577,14 @@
             "annee_1": "5052.00",
             "recurrent": "1152.00"
           },
-          "delai_retour_mois": "13.2",
-          "delai_retour_naif_mois": "9.7",
-          "gain_trois_ans": "6412.20",
+          "delai_retour_mois": "None",
+          "delai_retour_naif_mois": "None",
+          "gain_trois_ans": "None",
           "tirages_monte_carlo": 10000
         },
-        "faisabilite": {
-          "type": "B",
-          "motifs_decision": [
-            "une API ou un flux natif existe et couvre le besoin"
-          ],
-          "api_existe": true,
-          "interface_stable": true,
-          "jugement_requis": false,
-          "risque": "faible",
-          "score_priorite": "0.6210",
-          "criteres": {
-            "gain": "0.2696",
-            "faisabilite": "0.80",
-            "rapidite": "0.6333333333333333333333333333",
-            "visibilite": "1.0",
-            "securite_juridique": "1"
-          }
-        },
+        "faisabilite": {},
         "recommandation": {
-          "vague": "vague_2",
-          "rang": 4,
-          "gain_mensuel": "382.45",
-          "cout_annee_1": "5052.00",
-          "retour_mois": "13.2"
+          "vague": "aucune"
         },
         "confidentialite": "Mesure aggregatee au-dessus du seuil k >= 5. Aucune attribution individuelle. Pseudonymisation appliquee a l'ingestion, avant tout modele."
       }
@@ -5146,14 +4659,11 @@
             "9.2",
             "11.1"
           ],
-          "gain_mensuel": "425.70",
-          "gain_mensuel_intervalle": [
-            "386",
-            "466"
-          ],
-          "gain_annuel": "5108.40",
-          "gain_naif_mensuel": "632.06",
-          "ecart_naif": "1.48",
+          "gain_mensuel": "None",
+          "gain_mensuel_intervalle": null,
+          "gain_annuel": "None",
+          "gain_naif_mensuel": "None",
+          "ecart_naif": "None",
           "cout": {
             "developpement": "5200.00",
             "outil_annuel": "1320.00",
@@ -5161,35 +4671,14 @@
             "annee_1": "6936.00",
             "recurrent": "1736.00"
           },
-          "delai_retour_mois": "16.3",
-          "delai_retour_naif_mois": "11.0",
-          "gain_trois_ans": "4917.20",
+          "delai_retour_mois": "None",
+          "delai_retour_naif_mois": "None",
+          "gain_trois_ans": "None",
           "tirages_monte_carlo": 10000
         },
-        "faisabilite": {
-          "type": "B",
-          "motifs_decision": [
-            "une API ou un flux natif existe et couvre le besoin"
-          ],
-          "api_existe": true,
-          "interface_stable": true,
-          "jugement_requis": false,
-          "risque": "faible",
-          "score_priorite": "0.6145",
-          "criteres": {
-            "gain": "0.3001",
-            "faisabilite": "0.80",
-            "rapidite": "0.5472222222222222222222222222",
-            "visibilite": "1.0",
-            "securite_juridique": "1"
-          }
-        },
+        "faisabilite": {},
         "recommandation": {
-          "vague": "aucune",
-          "rang": 0,
-          "gain_mensuel": "425.70",
-          "cout_annee_1": "6936.00",
-          "retour_mois": "16.3"
+          "vague": "aucune"
         },
         "confidentialite": "Mesure aggregatee au-dessus du seuil k >= 5. Aucune attribution individuelle. Pseudonymisation appliquee a l'ingestion, avant tout modele."
       }
@@ -5253,14 +4742,11 @@
             "9.0",
             "10.2"
           ],
-          "gain_mensuel": "401.63",
-          "gain_mensuel_intervalle": [
-            "376",
-            "428"
-          ],
-          "gain_annuel": "4819.56",
-          "gain_naif_mensuel": "472.50",
-          "ecart_naif": "1.18",
+          "gain_mensuel": "None",
+          "gain_mensuel_intervalle": null,
+          "gain_annuel": "None",
+          "gain_naif_mensuel": "None",
+          "ecart_naif": "None",
           "cout": {
             "developpement": "2600.00",
             "outil_annuel": "0.00",
@@ -5268,35 +4754,14 @@
             "annee_1": "2808.00",
             "recurrent": "208.00"
           },
-          "delai_retour_mois": "7.0",
-          "delai_retour_naif_mois": "5.9",
-          "gain_trois_ans": "11234.68",
+          "delai_retour_mois": "None",
+          "delai_retour_naif_mois": "None",
+          "gain_trois_ans": "None",
           "tirages_monte_carlo": 10000
         },
-        "faisabilite": {
-          "type": "A",
-          "motifs_decision": [
-            "l'etape peut etre supprimee en amont"
-          ],
-          "api_existe": false,
-          "interface_stable": true,
-          "jugement_requis": false,
-          "risque": "faible",
-          "score_priorite": "0.6052",
-          "criteres": {
-            "gain": "0.2831",
-            "faisabilite": "1.00",
-            "rapidite": "0.8055555555555555555555555556",
-            "visibilite": "0.3",
-            "securite_juridique": "1"
-          }
-        },
+        "faisabilite": {},
         "recommandation": {
-          "vague": "aucune",
-          "rang": 0,
-          "gain_mensuel": "401.63",
-          "cout_annee_1": "2808.00",
-          "retour_mois": "7.0"
+          "vague": "aucune"
         },
         "confidentialite": "Mesure aggregatee au-dessus du seuil k >= 5. Aucune attribution individuelle. Pseudonymisation appliquee a l'ingestion, avant tout modele."
       }
@@ -5358,14 +4823,11 @@
             "5.7",
             "6.6"
           ],
-          "gain_mensuel": "257.39",
-          "gain_mensuel_intervalle": [
-            "240",
-            "275"
-          ],
-          "gain_annuel": "3088.68",
-          "gain_naif_mensuel": "367.71",
-          "ecart_naif": "1.43",
+          "gain_mensuel": "None",
+          "gain_mensuel_intervalle": null,
+          "gain_annuel": "None",
+          "gain_naif_mensuel": "None",
+          "ecart_naif": "None",
           "cout": {
             "developpement": "0.00",
             "outil_annuel": "0.00",
@@ -5373,35 +4835,14 @@
             "annee_1": "0.00",
             "recurrent": "0.00"
           },
-          "delai_retour_mois": "0.0",
-          "delai_retour_naif_mois": "0.0",
-          "gain_trois_ans": "9266.04",
+          "delai_retour_mois": "None",
+          "delai_retour_naif_mois": "None",
+          "gain_trois_ans": "None",
           "tirages_monte_carlo": 10000
         },
-        "faisabilite": {
-          "type": "A",
-          "motifs_decision": [
-            "l'etape peut etre supprimee en amont"
-          ],
-          "api_existe": false,
-          "interface_stable": true,
-          "jugement_requis": false,
-          "risque": "faible",
-          "score_priorite": "0.7135",
-          "criteres": {
-            "gain": "0.1814",
-            "faisabilite": "1.00",
-            "rapidite": "1",
-            "visibilite": "1.0",
-            "securite_juridique": "1"
-          }
-        },
+        "faisabilite": {},
         "recommandation": {
-          "vague": "vague_1",
-          "rang": 2,
-          "gain_mensuel": "257.39",
-          "cout_annee_1": "0.00",
-          "retour_mois": "0.0"
+          "vague": "aucune"
         },
         "confidentialite": "Mesure aggregatee au-dessus du seuil k >= 5. Aucune attribution individuelle. Pseudonymisation appliquee a l'ingestion, avant tout modele."
       }
@@ -5478,14 +4919,11 @@
             "5.2",
             "13.2"
           ],
-          "gain_mensuel": "379.81",
-          "gain_mensuel_intervalle": [
-            "220",
-            "553"
-          ],
-          "gain_annuel": "4557.72",
-          "gain_naif_mensuel": "934.50",
-          "ecart_naif": "2.46",
+          "gain_mensuel": "None",
+          "gain_mensuel_intervalle": null,
+          "gain_annuel": "None",
+          "gain_naif_mensuel": "None",
+          "ecart_naif": "None",
           "cout": {
             "developpement": "7800.00",
             "outil_annuel": "3000.00",
@@ -5493,35 +4931,14 @@
             "annee_1": "11424.00",
             "recurrent": "3624.00"
           },
-          "delai_retour_mois": "30.1",
-          "delai_retour_naif_mois": "12.2",
-          "gain_trois_ans": "-4998.84",
+          "delai_retour_mois": "None",
+          "delai_retour_naif_mois": "None",
+          "gain_trois_ans": "None",
           "tirages_monte_carlo": 10000
         },
-        "faisabilite": {
-          "type": "D",
-          "motifs_decision": [
-            "le travail exige comprehension, langage ou jugement"
-          ],
-          "api_existe": false,
-          "interface_stable": false,
-          "jugement_requis": true,
-          "risque": "eleve",
-          "score_priorite": "0.2965",
-          "criteres": {
-            "gain": "0.2677",
-            "faisabilite": "0.30",
-            "rapidite": "0.1638888888888888888888888889",
-            "visibilite": "0.3",
-            "securite_juridique": "1"
-          }
-        },
+        "faisabilite": {},
         "recommandation": {
-          "vague": "vague_3",
-          "rang": 2,
-          "gain_mensuel": "379.81",
-          "cout_annee_1": "11424.00",
-          "retour_mois": "30.1"
+          "vague": "aucune"
         },
         "confidentialite": "Mesure aggregatee au-dessus du seuil k >= 5. Aucune attribution individuelle. Pseudonymisation appliquee a l'ingestion, avant tout modele."
       }
@@ -5596,14 +5013,11 @@
             "0.0",
             "26.1"
           ],
-          "gain_mensuel": "354.58",
-          "gain_mensuel_intervalle": [
-            "0",
-            "1098"
-          ],
-          "gain_annuel": "4254.96",
-          "gain_naif_mensuel": "720.37",
-          "ecart_naif": "2.03",
+          "gain_mensuel": "None",
+          "gain_mensuel_intervalle": null,
+          "gain_annuel": "None",
+          "gain_naif_mensuel": "None",
+          "ecart_naif": "None",
           "cout": {
             "developpement": "3250.00",
             "outil_annuel": "0.00",
@@ -5611,35 +5025,14 @@
             "annee_1": "3510.00",
             "recurrent": "260.00"
           },
-          "delai_retour_mois": "9.9",
-          "delai_retour_naif_mois": "4.9",
-          "gain_trois_ans": "8734.88",
+          "delai_retour_mois": "None",
+          "delai_retour_naif_mois": "None",
+          "gain_trois_ans": "None",
           "tirages_monte_carlo": 10000
         },
-        "faisabilite": {
-          "type": "B",
-          "motifs_decision": [
-            "une API ou un flux natif existe et couvre le besoin"
-          ],
-          "api_existe": true,
-          "interface_stable": true,
-          "jugement_requis": false,
-          "risque": "faible",
-          "score_priorite": "0.6325",
-          "criteres": {
-            "gain": "0.2499",
-            "faisabilite": "0.80",
-            "rapidite": "0.725",
-            "visibilite": "1.0",
-            "securite_juridique": "1"
-          }
-        },
+        "faisabilite": {},
         "recommandation": {
-          "vague": "vague_2",
-          "rang": 3,
-          "gain_mensuel": "354.58",
-          "cout_annee_1": "3510.00",
-          "retour_mois": "9.9"
+          "vague": "aucune"
         },
         "confidentialite": "Mesure aggregatee au-dessus du seuil k >= 5. Aucune attribution individuelle. Pseudonymisation appliquee a l'ingestion, avant tout modele."
       }
@@ -5714,14 +5107,11 @@
             "7.8",
             "9.9"
           ],
-          "gain_mensuel": "372.00",
-          "gain_mensuel_intervalle": [
-            "329",
-            "415"
-          ],
-          "gain_annuel": "4464.00",
-          "gain_naif_mensuel": "664.53",
-          "ecart_naif": "1.79",
+          "gain_mensuel": "None",
+          "gain_mensuel_intervalle": null,
+          "gain_annuel": "None",
+          "gain_naif_mensuel": "None",
+          "ecart_naif": "None",
           "cout": {
             "developpement": "4550.00",
             "outil_annuel": "1080.00",
@@ -5729,35 +5119,14 @@
             "annee_1": "5994.00",
             "recurrent": "1444.00"
           },
-          "delai_retour_mois": "16.1",
-          "delai_retour_naif_mois": "9.0",
-          "gain_trois_ans": "4510.00",
+          "delai_retour_mois": "None",
+          "delai_retour_naif_mois": "None",
+          "gain_trois_ans": "None",
           "tirages_monte_carlo": 10000
         },
-        "faisabilite": {
-          "type": "B",
-          "motifs_decision": [
-            "une API ou un flux natif existe et couvre le besoin"
-          ],
-          "api_existe": true,
-          "interface_stable": true,
-          "jugement_requis": false,
-          "risque": "faible",
-          "score_priorite": "0.6023",
-          "criteres": {
-            "gain": "0.2622",
-            "faisabilite": "0.80",
-            "rapidite": "0.5527777777777777777777777778",
-            "visibilite": "1.0",
-            "securite_juridique": "1"
-          }
-        },
+        "faisabilite": {},
         "recommandation": {
-          "vague": "aucune",
-          "rang": 0,
-          "gain_mensuel": "372.00",
-          "cout_annee_1": "5994.00",
-          "retour_mois": "16.1"
+          "vague": "aucune"
         },
         "confidentialite": "Mesure aggregatee au-dessus du seuil k >= 5. Aucune attribution individuelle. Pseudonymisation appliquee a l'ingestion, avant tout modele."
       }
@@ -5819,14 +5188,11 @@
             "1.1",
             "2.5"
           ],
-          "gain_mensuel": "73.14",
-          "gain_mensuel_intervalle": [
-            "45",
-            "104"
-          ],
-          "gain_annuel": "877.68",
-          "gain_naif_mensuel": "205.80",
-          "ecart_naif": "2.81",
+          "gain_mensuel": "None",
+          "gain_mensuel_intervalle": null,
+          "gain_annuel": "None",
+          "gain_naif_mensuel": "None",
+          "ecart_naif": "None",
           "cout": {
             "developpement": "7800.00",
             "outil_annuel": "0.00",
@@ -5834,9 +5200,9 @@
             "annee_1": "8424.00",
             "recurrent": "624.00"
           },
-          "delai_retour_mois": "115.2",
-          "delai_retour_naif_mois": "40.9",
-          "gain_trois_ans": "-7038.96",
+          "delai_retour_mois": "None",
+          "delai_retour_naif_mois": "None",
+          "gain_trois_ans": "None",
           "tirages_monte_carlo": 10000
         },
         "faisabilite": {},
@@ -5918,14 +5284,11 @@
             "29.8",
             "37.4"
           ],
-          "gain_mensuel": "1418.63",
-          "gain_mensuel_intervalle": [
-            "1253",
-            "1572"
-          ],
-          "gain_annuel": "17023.56",
-          "gain_naif_mensuel": "1737.79",
-          "ecart_naif": "1.22",
+          "gain_mensuel": "None",
+          "gain_mensuel_intervalle": null,
+          "gain_annuel": "None",
+          "gain_naif_mensuel": "None",
+          "ecart_naif": "None",
           "cout": {
             "developpement": "13000.00",
             "outil_annuel": "3600.00",
@@ -5933,35 +5296,14 @@
             "annee_1": "17640.00",
             "recurrent": "4640.00"
           },
-          "delai_retour_mois": "12.4",
-          "delai_retour_naif_mois": "10.2",
-          "gain_trois_ans": "24150.68",
+          "delai_retour_mois": "None",
+          "delai_retour_naif_mois": "None",
+          "gain_trois_ans": "None",
           "tirages_monte_carlo": 10000
         },
-        "faisabilite": {
-          "type": "B",
-          "motifs_decision": [
-            "une API ou un flux natif existe et couvre le besoin"
-          ],
-          "api_existe": true,
-          "interface_stable": true,
-          "jugement_requis": false,
-          "risque": "faible",
-          "score_priorite": "0.8811",
-          "criteres": {
-            "gain": "1.0000",
-            "faisabilite": "0.80",
-            "rapidite": "0.6555555555555555555555555556",
-            "visibilite": "1.0",
-            "securite_juridique": "1"
-          }
-        },
+        "faisabilite": {},
         "recommandation": {
-          "vague": "vague_2",
-          "rang": 1,
-          "gain_mensuel": "1418.63",
-          "cout_annee_1": "17640.00",
-          "retour_mois": "12.4"
+          "vague": "aucune"
         },
         "confidentialite": "Mesure aggregatee au-dessus du seuil k >= 5. Aucune attribution individuelle. Pseudonymisation appliquee a l'ingestion, avant tout modele."
       }
@@ -6034,14 +5376,11 @@
             "3.0",
             "3.7"
           ],
-          "gain_mensuel": "141.02",
-          "gain_mensuel_intervalle": [
-            "127",
-            "155"
-          ],
-          "gain_annuel": "1692.24",
-          "gain_naif_mensuel": "214.39",
-          "ecart_naif": "1.52",
+          "gain_mensuel": "None",
+          "gain_mensuel_intervalle": null,
+          "gain_annuel": "None",
+          "gain_naif_mensuel": "None",
+          "ecart_naif": "None",
           "cout": {
             "developpement": "9100.00",
             "outil_annuel": "0.00",
@@ -6049,9 +5388,9 @@
             "annee_1": "9828.00",
             "recurrent": "728.00"
           },
-          "delai_retour_mois": "69.7",
-          "delai_retour_naif_mois": "45.8",
-          "gain_trois_ans": "-6207.28",
+          "delai_retour_mois": "None",
+          "delai_retour_naif_mois": "None",
+          "gain_trois_ans": "None",
           "tirages_monte_carlo": 10000
         },
         "faisabilite": {},
@@ -6131,14 +5470,11 @@
             "16.6",
             "22.2"
           ],
-          "gain_mensuel": "815.00",
-          "gain_mensuel_intervalle": [
-            "696",
-            "934"
-          ],
-          "gain_annuel": "9780.00",
-          "gain_naif_mensuel": "1988.35",
-          "ecart_naif": "2.44",
+          "gain_mensuel": "None",
+          "gain_mensuel_intervalle": null,
+          "gain_annuel": "None",
+          "gain_naif_mensuel": "None",
+          "ecart_naif": "None",
           "cout": {
             "developpement": "16250.00",
             "outil_annuel": "4800.00",
@@ -6146,35 +5482,14 @@
             "annee_1": "22350.00",
             "recurrent": "6100.00"
           },
-          "delai_retour_mois": "27.4",
-          "delai_retour_naif_mois": "11.2",
-          "gain_trois_ans": "-5210.00",
+          "delai_retour_mois": "None",
+          "delai_retour_naif_mois": "None",
+          "gain_trois_ans": "None",
           "tirages_monte_carlo": 10000
         },
-        "faisabilite": {
-          "type": "D",
-          "motifs_decision": [
-            "le travail exige comprehension, langage ou jugement"
-          ],
-          "api_existe": false,
-          "interface_stable": false,
-          "jugement_requis": true,
-          "risque": "eleve",
-          "score_priorite": "0.5239",
-          "criteres": {
-            "gain": "0.5745",
-            "faisabilite": "0.30",
-            "rapidite": "0.2388888888888888888888888889",
-            "visibilite": "1.0",
-            "securite_juridique": "1"
-          }
-        },
+        "faisabilite": {},
         "recommandation": {
-          "vague": "vague_3",
-          "rang": 1,
-          "gain_mensuel": "815.00",
-          "cout_annee_1": "22350.00",
-          "retour_mois": "27.4"
+          "vague": "aucune"
         },
         "confidentialite": "Mesure aggregatee au-dessus du seuil k >= 5. Aucune attribution individuelle. Pseudonymisation appliquee a l'ingestion, avant tout modele."
       }
@@ -6234,14 +5549,11 @@
             "1.3",
             "3.1"
           ],
-          "gain_mensuel": "88.70",
-          "gain_mensuel_intervalle": [
-            "53",
-            "131"
-          ],
-          "gain_annuel": "1064.40",
-          "gain_naif_mensuel": "221.76",
-          "ecart_naif": "2.50",
+          "gain_mensuel": "None",
+          "gain_mensuel_intervalle": null,
+          "gain_annuel": "None",
+          "gain_naif_mensuel": "None",
+          "ecart_naif": "None",
           "cout": {
             "developpement": "6500.00",
             "outil_annuel": "0.00",
@@ -6249,9 +5561,9 @@
             "annee_1": "7020.00",
             "recurrent": "520.00"
           },
-          "delai_retour_mois": "79.1",
-          "delai_retour_naif_mois": "31.7",
-          "gain_trois_ans": "-4866.80",
+          "delai_retour_mois": "None",
+          "delai_retour_naif_mois": "None",
+          "gain_trois_ans": "None",
           "tirages_monte_carlo": 10000
         },
         "faisabilite": {},
@@ -6331,14 +5643,11 @@
             "8.3",
             "10.2"
           ],
-          "gain_mensuel": "388.50",
-          "gain_mensuel_intervalle": [
-            "351",
-            "427"
-          ],
-          "gain_annuel": "4662.00",
-          "gain_naif_mensuel": "556.87",
-          "ecart_naif": "1.43",
+          "gain_mensuel": "None",
+          "gain_mensuel_intervalle": null,
+          "gain_annuel": "None",
+          "gain_naif_mensuel": "None",
+          "ecart_naif": "None",
           "cout": {
             "developpement": "5200.00",
             "outil_annuel": "1440.00",
@@ -6346,35 +5655,14 @@
             "annee_1": "7056.00",
             "recurrent": "1856.00"
           },
-          "delai_retour_mois": "18.2",
-          "delai_retour_naif_mois": "12.7",
-          "gain_trois_ans": "3218.00",
+          "delai_retour_mois": "None",
+          "delai_retour_naif_mois": "None",
+          "gain_trois_ans": "None",
           "tirages_monte_carlo": 10000
         },
-        "faisabilite": {
-          "type": "B",
-          "motifs_decision": [
-            "une API ou un flux natif existe et couvre le besoin"
-          ],
-          "api_existe": true,
-          "interface_stable": true,
-          "jugement_requis": false,
-          "risque": "faible",
-          "score_priorite": "0.4898",
-          "criteres": {
-            "gain": "0.2739",
-            "faisabilite": "0.80",
-            "rapidite": "0.4944444444444444444444444444",
-            "visibilite": "0.3",
-            "securite_juridique": "1"
-          }
-        },
+        "faisabilite": {},
         "recommandation": {
-          "vague": "aucune",
-          "rang": 0,
-          "gain_mensuel": "388.50",
-          "cout_annee_1": "7056.00",
-          "retour_mois": "18.2"
+          "vague": "aucune"
         },
         "confidentialite": "Mesure aggregatee au-dessus du seuil k >= 5. Aucune attribution individuelle. Pseudonymisation appliquee a l'ingestion, avant tout modele."
       }
@@ -6402,5 +5690,12 @@
         "seuil_applique": 5
       }
     }
+  },
+  "META": {
+    "corpus": "demo",
+    "campagne": "CMP-0031",
+    "processus": "P-07",
+    "client": "T-DEMO",
+    "titre": "Demo synthetique"
   }
 }
