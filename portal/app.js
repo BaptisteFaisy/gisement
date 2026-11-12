@@ -253,13 +253,30 @@ async function demarrer() {
       headers: { Authorization: `Bearer ${JETON()}` },
     });
     if (!sonde.ok) throw new Error("api indisponible");
-    await sonde.json();
+    const sante = await sonde.json();
+    // The live API serves ONE corpus: the portal must show the one it is
+    // really serving, not the default of the selector.
+    const corpus = sante.donnees && sante.donnees.corpus;
+    if (corpus === "reel" || corpus === "demo") {
+      CONFIG.corpus = corpus;
+      CONFIG.campagne = sante.donnees.campagne || CONFIG.campagne;
+      CONFIG.titre = corpus === "reel"
+        ? "Corpus reel (Apache Kafka)" : "Demo synthetique";
+    }
   } catch (erreur) {
     await chargerStatique(selecteur ? selecteur.value : "demo");
   }
-  if (selecteur) selecteur.value = CONFIG.corpus;
+  if (selecteur) {
+    selecteur.value = CONFIG.corpus;
+    // In live mode the API serves ONE corpus: the selector would lie.
+    if (STATIQUE === null) {
+      selecteur.disabled = true;
+      selecteur.title = "mode live : l'API sert un seul corpus";
+    }
+  }
   element("mode").textContent = STATIQUE === null
-    ? "mode live : API JSON" : `mode statique : figures pre-calculees - ${CONFIG.titre}`;
+    ? `mode live : API JSON - ${CONFIG.titre}`
+    : `mode statique : figures pre-calculees - ${CONFIG.titre}`;
   const { corps } = await api("/api/campagne");
   if (corps.ok) {
     const d = corps.donnees;

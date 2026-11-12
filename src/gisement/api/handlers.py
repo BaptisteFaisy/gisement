@@ -54,6 +54,8 @@ class Etat:
     """
 
     campagne: Campagne
+    corpus: str = "demo"
+    """Which corpus the state measures: "demo" or "reel"."""
     statut_campagne: StatutCampagne = StatutCampagne.BROUILLON
     conformite: Conformite | None = None
     resultat: ResultatCampagne | None = None
@@ -82,6 +84,7 @@ class Etat:
         taux = manifeste.get("taux_horaire")
         return cls(
             campagne=campagne_reelle(racine),
+            corpus="reel",
             taux_horaire=Decimal(str(taux)) if taux else None,
             racine=racine / "donnees",
             declaration=racine / "donnees" / "declaration.json",
@@ -103,6 +106,7 @@ def health(etat: Etat) -> tuple[int, dict]:
         {
             "statut": "en_ligne",
             "campagne": etat.campagne.id,
+            "corpus": etat.corpus,
             "statut_campagne": etat.statut_campagne.value,
             "conformite_validee": bool(etat.conformite and etat.conformite.est_valide()),
             "mesure_lancee": etat.resultat is not None,

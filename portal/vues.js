@@ -138,7 +138,7 @@ async function vueProcessus() {
     p.origine === "declaree" ? "<span class='note'>declare</span>" : "",
   ]);
   rendre(
-    titre("5. Les 23 processus du perimetre",
+    titre(`5. Les ${d.nb_processus} processus du perimetre`,
       "Volumes mesures sur les cinq canaux, mediane mensuelle (jamais la moyenne), amplitude " +
       "saisonniere publiee. Cliquez sur un identifiant pour la fiche complete.") +
     tableau(["id", "processus", "service", "occ/mois", "min", "h nettes", "EUR/mois",
