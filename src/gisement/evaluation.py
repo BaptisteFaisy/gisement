@@ -35,8 +35,13 @@ SEUIL_RAPPEL = Decimal("0.90")
 SEUIL_FACTEUR = Decimal("1.5")
 
 CHAMPS_A_VERIFIER = (
-    "temps_net_heures", "gain_mensuel", "gain_annuel", "gain_naif_mensuel",
-    "ecart_naif", "delai_retour_mois", "gain_trois_ans",
+    "temps_net_heures",
+    "gain_mensuel",
+    "gain_annuel",
+    "gain_naif_mensuel",
+    "ecart_naif",
+    "delai_retour_mois",
+    "gain_trois_ans",
 )
 
 
@@ -139,10 +144,15 @@ def resume_backtest() -> dict:
     lignes = []
     for secteur in sorted(par_secteur):
         valeurs = par_secteur[secteur]
-        lignes.append({
-            "secteur": secteur, "cas": len(valeurs),
-            "min": str(min(valeurs)), "median": str(mediane(valeurs)), "max": str(max(valeurs)),
-        })
+        lignes.append(
+            {
+                "secteur": secteur,
+                "cas": len(valeurs),
+                "min": str(min(valeurs)),
+                "median": str(mediane(valeurs)),
+                "max": str(max(valeurs)),
+            }
+        )
     toutes = [v for valeurs in par_secteur.values() for v in valeurs]
     return {
         "secteurs": lignes,
@@ -162,15 +172,23 @@ def resume_evaluation() -> dict:
     economique, accords_e, total_e = precision_economique()
     return {
         "classification": {
-            "taux": str(classification), "accords": accords_c, "total": total_c,
-            "seuil": str(SEUIL_CLASSIFICATION), "tient": classification >= SEUIL_CLASSIFICATION,
+            "taux": str(classification),
+            "accords": accords_c,
+            "total": total_c,
+            "seuil": str(SEUIL_CLASSIFICATION),
+            "tient": classification >= SEUIL_CLASSIFICATION,
         },
         "rappel_motifs": {
-            "taux": str(rappel), "reconnus": reconnus, "total": total_r,
-            "seuil": str(SEUIL_RAPPEL), "tient": rappel >= SEUIL_RAPPEL,
+            "taux": str(rappel),
+            "reconnus": reconnus,
+            "total": total_r,
+            "seuil": str(SEUIL_RAPPEL),
+            "tient": rappel >= SEUIL_RAPPEL,
         },
         "calcul_economique": {
-            "taux": str(economique), "accords": accords_e, "total": total_e,
+            "taux": str(economique),
+            "accords": accords_e,
+            "total": total_e,
             "tient": economique == Decimal(1),
         },
         "backtest": resume_backtest(),
