@@ -30,58 +30,58 @@ DPO = Identite(tenant_id="T-DEMO", role=Role.DPO, utilisateur="u-dpo")
 FICHIERS_STATIQUES = ("index.html", "styles.css", "app.js")
 
 
-def construire_carte() -> dict:
-    """Run the handlers once and capture every response the portal reads."""
-    etat = handlers.Etat.demo()
-    carte: dict[str, dict] = {}
-
-    def ajouter(clef, resultat):
-        statut, corps = resultat
-        carte[clef] = {"statut": statut, "corps": corps}
-
-    ajouter("POST /api/campagnes/courante/conformite", handlers.declarer_conformite(etat, DPO, {}))
-    ajouter("POST /api/campagnes/courante/lancer", handlers.lancer(etat, MSP))
-    ajouter("POST /api/campagnes/courante/suspendre", handlers.suspendre(etat, DPO))
-    # suspendre flips the state; re-launch a clean campaign for the data views
+def _etat_lance():
+    """A campaign with the DPO validation recorded and the measurement run."""
     etat = handlers.Etat.demo()
     handlers.declarer_conformite(etat, DPO, {})
     handlers.lancer(etat, MSP)
-    ajouter("GET /api/campagnes/courante", handlers.campagnes_detail(etat))
-    ajouter("GET /api/projets", handlers.projets(etat))
-    ajouter("GET /api/deconseilles", handlers.deconseilles(etat))
-    ajouter("GET /api/gisements/P-07", handlers.gisement_detail(etat, "P-07"))
-    ajouter("GET /api/rapports/CMP-0031?langue=fr", handlers.rapport(etat, "fr"))
-    ajouter("GET /api/rapports/CMP-0031?langue=en", handlers.rapport(etat, "en"))
-    ajouter("GET /api/registre-conformite/CMP-0031?langue=fr", handlers.registre(etat, "fr"))
-    ajouter("GET /api/budget", handlers.budget(etat))
-    ajouter(
-        "POST /api/mesure#individu",
-        handlers.mesurer(
-            etat,
-            MSP,
-            {
-                "canal": "tickets",
-                "groupements": ["service", "individu"],
-                "taille_groupe": 1,
-                "taille_resultat_apres_filtres": 1,
-                "filtres": {"service": "adv"},
-            },
-        ),
+    return etat
+
+
+def _ajouter_mesures(carte: dict, etat) -> None:
+    """The two measure calls: the individual one refused, the aggregated one allowed."""
+    individuel = {
+        "canal": "tickets",
+        "groupements": ["service", "individu"],
+        "taille_groupe": 1,
+        "taille_resultat_apres_filtres": 1,
+        "filtres": {"service": "adv"},
+    }
+    agrege = {
+        "canal": "tickets",
+        "groupements": ["service", "motif"],
+        "taille_groupe": 34,
+        "taille_resultat_apres_filtres": 34,
+        "filtres": {"service": "adv"},
+    }
+    carte["POST /api/mesure#individu"] = _reponse(handlers.mesurer(etat, MSP, individuel))
+    carte["POST /api/mesure#agrege"] = _reponse(handlers.mesurer(etat, MSP, agrege))
+
+
+def _reponse(resultat) -> dict:
+    statut, corps = resultat
+    return {"statut": statut, "corps": corps}
+
+
+def construire_carte() -> dict:
+    """Run the handlers once and capture every response the portal reads."""
+    carte: dict[str, dict] = {}
+    etat_demo = handlers.Etat.demo()
+    carte["POST /api/campagnes/courante/conformite"] = _reponse(
+        handlers.declarer_conformite(etat_demo, DPO, {})
     )
-    ajouter(
-        "POST /api/mesure#agrege",
-        handlers.mesurer(
-            etat,
-            MSP,
-            {
-                "canal": "tickets",
-                "groupements": ["service", "motif"],
-                "taille_groupe": 34,
-                "taille_resultat_apres_filtres": 34,
-                "filtres": {"service": "adv"},
-            },
-        ),
-    )
+    carte["POST /api/campagnes/courante/lancer"] = _reponse(handlers.lancer(etat_demo, MSP))
+    carte["POST /api/campagnes/courante/suspendre"] = _reponse(handlers.suspendre(etat_demo, DPO))
+    etat = _etat_lance()
+    carte["GET /api/campagnes/courante"] = _reponse(handlers.campagnes_detail(etat))
+    carte["GET /api/projets"] = _reponse(handlers.projets(etat))
+    carte["GET /api/deconseilles"] = _reponse(handlers.deconseilles(etat))
+    carte["GET /api/gisements/P-07"] = _reponse(handlers.gisement_detail(etat, "P-07"))
+    carte["GET /api/rapports/CMP-0031?langue=fr"] = _reponse(handlers.rapport(etat, "fr"))
+    carte["GET /api/rapports/CMP-0031?langue=en"] = _reponse(handlers.rapport(etat, "en"))
+    carte["GET /api/registre-conformite/CMP-0031?langue=fr"] = _reponse(handlers.registre(etat, "fr"))
+    carte["GET /api/budget"] = _reponse(handlers.budget(etat))
+    _ajouter_mesures(carte, etat)
     return carte
 
 
