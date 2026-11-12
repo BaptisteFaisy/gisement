@@ -33,7 +33,7 @@ flowchart TB
     end
 
     subgraph CORE["AgentCore - the measurement gateway"]
-      POL["Policy<br/>k >= 5, non-attribution, budget"]
+      POL["PolicyEngine + Policy (Cedar)<br/>k >= 5, non-attribution, budget<br/>+ REQUEST interceptor Lambda"]
       IDN["Identity<br/>tenant derived from the token"]
       RT["Runtime<br/>isolated analysis sessions"]
       GWY["Gateway<br/>single tooled access to corpora"]
@@ -116,6 +116,24 @@ the refusal is logged. It is demonstrable in thirty seconds (video 1:20).
 This is the labour-law transposition of the security principle already applied
 in `echeance`, `piege` and `sas`: the rules are enforced by the gateway, not by
 a sentence in a prompt.
+
+**Confirmed against the AWS documentation (decision D-22).** AgentCore Gateway
+has two enforcement points, and Gisement uses both:
+
+1. `AWS::BedrockAgentCore::PolicyEngine` + `Policy`, whose definition is a
+   **Cedar** statement. `gisement.politique.cedar.politique_cedar()` generates
+   14 `forbid` statements (one per rule of chapter 18, each commented with its
+   rule id) and 5 `permit` statements (the five declared roles). Cedar is
+   deny-by-default, which is exactly the fail-safe default the docs ask for.
+2. A **REQUEST interceptor** Lambda (`gisement.lambdas.intercepteur`), which the
+   gateway invokes *before* calling the target and which can short-circuit the
+   call by returning `transformedGatewayResponse`. It enforces what Cedar cannot
+   express (a person identifier hidden in a filter value, a rare
+   quasi-identifier, the per-user request quota), reads the tenant from the
+   bearer token, logs every decision, and refuses anything it cannot parse.
+
+Both read the same registry (`politique/regles.py`), so the deployed policy and
+the offline-tested one cannot drift.
 
 ## The flow in one sentence
 

@@ -13,6 +13,13 @@ from gisement.politique.agentcore import (
     regles_par_outil,
     verifier_artefact,
 )
+from gisement.politique.cedar import (
+    configuration_passerelle,
+    definition_politique,
+    interdictions_cedar,
+    politique_cedar,
+    verifier_cedar,
+)
 from gisement.politique.chargement import (
     cas_depuis_dict,
     charger_non_attribution,
@@ -38,14 +45,19 @@ __all__ = [
     "RegleSpec",
     "cas_depuis_dict",
     "charger_non_attribution",
+    "configuration_passerelle",
     "contexte",
     "contexte_avec_quota",
     "contexte_depuis_dict",
+    "definition_politique",
     "evaluer",
     "exiger",
     "exporter_politique_agentcore",
+    "interdictions_cedar",
+    "politique_cedar",
     "regles_par_outil",
     "regles_violees",
     "requete_depuis_dict",
     "verifier_artefact",
+    "verifier_cedar",
 ]
