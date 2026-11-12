@@ -1,0 +1,582 @@
+{
+  "secteur": "sante",
+  "client": "Sante - etablissement prive de 400 lits",
+  "services": "secretariat, facturation, archives, direction",
+  "taux_horaire_charge": "42",
+  "source": "cas de reference construits a partir de l'experience MSP ; entierement synthetiques, aucune donnee client reelle",
+  "note": "Chaque cas est une entree du moteur au format de demo/spec-processus.json. Le bloc `attendu` est calcule par le moteur lui-moi : ce fichier est un filet de non-regression sur la distribution du facteur, pas un audit independant.",
+  "nb_cas": 7,
+  "cas": [
+    {
+      "id": "S-01",
+      "nom": "Saisie des comptes rendus de consultation",
+      "service": "secretariat",
+      "famille_poste": "administratif",
+      "motifs": [],
+      "canaux": [
+        "tickets",
+        "journaux"
+      ],
+      "occurrences": {
+        "serie": [
+          "180",
+          "190",
+          "200",
+          "205",
+          "215",
+          "195"
+        ],
+        "mediane": "197.5",
+        "minimum": "180",
+        "maximum": "215",
+        "ecart_type": "12.14",
+        "nb_mois": 6
+      },
+      "duree_unitaire_minutes": "14",
+      "duree_statut": "mesuree",
+      "duree_ecart_minutes": "3.0",
+      "duree_nb_cas": 1180,
+      "repartition": "semi_regroupee",
+      "part_atypique": "0.12",
+      "part_atypique_nb_cas": 1180,
+      "transfert": [
+        {
+          "nom": "revue",
+          "taux": "0.20",
+          "duree_minutes": "1.5",
+          "forfait_heures": null
+        },
+        {
+          "nom": "rejets",
+          "taux": "0.05",
+          "duree_minutes": "10",
+          "forfait_heures": null
+        },
+        {
+          "nom": "supervision",
+          "taux": null,
+          "duree_minutes": null,
+          "forfait_heures": "1.0"
+        }
+      ],
+      "cout": {
+        "jours": "14",
+        "tjm": "620",
+        "abonnement_mensuel": "180",
+        "taux_maintenance": "0.08"
+      },
+      "faits": {
+        "api_ou_flux_natif": true,
+        "travail_deterministe": true,
+        "interface_stable": true
+      },
+      "part_volume_traitee": "1",
+      "suppression_etape": false,
+      "attendu": {
+        "temps_brut_heures": "46.1",
+        "coefficient_fragmentation": "0.70",
+        "temps_fragmente_heures": "32.3",
+        "temps_transfere_heures": "3.6",
+        "temps_ineliminable_heures": "5.5",
+        "temps_net_heures": "23.1",
+        "gain_mensuel": "969.99",
+        "gain_annuel": "11639.88",
+        "gain_naif_mensuel": "1935.50",
+        "ecart_naif": "2.00",
+        "cout": {
+          "developpement": "8680.00",
+          "outil_annuel": "2160.00",
+          "maintenance_annuelle": "694.40",
+          "annee_1": "11534.40",
+          "recurrent": "2854.40"
+        },
+        "delai_retour_mois": "11.9",
+        "gain_trois_ans": "17676.44"
+      }
+    },
+    {
+      "id": "S-02",
+      "nom": "Rapprochement des actes factures",
+      "service": "facturation",
+      "famille_poste": "administratif",
+      "motifs": [],
+      "canaux": [
+        "tickets",
+        "journaux"
+      ],
+      "occurrences": {
+        "serie": [
+          "320",
+          "330",
+          "340",
+          "350",
+          "360",
+          "335"
+        ],
+        "mediane": "337.5",
+        "minimum": "320",
+        "maximum": "360",
+        "ecart_type": "14.29",
+        "nb_mois": 6
+      },
+      "duree_unitaire_minutes": "5",
+      "duree_statut": "mesuree",
+      "duree_ecart_minutes": "1.1",
+      "duree_nb_cas": 2030,
+      "repartition": "regroupee",
+      "part_atypique": "0.07",
+      "part_atypique_nb_cas": 2030,
+      "transfert": [
+        {
+          "nom": "revue",
+          "taux": "0.15",
+          "duree_minutes": "1.0",
+          "forfait_heures": null
+        },
+        {
+          "nom": "rejets",
+          "taux": "0.05",
+          "duree_minutes": "6",
+          "forfait_heures": null
+        },
+        {
+          "nom": "supervision",
+          "taux": null,
+          "duree_minutes": null,
+          "forfait_heures": "0.5"
+        }
+      ],
+      "cout": {
+        "jours": "9",
+        "tjm": "620",
+        "abonnement_mensuel": "0",
+        "taux_maintenance": "0.08"
+      },
+      "faits": {
+        "api_ou_flux_natif": true,
+        "travail_deterministe": true,
+        "interface_stable": true
+      },
+      "part_volume_traitee": "1",
+      "suppression_etape": false,
+      "attendu": {
+        "temps_brut_heures": "28.1",
+        "coefficient_fragmentation": "0.90",
+        "temps_fragmente_heures": "25.3",
+        "temps_transfere_heures": "3.0",
+        "temps_ineliminable_heures": "2.0",
+        "temps_net_heures": "20.3",
+        "gain_mensuel": "853.12",
+        "gain_annuel": "10237.44",
+        "gain_naif_mensuel": "1181.25",
+        "ecart_naif": "1.38",
+        "cout": {
+          "developpement": "5580.00",
+          "outil_annuel": "0.00",
+          "maintenance_annuelle": "446.40",
+          "annee_1": "6026.40",
+          "recurrent": "446.40"
+        },
+        "delai_retour_mois": "7.1",
+        "gain_trois_ans": "23793.12"
+      }
+    },
+    {
+      "id": "S-03",
+      "nom": "Classement des dossiers patients",
+      "service": "archives",
+      "famille_poste": "administratif",
+      "motifs": [],
+      "canaux": [
+        "tickets",
+        "journaux"
+      ],
+      "occurrences": {
+        "serie": [
+          "240",
+          "250",
+          "260",
+          "265",
+          "275",
+          "255"
+        ],
+        "mediane": "257.5",
+        "minimum": "240",
+        "maximum": "275",
+        "ecart_type": "12.14",
+        "nb_mois": 6
+      },
+      "duree_unitaire_minutes": "3",
+      "duree_statut": "mesuree",
+      "duree_ecart_minutes": "0.7",
+      "duree_nb_cas": 1540,
+      "repartition": "diffuse",
+      "part_atypique": "0.05",
+      "part_atypique_nb_cas": 1540,
+      "transfert": [
+        {
+          "nom": "revue",
+          "taux": "0.15",
+          "duree_minutes": "1.0",
+          "forfait_heures": null
+        },
+        {
+          "nom": "rejets",
+          "taux": "0.05",
+          "duree_minutes": "6",
+          "forfait_heures": null
+        },
+        {
+          "nom": "supervision",
+          "taux": null,
+          "duree_minutes": null,
+          "forfait_heures": "0.5"
+        }
+      ],
+      "cout": {
+        "jours": "10",
+        "tjm": "620",
+        "abonnement_mensuel": "150",
+        "taux_maintenance": "0.08"
+      },
+      "faits": {
+        "api_ou_flux_natif": true,
+        "travail_deterministe": true,
+        "interface_stable": true
+      },
+      "part_volume_traitee": "1",
+      "suppression_etape": false,
+      "attendu": {
+        "temps_brut_heures": "12.9",
+        "coefficient_fragmentation": "0.45",
+        "temps_fragmente_heures": "5.8",
+        "temps_transfere_heures": "2.4",
+        "temps_ineliminable_heures": "0.6",
+        "temps_net_heures": "2.7",
+        "gain_mensuel": "114.19",
+        "gain_annuel": "1370.28",
+        "gain_naif_mensuel": "540.75",
+        "ecart_naif": "4.74",
+        "cout": {
+          "developpement": "6200.00",
+          "outil_annuel": "1800.00",
+          "maintenance_annuelle": "496.00",
+          "annee_1": "8496.00",
+          "recurrent": "2296.00"
+        },
+        "delai_retour_mois": "74.4",
+        "gain_trois_ans": "-8977.16"
+      }
+    },
+    {
+      "id": "S-04",
+      "nom": "Relance des impayes de mutuelle",
+      "service": "facturation",
+      "famille_poste": "administratif",
+      "motifs": [],
+      "canaux": [
+        "tickets",
+        "journaux"
+      ],
+      "occurrences": {
+        "serie": [
+          "85",
+          "90",
+          "95",
+          "98",
+          "102",
+          "92"
+        ],
+        "mediane": "93.5",
+        "minimum": "85",
+        "maximum": "102",
+        "ecart_type": "6.02",
+        "nb_mois": 6
+      },
+      "duree_unitaire_minutes": "9",
+      "duree_statut": "mesuree",
+      "duree_ecart_minutes": "2.0",
+      "duree_nb_cas": 560,
+      "repartition": "regroupee",
+      "part_atypique": "0.10",
+      "part_atypique_nb_cas": 560,
+      "transfert": [
+        {
+          "nom": "revue",
+          "taux": "0.20",
+          "duree_minutes": "1.5",
+          "forfait_heures": null
+        },
+        {
+          "nom": "rejets",
+          "taux": "0.05",
+          "duree_minutes": "10",
+          "forfait_heures": null
+        },
+        {
+          "nom": "supervision",
+          "taux": null,
+          "duree_minutes": null,
+          "forfait_heures": "1.0"
+        }
+      ],
+      "cout": {
+        "jours": "7",
+        "tjm": "620",
+        "abonnement_mensuel": "90",
+        "taux_maintenance": "0.08"
+      },
+      "faits": {
+        "api_ou_flux_natif": true,
+        "travail_deterministe": true,
+        "interface_stable": true
+      },
+      "part_volume_traitee": "1",
+      "suppression_etape": false,
+      "attendu": {
+        "temps_brut_heures": "14.0",
+        "coefficient_fragmentation": "0.90",
+        "temps_fragmente_heures": "12.6",
+        "temps_transfere_heures": "2.2",
+        "temps_ineliminable_heures": "1.4",
+        "temps_net_heures": "9.0",
+        "gain_mensuel": "376.88",
+        "gain_annuel": "4522.56",
+        "gain_naif_mensuel": "589.05",
+        "ecart_naif": "1.56",
+        "cout": {
+          "developpement": "4340.00",
+          "outil_annuel": "1080.00",
+          "maintenance_annuelle": "347.20",
+          "annee_1": "5767.20",
+          "recurrent": "1427.20"
+        },
+        "delai_retour_mois": "15.3",
+        "gain_trois_ans": "4946.08"
+      }
+    },
+    {
+      "id": "S-05",
+      "nom": "Preparation du reporting d'activite",
+      "service": "direction",
+      "famille_poste": "administratif",
+      "motifs": [],
+      "canaux": [
+        "tickets",
+        "journaux"
+      ],
+      "occurrences": {
+        "serie": [
+          "4",
+          "4",
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "mediane": "4.0",
+        "minimum": "4",
+        "maximum": "4",
+        "ecart_type": "0.0",
+        "nb_mois": 6
+      },
+      "duree_unitaire_minutes": "240",
+      "duree_statut": "inferree",
+      "duree_ecart_minutes": "60",
+      "duree_nb_cas": 0,
+      "repartition": "regroupee",
+      "part_atypique": "0.20",
+      "part_atypique_nb_cas": 24,
+      "transfert": [
+        {
+          "nom": "revue",
+          "taux": "0.15",
+          "duree_minutes": "1.0",
+          "forfait_heures": null
+        },
+        {
+          "nom": "rejets",
+          "taux": "0.05",
+          "duree_minutes": "6",
+          "forfait_heures": null
+        },
+        {
+          "nom": "supervision",
+          "taux": null,
+          "duree_minutes": null,
+          "forfait_heures": "0.5"
+        }
+      ],
+      "cout": {
+        "jours": "12",
+        "tjm": "620",
+        "abonnement_mensuel": "250",
+        "taux_maintenance": "0.08"
+      },
+      "faits": {
+        "api_ou_flux_natif": true,
+        "travail_deterministe": true,
+        "interface_stable": true
+      },
+      "part_volume_traitee": "1",
+      "suppression_etape": false,
+      "attendu": {
+        "temps_brut_heures": "16.0",
+        "coefficient_fragmentation": "0.90",
+        "temps_fragmente_heures": "14.4",
+        "temps_transfere_heures": "0.5",
+        "temps_ineliminable_heures": "3.2",
+        "temps_net_heures": "10.7",
+        "gain_mensuel": "448.14",
+        "gain_annuel": "5377.68",
+        "gain_naif_mensuel": "672.00",
+        "ecart_naif": "1.50",
+        "cout": {
+          "developpement": "7440.00",
+          "outil_annuel": "3000.00",
+          "maintenance_annuelle": "595.20",
+          "annee_1": "11035.20",
+          "recurrent": "3595.20"
+        },
+        "delai_retour_mois": "24.6",
+        "gain_trois_ans": "-2092.56"
+      }
+    },
+    {
+      "id": "S-06",
+      "nom": "Passage des mutuelles au portail de teleservice",
+      "service": "facturation",
+      "famille_poste": "administratif",
+      "motifs": [],
+      "canaux": [
+        "tickets",
+        "journaux"
+      ],
+      "occurrences": {
+        "serie": [
+          "85",
+          "88",
+          "90",
+          "92",
+          "95",
+          "89"
+        ],
+        "mediane": "89.5",
+        "minimum": "85",
+        "maximum": "95",
+        "ecart_type": "3.43",
+        "nb_mois": 6
+      },
+      "duree_unitaire_minutes": "8",
+      "duree_statut": "mesuree",
+      "duree_ecart_minutes": "1.8",
+      "duree_nb_cas": 540,
+      "repartition": "regroupee",
+      "part_atypique": "0.06",
+      "part_atypique_nb_cas": 540,
+      "transfert": [],
+      "cout": {
+        "jours": "2",
+        "tjm": "620",
+        "abonnement_mensuel": "0",
+        "taux_maintenance": "0"
+      },
+      "faits": {
+        "etape_supprimable_amont": true,
+        "api_ou_flux_natif": true,
+        "interface_stable": true
+      },
+      "part_volume_traitee": "0.85",
+      "suppression_etape": true,
+      "attendu": {
+        "temps_brut_heures": "10.1",
+        "coefficient_fragmentation": "0.90",
+        "temps_fragmente_heures": "9.1",
+        "temps_transfere_heures": "0.0",
+        "temps_ineliminable_heures": "0.0",
+        "temps_net_heures": "9.1",
+        "gain_mensuel": "383.42",
+        "gain_annuel": "4601.04",
+        "gain_naif_mensuel": "426.02",
+        "ecart_naif": "1.11",
+        "cout": {
+          "developpement": "1240.00",
+          "outil_annuel": "0.00",
+          "maintenance_annuelle": "0.00",
+          "annee_1": "1240.00",
+          "recurrent": "0.00"
+        },
+        "delai_retour_mois": "3.2",
+        "gain_trois_ans": "12563.12"
+      }
+    },
+    {
+      "id": "S-07",
+      "nom": "Verification des avoirs exceptionnels",
+      "service": "facturation",
+      "famille_poste": "administratif",
+      "motifs": [],
+      "canaux": [
+        "tickets",
+        "journaux"
+      ],
+      "occurrences": {
+        "serie": [
+          "3",
+          "4",
+          "4",
+          "5",
+          "4",
+          "4"
+        ],
+        "mediane": "4.0",
+        "minimum": "3",
+        "maximum": "5",
+        "ecart_type": "0.63",
+        "nb_mois": 6
+      },
+      "duree_unitaire_minutes": "20",
+      "duree_statut": "mesuree",
+      "duree_ecart_minutes": "5",
+      "duree_nb_cas": 140,
+      "repartition": "diffuse",
+      "part_atypique": "0.20",
+      "part_atypique_nb_cas": 140,
+      "transfert": [],
+      "cout": {
+        "jours": "6",
+        "tjm": "620",
+        "abonnement_mensuel": "60",
+        "taux_maintenance": "0.08"
+      },
+      "faits": {
+        "api_ou_flux_natif": true,
+        "travail_deterministe": true,
+        "interface_stable": true
+      },
+      "part_volume_traitee": "1",
+      "suppression_etape": false,
+      "attendu": {
+        "temps_brut_heures": "1.3",
+        "coefficient_fragmentation": "0.45",
+        "temps_fragmente_heures": "0.6",
+        "temps_transfere_heures": "0.0",
+        "temps_ineliminable_heures": "0.3",
+        "temps_net_heures": "0.3",
+        "gain_mensuel": "14.00",
+        "gain_annuel": "168.00",
+        "gain_naif_mensuel": "56.00",
+        "ecart_naif": "4.00",
+        "cout": {
+          "developpement": "3720.00",
+          "outil_annuel": "720.00",
+          "maintenance_annuelle": "297.60",
+          "annee_1": "4737.60",
+          "recurrent": "1017.60"
+        },
+        "delai_retour_mois": "338.4",
+        "gain_trois_ans": "-6268.80"
+      }
+    }
+  ]
+}

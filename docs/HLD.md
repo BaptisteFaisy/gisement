@@ -77,6 +77,13 @@ spreads derived from the quality of the measurement (standard error over the
 window for the volumes, σ/√n for a measured duration, ±40 % for an inferred
 one). Two runs give strictly identical intervals (R4).
 
+The factor is a **distribution, not a constant** (D-24): `eval/backtest.py`
+measures it on 41 cases across four sectors - the demo retailer, a private
+hospital, a B2B carrier, a multi-site service dealer - with a median of 1.74 and
+a range of 1.11 to 21.4. The 2.61 of annex A is the reference case, labelled as
+such. The harness fails if the global median drops under 1.5, i.e. if the thesis
+stops holding on its own data.
+
 A **type A action** - removing the step instead of automating it - carries
 neither transfer nor ineliminable share, because there is no automated output
 left to review (annex A.7, decision D-11). That is why recommending A first is

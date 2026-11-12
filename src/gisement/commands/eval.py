@@ -17,7 +17,7 @@ def main(argv: list[str] | None = None) -> int:
     del argv
     environnement = dict(__import__("os").environ, PYTHONPATH=str(RACINE / "src"))
     codes = []
-    for script in ("eval/harnais.py", "eval/non_attribution.py"):
+    for script in ("eval/harnais.py", "eval/non_attribution.py", "eval/backtest.py"):
         resultat = subprocess.run(
             [sys.executable, str(RACINE / script)], cwd=RACINE, env=environnement, check=False
         )

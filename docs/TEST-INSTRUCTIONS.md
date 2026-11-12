@@ -61,6 +61,20 @@ python3 -m pytest tests/unit/canaux/test_documents.py -v
 category (health, union, political, religious, sexual life, ethnic origin,
 genetics), using indirect wordings so a naive keyword filter would miss them.
 
+### 2.4 The overstatement factor is a distribution, not an anecdote (D-24)
+
+```bash
+PYTHONPATH=src python3 eval/backtest.py
+```
+
+41 cases across 4 sectors: median factor 1.74, range 1.11 to 21.4, and every
+case reproduces its expected figures to the cent. Exit code 1 if the global
+median falls under 1.5 - the harness fails when the thesis stops holding.
+
+`python3 -m gisement.cli eval` runs the three harnesses at once: classification
+accuracy (100 % on 200 labelled activities), the 50 non-attribution refusals,
+and this back-test.
+
 ## 3. Reproducibility (ENF-08)
 
 ```bash

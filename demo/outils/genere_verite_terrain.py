@@ -14,6 +14,7 @@ from pathlib import Path
 D = lambda v: Decimal(str(v))
 def r2(x): return x.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
 def r1(x): return x.quantize(Decimal("0.1"), rounding=ROUND_HALF_UP)
+def r4(x): return x.quantize(Decimal("0.0001"), rounding=ROUND_HALF_UP)
 
 COEF = {"regroupee": D("0.90"), "semi_regroupee": D("0.70"), "diffuse": D("0.45"), "interruptive": D("0.85")}
 TAUX_HORAIRE = D("42")
@@ -229,12 +230,24 @@ def calculer(p):
     if p["suppression"]:
         transf = D(0); inel = D(0)
     else:
-        transf = sum((occ * D(c["taux"]) * D(c["duree_minutes"]) / 60 if c["taux"] else D(c["forfait_heures"]) for c in comps), D(0))
+        transf = sum(
+            (
+                r4(occ * D(c["taux"]) * D(c["duree_minutes"]) / 60)
+                if c["taux"]
+                else r4(D(c["forfait_heures"]))
+                for c in comps
+            ),
+            D(0),
+        )
         inel = brut * D(p["atyp"])
     net = max(D(0), frag - transf - inel)
+    return _resultats(net, brut, transf, inel, frag, coef, p, comps)
+
+
+def _resultats(net, brut, transf, inel, frag, coef, p, comps):
     gain_m = r2(net * TAUX_HORAIRE)          # annex A.4: the monthly gain is rounded first
     gain_a = r2(gain_m * 12)
-    naif_m = r2(brut * TAUX_HORAire) if False else r2(brut * TAUX_HORAIRE)
+    naif_m = r2(brut * TAUX_HORAIRE)
     jours, tjm = D(p["jours"]), D(p["tjm"])
     dev = jours * tjm
     outil = D(p["abo"]) * 12
