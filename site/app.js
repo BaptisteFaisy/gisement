@@ -166,16 +166,54 @@ async function afficherDocument(chemin) {
     : corps.erreur;
 }
 
+/* The DPO (or a staff representative) is the only role that can validate the
+   device and suspend it (chapter 7). The scripted demo switches the token for
+   those two calls and switches back, exactly as a human would in the select. */
+async function avec_role_dpo(action) {
+  const select = document.getElementById("jeton");
+  const avant = select.value;
+  select.value = "jeton-demo-dpo";
+  try {
+    return await action();
+  } finally {
+    select.value = avant;
+  }
+}
+
 async function enregistrerConformite() {
   if (STATIQUE !== null) { etatLocal.conforme = true; etatLocal.suspendu = false; }
-  await api("/api/campagnes/courante/conformite", { method: "POST", body: JSON.stringify({}) });
+  await avec_role_dpo(() =>
+    api("/api/campagnes/courante/conformite", { method: "POST", body: JSON.stringify({}) })
+  );
   await majEtat();
 }
 
 async function suspendre() {
   if (STATIQUE !== null) etatLocal.suspendu = true;
-  await api("/api/campagnes/courante/suspendre", { method: "POST" });
+  await avec_role_dpo(() => api("/api/campagnes/courante/suspendre", { method: "POST" }));
   await majEtat();
+}
+
+/* Replayable demo: #demo=N puts the portal in the state N of the video script,
+ * so every screen can be captured without a human clicking (docs/VIDEO.md).
+ *   0 initial (Launch greyed)   1 DPO validation recorded   2 measurement run
+ *   3 individual measure refused (the key moment)   4 aggregated measure allowed
+ *   5 executive report displayed
+ */
+async function jouer(etape) {
+  if (etape >= 1) await enregistrerConformite();
+  if (etape >= 2) await lancer();
+  if (etape === 3) await demanderMesure(true);
+  if (etape === 4) await demanderMesure(false);
+  if (etape === 5) await afficherDocument("/api/rapports/CMP-0031?langue=fr");
+}
+
+function etape_demandee() {
+  const brut = (location.hash || "").replace(/^#/, "");
+  if (!brut) return -1;
+  const valeur = new URLSearchParams(brut).get("demo");
+  const numero = valeur === null ? NaN : parseInt(valeur, 10);
+  return Number.isNaN(numero) ? -1 : numero;
 }
 
 async function demarrer() {
@@ -192,6 +230,8 @@ async function demarrer() {
     }
   }
   await majEtat();
+  const etape = etape_demandee();
+  if (etape >= 0) await jouer(etape);
 }
 
 document.getElementById("btn-conformite").addEventListener("click", enregistrerConformite);

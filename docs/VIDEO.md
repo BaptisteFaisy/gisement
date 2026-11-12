@@ -23,6 +23,25 @@ The three moments that win are at 1:20 (the Policy refusal), 1:32 (the factor
 | 2:35 | Portal | Jump 3 months: realised against predicted, 11 % gap, cumulative accuracy published. | `suivi`, KPI-6 |
 | 2:50 | Quick | Portfolio view: 23 processes, 3 waves, 78 000-104 000 € net deposit, the measured cost of the campaign. | Amazon Quick |
 
+## Captures already produced
+
+`media/demo-refus-k5.gif` is a six-frame capture of the portal at the six states
+of the script above, produced headlessly with Chromium from the local demo
+server (`gisement serve`) using the replayable `#demo=N` hash of `portal/app.js`:
+
+```bash
+python3 -m gisement.cli serve --port 8097 &
+for n in 0 1 2 3 4 5; do
+  chromium --headless=new --screenshot=/tmp/etape$n.png \
+    --window-size=1280,1000 --virtual-time-budget=12000 \
+    "http://127.0.0.1:8097/#demo=$n"
+done
+```
+
+`media/refus-k5.png` is the single frame of the 1:20 moment, used in the README.
+The narrated 3-minute video still needs a human and a microphone; everything it
+must show is already reproducible from these captures.
+
 ## Recording notes
 
 - Capture the terminal at 1080p, the portal in Chromium. English subtitles

@@ -11,6 +11,13 @@ AWS MSP AI Hackathon · Track 2 — Deliver AI-Driven Outcomes for Customers.
 > the emails, the documents, the recorded calls, the application logs — and
 > answers with numbers, intervals and a sequence.
 
+![The k >= 5 refusal, captured on the public portal](media/refus-k5.png)
+
+*The portal, on the public demo: an individual measure is refused by the gateway
+with the three rules it breaks - before any tool runs. The animated version is
+`media/demo-refus-k5.gif`, and the live site is
+[baptistefaisy.github.io/gisement](https://baptistefaisy.github.io/gisement/).*
+
 ## Why it is different
 
 1. **It measures the real work, not the declared work.** The written procedure

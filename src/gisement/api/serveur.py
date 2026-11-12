@@ -16,7 +16,9 @@ from gisement.api import handlers
 from gisement.api.auth import tenant_depuis_jeton
 
 RACINE = Path(__file__).resolve().parents[3]
-PORTAIL = RACINE / "portal"
+# the static site is the complete artefact (it carries data/api.json); the
+# portal directory is the source it is built from
+PORTAIL = RACINE / "site" if (RACINE / "site").is_dir() else RACINE / "portal"
 
 ETAT = handlers.Etat.demo()
 
@@ -73,6 +75,12 @@ class Gestionnaire(BaseHTTPRequestHandler):
         self._json(statut, reponse)
 
     def _api_get(self, chemin: str) -> None:
+        if chemin == "/api/health":
+            # a health probe must work without a token: it is how the portal
+            # decides between the live API and the static fallback
+            statut, reponse = handlers.health(ETAT)
+            self._json(statut, reponse)
+            return
         identite = self._identite()
         if identite is None:
             self._json(401, {"ok": False, "erreur": "jeton absent ou inconnu"})
