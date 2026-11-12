@@ -44,7 +44,10 @@ def _route_get(chemin: str, langue: str) -> tuple[int, dict]:
     exactes = {
         "/api/health": lambda: handlers.health(ETAT),
         "/api/campagnes/courante": lambda: handlers.campagnes_detail(ETAT),
-        "/api/campagne": lambda: (200, {"ok": True, "donnees": vues_produits.campagne_courante()}),
+        "/api/campagne": lambda: (
+            200,
+            {"ok": True, "donnees": vues_produits.campagne_courante(ETAT.campagne)},
+        ),
         "/api/projets": lambda: handlers.projets(ETAT),
         "/api/deconseilles": lambda: handlers.deconseilles(ETAT),
         "/api/budget": lambda: handlers.budget(ETAT),
