@@ -56,17 +56,31 @@ def construire_carte() -> dict:
     ajouter("GET /api/budget", handlers.budget(etat))
     ajouter(
         "POST /api/mesure#individu",
-        handlers.mesurer(etat, MSP, {
-            "canal": "tickets", "groupements": ["service", "individu"],
-            "taille_groupe": 1, "taille_resultat_apres_filtres": 1, "filtres": {"service": "adv"},
-        }),
+        handlers.mesurer(
+            etat,
+            MSP,
+            {
+                "canal": "tickets",
+                "groupements": ["service", "individu"],
+                "taille_groupe": 1,
+                "taille_resultat_apres_filtres": 1,
+                "filtres": {"service": "adv"},
+            },
+        ),
     )
     ajouter(
         "POST /api/mesure#agrege",
-        handlers.mesurer(etat, MSP, {
-            "canal": "tickets", "groupements": ["service", "motif"],
-            "taille_groupe": 34, "taille_resultat_apres_filtres": 34, "filtres": {"service": "adv"},
-        }),
+        handlers.mesurer(
+            etat,
+            MSP,
+            {
+                "canal": "tickets",
+                "groupements": ["service", "motif"],
+                "taille_groupe": 34,
+                "taille_resultat_apres_filtres": 34,
+                "filtres": {"service": "adv"},
+            },
+        ),
     )
     return carte
 
@@ -84,9 +98,7 @@ def main(argv: list[str] | None = None) -> int:
         shutil.copy2(RACINE / "portal" / nom, site / nom)
     (site / "data").mkdir()
     carte = construire_carte()
-    (site / "data" / "api.json").write_text(
-        json.dumps(carte, ensure_ascii=False, indent=2), encoding="utf-8"
-    )
+    (site / "data" / "api.json").write_text(json.dumps(carte, ensure_ascii=False, indent=2), encoding="utf-8")
     (site / ".nojekyll").write_text("", encoding="utf-8")
     print(f"site statique genere dans {site} ({len(carte)} reponses pre-calculees)")
     return 0
