@@ -23,6 +23,7 @@ COMMANDES: tuple[str, ...] = (
     "proposition",
     "suivi",
     "eval",
+    "motif",
     "assets",
     "serve",
 )
@@ -37,6 +38,7 @@ DESCRIPTIONS: dict[str, str] = {
     "proposition": "produce the MSP commercial proposal, as text or PDF",
     "suivi": "record a quarter of realised against predicted (lot 17)",
     "eval": "run the evaluation harness: classification, k>=5, economics (lot 22)",
+    "motif": "the living catalogue: proposals, validation, emerging motifs",
     "assets": "write the Amazon Quick asset bundle (lot 19)",
     "serve": "serve the portal API locally (lot 18)",
 }
