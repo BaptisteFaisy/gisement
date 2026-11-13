@@ -68,8 +68,12 @@ class RegleSpec:
 
 
 def _taille_groupe_non_etablie(requete: RequeteMesure, contexte: ContextePolitique) -> bool:
-    """R2, fail closed: a measure whose group size is unknown is not a measure."""
-    return requete.taille_groupe is None or requete.taille_groupe < contexte.seuil
+    """R2, fail closed: a measure whose group size is unknown is not a measure.
+
+    The comparison uses the EFFECTIVE threshold (`seuil_effectif`), never the
+    raw one: a client can raise the threshold, never lower it below five.
+    """
+    return requete.taille_groupe is None or requete.taille_groupe < seuil_effectif(contexte)
 
 
 def _groupe_de_travail(requete: RequeteMesure, contexte: ContextePolitique) -> bool:
@@ -81,7 +85,7 @@ def _combinaison(requete: RequeteMesure, contexte: ContextePolitique) -> bool:
     if not requete.filtres:
         return False
     taille = requete.taille_resultat_apres_filtres
-    return taille is not None and taille < contexte.seuil
+    return taille is not None and taille < seuil_effectif(contexte)
 
 
 def _attribut_rare(requete: RequeteMesure, contexte: ContextePolitique) -> bool:

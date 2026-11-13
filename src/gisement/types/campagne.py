@@ -170,6 +170,8 @@ class Campagne:
     corpus: tuple[Corpus, ...] = ()
     cree_le: datetime | None = None
     langues: tuple[Langue, ...] = (Langue.FR, Langue.EN)
+    client_nom: str = ""
+    """The name of the client the campaign measures, from the corpus manifest."""
 
     def peut_ingerer(self) -> bool:
         """EF-04 - refusal is explicit, not silent."""

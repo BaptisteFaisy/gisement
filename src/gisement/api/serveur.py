@@ -13,7 +13,7 @@ from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
 from gisement.api import handlers, vues_mesure, vues_produits
-from gisement.api.auth import tenant_depuis_jeton
+from gisement.api.auth import meme_tenant, tenant_depuis_jeton
 
 RACINE = Path(__file__).resolve().parents[3]
 # the static site is the complete artefact (it carries data/api.json); the
@@ -87,16 +87,22 @@ class Gestionnaire(BaseHTTPRequestHandler):
         pass
 
     def _identite(self):
-        return tenant_depuis_jeton(self.headers.get("Authorization"))
+        return tenant_depuis_jeton(self.headers.get("Authorization"), ETAT.campagne.tenant_id)
 
     def _corps(self) -> dict:
-        longueur = int(self.headers.get("Content-Length", 0) or 0)
-        if longueur == 0:
+        try:
+            longueur = int(self.headers.get("Content-Length", 0) or 0)
+        except (TypeError, ValueError):
+            return {}
+        if longueur <= 0:
             return {}
         try:
-            return json.loads(self.rfile.read(longueur).decode("utf-8"))
-        except json.JSONDecodeError:
+            charge = json.loads(self.rfile.read(longueur).decode("utf-8"))
+        except (json.JSONDecodeError, UnicodeDecodeError):
             return {}
+        # A body that is not an object is not a body of this API: it reads as
+        # empty, never as an object whose keys are unknown.
+        return charge if isinstance(charge, dict) else {}
 
     def _repondre(self, statut: int, contenu: bytes, type_contenu: str) -> None:
         self.send_response(statut)
@@ -122,6 +128,9 @@ class Gestionnaire(BaseHTTPRequestHandler):
         if identite is None:
             self._json(401, {"ok": False, "erreur": "jeton absent ou inconnu"})
             return
+        if not meme_tenant(identite, ETAT.campagne.tenant_id):
+            self._json(403, {"ok": False, "erreur": "tenant different de la campagne servie (R21)"})
+            return
         corps = self._corps()
         statut, reponse = self._router_post(chemin, identite, corps)
         self._json(statut, reponse)
@@ -130,6 +139,9 @@ class Gestionnaire(BaseHTTPRequestHandler):
         identite = self._identite()
         if identite is None:
             self._json(401, {"ok": False, "erreur": "jeton absent ou inconnu"})
+            return
+        if not meme_tenant(identite, ETAT.campagne.tenant_id):
+            self._json(403, {"ok": False, "erreur": "tenant different de la campagne servie (R21)"})
             return
         langue = parse_qs(urlparse(self.path).query).get("langue", ["fr"])[0]
         statut, reponse = _route_get(chemin, langue)
@@ -146,13 +158,14 @@ class Gestionnaire(BaseHTTPRequestHandler):
             return handlers.mesurer(ETAT, identite, corps)
         if chemin.startswith("/api/processus/") and chemin.endswith("/valider"):
             processus_id = chemin.split("/")[3]
-            return handlers.valider_processus(
-                ETAT, processus_id, corps.get("decision", "validee"), identite.utilisateur
-            )
+            return handlers.valider_processus(ETAT, processus_id, corps.get("decision", "validee"), identite)
         return 404, {"ok": False, "erreur": f"route inconnue : {chemin}"}
 
     def _statique(self, chemin: str) -> None:
         cible = "index.html" if chemin in ("/", "") else chemin.lstrip("/")
+        if len(cible) > 200:
+            self._repondre(404, b"introuvable", "text/plain; charset=utf-8")
+            return
         fichier = (PORTAIL / cible).resolve()
         if not str(fichier).startswith(str(PORTAIL.resolve())) or not fichier.is_file():
             self._repondre(404, b"introuvable", "text/plain; charset=utf-8")

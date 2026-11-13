@@ -12,14 +12,22 @@ from dataclasses import dataclass
 
 from gisement.types.communs import Role
 
-#: Demo tokens -> (tenant, role). In production this is a Cognito/AgentCore lookup.
-JETONS_DEMO: dict[str, tuple[str, Role]] = {
-    "jeton-demo-msp": ("T-DEMO", Role.CONSULTANT_MSP),
-    "jeton-demo-dpo": ("T-DEMO", Role.DPO),
-    "jeton-demo-commanditaire": ("T-DEMO", Role.COMMANDITAIRE),
-    "jeton-demo-responsable": ("T-DEMO", Role.RESPONSABLE_SERVICE),
-    "jeton-demo-compte": ("T-DEMO", Role.RESPONSABLE_COMPTE),
-    "jeton-autre-client": ("T-AUTRE", Role.CONSULTANT_MSP),
+#: The tenant of a client that is NOT the one this server serves. Its token is
+#: refused everywhere: it is the negative case of R21.
+TENANT_AUTRE = "T-AUTRE"
+
+#: Demo tokens -> (role, tenant of another client?). The demo tokens are the
+#: staff of the client this server serves, so their tenant is the one of the
+#: campaign being served - never a hard-coded one, or the real corpus (whose
+#: client is T-KAFKA) could never be measured.
+#: In production this is a Cognito/AgentCore lookup.
+JETONS_DEMO: dict[str, tuple[Role, bool]] = {
+    "jeton-demo-msp": (Role.CONSULTANT_MSP, False),
+    "jeton-demo-dpo": (Role.DPO, False),
+    "jeton-demo-commanditaire": (Role.COMMANDITAIRE, False),
+    "jeton-demo-responsable": (Role.RESPONSABLE_SERVICE, False),
+    "jeton-demo-compte": (Role.RESPONSABLE_COMPTE, False),
+    "jeton-autre-client": (Role.CONSULTANT_MSP, True),
 }
 
 
@@ -30,15 +38,21 @@ class Identite:
     utilisateur: str
 
 
-def tenant_depuis_jeton(jeton: str | None) -> Identite | None:
-    """Resolve a bearer token into an identity, or None if unknown."""
+def tenant_depuis_jeton(jeton: str | None, tenant_servei: str = "T-DEMO") -> Identite | None:
+    """Resolve a bearer token into an identity, or None if unknown.
+
+    `tenant_servei` is the tenant of the campaign this server serves: the demo
+    tokens belong to that client. The token of another client keeps its own
+    tenant, so the isolation can be exercised (R21).
+    """
     if not jeton:
         return None
     cle = jeton.removeprefix("Bearer ").strip()
     trouve = JETONS_DEMO.get(cle)
     if trouve is None:
         return None
-    tenant, role = trouve
+    role, autre_tenant = trouve
+    tenant = TENANT_AUTRE if autre_tenant else tenant_servei
     return Identite(tenant_id=tenant, role=role, utilisateur=f"u-{role.value}")
 
 
@@ -53,3 +67,13 @@ def peut_valider_conformite(identite: Identite) -> bool:
 
 def peut_lancer(identite: Identite) -> bool:
     return identite.role in (Role.CONSULTANT_MSP, Role.DPO)
+
+
+def meme_tenant(identite: Identite, tenant_campagne: str) -> bool:
+    """R21 - a client reads its own campaign only.
+
+    The tenant of the campaign is the one the server was started for; the
+    tenant of the request comes from the token. A mismatch means the client
+    asks for another client's data: it is refused, never served.
+    """
+    return identite.tenant_id == tenant_campagne

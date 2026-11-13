@@ -236,6 +236,7 @@ def campagne_depuis_manifeste(
             volume_travail_estime_heures=_declare_depuis_manifeste(racine),
         ),
         graine=int(manifeste["graine"]),
+        client_nom=str(client.get("nom") or tenant_id),
     )
 
 

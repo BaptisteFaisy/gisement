@@ -50,6 +50,11 @@ def _ok(donnees: object) -> tuple[int, dict]:
     return 200, {"ok": True, "donnees": donnees}
 
 
+def _texte(valeur) -> str | None:
+    """A number as text, or None: `str(None)` would leak the literal "None"."""
+    return None if valeur is None else str(valeur)
+
+
 def _erreur(statut: int, message: str) -> tuple[int, dict]:
     return statut, {"ok": False, "erreur": message}
 
@@ -86,8 +91,8 @@ def processus_table(resultat) -> tuple[int, dict]:
                 ],
                 "gain_mensuel": str(gisement.gain_mensuel),
                 "gain_annuel": str(gisement.gain_annuel),
-                "ecart_naif": str(gisement.ecart_naif),
-                "delai_retour_mois": str(gisement.delai_retour_mois),
+                "ecart_naif": _texte(gisement.ecart_naif),
+                "delai_retour_mois": _texte(gisement.delai_retour_mois),
                 "type": projet.faisabilite.type.value if projet else "?",
                 "vague": projet.vague.value if projet else "aucune",
                 "risque": projet.risque.value if projet else "?",
@@ -184,7 +189,7 @@ def _bloc_calcul(gisement) -> dict:
         ),
         "gain_annuel": str(gisement.gain_annuel),
         "gain_naif_mensuel": str(gisement.gain_naif_mensuel),
-        "ecart_naif": str(gisement.ecart_naif),
+        "ecart_naif": _texte(gisement.ecart_naif),
         "cout": {
             "developpement": str(gisement.cout.developpement),
             "outil_annuel": str(gisement.cout.outil_annuel),
@@ -192,8 +197,8 @@ def _bloc_calcul(gisement) -> dict:
             "annee_1": str(gisement.cout.annee_1),
             "recurrent": str(gisement.cout.recurrent),
         },
-        "delai_retour_mois": str(gisement.delai_retour_mois),
-        "delai_retour_naif_mois": str(gisement.delai_retour_naif_mois),
+        "delai_retour_mois": _texte(gisement.delai_retour_mois),
+        "delai_retour_naif_mois": _texte(gisement.delai_retour_naif_mois),
         "gain_trois_ans": str(gisement.gain_trois_ans),
         "tirages_monte_carlo": gisement.tirages,
     }
@@ -235,7 +240,7 @@ def _bloc_recommandation(projet) -> dict:
         "rang": projet.rang,
         "gain_mensuel": str(projet.gisement.gain_mensuel),
         "cout_annee_1": str(projet.gisement.cout.annee_1),
-        "retour_mois": str(projet.gisement.delai_retour_mois),
+        "retour_mois": _texte(projet.gisement.delai_retour_mois),
     }
 
 
@@ -313,8 +318,13 @@ def plan_projet(resultat, consultants: int = 2, jours_par_mois: int = 15) -> tup
     """Idea #9 - the sequence turned into a dated plan under a real bench."""
     if resultat is None:
         return _erreur(409, "la mesure n'a pas ete lancee")
+    # Dependencies only concern projects the campaign actually holds: on the
+    # real corpus the demo's P-xx projects do not exist, so announcing them
+    # would lie about the client's perimeter.
+    projet_ids = {p.processus_id for p in resultat.portefeuille.projets}
+    dependances = tuple(d for d in DEPENDANCES_DEMO if d.projet_id in projet_ids)
     capacite = Capacite(consultants=consultants, jours_par_mois=jours_par_mois)
-    plan = planifier(resultat.portefeuille.projets, DEPENDANCES_DEMO, capacite)
+    plan = planifier(resultat.portefeuille.projets, dependances, capacite)
     return _ok(
         {
             "capacite": {
@@ -323,7 +333,7 @@ def plan_projet(resultat, consultants: int = 2, jours_par_mois: int = 15) -> tup
                 "jours_disponibles": str(capacite.jours_disponibles()),
             },
             "dependances": [
-                {"projet": d.projet_id, "apres": list(d.apres), "raison": d.raison} for d in DEPENDANCES_DEMO
+                {"projet": d.projet_id, "apres": list(d.apres), "raison": d.raison} for d in dependances
             ],
             "taches": [
                 {
@@ -339,7 +349,7 @@ def plan_projet(resultat, consultants: int = 2, jours_par_mois: int = 15) -> tup
             "duree_totale_mois": plan.duree_totale_mois,
             "capacite_utilisee": str(plan.capacite_utilisee),
             "gain_cumule": str(plan.gain_cumule),
-            "chemin_critique": list(chemin_critique(resultat.portefeuille.projets, DEPENDANCES_DEMO)),
+            "chemin_critique": list(chemin_critique(resultat.portefeuille.projets, dependances)),
             "gantt": gantt(plan),
             "jours_par_projet": {
                 p.processus_id: str(jours_necessaires(p))

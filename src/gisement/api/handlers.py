@@ -9,7 +9,7 @@ identically. Every measure route passes through `politique.evaluer` first
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from datetime import UTC, datetime
 from decimal import Decimal
 from pathlib import Path
@@ -39,9 +39,20 @@ from gisement.politique import (
 )
 from gisement.rapports import cas_business, rapport_dirigeant, registre_conformite
 from gisement.types.campagne import Campagne, Conformite
-from gisement.types.communs import Canal, Langue, StatutCampagne, StatutValidation
+from gisement.types.communs import (
+    SEUIL_AGGREGATION_DEFAUT,
+    Canal,
+    Langue,
+    Role,
+    StatutCampagne,
+    StatutValidation,
+)
 from gisement.types.conformite import OUTIL_MESURE, RequeteMesure
 from gisement.types.mesure import Processus
+
+#: 11.3 - the service manager validates the measured volumes of his perimeter,
+#: the DPO verifies the non-attribution and signs them.
+ROLES_VALIDATION = (Role.RESPONSABLE_SERVICE, Role.DPO)
 
 
 @dataclass
@@ -118,11 +129,13 @@ def declarer_conformite(etat: Etat, identite: Identite, corps: dict) -> tuple[in
     """EF-02 - record the DPO / staff-representative validation."""
     if not peut_valider_conformite(identite):
         return _erreur(403, "seul le DPO ou un representant du personnel peut valider")
+    # The threshold can be raised by the DPO, never lowered: k >= 5 is a floor.
+    seuil = max(int(corps.get("seuil", SEUIL_AGGREGATION_DEFAUT)), SEUIL_AGGREGATION_DEFAUT)
     etat.conformite = Conformite(
         campagne_id=etat.campagne.id,
         finalite=corps.get("finalite", "mesure des processus de travail"),
         canaux_autorises=tuple(Canal(c) for c in corps.get("canaux", [c.value for c in Canal])),
-        seuil_agregation=int(corps.get("seuil", 5)),
+        seuil_agregation=seuil,
         validation_dpo=True,
         validation_cse=bool(corps.get("cse", True)),
         valide_le=datetime.now(UTC),
@@ -171,15 +184,16 @@ def suspendre(etat: Etat, identite: Identite) -> tuple[int, dict]:
     """ENF-12 / 11.4 - immediate suspension, state kept, logged."""
     if not est_dpo_ou_suspension(identite):
         return _erreur(403, "seul le DPO ou un representant du personnel peut suspendre")
-    if etat.conformite is not None:
-        from dataclasses import replace as _replace
+    if etat.conformite is None:
+        return _erreur(409, "aucune campagne a suspendre : conformite non enregistree")
+    from dataclasses import replace as _replace
 
-        etat.conformite = _replace(
-            etat.conformite,
-            suspension=True,
-            suspendu_le=datetime.now(UTC),
-            suspendu_par=identite.utilisateur,
-        )
+    etat.conformite = _replace(
+        etat.conformite,
+        suspension=True,
+        suspendu_le=datetime.now(UTC),
+        suspendu_par=identite.utilisateur,
+    )
     etat.statut_campagne = StatutCampagne.SUSPENDUE
     return _ok({"suspendue": True, "etat_conserve": True, "reprise_possible": True})
 
@@ -261,8 +275,15 @@ def gisement_detail(etat: Etat, processus_id: str) -> tuple[int, dict]:
                     ],
                     "gain_mensuel": str(gisement.gain_mensuel),
                     "gain_naif_mensuel": str(gisement.gain_naif_mensuel),
-                    "ecart_naif": str(gisement.ecart_naif),
-                    "delai_retour_mois": str(gisement.delai_retour_mois),
+                    "ecart_naif": None if gisement.ecart_naif is None else str(gisement.ecart_naif),
+                    "delai_retour_mois": (
+                        None if gisement.delai_retour_mois is None else str(gisement.delai_retour_mois)
+                    ),
+                    "delai_retour_naif_mois": (
+                        None
+                        if gisement.delai_retour_naif_mois is None
+                        else str(gisement.delai_retour_naif_mois)
+                    ),
                 }
             )
     return _erreur(404, f"gisement introuvable : {processus_id}")
@@ -289,7 +310,7 @@ def mesurer(etat: Etat, identite: Identite, corps: dict) -> tuple[int, dict]:
         requetes_precedentes=etat.compteur.nb(identite.utilisateur, etat.campagne.id),
     )
     ctx = contexte_avec_quota(
-        contexte(etat.campagne, corpus_assainis=frozenset({"CORP-DEMO"})),
+        contexte(etat.campagne, corpus_assainis=frozenset({f"CORP-{etat.corpus.upper()}"})),
         etat.compteur,
         identite.utilisateur,
     )
@@ -304,7 +325,13 @@ def mesurer(etat: Etat, identite: Identite, corps: dict) -> tuple[int, dict]:
             regles_violees=[r.value for r in decision.regles_violees],
             seuil_agregation=decision.seuil_agregation,
         )
-    return _ok({"mesure": "agregee", "seuil_applique": decision.seuil_agregation})
+    return _ok(
+        {
+            "mesure": "agregee",
+            "seuil_applique": decision.seuil_agregation,
+            "empreinte_requete": decision.empreinte_requete,
+        }
+    )
 
 
 def _avec_conformite(ctx, etat: Etat):
@@ -375,13 +402,32 @@ def budget(etat: Etat) -> tuple[int, dict]:
     )
 
 
-def valider_processus(etat: Etat, processus_id: str, decision: str, par: str) -> tuple[int, dict]:
-    """EF-24 / 11.3 - the service manager confirms, contests or completes."""
+def valider_processus(etat: Etat, processus_id: str, decision: str, identite: Identite) -> tuple[int, dict]:
+    """EF-24 / 11.3 - the service manager confirms, contests or completes.
+
+    The measured objects are frozen: the validation replaces the process, the
+    measure that carries it and the result that holds them, rather than
+    mutating them.
+    """
     if etat.resultat is None:
         return _erreur(409, "la mesure n'a pas ete lancee")
+    if identite.role not in ROLES_VALIDATION:
+        return _erreur(403, "seul le responsable de service ou le DPO peut valider un volume")
+    try:
+        statut = StatutValidation(decision)
+    except ValueError:
+        return _erreur(400, f"decision inconnue : {decision}")
+    mesures = []
+    trouve = False
     for mesure in etat.resultat.mesures:
         if mesure.processus.id == processus_id:
-            mesure.processus.validation = StatutValidation(decision)
-            mesure.processus.valide_par = par
-            return _ok({"processus": processus_id, "validation": decision})
-    return _erreur(404, f"processus introuvable : {processus_id}")
+            mesure = replace(
+                mesure,
+                processus=replace(mesure.processus, validation=statut, valide_par=identite.utilisateur),
+            )
+            trouve = True
+        mesures.append(mesure)
+    if not trouve:
+        return _erreur(404, f"processus introuvable : {processus_id}")
+    etat.resultat = replace(etat.resultat, mesures=tuple(mesures))
+    return _ok({"processus": processus_id, "validation": statut.value})

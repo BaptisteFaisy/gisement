@@ -291,7 +291,8 @@
         "gain_mensuel": "1102.50",
         "gain_naif_mensuel": "1575.00",
         "ecart_naif": "1.43",
-        "delai_retour_mois": "1.8"
+        "delai_retour_mois": "1.8",
+        "delai_retour_naif_mois": "1.2"
       }
     }
   },
@@ -301,7 +302,7 @@
       "ok": true,
       "donnees": {
         "langue": "fr",
-        "rapport": "Rapport dirigeant - Gisement\nCampagne CMP-0031 - fenetre 2026-05-01 .. 2026-11-01\n\n\nCouverture de la mesure: 62 % du volume de travail estime du perimetre est couvert par les canaux observes ; 1536.8 heures ne le sont pas, principalement : travail de terrain (entrepot, livraisons), reunions non enregistrees, echanges oraux informels, messagerie instantanee hors perimetre.\nGisement net annuel: 108318.12 EUR (108318.12 avec l'incertitude).\nA ne pas automatiser: 6 processus (26 %).\n\nVague 1 - amorcage\n  1. P-07 [A] gain 1102.50 EUR/mois, retour 1.8 mois\n  2. P-14 [A] gain 257.39 EUR/mois, retour 0 mois\nVague 2 - structurel\n  1. P-19 [B] gain 1418.63 EUR/mois, retour 12.4 mois\n  2. P-01 [B] gain 648.16 EUR/mois, retour 13.1 mois\n  3. P-16 [B] gain 354.58 EUR/mois, retour 9.9 mois\n  4. P-11 [B] gain 382.45 EUR/mois, retour 13.2 mois\nVague 3 - transformation\n  1. P-21 [D] gain 815.00 EUR/mois, retour 27.4 mois\n  2. P-15 [D] gain 379.81 EUR/mois, retour 30.1 mois\n\nCas de reference : saisie des commandes fournisseurs\n  Calcul naif:    2016.00 EUR/mois, retour 5.2 mois\n  Gisement:      779.05 EUR/mois, retour 13.6 mois\n  Facteur de surestimation: 2.59\n\n- Gisement ne produit aucun classement, score ou indicateur individuel.\n- Aucune mesure du temps de travail utilisable en paie ou en discipline.\n- Aucune analyse de sentiment, d'opinion ou d'humeur.\n- Aucune identification de sous-performance individuelle.\n- Aucun croisement avec les donnees RH (evaluation, absence, sanction)."
+        "rapport": "Rapport dirigeant - Gisement\nCampagne CMP-0031 - fenetre 2026-05-01 .. 2026-11-01\n\n\nCouverture de la mesure: 62 % du volume de travail estime du perimetre est couvert par les canaux observes ; 1536.8 heures ne le sont pas, principalement : travail de terrain (entrepot, livraisons), reunions non enregistrees, echanges oraux informels, messagerie instantanee hors perimetre.\nGisement net annuel: 108318.12 EUR (108318.12 avec l'incertitude).\nA ne pas automatiser: 6 processus (26 %).\n\nVague 1 - amorcage\n  1. P-07 [A] gain 1102.50 EUR/mois, retour 1.8 mois\n  2. P-14 [A] gain 257.39 EUR/mois, retour 0 mois\nVague 2 - structurel\n  1. P-19 [B] gain 1418.63 EUR/mois, retour 12.4 mois\n  2. P-01 [B] gain 648.16 EUR/mois, retour 13.1 mois\n  3. P-16 [B] gain 354.58 EUR/mois, retour 9.9 mois\n  4. P-11 [B] gain 382.45 EUR/mois, retour 13.2 mois\nVague 3 - transformation\n  1. P-21 [D] gain 815.00 EUR/mois, retour 27.4 mois\n  2. P-15 [D] gain 379.81 EUR/mois, retour 30.1 mois\n\nCas de reference : le processus le plus mesure du perimetre\n  Calcul naif:    2016.00 EUR/mois, retour 5.2 mois\n  Gisement:      779.05 EUR/mois, retour 13.6 mois\n  Facteur de surestimation: 2.59\n\n- Gisement ne produit aucun classement, score ou indicateur individuel.\n- Aucune mesure du temps de travail utilisable en paie ou en discipline.\n- Aucune analyse de sentiment, d'opinion ou d'humeur.\n- Aucune identification de sous-performance individuelle.\n- Aucun croisement avec les donnees RH (evaluation, absence, sanction)."
       }
     }
   },
@@ -311,7 +312,7 @@
       "ok": true,
       "donnees": {
         "langue": "en",
-        "rapport": "Executive report - Gisement\nCampagne CMP-0031 - fenetre 2026-05-01 .. 2026-11-01\n\n\nMeasurement coverage: 62% of the estimated work volume of the perimeter is covered by the observed channels; 1536.8 hours are not, mainly: travail de terrain (entrepot, livraisons), reunions non enregistrees, echanges oraux informels, messagerie instantanee hors perimetre.\nGisement net annuel: 108318.12 EUR (108318.12 avec l'incertitude).\nDo not automate: 6 processus (26 %).\n\nWave 1 - quick wins\n  1. P-07 [A] gain 1102.50 EUR/mois, retour 1.8 mois\n  2. P-14 [A] gain 257.39 EUR/mois, retour 0 mois\nWave 2 - structural\n  1. P-19 [B] gain 1418.63 EUR/mois, retour 12.4 mois\n  2. P-01 [B] gain 648.16 EUR/mois, retour 13.1 mois\n  3. P-16 [B] gain 354.58 EUR/mois, retour 9.9 mois\n  4. P-11 [B] gain 382.45 EUR/mois, retour 13.2 mois\nWave 3 - transformation\n  1. P-21 [D] gain 815.00 EUR/mois, retour 27.4 mois\n  2. P-15 [D] gain 379.81 EUR/mois, retour 30.1 mois\n\nReference case: keying supplier orders\n  Naive calculation:    2016.00 EUR/mois, retour 5.2 mois\n  Gisement:      779.05 EUR/mois, retour 13.6 mois\n  Overstatement factor: 2.59\n\n- Gisement produces no individual ranking, score or indicator.\n- No measure of working time usable for payroll or discipline.\n- No sentiment, opinion or mood analysis.\n- No identification of individual underperformance.\n- No cross-referencing with HR data (appraisal, absence, sanction)."
+        "rapport": "Executive report - Gisement\nCampagne CMP-0031 - fenetre 2026-05-01 .. 2026-11-01\n\n\nMeasurement coverage: 62% of the estimated work volume of the perimeter is covered by the observed channels; 1536.8 hours are not, mainly: travail de terrain (entrepot, livraisons), reunions non enregistrees, echanges oraux informels, messagerie instantanee hors perimetre.\nGisement net annuel: 108318.12 EUR (108318.12 avec l'incertitude).\nDo not automate: 6 processus (26 %).\n\nWave 1 - quick wins\n  1. P-07 [A] gain 1102.50 EUR/mois, retour 1.8 mois\n  2. P-14 [A] gain 257.39 EUR/mois, retour 0 mois\nWave 2 - structural\n  1. P-19 [B] gain 1418.63 EUR/mois, retour 12.4 mois\n  2. P-01 [B] gain 648.16 EUR/mois, retour 13.1 mois\n  3. P-16 [B] gain 354.58 EUR/mois, retour 9.9 mois\n  4. P-11 [B] gain 382.45 EUR/mois, retour 13.2 mois\nWave 3 - transformation\n  1. P-21 [D] gain 815.00 EUR/mois, retour 27.4 mois\n  2. P-15 [D] gain 379.81 EUR/mois, retour 30.1 mois\n\nReference case: the most measured process of the perimeter\n  Naive calculation:    2016.00 EUR/mois, retour 5.2 mois\n  Gisement:      779.05 EUR/mois, retour 13.6 mois\n  Overstatement factor: 2.59\n\n- Gisement produces no individual ranking, score or indicator.\n- No measure of working time usable for payroll or discipline.\n- No sentiment, opinion or mood analysis.\n- No identification of individual underperformance.\n- No cross-referencing with HR data (appraisal, absence, sanction)."
       }
     }
   },
@@ -3144,8 +3145,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "a5c0ca439c455cb2",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : a5c0ca439c455cb2."
+            "empreinte": "b480f042b2cb46f3",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : b480f042b2cb46f3."
           },
           {
             "mesure": "P-02",
@@ -3154,8 +3155,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "47041724af06933d",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 47041724af06933d."
+            "empreinte": "39ac9de675267406",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 39ac9de675267406."
           },
           {
             "mesure": "P-03",
@@ -3164,8 +3165,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "9d90f9b9acb06057",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 9d90f9b9acb06057."
+            "empreinte": "18c3ab39c0612296",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 18c3ab39c0612296."
           },
           {
             "mesure": "P-04",
@@ -3174,8 +3175,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "bd8105536a2b4067",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : bd8105536a2b4067."
+            "empreinte": "0f869f8040823a14",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 0f869f8040823a14."
           },
           {
             "mesure": "P-05",
@@ -3184,8 +3185,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "480287be53085a81",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 480287be53085a81."
+            "empreinte": "41a5ee60918070a3",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 41a5ee60918070a3."
           },
           {
             "mesure": "P-06",
@@ -3194,8 +3195,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "e368054cb3a9658d",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : e368054cb3a9658d."
+            "empreinte": "cb69c68131229281",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : cb69c68131229281."
           },
           {
             "mesure": "P-07",
@@ -3204,8 +3205,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "1547de9a9c9c037e",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 1547de9a9c9c037e."
+            "empreinte": "1cf7554d50b73098",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 1cf7554d50b73098."
           },
           {
             "mesure": "P-08",
@@ -3214,8 +3215,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "ea0d66deaa21b68c",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : ea0d66deaa21b68c."
+            "empreinte": "8e7ae00ee896aa14",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 8e7ae00ee896aa14."
           },
           {
             "mesure": "P-09",
@@ -3224,8 +3225,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "a6ad2d79eddad37f",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : a6ad2d79eddad37f."
+            "empreinte": "6c4627fbde390b7e",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 6c4627fbde390b7e."
           },
           {
             "mesure": "P-10",
@@ -3234,8 +3235,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "0773a61a86eb6ed7",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 0773a61a86eb6ed7."
+            "empreinte": "b3072b2ca03d2861",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : b3072b2ca03d2861."
           },
           {
             "mesure": "P-11",
@@ -3244,8 +3245,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "90f5346043e50dcb",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 90f5346043e50dcb."
+            "empreinte": "a559909a56be6de3",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : a559909a56be6de3."
           },
           {
             "mesure": "P-12",
@@ -3254,8 +3255,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "c34701d5421ffae4",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : c34701d5421ffae4."
+            "empreinte": "3183bbd9b5a310e2",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 3183bbd9b5a310e2."
           },
           {
             "mesure": "P-13",
@@ -3264,8 +3265,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "57192022844e0251",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 57192022844e0251."
+            "empreinte": "2903a00d72963ca0",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 2903a00d72963ca0."
           },
           {
             "mesure": "P-14",
@@ -3274,8 +3275,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "e9c0027705cdd94a",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : e9c0027705cdd94a."
+            "empreinte": "cba2b4d8af8266f1",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : cba2b4d8af8266f1."
           },
           {
             "mesure": "P-15",
@@ -3284,8 +3285,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "ff2d80c552afa8b0",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : ff2d80c552afa8b0."
+            "empreinte": "61ef8426f171dc4f",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 61ef8426f171dc4f."
           },
           {
             "mesure": "P-16",
@@ -3294,8 +3295,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "6334e2ef798a1ac3",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 6334e2ef798a1ac3."
+            "empreinte": "ce406c23dace5d40",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : ce406c23dace5d40."
           },
           {
             "mesure": "P-17",
@@ -3304,8 +3305,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "2d81c3906d32cc06",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 2d81c3906d32cc06."
+            "empreinte": "43de3c8a7513a66e",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 43de3c8a7513a66e."
           },
           {
             "mesure": "P-18",
@@ -3314,8 +3315,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "315a4d8d1e47db32",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 315a4d8d1e47db32."
+            "empreinte": "cd42b12a332d007c",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : cd42b12a332d007c."
           },
           {
             "mesure": "P-19",
@@ -3324,8 +3325,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "75c27a58aba0db23",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 75c27a58aba0db23."
+            "empreinte": "7a63dba3671e86ba",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 7a63dba3671e86ba."
           },
           {
             "mesure": "P-20",
@@ -3334,8 +3335,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "244bbb718cc7fdc1",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 244bbb718cc7fdc1."
+            "empreinte": "9faa5cb5a1fb5353",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 9faa5cb5a1fb5353."
           },
           {
             "mesure": "P-21",
@@ -3344,8 +3345,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "3c8778c9298fa22f",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 3c8778c9298fa22f."
+            "empreinte": "60de85163c36e1a4",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 60de85163c36e1a4."
           },
           {
             "mesure": "P-22",
@@ -3354,8 +3355,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "7e718403f58b01c6",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 7e718403f58b01c6."
+            "empreinte": "1fc4e13eb7a95f69",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 1fc4e13eb7a95f69."
           },
           {
             "mesure": "P-23",
@@ -3364,8 +3365,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "677c4e1d28508dab",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 677c4e1d28508dab."
+            "empreinte": "b332aab9fd6c4a14",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : b332aab9fd6c4a14."
           }
         ],
         "chaine_verifiee": true,
@@ -6555,8 +6556,21 @@
       "ok": true,
       "donnees": {
         "mesure": "agregee",
-        "seuil_applique": 5
+        "seuil_applique": 5,
+        "empreinte_requete": "e3bc8266fb97a36fb2fda247f08ca0aafe3eb7d8bc9d69feda2f3edd3885bf8c"
       }
+    }
+  },
+  "POST /api/mesure#filtres": {
+    "statut": 403,
+    "corps": {
+      "ok": false,
+      "erreur": "Mesure portant sur moins de cinq individus : elle est supprimee, pas arrondie. ; La combinaison de filtres isole moins de cinq individus.",
+      "regles_violees": [
+        "regle_k5",
+        "regle_combinaison"
+      ],
+      "seuil_agregation": 5
     }
   },
   "META": {

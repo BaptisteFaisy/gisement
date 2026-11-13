@@ -13,7 +13,6 @@ from gisement.commands.proposition import construire as construire_proposition
 from gisement.connecteurs import FauxClientHttp, SourceJira, SourceSage, SourceServiceNow
 from gisement.evaluation import resume_backtest, resume_evaluation
 from gisement.observabilite import CompteurCout, estimation_annexe_g, repartition
-from gisement.pipeline import campagne_demo
 from gisement.politique.cedar import (
     ROLES_AUTORISES,
     configuration_passerelle,
@@ -38,6 +37,7 @@ from gisement.suivi import (
 from gisement.suivi import (
     resume as resume_alertes,
 )
+from gisement.types.campagne import Campagne
 from gisement.types.communs import arrondi, decimal
 
 #: Demo history of realised gains, as a multiplier of the predicted monthly
@@ -51,8 +51,6 @@ REALISE_DEMO: dict[str, tuple[str, ...]] = {
     "P-16": ("0.55", "0.61", "0.58"),
     "P-11": ("1.03", "1.05", "1.01"),
 }
-TRIMESTRES_DEMO = ("2027-T1", "2027-T2", "2027-T3")
-
 #: Canned payloads of the connector demo: no network, ever (26.4).
 URL_JIRA = "/rest/api/3/search?jql=project=SUP ORDER BY created&maxResults=100"
 ISSUE_JIRA = {
@@ -104,6 +102,23 @@ def _erreur(statut: int, message: str) -> tuple[int, dict]:
     return statut, {"ok": False, "erreur": message}
 
 
+def _trimestres_suivants(resultat) -> list[str]:
+    """The three quarters after the campaign window, when gains will be realised.
+
+    The demo window ends 2026-11, so its base is 2027-T1..T3. A campaign whose
+    window ends earlier must not announce the demo's quarters.
+    """
+    fin = resultat.campagne.perimetre.fenetre_fin
+    # A global quarter index: year*4 + the 0-based quarter of the month.
+    trimestre_courant = fin.year * 4 + (fin.month - 1) // 3
+    parts = []
+    # The first realised quarter is the one AFTER the window closes.
+    for indice in range(trimestre_courant + 1, trimestre_courant + 4):
+        annee, quart = divmod(indice, 4)
+        parts.append(f"{annee}-T{quart + 1}")
+    return parts
+
+
 def _suivis_de_demo(resultat) -> list:
     """The demo history: predicted gains replayed with fixed multipliers."""
     gisements = {g.processus_id: g for g in resultat.gisements}
@@ -112,7 +127,7 @@ def _suivis_de_demo(resultat) -> list:
         gisement = gisements.get(projet_id)
         if gisement is None or gisement.gain_mensuel is None:
             continue
-        for trimestre, facteur in zip(TRIMESTRES_DEMO, multiplicateurs, strict=True):
+        for trimestre, facteur in zip(_trimestres_suivants(resultat), multiplicateurs, strict=True):
             mesure = arrondi(gisement.gain_mensuel * decimal(facteur), 2)
             suivis.append(comparer(gisement.gain_mensuel, mesure, projet_id, trimestre))
     return suivis
@@ -127,7 +142,7 @@ def suivi_longitudinal(resultat) -> tuple[int, dict]:
     alertes = detecter(suivis)
     return _ok(
         {
-            "trimestres": list(TRIMESTRES_DEMO),
+            "trimestres": _trimestres_suivants(resultat),
             "suivis": [
                 {
                     "projet": s.projet_id,
@@ -327,10 +342,11 @@ def proposition(resultat) -> tuple[int, dict]:
     """Idea #10 - the commercial proposal, as text (the PDF is the same lines)."""
     if resultat is None:
         return _erreur(409, "la mesure n'a pas ete lancee")
+    client = resultat.campagne.client_nom or "Demo Distribution SAS"
     return _ok(
         {
-            "client": "Demo Distribution SAS",
-            "texte": "\n".join(construire_proposition(resultat, "Demo Distribution SAS")),
+            "client": client,
+            "texte": "\n".join(construire_proposition(resultat, client)),
             "pdf": "python3 -m gisement.cli proposition --pdf proposition.pdf",
         }
     )
@@ -391,13 +407,12 @@ def _ecart(mesure: Decimal) -> Decimal:
     return arrondi(abs(mesure - estimation) / estimation, 4)
 
 
-def campagne_courante(campagne=None) -> dict:
+def campagne_courante(campagne: Campagne) -> dict:
     """The campaign descriptor, for the portal header.
 
-    The demo campaign by default; the real one when the state measures the real
-    corpus, so the header tells the truth about what is on screen.
+    The caller passes the campaign the server measures, so the header always
+    tells the truth about what is on screen - the demo or the real corpus.
     """
-    campagne = campagne or campagne_demo()
     return {
         "id": campagne.id,
         "tenant": campagne.tenant_id,

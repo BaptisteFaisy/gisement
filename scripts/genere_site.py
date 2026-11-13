@@ -25,8 +25,11 @@ from gisement.api import handlers, vues_mesure, vues_produits  # noqa: E402
 from gisement.api.auth import Identite  # noqa: E402
 from gisement.types.communs import Role  # noqa: E402
 
-MSP = Identite(tenant_id="T-DEMO", role=Role.CONSULTANT_MSP, utilisateur="u-consultant_msp")
-DPO = Identite(tenant_id="T-DEMO", role=Role.DPO, utilisateur="u-dpo")
+
+def _identite(tenant: str, role: Role) -> Identite:
+    """An identity for the client the corpus measures: T-DEMO or T-KAFKA."""
+    return Identite(tenant_id=tenant, role=role, utilisateur=f"u-{role.value}")
+
 
 FICHIERS_STATIQUES = ("index.html", "styles.css", "app.js", "vues.js")
 
@@ -34,13 +37,17 @@ FICHIERS_STATIQUES = ("index.html", "styles.css", "app.js", "vues.js")
 def _etat_lance(etat=None):
     """A campaign with the DPO validation recorded and the measurement run."""
     etat = etat or handlers.Etat.demo()
-    handlers.declarer_conformite(etat, DPO, {})
-    handlers.lancer(etat, MSP)
+    msp = _identite(etat.campagne.tenant_id, Role.CONSULTANT_MSP)
+    dpo = _identite(etat.campagne.tenant_id, Role.DPO)
+    handlers.declarer_conformite(etat, dpo, {})
+    handlers.lancer(etat, msp)
     return etat
 
 
 def _ajouter_mesures(carte: dict, etat) -> None:
-    """The two measure calls: the individual one refused, the aggregated one allowed."""
+    """The measure calls: individual and filtered refused, aggregated allowed -
+    the exact guarantee the portal demonstrates."""
+    msp = _identite(etat.campagne.tenant_id, Role.CONSULTANT_MSP)
     individuel = {
         "canal": "tickets",
         "groupements": ["service", "individu"],
@@ -55,8 +62,16 @@ def _ajouter_mesures(carte: dict, etat) -> None:
         "taille_resultat_apres_filtres": 34,
         "filtres": {"service": "adv"},
     }
-    carte["POST /api/mesure#individu"] = _reponse(handlers.mesurer(etat, MSP, individuel))
-    carte["POST /api/mesure#agrege"] = _reponse(handlers.mesurer(etat, MSP, agrege))
+    filtres = {
+        "canal": "tickets",
+        "groupements": ["service", "motif"],
+        "filtres": {"service": "comptabilite", "site": "lyon", "motif": "RESS-01"},
+        "taille_groupe": 3,
+        "taille_resultat_apres_filtres": 3,
+    }
+    carte["POST /api/mesure#individu"] = _reponse(handlers.mesurer(etat, msp, individuel))
+    carte["POST /api/mesure#agrege"] = _reponse(handlers.mesurer(etat, msp, agrege))
+    carte["POST /api/mesure#filtres"] = _reponse(handlers.mesurer(etat, msp, filtres))
 
 
 def _reponse(resultat) -> dict:
@@ -73,11 +88,13 @@ def construire_carte(corpus: str = "demo") -> dict:
     """
     carte: dict[str, dict] = {}
     etat_demo = handlers.Etat.reel() if corpus == "reel" else handlers.Etat.demo()
+    msp = _identite(etat_demo.campagne.tenant_id, Role.CONSULTANT_MSP)
+    dpo = _identite(etat_demo.campagne.tenant_id, Role.DPO)
     carte["POST /api/campagnes/courante/conformite"] = _reponse(
-        handlers.declarer_conformite(etat_demo, DPO, {})
+        handlers.declarer_conformite(etat_demo, dpo, {})
     )
-    carte["POST /api/campagnes/courante/lancer"] = _reponse(handlers.lancer(etat_demo, MSP))
-    carte["POST /api/campagnes/courante/suspendre"] = _reponse(handlers.suspendre(etat_demo, DPO))
+    carte["POST /api/campagnes/courante/lancer"] = _reponse(handlers.lancer(etat_demo, msp))
+    carte["POST /api/campagnes/courante/suspendre"] = _reponse(handlers.suspendre(etat_demo, dpo))
     etat = _etat_lance(etat_demo)
     identifiant = _premier_processus(etat, corpus)
     campagne = etat.campagne.id

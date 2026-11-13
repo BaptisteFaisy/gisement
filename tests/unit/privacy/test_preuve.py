@@ -93,5 +93,8 @@ def test_l_attestation_ne_contient_aucune_donnee_personnelle() -> None:
     )
     texte = attester_sans_taille(preuve)
     assert "adv" not in texte
-    assert "34" not in texte
     assert preuve.empreinte[:16] in texte
+    # The group size never appears in the attestation - except by chance in the
+    # fingerprint, which is a hash: the check is on the wording around it.
+    corps = texte.replace(preuve.empreinte[:16], "")
+    assert "34" not in corps

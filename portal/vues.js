@@ -124,13 +124,19 @@ async function vueMotifs() {
   );
 }
 
+/* A value the corpus does not carry: shown as a dash, never as "null". */
+function valeur(v, suffixe = "") {
+  if (v === null || v === undefined) return "-";
+  return `${v}${suffixe}`;
+}
+
 /* --------------------------------------------------------------- 5 processus */
 
 async function vueProcessus() {
   const { d, erreur } = await donnees("/api/processus");
   if (erreur) return rendre(titre("5. Les processus") + `<p class="refus">${escape(erreur)}</p>`);
   const lignes = d.processus.map((p) => [
-    `<a href="#s=processus" data-pid="${p.id}" class="pid">${p.id}</a>`,
+    `<a href="#s=processus" data-pid="${escape(p.id)}" class="pid">${escape(p.id)}</a>`,
     escape(p.nom.slice(0, 46)), escape(p.service),
     p.occurrences_medianes, p.duree_minutes,
     p.temps_net, p.gain_mensuel, p.ecart_naif, p.delai_retour_mois,
@@ -181,12 +187,12 @@ async function voirFiche(pid) {
     ligne("Correction ineliminable", `- ${c.temps_ineliminable} h/mois`) +
     ligne("<strong>Temps net</strong>", `<strong>${c.temps_net} h/mois</strong> ` +
       `[${c.intervalle_net[0]} - ${c.intervalle_net[1]}] a 90 % (${c.tirages_monte_carlo} tirages, graine fixee)`) +
-    ligne("Gain mensuel", `${c.gain_mensuel} EUR ` +
+    ligne("Gain mensuel", `${valeur(c.gain_mensuel, " EUR ")}` +
       `[${c.gain_mensuel_intervalle ? c.gain_mensuel_intervalle[0] + " - " + c.gain_mensuel_intervalle[1] : "-"}]`) +
-    ligne("Gain annuel", `${c.gain_annuel} EUR`) +
-    ligne("Ecart au calcul naif", `<strong>x ${c.ecart_naif}</strong> ` +
-      `(naif ${c.gain_naif_mensuel} EUR/mois, retour ${c.delai_retour_naif_mois} mois ` +
-      `contre ${c.delai_retour_mois} mois reels)`) +
+    ligne("Gain annuel", `${valeur(c.gain_annuel, " EUR")}`) +
+    ligne("Ecart au calcul naif", `<strong>x ${valeur(c.ecart_naif)}</strong> ` +
+      `(naif ${valeur(c.gain_naif_mensuel, " EUR/mois")}, retour ${valeur(c.delai_retour_naif_mois, " mois")} ` +
+      `contre ${valeur(c.delai_retour_mois, " mois")} reels)`) +
     ligne("Cout annee 1", `${c.cout.annee_1} EUR (dev ${c.cout.developpement}, ` +
       `outil ${c.cout.outil_annuel}, maintenance ${c.cout.maintenance})`) +
     ligne("Gain sur 3 ans", `${c.gain_trois_ans} EUR`) +
@@ -195,8 +201,9 @@ async function voirFiche(pid) {
     ligne("Criteres", `API ${f.api_existe ? "oui" : "non"} &middot; interface stable ` +
       `${f.interface_stable ? "oui" : "non"} &middot; jugement ${f.jugement_requis ? "requis" : "non requis"}`) +
     ligne("Risque / score", `${escape(f.risque || "")} &middot; score de priorite ${f.score_priorite || ""} ` +
-      `(gain ${f.criteres?.gain}, faisabilite ${f.criteres?.faisabilite}, rapidite ${f.criteres?.rapidite}, ` +
-      `visibilite ${f.criteres?.visibilite}, juridique ${f.criteres?.securite_juridique})`) +
+      `(gain ${valeur(f.criteres?.gain)}, faisabilite ${valeur(f.criteres?.faisabilite)}, ` +
+      `rapidite ${valeur(f.criteres?.rapidite)}, visibilite ${valeur(f.criteres?.visibilite)}, ` +
+      `juridique ${valeur(f.criteres?.securite_juridique)})`) +
     ligne("Portee du projet", `${f.part_volume_traitee || "1"} du volume` +
       (f.suppression_etape ? " - <strong>etape supprimee</strong>, pas de transfert ni d'ineliminable" : "")) +
     `<h3>Recommandation</h3>` +
@@ -205,7 +212,8 @@ async function voirFiche(pid) {
           `${escape(r.deconseille)} - ${escape(r.seuil_atteint)}`) +
         ligne("Condition de reexamen", escape(r.condition_reexamen))
       : ligne("Vague", `${escape(r.vague)}${r.rang ? ", projet " + r.rang : ""} - ` +
-          `${r.gain_mensuel} EUR/mois pour ${r.cout_annee_1} EUR, retour ${r.retour_mois} mois`)) +
+          `${valeur(r.gain_mensuel, " EUR/mois")} pour ${valeur(r.cout_annee_1, " EUR")}, ` +
+          `retour ${valeur(r.retour_mois, " mois")}`)) +
     `<h3>Confidentialite</h3><p class="note">${escape(d.confidentialite)}</p>` +
     `<p><a href="#s=processus" id="retour-processus">&larr; tous les processus</a></p>`
   );
@@ -228,14 +236,15 @@ async function vueReference() {
       `Le processus le plus mesure (${CONFIG.processus}) : le calcul naif contre ` +
       "le calcul reel, avec les quatre corrections (annexe A).") +
     tableau(["", "Calcul naif", "Gisement"], [
-      ["Gain mensuel", `${d.gain_naif_mensuel} EUR`, `<strong>${d.gain_mensuel} EUR</strong>`],
-      ["Temps mensuel", `${d.temps_brut} h`, `<strong>${d.temps_net} h nettes</strong> ` +
-        `[${d.intervalle[0]} - ${d.intervalle[1]}]`],
-      ["Delai de retour", `${d.delai_retour_naif_mois} mois`, `<strong>${d.delai_retour_mois} mois</strong>`],
-      ["Facteur de surestimation", "-", `<strong class="refus">x ${d.ecart_naif}</strong>`],
+      ["Gain mensuel", valeur(d.gain_naif_mensuel, " EUR"), `<strong>${valeur(d.gain_mensuel, " EUR")}</strong>`],
+      ["Temps mensuel", valeur(d.temps_brut, " h"), `<strong>${valeur(d.temps_net, " h nettes")}</strong> ` +
+        `[${valeur(d.intervalle[0])} - ${valeur(d.intervalle[1])}]`],
+      ["Delai de retour", valeur(d.delai_retour_naif_mois, " mois"),
+        `<strong>${valeur(d.delai_retour_mois, " mois")}</strong>`],
+      ["Facteur de surestimation", "-", `<strong class="refus">x ${valeur(d.ecart_naif)}</strong>`],
     ]) +
-    `<p class="note">Un client qui signe sur ${d.delai_retour_naif_mois} mois et decouvre
-      ${d.delai_retour_mois} mois ne rachete jamais - et il le dit a ses pairs. C'est ce tableau,
+    `<p class="note">Un client qui signe sur ${valeur(d.delai_retour_naif_mois, " mois")} et decouvre
+      ${valeur(d.delai_retour_mois, " mois")} ne rachete jamais - et il le dit a ses pairs. C'est ce tableau,
       imprime pour chaque processus, qui rend le reste du rapport credible.</p>`
   );
 }

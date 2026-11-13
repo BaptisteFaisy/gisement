@@ -15,8 +15,8 @@ from __future__ import annotations
 import base64
 import json
 
-from gisement.api import handlers
-from gisement.api.auth import Identite, tenant_depuis_jeton
+from gisement.api import handlers, vues_mesure, vues_produits
+from gisement.api.auth import Identite, meme_tenant, tenant_depuis_jeton
 
 #: The single campaign of a warm container (rebuilt on a cold start).
 ETAT: handlers.Etat | None = None
@@ -82,7 +82,7 @@ def _jeton(evenement: dict) -> str | None:
 
 def _identite(evenement: dict) -> Identite | None:
     """EF-71 - the tenant comes from the token, never from the request text."""
-    return tenant_depuis_jeton(_jeton(evenement))
+    return tenant_depuis_jeton(_jeton(evenement), etat().campagne.tenant_id)
 
 
 def _corps(evenement: dict) -> dict:
@@ -104,18 +104,37 @@ def _corps(evenement: dict) -> dict:
 def _router_get(chemin: str, langue: str) -> tuple[int, dict] | None:
     """Map a GET path to the matching pure handler; None when nothing matches."""
     courant = etat()
-    if chemin == "/health":
-        return handlers.health(courant)
-    if chemin == "/campagnes/courante":
-        return handlers.campagnes_detail(courant)
-    if chemin == "/projets":
-        return handlers.projets(courant)
-    if chemin == "/deconseilles":
-        return handlers.deconseilles(courant)
-    if chemin == "/budget":
-        return handlers.budget(courant)
+    resultat = courant.resultat
+    exactes = {
+        "/health": lambda: handlers.health(courant),
+        "/campagnes/courante": lambda: handlers.campagnes_detail(courant),
+        "/campagne": lambda: (
+            200,
+            {"ok": True, "donnees": vues_produits.campagne_courante(courant.campagne)},
+        ),
+        "/projets": lambda: handlers.projets(courant),
+        "/deconseilles": lambda: handlers.deconseilles(courant),
+        "/budget": lambda: handlers.budget(courant),
+        "/processus": lambda: vues_mesure.processus_table(resultat),
+        "/motifs": lambda: vues_mesure.motifs_mesures(resultat),
+        "/catalogue": vues_mesure.catalogue_complet,
+        "/plan": lambda: vues_mesure.plan_projet(resultat),
+        "/suivi": lambda: vues_produits.suivi_longitudinal(resultat),
+        "/backtest": vues_produits.backtest,
+        "/evaluation": vues_produits.evaluation,
+        "/privacy": lambda: vues_produits.privacy(resultat),
+        "/cedar": vues_produits.politique_cedar_vue,
+        "/connecteurs": vues_produits.connecteurs,
+        "/proposition": lambda: vues_produits.proposition(resultat),
+        "/quick": lambda: vues_produits.quick_assets(resultat),
+        "/cout": vues_produits.cout_detaille,
+    }
+    if chemin in exactes:
+        return exactes[chemin]()
     if chemin.startswith("/gisements/"):
         return handlers.gisement_detail(courant, chemin.rsplit("/", 1)[-1])
+    if chemin.startswith("/processus/"):
+        return vues_mesure.processus_fiche(resultat, chemin.rsplit("/", 1)[-1])
     if chemin.startswith("/rapports/"):
         return handlers.rapport(courant, langue)
     if chemin.startswith("/registre-conformite/"):
@@ -139,7 +158,7 @@ def _router_post(chemin: str, identite: Identite, corps: dict) -> tuple[int, dic
     if chemin.startswith("/processus/") and chemin.endswith("/valider"):
         processus_id = chemin.split("/")[2]
         decision = str(corps.get("decision") or "validee")
-        return handlers.valider_processus(courant, processus_id, decision, identite.utilisateur)
+        return handlers.valider_processus(courant, processus_id, decision, identite)
     return None
 
 
@@ -149,6 +168,8 @@ def router(evenement: dict) -> tuple[int, dict]:
     identite = _identite(evenement)
     if identite is None:
         return _erreur(403, ERREUR_JETON)
+    if not meme_tenant(identite, etat().campagne.tenant_id):
+        return _erreur(403, "tenant different de la campagne servie (R21)")
     methode = _methode(evenement)
     resultat: tuple[int, dict] | None = None
     if methode == "GET":

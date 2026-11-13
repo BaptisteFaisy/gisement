@@ -155,8 +155,9 @@
         ],
         "gain_mensuel": "0.00",
         "gain_naif_mensuel": "3540.63",
-        "ecart_naif": "None",
-        "delai_retour_mois": "None"
+        "ecart_naif": null,
+        "delai_retour_mois": null,
+        "delai_retour_naif_mois": "3.7"
       }
     }
   },
@@ -166,7 +167,7 @@
       "ok": true,
       "donnees": {
         "langue": "fr",
-        "rapport": "Rapport dirigeant - Gisement\nCampagne CMP-REEL-0001 - fenetre 2025-05-01 .. 2025-10-31\n\n\nCouverture de la mesure: 96 % du volume de travail estime du perimetre est couvert par les canaux observes ; 17.6 heures ne le sont pas, principalement : travail de terrain (entrepot, livraisons), reunions non enregistrees, echanges oraux informels, messagerie instantanee hors perimetre.\nGisement net annuel: 0.00 EUR (0.00 avec l'incertitude).\nA ne pas automatiser: 12 processus (100 %).\n\n\nCas de reference : saisie des commandes fournisseurs\n  Calcul naif:    3540.63 EUR/mois, retour 3.0 mois\n  Gisement:      0 EUR/mois, retour 0 mois\n  Facteur de surestimation: 0\n\n- Gisement ne produit aucun classement, score ou indicateur individuel.\n- Aucune mesure du temps de travail utilisable en paie ou en discipline.\n- Aucune analyse de sentiment, d'opinion ou d'humeur.\n- Aucune identification de sous-performance individuelle.\n- Aucun croisement avec les donnees RH (evaluation, absence, sanction)."
+        "rapport": "Rapport dirigeant - Gisement\nCampagne CMP-REEL-0001 - fenetre 2025-05-01 .. 2025-10-31\n\n\nCouverture de la mesure: 96 % du volume de travail estime du perimetre est couvert par les canaux observes ; 17.6 heures ne le sont pas, principalement : travail de terrain (entrepot, livraisons), reunions non enregistrees, echanges oraux informels, messagerie instantanee hors perimetre.\nGisement net annuel: 0.00 EUR (0.00 avec l'incertitude).\nA ne pas automatiser: 12 processus (100 %).\n\n\nCas de reference : le processus le plus mesure du perimetre\n  Calcul naif:    3540.63 EUR/mois, retour 3.0 mois\n  Gisement:      0 EUR/mois, retour 0 mois\n  Facteur de surestimation: 0\n\n- Gisement ne produit aucun classement, score ou indicateur individuel.\n- Aucune mesure du temps de travail utilisable en paie ou en discipline.\n- Aucune analyse de sentiment, d'opinion ou d'humeur.\n- Aucune identification de sous-performance individuelle.\n- Aucun croisement avec les donnees RH (evaluation, absence, sanction)."
       }
     }
   },
@@ -176,7 +177,7 @@
       "ok": true,
       "donnees": {
         "langue": "en",
-        "rapport": "Executive report - Gisement\nCampagne CMP-REEL-0001 - fenetre 2025-05-01 .. 2025-10-31\n\n\nMeasurement coverage: 96% of the estimated work volume of the perimeter is covered by the observed channels; 17.6 hours are not, mainly: travail de terrain (entrepot, livraisons), reunions non enregistrees, echanges oraux informels, messagerie instantanee hors perimetre.\nGisement net annuel: 0.00 EUR (0.00 avec l'incertitude).\nDo not automate: 12 processus (100 %).\n\n\nReference case: keying supplier orders\n  Naive calculation:    3540.63 EUR/mois, retour 3.0 mois\n  Gisement:      0 EUR/mois, retour 0 mois\n  Overstatement factor: 0\n\n- Gisement produces no individual ranking, score or indicator.\n- No measure of working time usable for payroll or discipline.\n- No sentiment, opinion or mood analysis.\n- No identification of individual underperformance.\n- No cross-referencing with HR data (appraisal, absence, sanction)."
+        "rapport": "Executive report - Gisement\nCampagne CMP-REEL-0001 - fenetre 2025-05-01 .. 2025-10-31\n\n\nMeasurement coverage: 96% of the estimated work volume of the perimeter is covered by the observed channels; 17.6 hours are not, mainly: travail de terrain (entrepot, livraisons), reunions non enregistrees, echanges oraux informels, messagerie instantanee hors perimetre.\nGisement net annuel: 0.00 EUR (0.00 avec l'incertitude).\nDo not automate: 12 processus (100 %).\n\n\nReference case: the most measured process of the perimeter\n  Naive calculation:    3540.63 EUR/mois, retour 3.0 mois\n  Gisement:      0 EUR/mois, retour 0 mois\n  Overstatement factor: 0\n\n- Gisement produces no individual ranking, score or indicator.\n- No measure of working time usable for payroll or discipline.\n- No sentiment, opinion or mood analysis.\n- No identification of individual underperformance.\n- No cross-referencing with HR data (appraisal, absence, sanction)."
       }
     }
   },
@@ -269,8 +270,8 @@
             ],
             "gain_mensuel": "0.00",
             "gain_annuel": "0.00",
-            "ecart_naif": "None",
-            "delai_retour_mois": "None",
+            "ecart_naif": null,
+            "delai_retour_mois": null,
             "type": "E",
             "vague": "aucune",
             "risque": "eleve"
@@ -296,8 +297,8 @@
             ],
             "gain_mensuel": "0.00",
             "gain_annuel": "0.00",
-            "ecart_naif": "None",
-            "delai_retour_mois": "None",
+            "ecart_naif": null,
+            "delai_retour_mois": null,
             "type": "E",
             "vague": "aucune",
             "risque": "eleve"
@@ -323,8 +324,8 @@
             ],
             "gain_mensuel": "0.00",
             "gain_annuel": "0.00",
-            "ecart_naif": "None",
-            "delai_retour_mois": "None",
+            "ecart_naif": null,
+            "delai_retour_mois": null,
             "type": "E",
             "vague": "aucune",
             "risque": "eleve"
@@ -350,8 +351,8 @@
             ],
             "gain_mensuel": "0.00",
             "gain_annuel": "0.00",
-            "ecart_naif": "None",
-            "delai_retour_mois": "None",
+            "ecart_naif": null,
+            "delai_retour_mois": null,
             "type": "E",
             "vague": "aucune",
             "risque": "eleve"
@@ -377,8 +378,8 @@
             ],
             "gain_mensuel": "0.00",
             "gain_annuel": "0.00",
-            "ecart_naif": "None",
-            "delai_retour_mois": "None",
+            "ecart_naif": null,
+            "delai_retour_mois": null,
             "type": "E",
             "vague": "aucune",
             "risque": "eleve"
@@ -404,8 +405,8 @@
             ],
             "gain_mensuel": "0.00",
             "gain_annuel": "0.00",
-            "ecart_naif": "None",
-            "delai_retour_mois": "None",
+            "ecart_naif": null,
+            "delai_retour_mois": null,
             "type": "E",
             "vague": "aucune",
             "risque": "eleve"
@@ -431,8 +432,8 @@
             ],
             "gain_mensuel": "0.00",
             "gain_annuel": "0.00",
-            "ecart_naif": "None",
-            "delai_retour_mois": "None",
+            "ecart_naif": null,
+            "delai_retour_mois": null,
             "type": "E",
             "vague": "aucune",
             "risque": "eleve"
@@ -458,8 +459,8 @@
             ],
             "gain_mensuel": "0.00",
             "gain_annuel": "0.00",
-            "ecart_naif": "None",
-            "delai_retour_mois": "None",
+            "ecart_naif": null,
+            "delai_retour_mois": null,
             "type": "E",
             "vague": "aucune",
             "risque": "eleve"
@@ -485,8 +486,8 @@
             ],
             "gain_mensuel": "0.00",
             "gain_annuel": "0.00",
-            "ecart_naif": "None",
-            "delai_retour_mois": "None",
+            "ecart_naif": null,
+            "delai_retour_mois": null,
             "type": "E",
             "vague": "aucune",
             "risque": "eleve"
@@ -512,8 +513,8 @@
             ],
             "gain_mensuel": "0.00",
             "gain_annuel": "0.00",
-            "ecart_naif": "None",
-            "delai_retour_mois": "None",
+            "ecart_naif": null,
+            "delai_retour_mois": null,
             "type": "E",
             "vague": "aucune",
             "risque": "eleve"
@@ -539,8 +540,8 @@
             ],
             "gain_mensuel": "0.00",
             "gain_annuel": "0.00",
-            "ecart_naif": "None",
-            "delai_retour_mois": "None",
+            "ecart_naif": null,
+            "delai_retour_mois": null,
             "type": "E",
             "vague": "aucune",
             "risque": "eleve"
@@ -566,8 +567,8 @@
             ],
             "gain_mensuel": "0.00",
             "gain_annuel": "0.00",
-            "ecart_naif": "None",
-            "delai_retour_mois": "None",
+            "ecart_naif": null,
+            "delai_retour_mois": null,
             "type": "E",
             "vague": "aucune",
             "risque": "eleve"
@@ -14691,29 +14692,7 @@
           "jours_par_mois": 15,
           "jours_disponibles": "30"
         },
-        "dependances": [
-          {
-            "projet": "P-03",
-            "apres": [
-              "P-07"
-            ],
-            "raison": "le rapprochement facture/BL n'est fiable qu'une fois les commandes passées par l'EDI"
-          },
-          {
-            "projet": "P-19",
-            "apres": [
-              "P-03"
-            ],
-            "raison": "le reporting de gestion consolide des données déjà rapprochées"
-          },
-          {
-            "projet": "P-21",
-            "apres": [
-              "P-17"
-            ],
-            "raison": "l'analyse des appels suppose l'affectation des demandes déjà automatisée"
-          }
-        ],
+        "dependances": [],
         "taches": [],
         "impossibles": [],
         "duree_totale_mois": 0,
@@ -14731,9 +14710,9 @@
       "ok": true,
       "donnees": {
         "trimestres": [
-          "2027-T1",
-          "2027-T2",
-          "2027-T3"
+          "2026-T1",
+          "2026-T2",
+          "2026-T3"
         ],
         "suivis": [],
         "precision_cumulee": {
@@ -14909,8 +14888,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "1a8c830f1c0110a7",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 1a8c830f1c0110a7."
+            "empreinte": "4f2185d0ee672199",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 4f2185d0ee672199."
           },
           {
             "mesure": "R-02",
@@ -14919,8 +14898,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "d424d00d1e87e3c2",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : d424d00d1e87e3c2."
+            "empreinte": "60c0501cbc7496a7",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 60c0501cbc7496a7."
           },
           {
             "mesure": "R-03",
@@ -14929,8 +14908,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "1f80b58a9e08dbd1",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 1f80b58a9e08dbd1."
+            "empreinte": "271475069ca0a87b",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 271475069ca0a87b."
           },
           {
             "mesure": "R-04",
@@ -14939,8 +14918,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "9ee1b4d09facc0d2",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 9ee1b4d09facc0d2."
+            "empreinte": "27518080bd34d9d1",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 27518080bd34d9d1."
           },
           {
             "mesure": "R-05",
@@ -14949,8 +14928,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "0b12d7549f865eb9",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 0b12d7549f865eb9."
+            "empreinte": "2f1c1718b2561c67",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 2f1c1718b2561c67."
           },
           {
             "mesure": "R-06",
@@ -14959,8 +14938,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "d0f11d4de7d77be0",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : d0f11d4de7d77be0."
+            "empreinte": "31326cf7dd7a075b",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 31326cf7dd7a075b."
           },
           {
             "mesure": "R-07",
@@ -14969,8 +14948,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "79a938b3472a4475",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 79a938b3472a4475."
+            "empreinte": "907a1437a470243f",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 907a1437a470243f."
           },
           {
             "mesure": "R-08",
@@ -14979,8 +14958,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "f9b65c787fcdfdf2",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : f9b65c787fcdfdf2."
+            "empreinte": "c6432512b56e440d",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : c6432512b56e440d."
           },
           {
             "mesure": "R-09",
@@ -14989,8 +14968,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "7358efd4f7d582f0",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 7358efd4f7d582f0."
+            "empreinte": "5a6a1f2fdcaf6317",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 5a6a1f2fdcaf6317."
           },
           {
             "mesure": "R-10",
@@ -14999,8 +14978,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "386c0e67ee581e69",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 386c0e67ee581e69."
+            "empreinte": "a7cd415d80c163b2",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : a7cd415d80c163b2."
           },
           {
             "mesure": "R-11",
@@ -15009,8 +14988,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "884512410a8f186d",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 884512410a8f186d."
+            "empreinte": "d5691ec0a1194fef",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : d5691ec0a1194fef."
           },
           {
             "mesure": "R-12",
@@ -15019,8 +14998,8 @@
             "regles": [
               "regle_k5"
             ],
-            "empreinte": "8bf3b580c7330a53",
-            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 8bf3b580c7330a53."
+            "empreinte": "908f3191641a74ea",
+            "attestation": "Cette mesure porte sur un groupe d'au moins 5 individus (seuil verifie, taille non publiee) ; aucune attribution individuelle n'est derivable. Empreinte de preuve : 908f3191641a74ea."
           }
         ],
         "chaine_verifiee": true,
@@ -15149,8 +15128,8 @@
     "corps": {
       "ok": true,
       "donnees": {
-        "client": "Demo Distribution SAS",
-        "texte": "Proposition - cartographie du travail automatisable\nClient : Demo Distribution SAS\nCampagne : CMP-REEL-0001\n\n96 % du volume de travail estime du perimetre est couvert par les canaux observes ; 17.6 heures ne le sont pas, principalement : travail de terrain (entrepot, livraisons), reunions non enregistrees, echanges oraux informels, messagerie instantanee hors perimetre.\nGisement net annuel identifie : 0.00 EUR,\nsur 0 processus actionnables et 12 processus que nous recommandons de ne pas automatiser.\n\nCout reel de la cartographie pour nous : 18.64 USD (transcription 8.64, extraction documentaire 10.00, inference 0.00; ecart a l'estimation : 0.0567).\n\nLa sequence que nous recommandons\n\nAucun processus ne permet une vague 1 a delai court et risque faible : elargir le perimetre plutot que de fabriquer une vague 1 artificielle (EF-43, R18).\n\nCe que nous recommandons de ne PAS automatiser\n\n  R-03 - interface tierce sans API ni engagement de stabilite\n      reexamen si une API contractuelle devient disponible\n  R-05 - interface tierce sans API ni engagement de stabilite\n      reexamen si une API contractuelle devient disponible\n  R-06 - interface tierce sans API ni engagement de stabilite\n      reexamen si une API contractuelle devient disponible\n  R-11 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  R-01 - interface tierce sans API ni engagement de stabilite\n      reexamen si une API contractuelle devient disponible\n  R-02 - interface tierce sans API ni engagement de stabilite\n      reexamen si une API contractuelle devient disponible\n  R-04 - interface tierce sans API ni engagement de stabilite\n      reexamen si une API contractuelle devient disponible\n  R-07 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  R-08 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  R-09 - interface tierce sans API ni engagement de stabilite\n      reexamen si une API contractuelle devient disponible\n  R-10 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  R-12 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n\nDire non est ce qui rend le oui credible : un outil qui trouve toujours quelque chose a automatiser est un outil de vente, pas un instrument.\n\nNotre offre\n\n  - Cartographie du travail reel : forfait, prix coutant, livree avec le portefeuille.\n  - Suivi trimestriel du realise contre le predit : abonnement, engagement d'un an.\n  - Projets d'automatisation : chiffres au cas par cas, le premier projet de la vague 1 est propose au cout indique ci-dessous.\n\nEngagement : si le realise d'un trimestre s'ecarte de plus de 40 % du predit, l'ecart est publie, le modele de calcul est revu, et le trimestre de suivi est offert.",
+        "client": "Apache Kafka (Apache Software Foundation)",
+        "texte": "Proposition - cartographie du travail automatisable\nClient : Apache Kafka (Apache Software Foundation)\nCampagne : CMP-REEL-0001\n\n96 % du volume de travail estime du perimetre est couvert par les canaux observes ; 17.6 heures ne le sont pas, principalement : travail de terrain (entrepot, livraisons), reunions non enregistrees, echanges oraux informels, messagerie instantanee hors perimetre.\nGisement net annuel identifie : 0.00 EUR,\nsur 0 processus actionnables et 12 processus que nous recommandons de ne pas automatiser.\n\nCout reel de la cartographie pour nous : 18.64 USD (transcription 8.64, extraction documentaire 10.00, inference 0.00; ecart a l'estimation : 0.0567).\n\nLa sequence que nous recommandons\n\nAucun processus ne permet une vague 1 a delai court et risque faible : elargir le perimetre plutot que de fabriquer une vague 1 artificielle (EF-43, R18).\n\nCe que nous recommandons de ne PAS automatiser\n\n  R-03 - interface tierce sans API ni engagement de stabilite\n      reexamen si une API contractuelle devient disponible\n  R-05 - interface tierce sans API ni engagement de stabilite\n      reexamen si une API contractuelle devient disponible\n  R-06 - interface tierce sans API ni engagement de stabilite\n      reexamen si une API contractuelle devient disponible\n  R-11 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  R-01 - interface tierce sans API ni engagement de stabilite\n      reexamen si une API contractuelle devient disponible\n  R-02 - interface tierce sans API ni engagement de stabilite\n      reexamen si une API contractuelle devient disponible\n  R-04 - interface tierce sans API ni engagement de stabilite\n      reexamen si une API contractuelle devient disponible\n  R-07 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  R-08 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  R-09 - interface tierce sans API ni engagement de stabilite\n      reexamen si une API contractuelle devient disponible\n  R-10 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n  R-12 - gain annuel net 0 EUR inferieur a 3000 EUR\n      reexamen si le volume depasse 15 occurrences par mois\n\nDire non est ce qui rend le oui credible : un outil qui trouve toujours quelque chose a automatiser est un outil de vente, pas un instrument.\n\nNotre offre\n\n  - Cartographie du travail reel : forfait, prix coutant, livree avec le portefeuille.\n  - Suivi trimestriel du realise contre le predit : abonnement, engagement d'un an.\n  - Projets d'automatisation : chiffres au cas par cas, le premier projet de la vague 1 est propose au cout indique ci-dessous.\n\nEngagement : si le realise d'un trimestre s'ecarte de plus de 40 % du predit, l'ecart est publie, le modele de calcul est revu, et le trimestre de suivi est offert.",
         "pdf": "python3 -m gisement.cli proposition --pdf proposition.pdf"
       }
     }
@@ -15577,7 +15556,7 @@
           ],
           "gain_annuel": "0.00",
           "gain_naif_mensuel": "3540.63",
-          "ecart_naif": "None",
+          "ecart_naif": null,
           "cout": {
             "developpement": "13000.00",
             "outil_annuel": "0.00",
@@ -15585,7 +15564,7 @@
             "annee_1": "13000.00",
             "recurrent": "0.00"
           },
-          "delai_retour_mois": "None",
+          "delai_retour_mois": null,
           "delai_retour_naif_mois": "3.7",
           "gain_trois_ans": "-13000.00",
           "tirages_monte_carlo": 10000
@@ -15656,7 +15635,7 @@
           ],
           "gain_annuel": "0.00",
           "gain_naif_mensuel": "206.25",
-          "ecart_naif": "None",
+          "ecart_naif": null,
           "cout": {
             "developpement": "17875.00",
             "outil_annuel": "0.00",
@@ -15664,7 +15643,7 @@
             "annee_1": "17875.00",
             "recurrent": "0.00"
           },
-          "delai_retour_mois": "None",
+          "delai_retour_mois": null,
           "delai_retour_naif_mois": "86.7",
           "gain_trois_ans": "-17875.00",
           "tirages_monte_carlo": 10000
@@ -15736,7 +15715,7 @@
           ],
           "gain_annuel": "0.00",
           "gain_naif_mensuel": "55.00",
-          "ecart_naif": "None",
+          "ecart_naif": null,
           "cout": {
             "developpement": "10725.00",
             "outil_annuel": "0.00",
@@ -15744,7 +15723,7 @@
             "annee_1": "10725.00",
             "recurrent": "0.00"
           },
-          "delai_retour_mois": "None",
+          "delai_retour_mois": null,
           "delai_retour_naif_mois": "195.0",
           "gain_trois_ans": "-10725.00",
           "tirages_monte_carlo": 10000
@@ -15808,7 +15787,7 @@
           ],
           "gain_annuel": "0.00",
           "gain_naif_mensuel": "0.00",
-          "ecart_naif": "None",
+          "ecart_naif": null,
           "cout": {
             "developpement": "10725.00",
             "outil_annuel": "0.00",
@@ -15816,8 +15795,8 @@
             "annee_1": "10725.00",
             "recurrent": "0.00"
           },
-          "delai_retour_mois": "None",
-          "delai_retour_naif_mois": "None",
+          "delai_retour_mois": null,
+          "delai_retour_naif_mois": null,
           "gain_trois_ans": "-10725.00",
           "tirages_monte_carlo": 10000
         },
@@ -15888,7 +15867,7 @@
           ],
           "gain_annuel": "0.00",
           "gain_naif_mensuel": "45.83",
-          "ecart_naif": "None",
+          "ecart_naif": null,
           "cout": {
             "developpement": "13000.00",
             "outil_annuel": "0.00",
@@ -15896,7 +15875,7 @@
             "annee_1": "13000.00",
             "recurrent": "0.00"
           },
-          "delai_retour_mois": "None",
+          "delai_retour_mois": null,
           "delai_retour_naif_mois": "283.7",
           "gain_trois_ans": "-13000.00",
           "tirages_monte_carlo": 10000
@@ -15968,7 +15947,7 @@
           ],
           "gain_annuel": "0.00",
           "gain_naif_mensuel": "41.25",
-          "ecart_naif": "None",
+          "ecart_naif": null,
           "cout": {
             "developpement": "17875.00",
             "outil_annuel": "0.00",
@@ -15976,7 +15955,7 @@
             "annee_1": "17875.00",
             "recurrent": "0.00"
           },
-          "delai_retour_mois": "None",
+          "delai_retour_mois": null,
           "delai_retour_naif_mois": "433.3",
           "gain_trois_ans": "-17875.00",
           "tirages_monte_carlo": 10000
@@ -16047,7 +16026,7 @@
           ],
           "gain_annuel": "0.00",
           "gain_naif_mensuel": "123.75",
-          "ecart_naif": "None",
+          "ecart_naif": null,
           "cout": {
             "developpement": "13000.00",
             "outil_annuel": "0.00",
@@ -16055,7 +16034,7 @@
             "annee_1": "13000.00",
             "recurrent": "0.00"
           },
-          "delai_retour_mois": "None",
+          "delai_retour_mois": null,
           "delai_retour_naif_mois": "105.1",
           "gain_trois_ans": "-13000.00",
           "tirages_monte_carlo": 10000
@@ -16126,7 +16105,7 @@
           ],
           "gain_annuel": "0.00",
           "gain_naif_mensuel": "20.63",
-          "ecart_naif": "None",
+          "ecart_naif": null,
           "cout": {
             "developpement": "17875.00",
             "outil_annuel": "0.00",
@@ -16134,7 +16113,7 @@
             "annee_1": "17875.00",
             "recurrent": "0.00"
           },
-          "delai_retour_mois": "None",
+          "delai_retour_mois": null,
           "delai_retour_naif_mois": "866.5",
           "gain_trois_ans": "-17875.00",
           "tirages_monte_carlo": 10000
@@ -16198,7 +16177,7 @@
           ],
           "gain_annuel": "0.00",
           "gain_naif_mensuel": "0.00",
-          "ecart_naif": "None",
+          "ecart_naif": null,
           "cout": {
             "developpement": "6500.00",
             "outil_annuel": "0.00",
@@ -16206,8 +16185,8 @@
             "annee_1": "6500.00",
             "recurrent": "0.00"
           },
-          "delai_retour_mois": "None",
-          "delai_retour_naif_mois": "None",
+          "delai_retour_mois": null,
+          "delai_retour_naif_mois": null,
           "gain_trois_ans": "-6500.00",
           "tirages_monte_carlo": 10000
         },
@@ -16277,7 +16256,7 @@
           ],
           "gain_annuel": "0.00",
           "gain_naif_mensuel": "45.83",
-          "ecart_naif": "None",
+          "ecart_naif": null,
           "cout": {
             "developpement": "9100.00",
             "outil_annuel": "0.00",
@@ -16285,7 +16264,7 @@
             "annee_1": "9100.00",
             "recurrent": "0.00"
           },
-          "delai_retour_mois": "None",
+          "delai_retour_mois": null,
           "delai_retour_naif_mois": "198.6",
           "gain_trois_ans": "-9100.00",
           "tirages_monte_carlo": 10000
@@ -16351,7 +16330,7 @@
           ],
           "gain_annuel": "0.00",
           "gain_naif_mensuel": "0.00",
-          "ecart_naif": "None",
+          "ecart_naif": null,
           "cout": {
             "developpement": "13000.00",
             "outil_annuel": "0.00",
@@ -16359,8 +16338,8 @@
             "annee_1": "13000.00",
             "recurrent": "0.00"
           },
-          "delai_retour_mois": "None",
-          "delai_retour_naif_mois": "None",
+          "delai_retour_mois": null,
+          "delai_retour_naif_mois": null,
           "gain_trois_ans": "-13000.00",
           "tirages_monte_carlo": 10000
         },
@@ -16423,7 +16402,7 @@
           ],
           "gain_annuel": "0.00",
           "gain_naif_mensuel": "0.00",
-          "ecart_naif": "None",
+          "ecart_naif": null,
           "cout": {
             "developpement": "13000.00",
             "outil_annuel": "0.00",
@@ -16431,8 +16410,8 @@
             "annee_1": "13000.00",
             "recurrent": "0.00"
           },
-          "delai_retour_mois": "None",
-          "delai_retour_naif_mois": "None",
+          "delai_retour_mois": null,
+          "delai_retour_naif_mois": null,
           "gain_trois_ans": "-13000.00",
           "tirages_monte_carlo": 10000
         },
@@ -16448,9 +16427,8 @@
     "statut": 403,
     "corps": {
       "ok": false,
-      "erreur": "Le tenant de la requete ne correspond pas a celui du jeton. ; Aucune attribution individuelle : ce groupement designe une personne. ; Mesure portant sur moins de cinq individus : elle est supprimee, pas arrondie. ; La combinaison de filtres isole moins de cinq individus.",
+      "erreur": "Aucune attribution individuelle : ce groupement designe une personne. ; Mesure portant sur moins de cinq individus : elle est supprimee, pas arrondie. ; La combinaison de filtres isole moins de cinq individus.",
       "regles_violees": [
-        "regle_tenant",
         "regle_individu",
         "regle_k5",
         "regle_combinaison"
@@ -16459,12 +16437,24 @@
     }
   },
   "POST /api/mesure#agrege": {
+    "statut": 200,
+    "corps": {
+      "ok": true,
+      "donnees": {
+        "mesure": "agregee",
+        "seuil_applique": 5,
+        "empreinte_requete": "30b773077590db30f70b5899e10d3cc68682495f9529839fc77e93b74b2eab0d"
+      }
+    }
+  },
+  "POST /api/mesure#filtres": {
     "statut": 403,
     "corps": {
       "ok": false,
-      "erreur": "Le tenant de la requete ne correspond pas a celui du jeton.",
+      "erreur": "Mesure portant sur moins de cinq individus : elle est supprimee, pas arrondie. ; La combinaison de filtres isole moins de cinq individus.",
       "regles_violees": [
-        "regle_tenant"
+        "regle_k5",
+        "regle_combinaison"
       ],
       "seuil_agregation": 5
     }

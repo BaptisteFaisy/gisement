@@ -24,8 +24,8 @@ const JETON = () => document.getElementById("jeton").value;
 const element = (id) => document.getElementById(id);
 
 function escape(valeur) {
-  return String(valeur ?? "").replace(/[&<>]/g,
-    (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+  return String(valeur ?? "").replace(/[&<>"']/g,
+    (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
 
 async function api(chemin, options = {}) {
@@ -50,7 +50,12 @@ function apiStatique(chemin, options) {
   let clef = `${methode} ${chemin}`;
   if (chemin === "/api/mesure") {
     const corps = JSON.parse(options.body || "{}");
-    clef += (corps.groupements || []).includes("individu") ? "#individu" : "#agrege";
+    const taille = Math.min(
+      corps.taille_groupe ?? 0,
+      corps.taille_resultat_apres_filtres ?? corps.taille_groupe ?? 0);
+    if ((corps.groupements || []).includes("individu")) clef += "#individu";
+    else if (taille < 5) clef += "#filtres";
+    else clef += "#agrege";
   }
   if (chemin === "/api/health") return { statut: 200, corps: { ok: true, donnees: santeLocale() } };
   const reponse = STATIQUE[clef];
@@ -72,18 +77,27 @@ function santeLocale() {
 
 async function majNav() {
   // The section titles follow the corpus on screen: the demo has 23
-  // processes, the real corpus the number it really measured.
+  // processes, the real corpus the number it really measured. In live mode
+  // this is also the only place that learns the reference process: the demo's
+  // P-07 does not exist on the real corpus (R-01..R-12).
   const { corps } = await api("/api/processus");
   const bouton = element("nav-processus");
   if (!bouton || !corps.ok) return;
   const nombre = corps.donnees.nb_processus;
   if (nombre) bouton.textContent = `5. Les ${nombre} processus`;
+  const ids = (corps.donnees.processus || []).map((p) => p.id);
+  if (ids.length && !ids.includes(CONFIG.processus)) CONFIG.processus = ids[0];
+}
+
+function estDpo() {
+  return JETON() === "jeton-demo-dpo";
 }
 
 async function majEtat() {
   const { corps } = await api("/api/health");
   const d = corps.donnees || {};
   const valide = d.conformite_validee && !etatLocal.suspendu;
+  const dpo = estDpo();
   const etat = element("etat-campagne");
   if (etat) {
     etat.innerHTML =
@@ -91,29 +105,21 @@ async function majEtat() {
       ` &middot; campagne : <strong>${escape(d.statut_campagne)}</strong>` +
       ` &middot; mesure : <strong>${d.mesure_lancee ? "faite" : "non lancee"}</strong>`;
   }
-  document.querySelectorAll("[data-bouton]").forEach((bouton) => {
-    const role = bouton.dataset.bouton;
-    if (role === "lancer") bouton.disabled = !valide || d.mesure_lancee;
-    if (role === "suspendre") bouton.disabled = !valide;
-    if (role === "reprendre") bouton.disabled = !etatLocal.suspendu;
+  document.querySelectorAll("[data-action]").forEach((bouton) => {
+    const action = bouton.dataset.action;
+    // The role selected in the header really gates the buttons: the DPO
+    // validates and suspends, the MSP and the DPO launch. The server already
+    // refuses the rest; the UI must not advertise a power the role lacks.
+    if (action === "conformite") bouton.disabled = !dpo;
+    if (action === "lancer") bouton.disabled = !valide || d.mesure_lancee || !(dpo || JETON() === "jeton-demo-msp");
+    if (action === "suspendre") bouton.disabled = !valide || !dpo;
+    if (action === "reprendre") bouton.disabled = !etatLocal.suspendu || !dpo;
   });
-}
-
-async function avec_role_dpo(action) {
-  const select = element("jeton");
-  const avant = select.value;
-  select.value = "jeton-demo-dpo";
-  try {
-    return await action();
-  } finally {
-    select.value = avant;
-  }
 }
 
 async function enregistrerConformite() {
   if (STATIQUE !== null) { etatLocal.conforme = true; etatLocal.suspendu = false; }
-  await avec_role_dpo(() =>
-    api("/api/campagnes/courante/conformite", { method: "POST", body: JSON.stringify({}) }));
+  await api("/api/campagnes/courante/conformite", { method: "POST", body: JSON.stringify({}) });
   await majEtat();
   await majNav();
   await afficher(sectionCourante);
@@ -127,12 +133,13 @@ async function lancer() {
     rendre(`<h2>Mesure refusee</h2><p class="refus">${escape(corps.erreur)}</p>`);
     return;
   }
+  await majNav();
   await afficher("mesure");
 }
 
 async function suspendre() {
   if (STATIQUE !== null) etatLocal.suspendu = true;
-  await avec_role_dpo(() => api("/api/campagnes/courante/suspendre", { method: "POST" }));
+  await api("/api/campagnes/courante/suspendre", { method: "POST" });
   await majEtat();
   await majNav();
   await afficher(sectionCourante);
@@ -140,8 +147,7 @@ async function suspendre() {
 
 async function reprendre() {
   if (STATIQUE !== null) etatLocal.suspendu = false;
-  else await avec_role_dpo(() =>
-    api("/api/campagnes/courante/conformite", { method: "POST", body: JSON.stringify({}) }));
+  else await api("/api/campagnes/courante/conformite", { method: "POST", body: JSON.stringify({}) });
   await majEtat();
   await majNav();
   await afficher(sectionCourante);
@@ -171,28 +177,42 @@ async function demanderMesure(individuel) {
 
 /* ------------------------------------------------------------------ navigation */
 
+let renduEnCours = 0;  // Render token: a slow view must not paint over the chosen one.
+
 function rendre(html) {
   element("contenu").innerHTML = html;
 }
 
 async function afficher(section) {
+  const jeton = ++renduEnCours;
   sectionCourante = section;
   document.querySelectorAll(".nav button").forEach((b) =>
     b.classList.toggle("actif", b.dataset.section === section));
   const rendu = VUES[section];
-  if (!rendu) { rendre(`<h2>Section inconnue</h2>`); return; }
-  rendre("<h2>Chargement…</h2>");
+  if (!rendu) { renduEnCours === jeton && rendre(`<h2>Section inconnue</h2>`); return; }
+  if (jeton === renduEnCours) rendre("<h2>Chargement…</h2>");
   try {
     await rendu();
   } catch (erreur) {
-    rendre(`<h2>Erreur</h2><pre class="verdict">${escape(String(erreur))}</pre>`);
+    if (jeton === renduEnCours) {
+      rendre(`<h2>Erreur</h2><pre class="verdict">${escape(String(erreur))}</pre>`);
+    }
   }
+  // A newer section may have been chosen while this view was loading: repaint
+  // the one actually selected, never leave the menu and the content in
+  // disagreement.
+  if (jeton !== renduEnCours) await afficher(sectionCourante);
 }
 
 /* Replayable demo: #demo=N puts the portal in state N of the video script. */
 async function jouer(etape) {
-  if (etape >= 1) await enregistrerConformite();
-  if (etape >= 2) { if (STATIQUE !== null) etatLocal.lance = true; else await lancer(); }
+  // The scripted flow switches role exactly as the portal now requires: the
+  // DPO validates, then the MSP launches.
+  if (etape >= 1) { element("jeton").value = "jeton-demo-dpo"; await enregistrerConformite(); }
+  if (etape >= 2) {
+    if (STATIQUE !== null) { etatLocal.lance = true; }
+    else { element("jeton").value = "jeton-demo-msp"; await lancer(); }
+  }
   if (etape === 3) { await afficher("nonattribution"); await demanderMesure(true); }
   if (etape === 4) { await afficher("nonattribution"); await demanderMesure(false); }
   if (etape === 5) await afficher("reference");
@@ -239,9 +259,18 @@ async function basculerCorpus(corpus) {
   etatLocal = { conforme: false, lance: false, suspendu: false };
   element("mode").textContent =
     `mode statique : figures pre-calculees - ${CONFIG.titre}`;
+  await majClient();
   await majEtat();
   await majNav();
   await afficher(sectionCourante);
+}
+
+async function majClient() {
+  const { corps } = await api("/api/campagne");
+  if (!corps.ok) return;
+  const d = corps.donnees;
+  element("client").textContent =
+    `${d.id} - ${d.services.join(", ")} - fenetre ${d.fenetre} - graine ${d.graine}`;
 }
 
 async function demarrer() {
@@ -277,12 +306,7 @@ async function demarrer() {
   element("mode").textContent = STATIQUE === null
     ? `mode live : API JSON - ${CONFIG.titre}`
     : `mode statique : figures pre-calculees - ${CONFIG.titre}`;
-  const { corps } = await api("/api/campagne");
-  if (corps.ok) {
-    const d = corps.donnees;
-    element("client").textContent =
-      `${d.id} - ${d.services.join(", ")} - fenetre ${d.fenetre} - graine ${d.graine}`;
-  }
+  await majClient();
   document.querySelectorAll(".nav button").forEach((bouton) =>
     bouton.addEventListener("click", () => afficher(bouton.dataset.section)));
   await majEtat();
